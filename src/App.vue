@@ -1,12 +1,26 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Home</router-link>&nbsp;|
+      <router-link to="/portfolio">Portfolio</router-link>&nbsp;|
+      <router-link to="/climbing">Climbing</router-link>&nbsp;|
+      <router-link to="/crossword">Crossword</router-link>
     </div>
     <router-view />
+    <footer-links />
   </div>
 </template>
+
+<script>
+import FooterLinks from "@/components/FooterLinks.vue";
+
+export default {
+  name: "app",
+  components: {
+    FooterLinks
+  }
+};
+</script>
 
 <style>
 #app {

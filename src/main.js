@@ -5,7 +5,8 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
-new Vue({
+// eslint-disable-next-line
+var vm = new Vue({
   router,
   store,
   render: h => h(App)
