@@ -1,10 +1,8 @@
 <template>
-  <div class="climbing-video-item">
-    <a target="_blank" :href="trueVideoUrl">
-      <img :src="trueImgUrl" />
-    </a>
+  <a target="_blank" :href="trueVideoUrl" class="climbing-video-item">
+    <img :src="trueImgUrl" />
     <div class="video-desc">{{ videoDesc }}</div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -39,9 +37,9 @@ export default {
 .climbing-video-item {
   margin: 5px;
   padding: 5px;
-  border: 2px solid #2c3e50;
+  border: 3px solid #2c3e50;
   border-radius: 10px;
-  background-color: #eef9fc;
+  background-color: #ffffff;
   height: 240px;
   width: 348px;
   display: inline-block;
@@ -51,16 +49,20 @@ export default {
     margin: 5px;
     max-width: 320px;
     max-height: 180px;
-    border: 3px solid #2c3e50;
-  }
-
-  a:hover img {
-    border: 3px solid #9dad7f;
+    border: 2px solid #2c3e50;
   }
 
   .video-desc {
     color: #2c3e50;
+    font-weight: bold;
+    text-decoration: none;
     margin: 5px;
   }
+}
+.climbing-video-item:hover {
+  border: 3px solid #9dad7f;
+}
+.climbing-video-item:visited {
+  background-color: #bbf0ff;
 }
 </style>
