@@ -22,7 +22,7 @@
     <a href="mailto:vasko6d@gmail.com">
       <i class="fa fa-envelope fa-2x"></i>
     </a>
-    <a href="/home/v1/pdf/resume_2019_0219.pdf">
+    <a href="/assets/pdf/20190219-resume.pdf">
       <i class="fa fa-file-text fa-2x"></i>
     </a>
   </div>
@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss">
 #footer-links {
-  margin: 10px 0px;
+  margin: 15px 0px;
   a {
     color: #9dad7f;
     text-decoration: none;

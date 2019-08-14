@@ -1,5 +1,8 @@
 <template>
   <div id="climbing">
+    <!-- this is a hardcoded list, woudl be better to do something like:
+        https://www.raymondcamden.com/2018/08/01/adding-your-youtube-videos-to-your-static-site-with-vuejs
+    -->
     <climbing-video-item you-tube-id="-u1w5VtMsWI" video-desc="Mt Woodson" />
     <climbing-video-item you-tube-id="osNdWTYSM7o" video-desc="Rocklands" />
     <climbing-video-item you-tube-id="eTJu9mOWVwA" video-desc="Leavenworth" />
@@ -47,9 +50,16 @@
 import ClimbingVideoItem from "@/components/ClimbingVideoItem.vue";
 
 export default {
-  name: "app",
+  name: "climbing",
   components: {
     ClimbingVideoItem
   }
 };
 </script>
+
+<style lang="scss">
+#climbing {
+  display: inline-block;
+  max-width: 1200px;
+}
+</style>

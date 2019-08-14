@@ -27,7 +27,7 @@ export default {
     trueImgUrl: function() {
       var s = this.imgUrl;
       if (this.youTubeId) {
-        s = "https://img.youtube.com/vi/" + this.youTubeId + "/hqdefault.jpg";
+        s = "https://img.youtube.com/vi/" + this.youTubeId + "/mqdefault.jpg";
       }
       return s;
     }
@@ -35,4 +35,32 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.climbing-video-item {
+  margin: 5px;
+  padding: 5px;
+  border: 2px solid #2c3e50;
+  border-radius: 10px;
+  background-color: #eef9fc;
+  height: 240px;
+  width: 348px;
+  display: inline-block;
+
+  img {
+    display: inline 5px;
+    margin: 5px;
+    max-width: 320px;
+    max-height: 180px;
+    border: 3px solid #2c3e50;
+  }
+
+  a:hover img {
+    border: 3px solid #9dad7f;
+  }
+
+  .video-desc {
+    color: #2c3e50;
+    margin: 5px;
+  }
+}
+</style>
