@@ -22,7 +22,7 @@
     <a href="mailto:vasko6d@gmail.com">
       <i class="fa fa-envelope fa-2x"></i>
     </a>
-    <a href="pdf/20180814-resume.pdf">
+    <a href="pdf/20190814-resume.pdf">
       <i class="fa fa-file-text fa-2x"></i>
     </a>
   </div>
