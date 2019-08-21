@@ -23,6 +23,11 @@ export default new Router({
       component: () => import("./views/IslandGame.vue")
     },
     {
+      path: "/finite-volume",
+      name: "finite volume",
+      component: () => import("./views/FiniteVolume.vue")
+    },
+    {
       path: "/climbing",
       name: "climbing",
       component: () => import("./views/Climbing.vue")
