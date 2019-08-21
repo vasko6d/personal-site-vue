@@ -55,6 +55,18 @@ export default {
             {
               url: "/island-game",
               name: "Island Game"
+            },
+            {
+              url: "/graphics",
+              name: "Graphics"
+            },
+            {
+              url: "/finite-volume",
+              name: "Finite Volume"
+            },
+            {
+              url: "/finite-element",
+              name: "Finite Element"
             }
           ]
         },
@@ -88,6 +100,26 @@ $bg-clr-2: #2d3029;
   flex-direction: $fd;
   justify-content: $jc;
   align-items: $ai;
+}
+
+body {
+  margin-left: calc(100vw - 100%); /* fixes jumping scrollbar issue */
+  position: relative;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  min-height: 100vh;
+  text-align: center;
+  font: {
+    family: "Raleway", sans-serif;
+    size: 16px;
+    weight: 500;
+  }
+  line-height: 1.5;
+  @include flex($ai: flex-start);
+  color: currentcolor;
+  background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
+  background-position: 0 0, 5px 5px;
+  background-size: 5px 5px;
 }
 
 ul {
@@ -127,7 +159,7 @@ ul {
   }
 
   &#navigation {
-    margin: 0 0 0.8em 0;
+    margin-bottom: 0.8em;
     @include flex($ai: flex-start);
   }
 }
@@ -141,34 +173,11 @@ ul {
   transform-origin: 0 0;
   border-radius: 0.35em;
   background-color: rgba($nav-bg, 0.5);
-  visibility: hidden;
-  opacity: 0;
   transition: all 200ms linear;
 
   &.isOpen {
     transform: translatex(-50%);
-    visibility: visible;
     opacity: 1;
   }
-}
-
-body {
-  margin-left: calc(100vw - 100%); /* fixes jumping scrollbar issue */
-  position: relative;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  min-height: 100vh;
-  text-align: center;
-  font: {
-    family: "Raleway", sans-serif;
-    size: 16px;
-    weight: 500;
-  }
-  line-height: 1.5;
-  @include flex($ai: flex-start);
-  color: currentcolor;
-  background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
-  background-position: 0 0, 5px 5px;
-  background-size: 5px 5px;
 }
 </style>

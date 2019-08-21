@@ -19,6 +19,11 @@ export default new Router({
       component: () => import("./views/Portfolio.vue")
     },
     {
+      path: "/billiard-ball-robot",
+      name: "ball-robot",
+      component: () => import("./views/BallRobot.vue")
+    },
+    {
       path: "/climbing",
       name: "climbing",
       component: () => import("./views/Climbing.vue")
