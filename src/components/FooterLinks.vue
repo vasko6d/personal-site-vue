@@ -38,10 +38,13 @@ export default {
 #footer-links {
   margin: 15px 0px;
   a {
-    color: #9dad7f;
+    color: darken(#9dad7f, 25%);
     text-decoration: none;
     text-align: center;
     padding: 0px 10px;
+    :hover {
+      color: #9dad7f;
+    }
   }
 }
 </style>
