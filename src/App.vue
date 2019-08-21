@@ -1,12 +1,22 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    @click="
+      if (toggle) {
+        toggle = false;
+      } else {
+        isOpen = false;
+        active = false;
+      }
+    "
+  >
     <ul id="navigation">
       <li v-for="item in navList" :key="item.id">
         <template v-if="item.children">
           <a
             :href="item.url"
             :title="item.name"
-            @click="(isOpen = !isOpen), (active = !active)"
+            @click="(isOpen = !isOpen), (active = !active), (toggle = true)"
             :class="{ active }"
           >
             {{ item.name }}
@@ -42,6 +52,7 @@ export default {
     return {
       isOpen: false,
       active: false,
+      toggle: false,
       navList: [
         { url: "/", name: "Home" },
         {
@@ -100,6 +111,10 @@ $bg-clr-2: #2d3029;
   flex-direction: $fd;
   justify-content: $jc;
   align-items: $ai;
+}
+
+#app {
+  width: 100%;
 }
 
 body {

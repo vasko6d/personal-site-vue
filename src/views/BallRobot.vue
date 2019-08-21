@@ -69,6 +69,7 @@ $nav-txt: #9dad7f;
 
   p {
     text-align: left;
+    margin-left: 5em;
   }
 
   iframe {
