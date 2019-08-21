@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home">
     <img alt="David Vasko Portrait" src="../assets/img/vasko-nextgate.jpg" />
   </div>
 </template>
@@ -9,3 +9,11 @@ export default {
   name: "home"
 };
 </script>
+
+<style lang="scss">
+#home {
+  img {
+    border-radius: 0.35em;
+  }
+}
+</style>
