@@ -134,6 +134,8 @@ ul {
       display: block;
       padding: 0.55em 1em;
       text-decoration: none;
+      width: 100%;
+      height: 100%;
       color: darken($nav-txt, 15%);
       border-radius: 0.35em;
       background-color: rgba($nav-bg, 0.5);
