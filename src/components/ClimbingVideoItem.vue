@@ -34,35 +34,34 @@ export default {
 </script>
 
 <style lang="scss">
+$nav-txt: #9dad7f;
+$brdr: #303820;
+
 .climbing-video-item {
   margin: 5px;
   padding: 5px;
-  border: 3px solid #2c3e50;
+  border: 3px solid $brdr;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: rgba(lighten($nav-txt, 15%), 0.7);
   height: 240px;
   width: 348px;
   display: inline-block;
+  color: #222;
+  text-decoration: none;
+  font-weight: bold;
 
   img {
     display: inline 5px;
     margin: 5px;
     max-width: 320px;
     max-height: 180px;
-    border: 2px solid #2c3e50;
-  }
-
-  .video-desc {
-    color: #2c3e50;
-    font-weight: bold;
-    text-decoration: none;
-    margin: 5px;
+    border: 2px solid $brdr;
   }
 }
 .climbing-video-item:hover {
-  border: 3px solid #9dad7f;
+  border: 3px solid darken($nav-txt, 8%);
 }
 .climbing-video-item:visited {
-  background-color: #bbf0ff;
+  background-color: darken($nav-txt, 15%);
 }
 </style>
