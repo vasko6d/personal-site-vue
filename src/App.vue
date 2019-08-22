@@ -139,7 +139,6 @@ body {
 
 ul {
   list-style-type: none;
-
   li {
     position: relative;
     margin: 0.25em;

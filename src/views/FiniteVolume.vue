@@ -2,13 +2,14 @@
   <div id="finite-volume">
     <h2>2 Dimensional Flow in Supersonic Jet Inlet</h2>
     <div class="blk-container">
+      <img src="../assets/img/mach1x.png" />
       <div class="blk">
         <p>
-          The following is a computational project I completed durring my
-          Masters program at UCLA in the class "250D: Computational
-          Aerodynamics." TI developed a two dimensional finite volume solver for
-          a supersonic jet inlet. MacCormacks Method with artificial dissipation
-          was utilized. Please view the
+          This is a computational project I completed durring my Masters program
+          at UCLA in the class "250D: Computational Aerodynamics." I developed a
+          two dimensional finite volume solver for a supersonic jet inlet.
+          MacCormacks Method with artificial dissipation was utilized. Please
+          view the
           <a href="pdf/2d-supersonic-jet-inlet-presentation.pdf"
             >presentation</a
           >
@@ -22,7 +23,6 @@
           air.
         </p>
       </div>
-      <img src="../assets/img/mach1x.png" width="800px" />
     </div>
   </div>
 </template>
@@ -44,6 +44,7 @@ $nav-txt: #9dad7f;
     }
     img {
       margin-top: 1em;
+      max-width: 90%;
     }
   }
 }

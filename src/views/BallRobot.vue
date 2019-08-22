@@ -55,7 +55,7 @@ $nav-txt: #9dad7f;
     max-width: 850px;
     ul {
       list-style-type: circle;
-      margin-left: 6em;
+      margin-left: 5%;
       text-align: left;
       li {
         text-align: left;
@@ -69,7 +69,7 @@ $nav-txt: #9dad7f;
 
   p {
     text-align: left;
-    margin-left: 5em;
+    margin-left: 4%;
   }
 
   iframe {
