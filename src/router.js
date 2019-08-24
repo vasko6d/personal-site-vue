@@ -28,6 +28,11 @@ export default new Router({
       component: () => import("./views/FiniteVolume.vue")
     },
     {
+      path: "/finite-element",
+      name: "finite element",
+      component: () => import("./views/FiniteElement.vue")
+    },
+    {
       path: "/climbing",
       name: "climbing",
       component: () => import("./views/Climbing.vue")
