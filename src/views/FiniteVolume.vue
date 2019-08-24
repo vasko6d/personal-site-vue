@@ -41,9 +41,11 @@ $nav-txt: #9dad7f;
     max-width: 850px;
     .blk {
       text-align: left;
+      margin-bottom: 1em;
     }
     img {
       margin-top: 1em;
+      margin-bottom: 1em;
       max-width: 90%;
     }
   }
