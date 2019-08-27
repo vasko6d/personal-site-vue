@@ -64,12 +64,12 @@ export default {
               name: "Ball Robot"
             },
             {
-              url: "/island-game",
-              name: "Island Game"
+              url: "/webgl-graphics",
+              name: "WebGl Graphics"
             },
             {
-              url: "/graphics",
-              name: "Graphics"
+              url: "/island-game",
+              name: "Island Game"
             },
             {
               url: "/finite-volume",

@@ -33,6 +33,11 @@ export default new Router({
       component: () => import("./views/FiniteElement.vue")
     },
     {
+      path: "/webgl-graphics",
+      name: "webgl graphics",
+      component: () => import("./views/webgl/WebGLExamples.vue")
+    },
+    {
       path: "/climbing",
       name: "climbing",
       component: () => import("./views/Climbing.vue")
