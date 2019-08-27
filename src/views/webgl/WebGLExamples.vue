@@ -166,7 +166,6 @@ export default {
 
     configureWebGL() {
       this.canvas = document.getElementById("gl-canvas");
-      this.canvas.height = this.canvas.width;
       this.gl = wglu.setupWebGL(this.canvas);
       if (!this.gl) {
         alert("WebGL isn't available");
@@ -200,6 +199,8 @@ export default {
         false,
         mv.flatten(this.ctm)
       );
+
+      this.resize(this.gl);
     },
 
     setBufferData() {
@@ -215,18 +216,6 @@ export default {
           mv.flatten(this.goldenRectPoints),
           this.gl.STATIC_DRAW
         );
-      }
-    },
-    resize(canvas) {
-      // Lookup the size the browser is displaying the canvas.
-      var displayWidth = canvas.clientWidth;
-      var displayHeight = canvas.clientHeight;
-
-      // Check if the canvas is not the same size.
-      if (canvas.width != displayWidth || canvas.height != displayHeight) {
-        // Make the canvas the same size
-        canvas.width = displayWidth;
-        canvas.height = displayHeight;
       }
     },
 
@@ -252,8 +241,21 @@ export default {
       }
     },
 
+    resize(gl) {
+      // Lookup the size the browser is displaying the canvas.
+      var displayWidth = screen.width;
+      var displayHeight = screen.height;
+
+      // Check if the canvas is not the same size.
+      if (gl.canvas.width > displayWidth || gl.canvas.height > displayHeight) {
+        // Make the canvas the same size
+        gl.canvas.width = 256;
+        gl.canvas.height = 256;
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+      }
+    },
+
     render() {
-      this.resize(this.gl.canvas);
       this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
       if (this.beginRotation) {
