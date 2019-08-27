@@ -80,5 +80,10 @@ $nav-txt: #9dad7f;
     margin-bottom: 1em;
     margin-top: 1em;
   }
+  img {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    max-width: 90%;
+  }
 }
 </style>

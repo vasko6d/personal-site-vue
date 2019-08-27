@@ -10,31 +10,33 @@
       }
     "
   >
-    <ul id="navigation">
-      <li v-for="item in navList" :key="item.id">
-        <template v-if="item.children">
-          <a
-            :href="item.url"
-            :title="item.name"
-            @click="(isOpen = !isOpen), (active = !active), (toggle = true)"
-            :class="{ active }"
-          >
-            {{ item.name }}
-            <i class="fa fa-angle-down"></i>
-          </a>
-          <div :class="{ isOpen }" class="dropdown">
-            <ul>
-              <li v-for="{ url, name, index } in item.children" :key="index">
-                <router-link :to="url">{{ name }}</router-link>
-              </li>
-            </ul>
-          </div>
-        </template>
-        <template v-else>
-          <router-link :to="item.url">{{ item.name }}</router-link>
-        </template>
-      </li>
-    </ul>
+    <div id="navigation">
+      <ul>
+        <li v-for="item in navList" :key="item.id">
+          <template v-if="item.children">
+            <a
+              :href="item.url"
+              :title="item.name"
+              @click="(isOpen = !isOpen), (active = !active), (toggle = true)"
+              :class="{ active }"
+            >
+              {{ item.name }}
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <div :class="{ isOpen }" class="dropdown">
+              <ul>
+                <li v-for="{ url, name, index } in item.children" :key="index">
+                  <router-link :to="url">{{ name }}</router-link>
+                </li>
+              </ul>
+            </div>
+          </template>
+          <template v-else>
+            <router-link :to="item.url">{{ item.name }}</router-link>
+          </template>
+        </li>
+      </ul>
+    </div>
     <router-view />
     <footer-links />
   </div>
@@ -55,9 +57,10 @@ export default {
       toggle: false,
       navList: [
         { url: "/", name: "Home" },
+        { url: "/climbing", name: "Climbing" },
         {
           url: "#",
-          name: "Portfolio",
+          name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
           children: [
             {
               url: "/billiard-ball-robot",
@@ -65,7 +68,7 @@ export default {
             },
             {
               url: "/webgl-graphics",
-              name: "WebGl Graphics"
+              name: "Graphics"
             },
             {
               url: "/island-game",
@@ -78,11 +81,13 @@ export default {
             {
               url: "/finite-element",
               name: "Finite Element"
+            },
+            {
+              url: "/crosswords",
+              name: "Crosswords"
             }
           ]
-        },
-        { url: "/climbing", name: "Climbing" },
-        { url: "/crosswords", name: "Crosswords" }
+        }
       ]
     };
   }
@@ -106,13 +111,6 @@ $bg-clr-2: #2d3029;
   margin: 0;
 }
 
-@mixin flex($fd: row, $jc: center, $ai: center) {
-  display: flex;
-  flex-direction: $fd;
-  justify-content: $jc;
-  align-items: $ai;
-}
-
 #app {
   width: 100%;
 }
@@ -130,53 +128,43 @@ body {
     weight: 500;
   }
   line-height: 1.5;
-  @include flex($ai: flex-start);
   color: currentcolor;
   background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
   background-position: 0 0, 5px 5px;
   background-size: 5px 5px;
 }
 
-ul {
-  list-style-type: none;
-  li {
-    position: relative;
-    margin: 0.25em;
-    text-align: center;
+#navigation {
+  margin-bottom: 1em;
+  ul {
+    list-style-type: none;
+    li {
+      position: relative;
+      margin: 0.25em;
+      text-align: center;
+      display: inline-block;
 
-    a {
-      display: block;
-      padding: 0.55em 1em;
-      text-decoration: none;
-      width: 100%;
-      height: 100%;
-      color: darken($nav-txt, 15%);
-      border-radius: 0.35em;
-      background-color: rgba($nav-bg, 0.5);
-      transition: all 200ms ease;
+      a {
+        display: block;
+        padding: 0.55em 1em;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        color: darken($nav-txt, 15%);
+        border-radius: 0.35em;
+        background-color: rgba($nav-bg, 0.5);
+        transition: all 200ms ease;
 
-      &:hover {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.8);
-      }
-      &.active {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.8);
-      }
-    }
-
-    ul {
-      li {
-        a {
-          background-color: rgba($nav-bg, 0.5);
+        &:hover {
+          color: $nav-txt;
+          background-color: rgba($nav-bg, 0.8);
+        }
+        &.active {
+          color: $nav-txt;
+          background-color: rgba($nav-bg, 0.8);
         }
       }
     }
-  }
-
-  &#navigation {
-    margin-bottom: 0.8em;
-    @include flex($ai: flex-start);
   }
 }
 
@@ -191,6 +179,9 @@ ul {
   background-color: rgba($nav-bg, 0.5);
   transition: all 200ms linear;
 
+  li {
+    width: 100%;
+  }
   &.isOpen {
     transform: translatex(-50%);
     opacity: 1;
