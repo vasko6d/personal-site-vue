@@ -18,7 +18,8 @@
       }
     </script>
     <div class="blk-container">
-      <canvas id="gl-canvas" width="512px" height="512px"
+      <h2>Fractals on Canvas</h2>
+      <canvas id="gl-canvas" width="650px" height="650px"
         >Oops ... your browser doesn't support the HTML5 canvas element</canvas
       >
       <h3>Instructions</h3>
@@ -48,9 +49,8 @@ export default {
   data() {
     return {
       gl: "",
-      modelViewMatrix: "",
       program: "",
-      canvas: "",
+      modelViewMatrix: "",
       ctm: mv.mat4(),
       inGasket: true,
       beginRotation: false,
@@ -165,13 +165,13 @@ export default {
     },
 
     configureWebGL() {
-      this.canvas = document.getElementById("gl-canvas");
-      this.gl = wglu.setupWebGL(this.canvas);
+      var canvas = document.getElementById("gl-canvas");
+      this.gl = wglu.setupWebGL(canvas);
       if (!this.gl) {
         alert("WebGL isn't available");
       }
 
-      this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+      this.gl.viewport(0, 0, canvas.width, canvas.height);
       this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
       //  Load shaders and initialize attribute buffers
@@ -182,6 +182,7 @@ export default {
       var bufferId = this.gl.createBuffer();
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, bufferId);
 
+      // Load the initial data
       this.setBufferData();
       this.keyPressHandler("c");
 
@@ -200,6 +201,7 @@ export default {
         mv.flatten(this.ctm)
       );
 
+      // Resize if the screen sice wont fit default canvas size
       this.resize(this.gl);
     },
 
@@ -249,9 +251,9 @@ export default {
       // Check if the canvas is not the same size.
       if (gl.canvas.width > displayWidth || gl.canvas.height > displayHeight) {
         // Make the canvas the same size
-        gl.canvas.width = 256;
-        gl.canvas.height = 256;
-        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        gl.canvas.width = displayWidth;
+        gl.canvas.height = displayWidth;
+        gl.viewport(0, 0, displayWidth, displayWidth);
       }
     },
 
@@ -278,19 +280,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$nav-bg: #444;
-$nav-txt: #9dad7f;
-$bg-clr: #000000;
-$bg-clr-2: #2d3029;
+@import "@/assets/styles/variables.scss";
 #webgl-examples {
-  color: $nav-txt;
   .blk-container {
-    display: inline-block;
-    max-width: 512px;
     width: 100%;
+    max-width: 650px;
     ul {
       list-style-type: none;
       text-align: left;
+      margin-left: 0px;
       li {
         text-align: center;
         margin: 0.25em;
@@ -306,8 +304,7 @@ $bg-clr-2: #2d3029;
       }
     }
   }
-  h3 {
-    margin-bottom: 1em;
+  canvas {
     margin-top: 1em;
   }
 }

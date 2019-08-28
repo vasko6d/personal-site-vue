@@ -96,12 +96,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
-
-$nav-bg: #444;
-$nav-txt: #9dad7f;
-
-$bg-clr: #000000;
-$bg-clr-2: #2d3029;
+@import "./assets/styles/variables.scss";
 
 *,
 ::before,
