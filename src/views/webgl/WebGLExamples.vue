@@ -1,5 +1,15 @@
 <template>
-  <div id="webgl-examples">
+  <div
+    id="webgl-examples"
+    @click="
+      if (toggle) {
+        toggle = false;
+      } else {
+        isOpen = false;
+        active = false;
+      }
+    "
+  >
     <script id="vertex-shader" type="x-shader/x-vertex">
       attribute vec4 vPosition;
       uniform mat4 modelViewMatrix;
