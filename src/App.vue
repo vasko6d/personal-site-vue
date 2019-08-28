@@ -113,6 +113,58 @@ $bg-clr-2: #2d3029;
 
 #app {
   width: 100%;
+  #navigation {
+    margin-bottom: 1em;
+    ul {
+      list-style-type: none;
+      li {
+        position: relative;
+        margin: 0.25em;
+        text-align: center;
+        display: inline-block;
+
+        a {
+          display: block;
+          padding: 0.55em 1em;
+          text-decoration: none;
+          width: 100%;
+          height: 100%;
+          color: darken($nav-txt, 5%);
+          border-radius: 0.35em;
+          background-color: rgba($nav-bg, 0.5);
+          transition: all 200ms ease;
+
+          &:hover {
+            color: $nav-txt;
+            background-color: rgba($nav-bg, 0.8);
+          }
+          &.active {
+            color: $nav-txt;
+            background-color: rgba($nav-bg, 0.8);
+          }
+        }
+      }
+    }
+    .dropdown {
+      position: absolute;
+      left: 50%;
+      width: 100%;
+      transform: translatex(-50%) rotatex(90deg) scale(0);
+      margin-top: 0.55em;
+      transform-origin: 0 0;
+      border-radius: 0.35em;
+      background-color: rgba($nav-bg, 0.5);
+      transition: all 200ms linear;
+
+      li {
+        width: 100%;
+      }
+      &.isOpen {
+        transform: translatex(-50%);
+        opacity: 1;
+      }
+    }
+  }
 }
 
 body {
@@ -121,70 +173,43 @@ body {
   padding-top: 2em;
   padding-bottom: 2em;
   min-height: 100vh;
+  background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
+  background-position: 0 0, 5px 5px;
+  background-size: 5px 5px;
+
   text-align: center;
   font: {
     family: "Raleway", sans-serif;
     size: 16px;
     weight: 500;
   }
+  color: $nav-txt;
   line-height: 1.5;
-  color: currentcolor;
-  background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
-  background-position: 0 0, 5px 5px;
-  background-size: 5px 5px;
-}
 
-#navigation {
-  margin-bottom: 1em;
-  ul {
-    list-style-type: none;
-    li {
-      position: relative;
-      margin: 0.25em;
-      text-align: center;
-      display: inline-block;
-
-      a {
-        display: block;
-        padding: 0.55em 1em;
-        text-decoration: none;
-        width: 100%;
-        height: 100%;
-        color: darken($nav-txt, 15%);
-        border-radius: 0.35em;
-        background-color: rgba($nav-bg, 0.5);
-        transition: all 200ms ease;
-
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.8);
-        }
-        &.active {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.8);
-        }
+  .blk-container {
+    display: inline-block;
+    max-width: 850px;
+    ul {
+      list-style-type: circle;
+      margin-left: 5%;
+      text-align: left;
+      li {
+        text-align: left;
       }
     }
   }
-}
-
-.dropdown {
-  position: absolute;
-  left: 50%;
-  width: 100%;
-  transform: translatex(-50%) rotatex(90deg) scale(0);
-  margin-top: 0.55em;
-  transform-origin: 0 0;
-  border-radius: 0.35em;
-  background-color: rgba($nav-bg, 0.5);
-  transition: all 200ms linear;
-
-  li {
-    width: 100%;
+  h3 {
+    margin-bottom: 1em;
+    margin-top: 1em;
   }
-  &.isOpen {
-    transform: translatex(-50%);
-    opacity: 1;
+  p {
+    text-align: left;
+    margin-left: 4%;
+  }
+  img {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    max-width: 90%;
   }
 }
 </style>

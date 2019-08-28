@@ -45,33 +45,7 @@
 </template>
 
 <style lang="scss" scoped>
-$nav-txt: #9dad7f;
 #billiard-ball-robot {
-  color: $nav-txt;
-  text-align: center;
-
-  .blk-container {
-    display: inline-block;
-    max-width: 850px;
-    ul {
-      list-style-type: circle;
-      margin-left: 5%;
-      text-align: left;
-      li {
-        text-align: left;
-      }
-    }
-  }
-  h3 {
-    margin-bottom: 1em;
-    margin-top: 1em;
-  }
-
-  p {
-    text-align: left;
-    margin-left: 4%;
-  }
-
   iframe {
     display: block;
     margin-left: auto;

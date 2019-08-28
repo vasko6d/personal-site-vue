@@ -58,32 +58,3 @@
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-$nav-txt: #9dad7f;
-#island-game {
-  color: $nav-txt;
-  text-align: center;
-  .blk-container {
-    display: inline-block;
-    max-width: 850px;
-    ul {
-      list-style-type: circle;
-      margin-left: 5%;
-      text-align: left;
-      li {
-        text-align: left;
-      }
-    }
-  }
-  h3 {
-    margin-bottom: 1em;
-    margin-top: 1em;
-  }
-  img {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    max-width: 90%;
-  }
-}
-</style>

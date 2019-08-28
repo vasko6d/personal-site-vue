@@ -26,28 +26,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
-
-<style lang="scss" scoped>
-$nav-txt: #9dad7f;
-#finite-element {
-  color: $nav-txt;
-  text-align: center;
-  .blk-container {
-    display: inline-block;
-    max-width: 850px;
-    .blk {
-      text-align: left;
-      margin-bottom: 1em;
-    }
-    img {
-      margin-top: 1em;
-      margin-bottom: 1em;
-      max-width: 90%;
-    }
-  }
-}
-</style>
