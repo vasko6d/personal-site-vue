@@ -18,7 +18,27 @@
       }
     </script>
     <div class="blk-container">
-      <h2>Fractals on Canvas</h2>
+      <h2>Graphics using WebGL</h2>
+      <div class="navigation">
+        <a
+          href="#"
+          @click="(isOpen = !isOpen), (active = !active), (toggle = true)"
+          :class="{ active }"
+        >
+          <h3>
+            Fractals on Canvas
+            <i class="fa fa-angle-down"></i>
+          </h3>
+        </a>
+        <div :class="{ isOpen }" class="dropdown">
+          <ul>
+            <li>Fractals on Canvas</li>
+            <li>Cubes in Space</li>
+            <li>FF-VII Textures</li>
+            <li>Creating the Galaxy</li>
+          </ul>
+        </div>
+      </div>
       <canvas id="gl-canvas" width="650px" height="650px"
         >Oops ... your browser doesn't support the HTML5 canvas element</canvas
       >
@@ -48,10 +68,16 @@ export default {
   name: "WebGLExamples",
   data() {
     return {
+      // webgl data
       gl: "",
       program: "",
       modelViewMatrix: "",
       ctm: mv.mat4(),
+      // dropdown data
+      isOpen: false,
+      active: false,
+      toggle: false,
+      // example specific data
       inGasket: true,
       beginRotation: false,
       cIndex: 6, //index to decide which color is used by the fragment shader
@@ -285,6 +311,9 @@ export default {
   .blk-container {
     width: 100%;
     max-width: 650px;
+    h2 {
+      margin-bottom: 1em;
+    }
     ul {
       list-style-type: none;
       text-align: left;
@@ -303,9 +332,22 @@ export default {
         }
       }
     }
-  }
-  canvas {
-    margin-top: 1em;
+    .navigation {
+      position: relative;
+      a {
+        h3 {
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
+        color: darken($nav-txt, 15%);
+        background-color: rgba($nav-bg, 0.3);
+        &:hover {
+          color: $nav-txt;
+          background-color: rgba($nav-bg, 0.6);
+        }
+        display: inline-block;
+      }
+    }
   }
 }
 </style>

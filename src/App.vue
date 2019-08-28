@@ -10,7 +10,7 @@
       }
     "
   >
-    <div id="navigation">
+    <div class="navigation">
       <ul>
         <li v-for="item in navList" :key="item.id">
           <template v-if="item.children">
@@ -108,7 +108,7 @@ export default {
 
 #app {
   width: 100%;
-  #navigation {
+  .navigation {
     margin-bottom: 1em;
     ul {
       list-style-type: none;
@@ -117,27 +117,26 @@ export default {
         margin: 0.25em;
         text-align: center;
         display: inline-block;
+      }
+    }
+    a {
+      display: block;
+      padding: 0.55em 1em;
+      text-decoration: none;
+      width: 100%;
+      height: 100%;
+      color: darken($nav-txt, 5%);
+      border-radius: 0.35em;
+      background-color: rgba($nav-bg, 0.5);
+      transition: all 200ms ease;
 
-        a {
-          display: block;
-          padding: 0.55em 1em;
-          text-decoration: none;
-          width: 100%;
-          height: 100%;
-          color: darken($nav-txt, 5%);
-          border-radius: 0.35em;
-          background-color: rgba($nav-bg, 0.5);
-          transition: all 200ms ease;
-
-          &:hover {
-            color: $nav-txt;
-            background-color: rgba($nav-bg, 0.8);
-          }
-          &.active {
-            color: $nav-txt;
-            background-color: rgba($nav-bg, 0.8);
-          }
-        }
+      &:hover {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.8);
+      }
+      &.active {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.8);
       }
     }
     .dropdown {
