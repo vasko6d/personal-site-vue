@@ -6,12 +6,12 @@
       2014
     </h4>
     <img src="../assets/img/island-pic.jpg" />
-    <p>
+    <h4>
       See a demo
       <a href="http://ipetkov.github.io/IslandMysteryGame">here</a>! And see the
       source code on GitHub
       <a href="https://github.com/ipetkov/IslandMysteryGame">here</a>.
-    </p>
+    </h4>
 
     <div class="blk-container">
       <h3>The object of the game is to enjoy the island. Things you can do:</h3>

@@ -6,7 +6,6 @@
         toggle = false;
       } else {
         isOpen = false;
-        active = false;
       }
     "
   >
@@ -30,11 +29,7 @@
     <div class="blk-container">
       <h2>Graphics using WebGL</h2>
       <div class="navigation">
-        <a
-          href="#"
-          @click="(isOpen = !isOpen), (active = !active), (toggle = true)"
-          :class="{ active }"
-        >
+        <a href="#" @click="(isOpen = !isOpen), (toggle = true)">
           <h3>
             Fractals on Canvas
             <i class="fa fa-angle-down"></i>
@@ -85,7 +80,6 @@ export default {
       ctm: mv.mat4(),
       // dropdown data
       isOpen: false,
-      active: false,
       toggle: false,
       // example specific data
       inGasket: true,

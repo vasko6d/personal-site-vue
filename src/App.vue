@@ -6,7 +6,6 @@
         toggle = false;
       } else {
         isOpen = false;
-        active = false;
       }
     "
   >
@@ -17,8 +16,7 @@
             <a
               :href="item.url"
               :title="item.name"
-              @click="(isOpen = !isOpen), (active = !active), (toggle = true)"
-              :class="{ active }"
+              @click="(isOpen = !isOpen), (toggle = true)"
             >
               {{ item.name }}
               <i class="fa fa-angle-down"></i>
@@ -53,7 +51,6 @@ export default {
   data() {
     return {
       isOpen: false,
-      active: false,
       toggle: false,
       navList: [
         { url: "/", name: "Home" },
@@ -131,10 +128,6 @@ export default {
       transition: all 200ms ease;
 
       &:hover {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.8);
-      }
-      &.active {
         color: $nav-txt;
         background-color: rgba($nav-bg, 0.8);
       }
