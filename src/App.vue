@@ -1,29 +1,32 @@
 <template>
-  <div
-    id="app"
-    @click="
-      if (toggle) {
-        toggle = false;
-      } else {
-        isOpen = false;
-      }
-    "
-  >
+  <div id="app">
     <div class="navigation">
       <ul>
         <li v-for="item in navList" :key="item.id">
           <template v-if="item.children">
             <a
+              :ref="item.name"
               :href="item.url"
               :title="item.name"
-              @click="(isOpen = !isOpen), (toggle = true)"
+              @click="isOpen = !isOpen"
             >
               {{ item.name }}
-              <i class="fa fa-angle-down"></i>
+              <i ref="drop-i" class="fa fa-angle-down"></i>
             </a>
-            <div :class="{ isOpen }" class="dropdown">
+            <div
+              :class="{ isOpen }"
+              class="dropdown"
+              v-closable="{
+                excludeList: [item.name, 'drop-i'],
+                handler: 'onClose'
+              }"
+            >
               <ul>
-                <li v-for="{ url, name, index } in item.children" :key="index">
+                <li
+                  v-for="{ url, name, index } in item.children"
+                  :key="index"
+                  @click="onClose()"
+                >
                   <router-link :to="url">{{ name }}</router-link>
                 </li>
               </ul>
@@ -87,6 +90,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    onClose() {
+      this.isOpen = false;
+    }
   }
 };
 </script>

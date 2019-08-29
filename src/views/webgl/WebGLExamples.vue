@@ -1,14 +1,5 @@
 <template>
-  <div
-    id="webgl-examples"
-    @click="
-      if (toggle) {
-        toggle = false;
-      } else {
-        isOpen = false;
-      }
-    "
-  >
+  <div id="webgl-examples">
     <script id="vertex-shader" type="x-shader/x-vertex">
       attribute vec4 vPosition;
       uniform mat4 modelViewMatrix;
@@ -29,13 +20,20 @@
     <div class="blk-container">
       <h2>Graphics using WebGL</h2>
       <div class="navigation">
-        <a href="#" @click="(isOpen = !isOpen), (toggle = true)">
-          <h3>
+        <a ref="webgl-a" href="#" @click="isOpen = !isOpen">
+          <h3 ref="webgl-h3">
             Fractals on Canvas
-            <i class="fa fa-angle-down"></i>
+            <i ref="webgl-i" class="fa fa-angle-down"></i>
           </h3>
         </a>
-        <div :class="{ isOpen }" class="dropdown">
+        <div
+          :class="{ isOpen }"
+          class="dropdown"
+          v-closable="{
+            excludeList: ['webgl-a', 'webgl-h3', 'webgl-i'],
+            handler: 'onClose'
+          }"
+        >
           <ul>
             <li>Fractals on Canvas</li>
             <li>Cubes in Space</li>
@@ -80,7 +78,6 @@ export default {
       ctm: mv.mat4(),
       // dropdown data
       isOpen: false,
-      toggle: false,
       // example specific data
       inGasket: true,
       beginRotation: false,
@@ -112,6 +109,9 @@ export default {
     this.render = () => {};
   },
   methods: {
+    onClose() {
+      this.isOpen = false;
+    },
     initSierpenskiGasket() {
       var vertices = [mv.vec2(-0.5, -0.5), mv.vec2(0, 0.5), mv.vec2(0.5, -0.5)]; // three corner points of gasket
       var u = mv.add(vertices[0], vertices[1]); // basis vector 1
