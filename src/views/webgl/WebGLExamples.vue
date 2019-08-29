@@ -22,7 +22,7 @@
       <div class="navigation">
         <a ref="webgl-a" href="#" @click="isOpen = !isOpen">
           <h3 ref="webgl-h3">
-            Fractals on Canvas
+            {{ examples[exIdx].name }}
             <i ref="webgl-i" class="fa fa-angle-down"></i>
           </h3>
         </a>
@@ -35,10 +35,13 @@
           }"
         >
           <ul>
-            <li>Fractals on Canvas</li>
-            <li>Cubes in Space</li>
-            <li>FF-VII Textures</li>
-            <li>Creating the Galaxy</li>
+            <li
+              v-for="(example, index) in examples"
+              :key="example.index"
+              @click="(exIdx = index), onClose()"
+            >
+              {{ example.name }}
+            </li>
           </ul>
         </div>
       </div>
@@ -60,6 +63,7 @@
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import ShaderUtils from "@/mixins/webgl/ShaderUtils.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
+import Fractals from "./Fractals.vue";
 //var Timer = require("../mixins/webgl/Timer.js");
 
 // Mixin Aliases
@@ -75,13 +79,21 @@ export default {
       gl: "",
       program: "",
       modelViewMatrix: "",
+      colorsUniform: "",
       ctm: mv.mat4(),
+      exIdx: 0,
+      examples: [
+        { name: "Fractals on Canvas", initialized: false, data: Fractals.data },
+        { name: "Cubes in Space", initialized: false },
+        { name: "FFVII Textures", initialized: false },
+        { name: "Creating the Galaxy", initialized: false }
+      ],
       // dropdown data
       isOpen: false,
       // example specific data
       inGasket: true,
       beginRotation: false,
-      cIndex: 6, //index to decide which color is used by the fragment shader
+      cIndex: 3, //index to decide which color is used by the fragment shader
       colors: [
         mv.vec4(1.0, 1.0, 1.0, 1.0), // white
         mv.vec4(1.0, 0.0, 0.0, 1.0), // red
@@ -213,8 +225,8 @@ export default {
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, bufferId);
 
       // Load the initial data
-      this.setBufferData();
-      this.keyPressHandler("c");
+      //this.setBufferData();
+      //this.keyPressHandler("c");
 
       // Associate out shader variables with our data buffer
       var vPosition = this.gl.getAttribLocation(this.program, "vPosition");
@@ -236,6 +248,16 @@ export default {
     },
 
     setBufferData() {
+      // Set Color Data
+      this.colorsUniform = this.gl.getUniformLocation(this.program, "Colors");
+      this.gl.uniform4f(
+        this.colorsUniform,
+        this.colors[this.cIndex][0],
+        this.colors[this.cIndex][1],
+        this.colors[this.cIndex][2],
+        this.colors[this.cIndex][3]
+      );
+      // Set Vertices
       if (this.inGasket) {
         this.gl.bufferData(
           this.gl.ARRAY_BUFFER,
@@ -257,17 +279,8 @@ export default {
         if (this.cIndex == 7) {
           this.cIndex += -7;
         }
-        var ColorsLoc = this.gl.getUniformLocation(this.program, "Colors");
-        this.gl.uniform4f(
-          ColorsLoc,
-          this.colors[this.cIndex][0],
-          this.colors[this.cIndex][1],
-          this.colors[this.cIndex][2],
-          this.colors[this.cIndex][3]
-        );
       } else if (e === "n") {
         this.inGasket = !this.inGasket;
-        this.setBufferData();
       } else if (e === "r") {
         this.beginRotation = !this.beginRotation;
       }
@@ -289,6 +302,7 @@ export default {
 
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+      this.setBufferData();
 
       if (this.beginRotation) {
         this.ctm = mv.mult(this.ctm, mv.rotationMatrix(1, [0, 0, 1]));
