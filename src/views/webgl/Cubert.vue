@@ -24,9 +24,7 @@
     <ul>
       <li v-on:click="keyPressHandler('c')">"c" - Change Color of Cubes</li>
       <li v-on:click="keyPressHandler('x')">"x" - Display a Crosshair</li>
-      <li v-on:click="keyPressHandler('Ctrl-z')">
-        "Ctrl-z" - Revert View to Original State
-      </li>
+      <li v-on:click="keyPressHandler('z')">"z" - Revert to Original State</li>
     </ul>
   </div>
 </template>
@@ -34,11 +32,13 @@
 // Mixin and Class Imports
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
+import WebglCamera from "@/mixins/webgl/WebglCamera.vue";
 //var Timer = require("../mixins/webgl/Timer.js");
 
 // Mixin Aliases
 var mv = MatrixMath.methods;
 var wglu = WebGLUtils.methods;
+var wglc = WebglCamera.methods;
 
 export default {
   name: "Cubert",
@@ -71,15 +71,7 @@ export default {
       buf: {
         points: ""
       },
-      camera: {
-        theta: 0.0,
-        phi: 0.0,
-        dr: mv.radians(1),
-        eye: mv.vec3(0, 0, 0),
-        up: mv.vec3(0.0, 1.0, 0.0),
-        fovy: 90,
-        translation: mv.translationMatrix(mv.vec3(30, 0, 0))
-      },
+      camera: wglc.initCamera(mv.vec3(30, 0, 0)),
 
       // Data Variables
       cubePositions: [
@@ -105,7 +97,8 @@ export default {
 
       // Other Display Variables
       dt: 0.0,
-      cIndex: 0
+      cIndex: 0,
+      keepTime: true
     };
   },
 
@@ -172,12 +165,29 @@ export default {
       return vertices;
     },
 
-    keyPressHandler(e) {
-      if (e === "c") {
+    keyPressHandler(ch) {
+      // Change the colors
+      if (ch === "c") {
         this.cIndex = (this.cIndex + 1) % 8;
-      } else if (e === "x") {
+      }
+      // Display a crosshair
+      if (ch === "x") {
         this.crosshair.show = !this.crosshair.show;
       }
+      // Pause Time
+      if (ch === "p") {
+        this.keepTime = !this.keepTime;
+      }
+      // Revert to the original view with z
+      if (ch === "z") {
+        this.camera = wglc.initCamera(this.camera.origCameraPosition);
+        this.dt = 0.0;
+        this.cIndex = 0;
+        this.keepTime = true;
+        this.crosshair.show = false;
+      }
+      // pass the key to the default camera controller
+      wglc.control(ch, this.camera);
     },
 
     configureWebGL() {
