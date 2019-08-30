@@ -34,18 +34,28 @@ export default new Router({
     },
     {
       path: "/webgl-graphics",
-      name: "webgl graphics",
+      name: "WebGL Examples",
       component: () => import("./views/webgl/WebGLExamples.vue"),
       children: [
         {
           path: "fractals",
-          name: "fractals",
+          name: "Fractals on Canvas",
           component: () => import("./views/webgl/Fractals.vue")
         },
         {
           path: "cubert",
-          name: "cubert",
+          name: "Cubes in Space",
           component: () => import("./views/webgl/Cubert.vue")
+        },
+        {
+          path: "ffvii-textures",
+          name: "FFVII Textures",
+          component: () => import("./views/webgl/Fractals.vue")
+        },
+        {
+          path: "galaxy",
+          name: "Creating the Galaxy",
+          component: () => import("./views/webgl/Fractals.vue")
         }
       ]
     },

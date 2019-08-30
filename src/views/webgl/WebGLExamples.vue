@@ -5,7 +5,7 @@
       <div class="navigation">
         <a ref="webgl-a" href="#/" @click="isOpen = !isOpen">
           <h3 ref="webgl-h3">
-            {{ examples[exIdx].name }}
+            {{ $router.currentRoute.name }}
             <i ref="webgl-i" class="fa fa-angle-down"></i>
           </h3>
         </a>
@@ -19,11 +19,13 @@
         >
           <ul>
             <li
-              v-for="(example, index) in examples"
-              :key="example.index"
-              @click="(exIdx = index), onClose()"
+              v-for="child in webglChildren"
+              :key="child.index"
+              @click="onClose()"
             >
-              <router-link :to="example.url">{{ example.name }}</router-link>
+              <router-link :to="correctedUrl(child.path)">
+                {{ child.name }}
+              </router-link>
             </li>
           </ul>
         </div>
@@ -38,21 +40,25 @@ export default {
   name: "WebGLExamples",
   data() {
     return {
-      // webgl data
-      exIdx: 0,
-      examples: [
-        { name: "Fractals on Canvas", url: "/webgl-graphics/fractals" },
-        { name: "Cubes in Space", url: "/webgl-graphics/cubert" },
-        { name: "FFVII Textures", url: "/webgl-graphics/fractals" },
-        { name: "Creating the Galaxy", url: "/webgl-graphics/fractals" }
-      ],
       // dropdown data
+      webglChildren: "",
       isOpen: false
     };
+  },
+  mounted() {
+    this.webglChildren = this.$router.options.routes.find(r => {
+      return r.path === "/webgl-graphics";
+    }).children;
   },
   methods: {
     onClose() {
       this.isOpen = false;
+    },
+    correctedUrl(url) {
+      if (this.$router.currentRoute.path === "/webgl-graphics") {
+        return "webgl-graphics/" + url;
+      }
+      return url;
     }
   }
 };
