@@ -59,7 +59,7 @@ export default {
         { url: "/", name: "Home" },
         { url: "/climbing", name: "Climbing" },
         {
-          url: "#",
+          url: "#/",
           name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
           children: [
             {

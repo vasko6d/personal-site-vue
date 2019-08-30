@@ -20,7 +20,7 @@
     <div class="blk-container">
       <h2>Graphics using WebGL</h2>
       <div class="navigation">
-        <a ref="webgl-a" href="#" @click="isOpen = !isOpen">
+        <a ref="webgl-a" href="#/" @click="isOpen = !isOpen">
           <h3 ref="webgl-h3">
             {{ examples[exIdx].name }}
             <i ref="webgl-i" class="fa fa-angle-down"></i>
