@@ -336,17 +336,16 @@ export default {
       return result;
     },
 
-    scalarMatrix(x, y, z) {
-      if (Array.isArray(x) && x.length == 3) {
-        z = x[2];
-        y = x[1];
-        x = x[0];
+    scalarMatrix() {
+      var xyz = this._argumentsToArray(arguments);
+      while (xyz.length < 3) {
+        xyz.push(xyz[0]);
       }
 
       var result = this.mat4();
-      result[0][0] = x;
-      result[1][1] = y;
-      result[2][2] = z;
+      result[0][0] = xyz[0];
+      result[1][1] = xyz[1];
+      result[2][2] = xyz[2];
 
       return result;
     },

@@ -42,7 +42,7 @@ export default {
       exIdx: 0,
       examples: [
         { name: "Fractals on Canvas", url: "/webgl-graphics/fractals" },
-        { name: "Cubes in Space", url: "/webgl-graphics/fractals" },
+        { name: "Cubes in Space", url: "/webgl-graphics/cubert" },
         { name: "FFVII Textures", url: "/webgl-graphics/fractals" },
         { name: "Creating the Galaxy", url: "/webgl-graphics/fractals" }
       ],

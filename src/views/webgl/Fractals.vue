@@ -1,20 +1,20 @@
 <template>
   <div id="fractals">
     <script id="vertex-shader" type="x-shader/x-vertex">
-      attribute vec4 vPosition;
+      attribute vec4 vPos;
       uniform mat4 mvm;
       void main()
       {
         gl_PointSize = 1.0;
-        gl_Position = mvm * vPosition;
+        gl_Position = mvm * vPos;
       }
     </script>
     <script id="fragment-shader" type="x-shader/x-fragment">
       precision mediump float;
-      uniform vec4 Colors;
+      uniform vec4 Color;
       void main()
       {
-      	gl_FragColor = Colors;
+      	gl_FragColor = Color;
       }
     </script>
     <canvas id="gl-canvas" width="650px" height="650px"
@@ -43,13 +43,15 @@ export default {
   data() {
     return {
       // Web Gl Variables
+      gl: "",
+      program: "",
       loc: {
-        colors: "",
+        color: "",
         mvm: "",
-        vPosition: ""
+        vPos: ""
       },
       val: {
-        colors: [
+        color: [
           mv.vec4(1.0, 1.0, 1.0, 1.0), // white
           mv.vec4(1.0, 0.0, 0.0, 1.0), // red
           mv.vec4(1.0, 1.0, 0.0, 1.0), // yellow
@@ -59,17 +61,17 @@ export default {
           mv.vec4(0.0, 1.0, 1.0, 1.0) // cyan
         ],
         mvm: mv.mat4(),
-        vPosition: ""
+        vPos: ""
       },
-      buffers: {
+      buf: {
         points: ""
       },
 
       // Data Variables
-      gasketPoints: [], //variable that holds the vertexes for the sierginski gasket
-      goldenRectPoints: [], // variable that holds the vertexes for the Golden Rectangle};,
+      gasketPoints: this.generateSierpenskiGasket(5000),
+      goldenRectPoints: this.generateGoldenRectangle(12),
 
-      // Page Variables
+      // Other Display Variables
       inGasket: true,
       beginRotation: false,
       cIndex: 6 //index to decide which color is used by the fragment shader
@@ -77,8 +79,6 @@ export default {
   },
 
   mounted() {
-    this.gasketPoints = this.generateSierpenskiGasket(5000);
-    this.goldenRectPoints = this.generateGoldenRectangle(12);
     this.configureWebGL();
     window.addEventListener("keypress", e => {
       this.keyPressHandler(String.fromCharCode(e.keyCode));
@@ -193,11 +193,11 @@ export default {
     setBufferData() {
       // Set Color Data
       this.gl.uniform4f(
-        this.loc.colors,
-        this.val.colors[this.cIndex][0],
-        this.val.colors[this.cIndex][1],
-        this.val.colors[this.cIndex][2],
-        this.val.colors[this.cIndex][3]
+        this.loc.color,
+        this.val.color[this.cIndex][0],
+        this.val.color[this.cIndex][1],
+        this.val.color[this.cIndex][2],
+        this.val.color[this.cIndex][3]
       );
       // Set Vertices
       if (this.inGasket) {
@@ -223,23 +223,16 @@ export default {
       );
 
       // Set Up Buffers
-      this.buffers.pointBuffer = this.gl.createBuffer();
-      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.pointBuffer);
+      this.buf.points = this.gl.createBuffer();
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buf.points);
 
       // Set up Shader Variables
-      this.loc.vPosition = this.gl.getAttribLocation(this.program, "vPosition");
-      this.gl.vertexAttribPointer(
-        this.loc.vPosition,
-        2,
-        this.gl.FLOAT,
-        false,
-        0,
-        0
-      );
-      this.gl.enableVertexAttribArray(this.loc.vPosition);
+      this.loc.vPos = this.gl.getAttribLocation(this.program, "vPos");
+      this.gl.vertexAttribPointer(this.loc.vPos, 2, this.gl.FLOAT, false, 0, 0);
+      this.gl.enableVertexAttribArray(this.loc.vPos);
 
       // Set up Uniform Locations
-      this.loc.colors = this.gl.getUniformLocation(this.program, "Colors");
+      this.loc.color = this.gl.getUniformLocation(this.program, "Color");
       this.loc.mvm = this.gl.getUniformLocation(this.program, "mvm");
       this.gl.uniformMatrix4fv(this.loc.mvm, false, mv.flatten(this.val.mvm));
     },

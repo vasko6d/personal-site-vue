@@ -41,6 +41,11 @@ export default new Router({
           path: "fractals",
           name: "fractals",
           component: () => import("./views/webgl/Fractals.vue")
+        },
+        {
+          path: "cubert",
+          name: "cubert",
+          component: () => import("./views/webgl/Cubert.vue")
         }
       ]
     },
