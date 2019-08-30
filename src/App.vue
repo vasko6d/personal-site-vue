@@ -67,7 +67,7 @@ export default {
               name: "Ball Robot"
             },
             {
-              url: "/webgl-graphics",
+              url: "/webgl-graphics/fractals",
               name: "Graphics"
             },
             {

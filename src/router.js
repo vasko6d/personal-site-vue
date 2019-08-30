@@ -35,7 +35,14 @@ export default new Router({
     {
       path: "/webgl-graphics",
       name: "webgl graphics",
-      component: () => import("./views/webgl/WebGLExamples.vue")
+      component: () => import("./views/webgl/WebGLExamples.vue"),
+      children: [
+        {
+          path: "fractals",
+          name: "fractals",
+          component: () => import("./views/webgl/Fractals.vue")
+        }
+      ]
     },
     {
       path: "/climbing",

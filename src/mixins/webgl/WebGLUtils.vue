@@ -1,4 +1,7 @@
 <script>
+import ShaderUtils from "@/mixins/webgl/ShaderUtils.vue";
+var su = ShaderUtils.methods;
+
 export default {
   name: "WebGLUtils",
   /*
@@ -164,6 +167,47 @@ export default {
         window.oRequestAnimationFrame ||
         window.msRequestAnimationFrame
       );
+    },
+
+    /**
+     * Provide a standard way to resize the canvas element for fit smaller screens
+     */
+    resize(gl) {
+      // Lookup the size the browser is displaying the canvas.
+      var displayWidth = screen.width;
+      var displayHeight = screen.height;
+
+      // Check if the canvas is not the same size.
+      if (gl.canvas.width > displayWidth || gl.canvas.height > displayHeight) {
+        // Make the canvas the same size
+        gl.canvas.width = displayWidth;
+        gl.canvas.height = displayWidth;
+        gl.viewport(0, 0, displayWidth, displayWidth);
+      }
+    },
+
+    /**
+     * The configuration steps of WebGL that are the same across my examples.
+     */
+    baseWebGL(canvasId, vertexShaderId, fragmentShaderId) {
+      var canvas = document.getElementById(canvasId);
+      var gl = this.setupWebGL(canvas);
+      if (!gl) {
+        alert("WebGL isn't available");
+      }
+
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+      //  Load shaders and initialize attribute buffers
+      var program = su.init(gl, vertexShaderId, fragmentShaderId);
+      gl.useProgram(program);
+
+      // Resize if the screen sice wont fit default canvas size
+      this.resize(gl);
+
+      // Return the GL Context and the program for more specific set up
+      return [gl, program];
     }
   }
 };

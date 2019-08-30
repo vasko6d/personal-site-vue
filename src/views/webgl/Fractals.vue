@@ -1,3 +1,33 @@
+<template>
+  <div id="fractals">
+    <script id="vertex-shader" type="x-shader/x-vertex">
+      attribute vec4 vPosition;
+      uniform mat4 mvm;
+      void main()
+      {
+        gl_PointSize = 1.0;
+        gl_Position = mvm * vPosition;
+      }
+    </script>
+    <script id="fragment-shader" type="x-shader/x-fragment">
+      precision mediump float;
+      uniform vec4 Colors;
+      void main()
+      {
+      	gl_FragColor = Colors;
+      }
+    </script>
+    <canvas id="gl-canvas" width="650px" height="650px"
+      >Oops ... your browser doesn't support the HTML5 canvas element</canvas
+    >
+    <h3>Instructions</h3>
+    <ul>
+      <li v-on:click="keyPressHandler('c')">"c" - Change Color</li>
+      <li v-on:click="keyPressHandler('n')">"n" - Change Fractal</li>
+      <li v-on:click="keyPressHandler('r')">"r" - Toggle Rotation</li>
+    </ul>
+  </div>
+</template>
 <script>
 // Mixin and Class Imports
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
@@ -12,44 +42,74 @@ export default {
   name: "Fractals",
   data() {
     return {
+      // Web Gl Variables
+      loc: {
+        colors: "",
+        mvm: "",
+        vPosition: ""
+      },
+      val: {
+        colors: [
+          mv.vec4(1.0, 1.0, 1.0, 1.0), // white
+          mv.vec4(1.0, 0.0, 0.0, 1.0), // red
+          mv.vec4(1.0, 1.0, 0.0, 1.0), // yellow
+          mv.vec4(0.0, 1.0, 0.0, 1.0), // green
+          mv.vec4(0.0, 0.0, 1.0, 1.0), // blue
+          mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
+          mv.vec4(0.0, 1.0, 1.0, 1.0) // cyan
+        ],
+        mvm: mv.mat4(),
+        vPosition: ""
+      },
+      buffers: {
+        points: ""
+      },
+
+      // Data Variables
+      gasketPoints: [], //variable that holds the vertexes for the sierginski gasket
+      goldenRectPoints: [], // variable that holds the vertexes for the Golden Rectangle};,
+
+      // Page Variables
       inGasket: true,
       beginRotation: false,
-      cIndex: 6, //index to decide which color is used by the fragment shader
-      colors: [
-        mv.vec4(1.0, 1.0, 1.0, 1.0), // white
-        mv.vec4(1.0, 0.0, 0.0, 1.0), // red
-        mv.vec4(1.0, 1.0, 0.0, 1.0), // yellow
-        mv.vec4(0.0, 1.0, 0.0, 1.0), // green
-        mv.vec4(0.0, 0.0, 1.0, 1.0), // blue
-        mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
-        mv.vec4(0.0, 1.0, 1.0, 1.0) // cyan
-      ],
-      gasketPoints: [], //variable that holds the vertexes for the sierginski gasket
-      goldenRectPoints: [] // variable that holds the vertexes for the Golden Rectangle};
+      cIndex: 6 //index to decide which color is used by the fragment shader
     };
   },
+
   mounted() {
-    this.initSierpenskiGasket();
-    this.initGoldenRectangle();
+    this.gasketPoints = this.generateSierpenskiGasket(5000);
+    this.goldenRectPoints = this.generateGoldenRectangle(12);
+    this.configureWebGL();
+    window.addEventListener("keypress", e => {
+      this.keyPressHandler(String.fromCharCode(e.keyCode));
+    });
+    this.render();
   },
+
+  beforeDestroy() {
+    this.render = () => {};
+  },
+
   methods: {
-    initSierpenskiGasket(numGasketPoints) {
+    generateSierpenskiGasket(numGasketPoints) {
       var vertices = [mv.vec2(-0.5, -0.5), mv.vec2(0, 0.5), mv.vec2(0.5, -0.5)]; // three corner points of gasket
       var u = mv.add(vertices[0], vertices[1]); // basis vector 1
       var v = mv.add(vertices[0], vertices[2]); // basis vector 2
 
       // Create the set of points for the gasket by taking the midpoint of the last
       // point and a randomly chosen vertex
-      this.gasketPoints.push(mv.scale(0.25, mv.add(u, v)));
-      for (let i = 0; this.gasketPoints.length <= numGasketPoints; ++i) {
+      var gasketPoints = [];
+      gasketPoints.push(mv.scale(0.25, mv.add(u, v)));
+      for (let i = 0; gasketPoints.length <= numGasketPoints; ++i) {
         let j = Math.floor(Math.random() * 3);
-        let p = mv.add(this.gasketPoints[i], vertices[j]);
+        let p = mv.add(gasketPoints[i], vertices[j]);
         p = mv.scale(0.5, p);
-        this.gasketPoints.push(p);
+        gasketPoints.push(p);
       }
+      return gasketPoints;
     },
 
-    initGoldenRectangle() {
+    generateGoldenRectangle(numRects) {
       /* Start with a rectangle defined with the following vertices
         c______________d
         |              |
@@ -71,7 +131,7 @@ export default {
       */
 
       // The four line segmets that make up the first rectagle
-      this.goldenRectPoints = [
+      var golderRectPoints = [
         mv.vec2(-0.809, 0.5),
         mv.vec2(0.809, 0.5),
 
@@ -92,7 +152,7 @@ export default {
         mv.vec2(0.809, 0.5) //d
       ];
 
-      for (let i = 0; i < 12; ++i) {
+      for (let i = 0; i < numRects; ++i) {
         let neg = i % 2 == 0 ? 1 : -1; //this is to simulate a -90deg rotatio without using a matrix
 
         var tempRect = [
@@ -104,15 +164,17 @@ export default {
         distBC = mv.vec2(distBC[1] * neg, distBC[0] * neg); // this step swaps x and y which along with the variable neg simulates a rotation of -90 degrees
 
         var tempVert = mv.add(currentRect[1], distBC);
-        this.goldenRectPoints.push(tempVert); //mv.add each new vertex pair to vertices 2 to mv.add the new line segment
+        golderRectPoints.push(tempVert); //mv.add each new vertex pair to vertices 2 to mv.add the new line segment
         tempRect.push(tempVert); //newc
 
         tempVert = mv.add(currentRect[2], distBC);
-        this.goldenRectPoints.push(tempVert);
+        golderRectPoints.push(tempVert);
         tempRect.push(tempVert); //newd
 
         currentRect = tempRect;
       }
+
+      return golderRectPoints;
     },
 
     keyPressHandler(e) {
@@ -121,17 +183,8 @@ export default {
         if (this.cIndex == 7) {
           this.cIndex += -7;
         }
-        var ColorsLoc = this.gl.getUniformLocation(this.program, "Colors");
-        this.gl.uniform4f(
-          ColorsLoc,
-          this.colors[this.cIndex][0],
-          this.colors[this.cIndex][1],
-          this.colors[this.cIndex][2],
-          this.colors[this.cIndex][3]
-        );
       } else if (e === "n") {
         this.inGasket = !this.inGasket;
-        this.setBufferData();
       } else if (e === "r") {
         this.beginRotation = !this.beginRotation;
       }
@@ -139,13 +192,12 @@ export default {
 
     setBufferData() {
       // Set Color Data
-      this.colorsUniform = this.gl.getUniformLocation(this.program, "Colors");
       this.gl.uniform4f(
-        this.colorsUniform,
-        this.colors[this.cIndex][0],
-        this.colors[this.cIndex][1],
-        this.colors[this.cIndex][2],
-        this.colors[this.cIndex][3]
+        this.loc.colors,
+        this.val.colors[this.cIndex][0],
+        this.val.colors[this.cIndex][1],
+        this.val.colors[this.cIndex][2],
+        this.val.colors[this.cIndex][3]
       );
       // Set Vertices
       if (this.inGasket) {
@@ -163,17 +215,42 @@ export default {
       }
     },
 
+    configureWebGL() {
+      [this.gl, this.program] = wglu.baseWebGL(
+        "gl-canvas",
+        "vertex-shader",
+        "fragment-shader"
+      );
+
+      // Set Up Buffers
+      this.buffers.pointBuffer = this.gl.createBuffer();
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.pointBuffer);
+
+      // Set up Shader Variables
+      this.loc.vPosition = this.gl.getAttribLocation(this.program, "vPosition");
+      this.gl.vertexAttribPointer(
+        this.loc.vPosition,
+        2,
+        this.gl.FLOAT,
+        false,
+        0,
+        0
+      );
+      this.gl.enableVertexAttribArray(this.loc.vPosition);
+
+      // Set up Uniform Locations
+      this.loc.colors = this.gl.getUniformLocation(this.program, "Colors");
+      this.loc.mvm = this.gl.getUniformLocation(this.program, "mvm");
+      this.gl.uniformMatrix4fv(this.loc.mvm, false, mv.flatten(this.val.mvm));
+    },
+
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT);
       this.setBufferData();
 
       if (this.beginRotation) {
-        this.ctm = mv.mult(this.ctm, mv.rotationMatrix(1, [0, 0, 1]));
-        this.gl.uniformMatrix4fv(
-          this.modelViewMatrix,
-          false,
-          mv.flatten(this.ctm)
-        );
+        this.val.mvm = mv.mult(this.val.mvm, mv.rotationMatrix(1, [0, 0, 1]));
+        this.gl.uniformMatrix4fv(this.loc.mvm, false, mv.flatten(this.val.mvm));
       }
       if (this.inGasket) {
         this.gl.drawArrays(this.gl.POINTS, 0, this.gasketPoints.length);
