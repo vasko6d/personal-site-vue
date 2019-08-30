@@ -174,14 +174,9 @@ export default {
 
     keyPressHandler(e) {
       if (e === "c") {
-        ++this.cIndex;
-        if (this.cIndex == 7) {
-          this.cIndex += -7;
-        }
-      } else if (e === "n") {
-        this.inGasket = !this.inGasket;
-      } else if (e === "r") {
-        this.beginRotation = !this.beginRotation;
+        this.cIndex = (this.cIndex + 1) % 8;
+      } else if (e === "x") {
+        this.crosshair.show = !this.crosshair.show;
       }
     },
 
@@ -253,10 +248,8 @@ export default {
           m = mv.rotationMatrix((this.dt * 180) / Math.PI, [1, 1, 1]);
           break;
       }
-      var cubeChangeMatrix = mv.mult(
-        mv.mult(this.val.mvm, mv.translationMatrix(this.cubePositions[num])),
-        m
-      );
+      var t = mv.translationMatrix(this.cubePositions[num]); // Move the vertexed cube to our rendering location
+      var cubeChangeMatrix = mv.mult(mv.mult(this.val.mvm, t), m);
 
       // Actually set the WebGl values
       this.gl.uniformMatrix4fv(
