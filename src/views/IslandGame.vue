@@ -18,12 +18,12 @@
 
       <ul>
         <li>
-          pick up branches from trees to start a fire (hint: find the firepit!)
+          Pick up branches from trees to start a fire (hint: find the firepit!)
         </li>
-        <li>relax and listen to the soothing sounds of nature</li>
-        <li>throw rocks</li>
-        <li>climb the mountain</li>
-        <li>explore!</li>
+        <li>Relax and listen to the soothing sounds of nature</li>
+        <li>Rhrow rocks</li>
+        <li>Climb the mountain</li>
+        <li>Explore!</li>
       </ul>
       <h3>Advanced Graphics Topics</h3>
       <ul>

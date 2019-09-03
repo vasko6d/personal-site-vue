@@ -24,7 +24,7 @@
     <ul>
       <li v-on:click="keyPressHandler('c')">"c" - Change Color</li>
       <li v-on:click="keyPressHandler('n')">"n" - Change Fractal</li>
-      <li v-on:click="keyPressHandler('r')">"r" - Toggle Rotation</li>
+      <li v-on:click="keyPressHandler('r')">"r" - Start/Stop Rotation</li>
     </ul>
   </div>
 </template>

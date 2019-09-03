@@ -114,6 +114,7 @@ export default {
 #app {
   width: 100%;
   .navigation {
+    user-select: none;
     margin-bottom: 1em;
     ul {
       list-style-type: none;
