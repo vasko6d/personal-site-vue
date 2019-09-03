@@ -7,68 +7,104 @@
       >
       <div class="udlr-group ml">
         <div class="h2-item">Move</div>
-        <div class="u-item cbtn prm" v-on:click="control('w', camera)">
-          <i :class="keybindToggle ? '' : controls.move.forward.icon">
-            {{ keybindToggle ? controls.move.forward.keybind : "" }}
-          </i>
+        <div
+          class="u-item cbtn prm"
+          v-on:click="control(controls.move.forward.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.move.forward.icon">{{
+            keybindToggle ? controls.move.forward.keybind : ""
+          }}</i>
         </div>
-        <div class="d-item cbtn prm" v-on:click="control('s', camera)">
-          <i :class="keybindToggle ? '' : controls.move.backward.icon">
-            {{ keybindToggle ? controls.move.backward.keybind : "" }}
-          </i>
+        <div
+          class="d-item cbtn prm"
+          v-on:click="control(controls.move.backward.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.move.backward.icon">{{
+            keybindToggle ? controls.move.backward.keybind : ""
+          }}</i>
         </div>
-        <div class="l-item cbtn prm" v-on:click="control('a', camera)">
-          <i :class="keybindToggle ? '' : controls.move.left.icon">
-            {{ keybindToggle ? controls.move.left.keybind : "" }}
-          </i>
+        <div
+          class="l-item cbtn prm"
+          v-on:click="control(controls.move.left.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.move.left.icon">{{
+            keybindToggle ? controls.move.left.keybind : ""
+          }}</i>
         </div>
-        <div class="r-item cbtn prm" v-on:click="control('d', camera)">
-          <i :class="keybindToggle ? '' : controls.move.right.icon">
-            {{ keybindToggle ? controls.move.right.keybind : "" }}
-          </i>
+        <div
+          class="r-item cbtn prm"
+          v-on:click="control(controls.move.right.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.move.right.icon">{{
+            keybindToggle ? controls.move.right.keybind : ""
+          }}</i>
         </div>
-        <div class="ul-item cbtn scnd" v-on:click="control('q', camera)">
-          <i :class="keybindToggle ? '' : controls.move.up.icon">
-            {{ keybindToggle ? controls.move.up.keybind : "" }}
-          </i>
+        <div
+          class="ul-item cbtn scnd"
+          v-on:click="control(controls.move.up.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.move.up.icon">{{
+            keybindToggle ? controls.move.up.keybind : ""
+          }}</i>
         </div>
-        <div class="ur-item cbtn scnd" v-on:click="control('e', camera)">
-          <i :class="keybindToggle ? '' : controls.move.down.icon">
-            {{ keybindToggle ? controls.move.down.keybind : "" }}
-          </i>
+        <div
+          class="ur-item cbtn scnd"
+          v-on:click="control(controls.move.down.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.move.down.icon">{{
+            keybindToggle ? controls.move.down.keybind : ""
+          }}</i>
         </div>
       </div>
       <div class="udlr-group mr">
         <div class="h2-item">Look</div>
-        <div class="u-item cbtn prm" v-on:click="control('u', camera)">
-          <i :class="keybindToggle ? '' : controls.look.up.icon">
-            {{ keybindToggle ? controls.look.up.keybind : "" }}
-          </i>
+        <div
+          class="u-item cbtn prm"
+          v-on:click="control(controls.look.up.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.look.up.icon">{{
+            keybindToggle ? controls.look.up.keybind : ""
+          }}</i>
         </div>
-        <div class="d-item cbtn prm" v-on:click="control('j', camera)">
-          <i :class="keybindToggle ? '' : controls.look.down.icon">
-            {{ keybindToggle ? controls.look.down.keybind : "" }}
-          </i>
+        <div
+          class="d-item cbtn prm"
+          v-on:click="control(controls.look.down.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.look.down.icon">{{
+            keybindToggle ? controls.look.down.keybind : ""
+          }}</i>
         </div>
-        <div class="l-item cbtn prm" v-on:click="control('h', camera)">
-          <i :class="keybindToggle ? '' : controls.look.left.icon">
-            {{ keybindToggle ? controls.look.left.keybind : "" }}
-          </i>
+        <div
+          class="l-item cbtn prm"
+          v-on:click="control(controls.look.left.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.look.left.icon">{{
+            keybindToggle ? controls.look.left.keybind : ""
+          }}</i>
         </div>
-        <div class="r-item cbtn prm" v-on:click="control('d', camera)">
-          <i :class="keybindToggle ? '' : controls.look.right.icon">
-            {{ keybindToggle ? controls.look.right.keybind : "" }}
-          </i>
+        <div
+          class="r-item cbtn prm"
+          v-on:click="control(controls.look.right.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.look.right.icon">{{
+            keybindToggle ? controls.look.right.keybind : ""
+          }}</i>
         </div>
-        <div class="ul-item cbtn scnd" v-on:click="control('y', camera)">
-          <i :class="keybindToggle ? '' : controls.look.zoomin.icon">
-            {{ keybindToggle ? controls.look.zoomin.keybind : "" }}
-          </i>
+        <div
+          class="ul-item cbtn scnd"
+          v-on:click="control(controls.look.zoomin.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.look.zoomin.icon">{{
+            keybindToggle ? controls.look.zoomin.keybind : ""
+          }}</i>
         </div>
-        <div class="ur-item cbtn scnd" v-on:click="control('i', camera)">
-          <i :class="keybindToggle ? '' : controls.look.zoomout.icon">
-            {{ keybindToggle ? controls.look.zoomout.keybind : "" }}
-          </i>
+        <div
+          class="ur-item cbtn scnd"
+          v-on:click="control(controls.look.zoomout.keybind, camera)"
+        >
+          <i :class="keybindToggle ? '' : controls.look.zoomout.icon">{{
+            keybindToggle ? controls.look.zoomout.keybind : ""
+          }}</i>
         </div>
       </div>
     </div>
@@ -97,7 +133,7 @@ export default {
           forward: { keybind: "w", icon: "fa fa-caret-up" },
           backward: { keybind: "s", icon: "fa fa-caret-down" },
           left: { keybind: "a", icon: "fa fa-caret-left" },
-          right: { keybind: "d", icon: "fa fa-caret-up" },
+          right: { keybind: "d", icon: "fa fa-caret-right" },
           up: { keybind: "q", icon: "fa fa-arrow-up" },
           down: { keybind: "e", icon: "fa fa-arrow-down" }
         },
@@ -105,7 +141,7 @@ export default {
           up: { keybind: "u", icon: "fa fa-caret-up" },
           down: { keybind: "j", icon: "fa fa-caret-down" },
           left: { keybind: "h", icon: "fa fa-caret-left" },
-          right: { keybind: "k", icon: "fa fa-caret-up" },
+          right: { keybind: "k", icon: "fa fa-caret-right" },
           zoomin: { keybind: "y", icon: "fa fa-plus" },
           zoomout: { keybind: "i", icon: "fa fa-minus" }
         }
@@ -131,22 +167,22 @@ export default {
       ch = ch.toLowerCase();
 
       // Increas or decreas azimuth with h and k (look left or right)
-      if (ch === "k") {
+      if (ch === this.controls.look.left.keybind) {
         camera.phi += camera.dr;
         return;
       }
-      if (ch === "h") {
+      if (ch === this.controls.look.right.keybind) {
         camera.phi -= camera.dr;
         return;
       }
       // Increase/decrease Altitude with u and j (loop up or down)
-      if (ch === "u") {
+      if (ch === this.controls.look.up.keybind) {
         if (camera.theta < 1.55) {
           camera.theta += camera.dr;
         }
         return;
       }
-      if (ch === "j") {
+      if (ch === this.controls.look.down.keybind) {
         if (camera.theta > -1.55) {
           camera.theta -= camera.dr;
         }
@@ -154,11 +190,11 @@ export default {
       }
 
       // Widen or narrow the verticle feild of view with g or b (zoom in or zoom out essentially)
-      if (ch === "i") {
+      if (ch === this.controls.look.zoomout.keybind) {
         camera.fovy += 1;
         return;
       }
-      if (ch === "y") {
+      if (ch === this.controls.look.zoomin.keybind) {
         camera.fovy -= 1;
         return;
       }
@@ -177,7 +213,7 @@ export default {
 
       // Using the orthonormal basis, move forward, backward, left, right, up and down
       // Left
-      if (ch === "a") {
+      if (ch === this.controls.move.left.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -190,7 +226,7 @@ export default {
         );
       }
       // Backward
-      if (ch === "s") {
+      if (ch === this.controls.move.backward.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -203,7 +239,7 @@ export default {
         );
       }
       // Right
-      if (ch === "d") {
+      if (ch === this.controls.move.right.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -216,7 +252,7 @@ export default {
         );
       }
       // Forward
-      if (ch === "w") {
+      if (ch === this.controls.move.forward.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -229,7 +265,7 @@ export default {
         );
       }
       // Upward
-      if (ch === "q") {
+      if (ch === this.controls.move.up.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -242,7 +278,7 @@ export default {
         );
       }
       // Downward
-      if (ch === "e") {
+      if (ch === this.controls.move.down.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
