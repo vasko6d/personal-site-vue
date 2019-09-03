@@ -151,6 +151,9 @@ export default {
       return camera;
     },
     control(ch, camera) {
+      // Make sure character "ch" is lowercase
+      ch = ch.toLowerCase();
+
       // Increas or decreas azimuth with h and k (look left or right)
       if (ch === "k") {
         camera.phi += camera.dr;

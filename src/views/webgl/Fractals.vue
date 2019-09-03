@@ -177,15 +177,21 @@ export default {
       return golderRectPoints;
     },
 
-    keyPressHandler(e) {
-      if (e === "c") {
+    keyPressHandler(ch) {
+      // Make sure character "ch" is lowercase
+      ch = ch.toLowerCase();
+
+      // Actual key handler logic
+      if (ch === "c") {
         ++this.cIndex;
         if (this.cIndex == 7) {
           this.cIndex += -7;
         }
-      } else if (e === "n") {
+      }
+      if (ch === "n") {
         this.inGasket = !this.inGasket;
-      } else if (e === "r") {
+      }
+      if (ch === "r") {
         this.beginRotation = !this.beginRotation;
       }
     },

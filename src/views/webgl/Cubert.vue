@@ -169,6 +169,9 @@ export default {
     },
 
     keyPressHandler(ch) {
+      // Make sure character "ch" is lowercase
+      ch = ch.toLowerCase();
+
       // Change the colors
       if (ch === "c") {
         this.cIndex = (this.cIndex + 1) % 8;
