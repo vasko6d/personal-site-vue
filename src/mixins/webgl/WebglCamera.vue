@@ -3,60 +3,72 @@
     <div class="crtl-container">
       <div class="h-item">Camera Controls</div>
       <switch-button v-model="keybindToggle" class="main-tr"
-        >Show Kinbind Toggle</switch-button
+        >Show Keyboard Binds</switch-button
       >
       <div class="udlr-group ml">
         <div class="h2-item">Move</div>
         <div class="u-item cbtn prm" v-on:click="control('w', camera)">
-          <span v-if="keybindToggle">{{ controls.move.forward.keybind }}</span>
-          <span v-else v-html="controls.move.forward.icon"></span>
+          <i :class="keybindToggle ? '' : controls.move.forward.icon">
+            {{ keybindToggle ? controls.move.forward.keybind : "" }}
+          </i>
         </div>
         <div class="d-item cbtn prm" v-on:click="control('s', camera)">
-          <span v-if="keybindToggle">{{ controls.move.backward.keybind }}</span>
-          <span v-else v-html="controls.move.backward.icon"></span>
+          <i :class="keybindToggle ? '' : controls.move.backward.icon">
+            {{ keybindToggle ? controls.move.backward.keybind : "" }}
+          </i>
         </div>
         <div class="l-item cbtn prm" v-on:click="control('a', camera)">
-          <span v-if="keybindToggle">{{ controls.move.left.keybind }}</span>
-          <span v-else v-html="controls.move.left.icon"></span>
+          <i :class="keybindToggle ? '' : controls.move.left.icon">
+            {{ keybindToggle ? controls.move.left.keybind : "" }}
+          </i>
         </div>
         <div class="r-item cbtn prm" v-on:click="control('d', camera)">
-          <span v-if="keybindToggle">{{ controls.move.right.keybind }}</span>
-          <span v-else v-html="controls.move.right.icon"></span>
+          <i :class="keybindToggle ? '' : controls.move.right.icon">
+            {{ keybindToggle ? controls.move.right.keybind : "" }}
+          </i>
         </div>
         <div class="ul-item cbtn scnd" v-on:click="control('q', camera)">
-          <span v-if="keybindToggle">{{ controls.move.up.keybind }}</span>
-          <span v-else v-html="controls.move.up.icon"></span>
+          <i :class="keybindToggle ? '' : controls.move.up.icon">
+            {{ keybindToggle ? controls.move.up.keybind : "" }}
+          </i>
         </div>
         <div class="ur-item cbtn scnd" v-on:click="control('e', camera)">
-          <span v-if="keybindToggle">{{ controls.move.down.keybind }}</span>
-          <span v-else v-html="controls.move.down.icon"></span>
+          <i :class="keybindToggle ? '' : controls.move.down.icon">
+            {{ keybindToggle ? controls.move.down.keybind : "" }}
+          </i>
         </div>
       </div>
       <div class="udlr-group mr">
         <div class="h2-item">Look</div>
         <div class="u-item cbtn prm" v-on:click="control('u', camera)">
-          <span v-if="keybindToggle">{{ controls.look.up.keybind }}</span>
-          <span v-else v-html="controls.look.up.icon"></span>
+          <i :class="keybindToggle ? '' : controls.look.up.icon">
+            {{ keybindToggle ? controls.look.up.keybind : "" }}
+          </i>
         </div>
         <div class="d-item cbtn prm" v-on:click="control('j', camera)">
-          <span v-if="keybindToggle">{{ controls.look.down.keybind }}</span>
-          <span v-else v-html="controls.look.down.icon"></span>
+          <i :class="keybindToggle ? '' : controls.look.down.icon">
+            {{ keybindToggle ? controls.look.down.keybind : "" }}
+          </i>
         </div>
         <div class="l-item cbtn prm" v-on:click="control('h', camera)">
-          <span v-if="keybindToggle">{{ controls.look.left.keybind }}</span>
-          <span v-else v-html="controls.look.left.icon"></span>
+          <i :class="keybindToggle ? '' : controls.look.left.icon">
+            {{ keybindToggle ? controls.look.left.keybind : "" }}
+          </i>
         </div>
         <div class="r-item cbtn prm" v-on:click="control('d', camera)">
-          <span v-if="keybindToggle">{{ controls.look.right.keybind }}</span>
-          <span v-else v-html="controls.look.right.icon"></span>
+          <i :class="keybindToggle ? '' : controls.look.right.icon">
+            {{ keybindToggle ? controls.look.right.keybind : "" }}
+          </i>
         </div>
         <div class="ul-item cbtn scnd" v-on:click="control('y', camera)">
-          <span v-if="keybindToggle">{{ controls.look.zoomin.keybind }}</span>
-          <span v-else v-html="controls.look.zoomin.icon"></span>
+          <i :class="keybindToggle ? '' : controls.look.zoomin.icon">
+            {{ keybindToggle ? controls.look.zoomin.keybind : "" }}
+          </i>
         </div>
         <div class="ur-item cbtn scnd" v-on:click="control('i', camera)">
-          <span v-if="keybindToggle">{{ controls.look.zoomout.keybind }}</span>
-          <span v-else v-html="controls.look.zoomout.icon"></span>
+          <i :class="keybindToggle ? '' : controls.look.zoomout.icon">
+            {{ keybindToggle ? controls.look.zoomout.keybind : "" }}
+          </i>
         </div>
       </div>
     </div>
@@ -82,56 +94,20 @@ export default {
       keybindToggle: false,
       controls: {
         move: {
-          forward: {
-            keybind: "w",
-            icon: "<i class='fa fa-caret-up'></i>"
-          },
-          backward: {
-            keybind: "s",
-            icon: "<i class='fa fa-caret-down'></i>"
-          },
-          left: {
-            keybind: "a",
-            icon: "<i class='fa fa-caret-left'></i>"
-          },
-          right: {
-            keybind: "d",
-            icon: "<i class='fa fa-caret-up'></i>"
-          },
-          up: {
-            keybind: "q",
-            icon: "<i class='fa fa-arrow-up'></i>"
-          },
-          down: {
-            keybind: "e",
-            icon: "<i class='fa fa-arrow-down'></i>"
-          }
+          forward: { keybind: "w", icon: "fa fa-caret-up" },
+          backward: { keybind: "s", icon: "fa fa-caret-down" },
+          left: { keybind: "a", icon: "fa fa-caret-left" },
+          right: { keybind: "d", icon: "fa fa-caret-up" },
+          up: { keybind: "q", icon: "fa fa-arrow-up" },
+          down: { keybind: "e", icon: "fa fa-arrow-down" }
         },
         look: {
-          up: {
-            keybind: "u",
-            icon: "<i class='fa fa-caret-up'></i>"
-          },
-          down: {
-            keybind: "j",
-            icon: "<i class='fa fa-caret-down'></i>"
-          },
-          left: {
-            keybind: "h",
-            icon: "<i class='fa fa-caret-left'></i>"
-          },
-          right: {
-            keybind: "k",
-            icon: "<i class='fa fa-caret-up'></i>"
-          },
-          zoomin: {
-            keybind: "y",
-            icon: "<i class='fa fa-plus'></i>"
-          },
-          zoomout: {
-            keybind: "i",
-            icon: "<i class='fa fa-minus'></i>"
-          }
+          up: { keybind: "u", icon: "fa fa-caret-up" },
+          down: { keybind: "j", icon: "fa fa-caret-down" },
+          left: { keybind: "h", icon: "fa fa-caret-left" },
+          right: { keybind: "k", icon: "fa fa-caret-up" },
+          zoomin: { keybind: "y", icon: "fa fa-plus" },
+          zoomout: { keybind: "i", icon: "fa fa-minus" }
         }
       }
     };
@@ -340,7 +316,6 @@ export default {
       .r-item {
         grid-area: r;
       }
-      background-color: rgba($nav-bg, 0.1);
       padding: 2px;
       border-radius: 0.35em;
       margin: 0.5em;
