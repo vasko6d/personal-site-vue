@@ -32,7 +32,7 @@
 // Mixin and Class Imports
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
-import WebglCamera from "@/mixins/webgl/WebglCamera.vue";
+import WebglCamera from "@/components/webgl/WebglCamera.vue";
 //var Timer = require("../mixins/webgl/Timer.js");
 
 // Mixin Aliases
