@@ -337,7 +337,7 @@ export default {
       .r-item {
         grid-area: r;
       }
-      //background-color: rgba($nav-bg, 0.2);
+      background-color: rgba($nav-bg, 0.1);
       padding: 2px;
       border-radius: 0.35em;
       margin: 0.5em;
@@ -348,7 +348,7 @@ export default {
         color: darken($nav-txt, 15%);
         border-radius: 0.35em;
         height: 30px;
-        width: 60px;
+        width: 50px;
       }
       .prm {
         background-color: rgba($nav-bg, 0.2);
