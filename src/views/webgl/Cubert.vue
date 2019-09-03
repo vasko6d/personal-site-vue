@@ -20,7 +20,7 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <h3>Instructions</h3>
+    <webgl-camera :camera="this.camera" />
     <ul>
       <li v-on:click="keyPressHandler('c')">"c" - Change Color of Cubes</li>
       <li v-on:click="keyPressHandler('x')">"x" - Display a Crosshair</li>
@@ -42,6 +42,9 @@ var wglc = WebglCamera.methods;
 
 export default {
   name: "Cubert",
+  components: {
+    WebglCamera
+  },
   data() {
     return {
       // Web Gl Variables
