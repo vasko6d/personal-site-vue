@@ -1,34 +1,34 @@
 <template>
   <div id="fractals">
     <script id="vertex-shader" type="x-shader/x-vertex">
-      attribute vec4 vPos;
-      uniform mat4 mvm;
-      void main()
-      {
-        gl_PointSize = 1.0;
-        gl_Position = mvm * vPos;
-      }
+  attribute vec4 vPos;
+  uniform mat4 mvm;
+  void main()
+  {
+    gl_PointSize = 1.0;
+    gl_Position = mvm * vPos;
+  }
     </script>
     <script id="fragment-shader" type="x-shader/x-fragment">
-      precision mediump float;
-      uniform vec4 Color;
-      void main()
-      {
-      	gl_FragColor = Color;
-      }
+  precision mediump float;
+  uniform vec4 Color;
+  void main()
+  {
+  	gl_FragColor = Color;
+  }
     </script>
-    <canvas id="gl-canvas" width="650px" height="650px"
-      >Oops ... your browser doesn't support the HTML5 canvas element</canvas
-    >
+    <canvas
+      id="gl-canvas"
+      width="650px"
+      height="650px"
+    >Oops ... your browser doesn't support the HTML5 canvas element</canvas>
     <h3>Action Controls</h3>
     <ul>
       <li
         v-for="actn in actionCtrls"
         v-on:click="keyPressHandler(actn.keybind)"
         :key="actn.id"
-      >
-        {{ '"' + actn.keybind + '"' + " - " + actn.desc }}
-      </li>
+      >{{ '"' + actn.keybind + '"' + " - " + actn.desc }}</li>
     </ul>
   </div>
 </template>
@@ -84,17 +84,17 @@ export default {
       actionCtrls: {
         changeColor: {
           keybind: "c",
-          icon: "fa fa-palette",
+          icon: "fas fa-palette",
           desc: "Change Color"
         },
         changeFractal: {
           keybind: "n",
-          icon: "fa fa-step-forward",
+          icon: "fas fa-step-forward",
           desc: "Change Fractal"
         },
         toggleRotation: {
           keybind: "r",
-          icon: "fa fa-sync-alt",
+          icon: "fas fa-sync-alt",
           desc: "Start/Stop Rotation"
         }
       }

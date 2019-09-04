@@ -88,23 +88,39 @@ export default {
     defaultControls() {
       var ctrls = {
         move: {
-          forward: { keybind: "w", icon: "fa fa-caret-up" },
-          backward: { keybind: "s", icon: "fa fa-caret-down" },
-          left: { keybind: "a", icon: "fa fa-caret-left" },
-          right: { keybind: "d", icon: "fa fa-caret-right" },
-          up: { keybind: "q", icon: "fa fa-arrow-up" },
-          down: { keybind: "e", icon: "fa fa-arrow-down" }
+          forward: { keybind: "w", icon: "fas fa-caret-up" },
+          backward: { keybind: "s", icon: "fas fa-caret-down" },
+          left: { keybind: "a", icon: "fas fa-caret-left" },
+          right: { keybind: "d", icon: "fas fa-caret-right" },
+          up: { keybind: "q", icon: "fas fa-arrow-up" },
+          down: { keybind: "e", icon: "fas fa-arrow-down" }
         },
         look: {
-          up: { keybind: "u", icon: "fa fa-caret-up" },
-          down: { keybind: "j", icon: "fa fa-caret-down" },
-          left: { keybind: "h", icon: "fa fa-caret-left" },
-          right: { keybind: "k", icon: "fa fa-caret-right" },
-          zoomin: { keybind: "y", icon: "fa fa-plus" },
-          zoomout: { keybind: "i", icon: "fa fa-minus" }
+          up: { keybind: "u", icon: "fas fa-caret-up" },
+          down: { keybind: "j", icon: "fas fa-caret-down" },
+          left: { keybind: "h", icon: "fas fa-caret-left" },
+          right: { keybind: "k", icon: "fas fa-caret-right" },
+          zoomin: { keybind: "y", icon: "fas fa-plus" },
+          zoomout: { keybind: "i", icon: "fas fa-minus" }
         }
       };
       return ctrls;
+    },
+    getUsedKeybinds(ctrls) {
+      // Make default ctrls if no ctrls were passed
+      if (!ctrls) {
+        ctrls = this.defaultControls();
+      }
+
+      var ret = [];
+      var k1, k2;
+      for (k1 in Object.keys(ctrls)) {
+        for (k2 in Object.keys(ctrls[k1])) {
+          ret[k2] = true;
+        }
+      }
+
+      return ret;
     },
     control(ch, camera, ctrls) {
       // Make sure character "ch" is lowercase
@@ -275,6 +291,7 @@ export default {
     grid-gap: 2px;
     background-color: rgba($nav-bg, 0.3);
     border-radius: 0.35em;
+    margin-top: 1em;
     margin-bottom: 1em;
     text-align: center;
     .udlr-group {
