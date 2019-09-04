@@ -20,11 +20,15 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <h3>Instructions</h3>
+    <h3>Action Controls</h3>
     <ul>
-      <li v-on:click="keyPressHandler('c')">"c" - Change Color</li>
-      <li v-on:click="keyPressHandler('n')">"n" - Change Fractal</li>
-      <li v-on:click="keyPressHandler('r')">"r" - Start/Stop Rotation</li>
+      <li
+        v-for="actn in actionCtrls"
+        v-on:click="keyPressHandler(actn.keybind)"
+        :key="actn.id"
+      >
+        {{ '"' + actn.keybind + '"' + " - " + actn.desc }}
+      </li>
     </ul>
   </div>
 </template>
@@ -74,7 +78,26 @@ export default {
       // Other Display Variables
       inGasket: true,
       beginRotation: false,
-      cIndex: 6 //index to decide which color is used by the fragment shader
+      cIndex: 6, //index to decide which color is used by the fragment shader
+
+      // Keybind Variables
+      actionCtrls: {
+        changeColor: {
+          keybind: "c",
+          icon: "fa fa-palette",
+          desc: "Change Color"
+        },
+        changeFractal: {
+          keybind: "n",
+          icon: "fa fa-step-forward",
+          desc: "Change Fractal"
+        },
+        toggleRotation: {
+          keybind: "r",
+          icon: "fa fa-sync-alt",
+          desc: "Start/Stop Rotation"
+        }
+      }
     };
   },
 
@@ -182,16 +205,14 @@ export default {
       ch = ch.toLowerCase();
 
       // Actual key handler logic
-      if (ch === "c") {
+      if (ch === this.actionCtrls.changeColor.keybind) {
         ++this.cIndex;
         if (this.cIndex == 7) {
           this.cIndex += -7;
         }
-      }
-      if (ch === "n") {
+      } else if (ch === this.actionCtrls.changeFractal.keybind) {
         this.inGasket = !this.inGasket;
-      }
-      if (ch === "r") {
+      } else if (ch === this.actionCtrls.toggleRotation.keybind) {
         this.beginRotation = !this.beginRotation;
       }
     },
