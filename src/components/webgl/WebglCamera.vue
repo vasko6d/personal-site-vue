@@ -1,112 +1,26 @@
 <template>
-  <div id="webgl-camera-controls">
+  <div id="webgl-camera-ctrls">
     <div class="crtl-container">
       <div class="h-item">Camera Controls</div>
-      <switch-button v-model="keybindToggle" class="main-tr"
+      <switch-button v-model="kbToggle" class="main-tr"
         >Show Keyboard Binds</switch-button
       >
-      <div class="udlr-group ml">
-        <div class="h2-item">Move</div>
-        <div
-          class="u-item cbtn prm"
-          v-on:click="control(controls.move.forward.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.move.forward.icon">
-            {{ keybindToggle ? controls.move.forward.keybind : "" }}
-          </i>
+      <template v-for="cType in Object.keys(gridLayout)">
+        <div :class="['udlr-group', gridLayout[cType].gClass]" :key="cType.id">
+          <div class="h2-item">{{ gridLayout[cType].gTitle }}</div>
+          <template v-for="btn in gridLayout[cType].gKeys">
+            <div
+              :key="btn.id"
+              :class="btn.cls"
+              v-on:click="control(ctrls[cType][btn.ctrlName].keybind, camera)"
+            >
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
+            </div>
+          </template>
         </div>
-        <div
-          class="d-item cbtn prm"
-          v-on:click="control(controls.move.backward.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.move.backward.icon">
-            {{ keybindToggle ? controls.move.backward.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="l-item cbtn prm"
-          v-on:click="control(controls.move.left.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.move.left.icon">
-            {{ keybindToggle ? controls.move.left.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="r-item cbtn prm"
-          v-on:click="control(controls.move.right.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.move.right.icon">
-            {{ keybindToggle ? controls.move.right.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="ul-item cbtn scnd"
-          v-on:click="control(controls.move.up.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.move.up.icon">
-            {{ keybindToggle ? controls.move.up.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="ur-item cbtn scnd"
-          v-on:click="control(controls.move.down.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.move.down.icon">
-            {{ keybindToggle ? controls.move.down.keybind : "" }}
-          </i>
-        </div>
-      </div>
-      <div class="udlr-group mr">
-        <div class="h2-item">Look</div>
-        <div
-          class="u-item cbtn prm"
-          v-on:click="control(controls.look.up.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.look.up.icon">
-            {{ keybindToggle ? controls.look.up.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="d-item cbtn prm"
-          v-on:click="control(controls.look.down.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.look.down.icon">
-            {{ keybindToggle ? controls.look.down.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="l-item cbtn prm"
-          v-on:click="control(controls.look.left.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.look.left.icon">
-            {{ keybindToggle ? controls.look.left.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="r-item cbtn prm"
-          v-on:click="control(controls.look.right.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.look.right.icon">
-            {{ keybindToggle ? controls.look.right.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="ul-item cbtn scnd"
-          v-on:click="control(controls.look.zoomin.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.look.zoomin.icon">
-            {{ keybindToggle ? controls.look.zoomin.keybind : "" }}
-          </i>
-        </div>
-        <div
-          class="ur-item cbtn scnd"
-          v-on:click="control(controls.look.zoomout.keybind, camera)"
-        >
-          <i :class="keybindToggle ? '' : controls.look.zoomout.icon">
-            {{ keybindToggle ? controls.look.zoomout.keybind : "" }}
-          </i>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -127,8 +41,34 @@ export default {
   },
   data() {
     return {
-      keybindToggle: false,
-      controls: this.defaultControls()
+      kbToggle: false,
+      ctrls: this.defaultControls(),
+      gridLayout: {
+        move: {
+          gClass: "ml",
+          gTitle: "Move",
+          gKeys: [
+            { cls: "u-item cbtn prm", ctrlName: "forward" },
+            { cls: "d-item cbtn prm", ctrlName: "backward" },
+            { cls: "l-item cbtn prm", ctrlName: "left" },
+            { cls: "r-item cbtn prm", ctrlName: "right" },
+            { cls: "ul-item cbtn scnd", ctrlName: "up" },
+            { cls: "ur-item cbtn scnd", ctrlName: "down" }
+          ]
+        },
+        look: {
+          gClass: "mr",
+          gTitle: "Look",
+          gKeys: [
+            { cls: "u-item cbtn prm", ctrlName: "up" },
+            { cls: "d-item cbtn prm", ctrlName: "down" },
+            { cls: "l-item cbtn prm", ctrlName: "left" },
+            { cls: "r-item cbtn prm", ctrlName: "right" },
+            { cls: "ul-item cbtn scnd", ctrlName: "zoomin" },
+            { cls: "ur-item cbtn scnd", ctrlName: "zoomout" }
+          ]
+        }
+      }
     };
   },
   methods: {
@@ -146,7 +86,7 @@ export default {
       return camera;
     },
     defaultControls() {
-      var controls = {
+      var ctrls = {
         move: {
           forward: { keybind: "w", icon: "fa fa-caret-up" },
           backward: { keybind: "s", icon: "fa fa-caret-down" },
@@ -164,34 +104,34 @@ export default {
           zoomout: { keybind: "i", icon: "fa fa-minus" }
         }
       };
-      return controls;
+      return ctrls;
     },
-    control(ch, camera, controls) {
+    control(ch, camera, ctrls) {
       // Make sure character "ch" is lowercase
       ch = ch.toLowerCase();
 
-      // Make default controls if no controls were passed
-      if (!controls) {
-        controls = this.defaultControls();
+      // Make default ctrls if no ctrls were passed
+      if (!ctrls) {
+        ctrls = this.defaultControls();
       }
 
       // Increas or decreas azimuth with h and k (look left or right)
-      if (ch === controls.look.left.keybind) {
+      if (ch === ctrls.look.left.keybind) {
         camera.phi += camera.dr;
         return;
       }
-      if (ch === controls.look.right.keybind) {
+      if (ch === ctrls.look.right.keybind) {
         camera.phi -= camera.dr;
         return;
       }
       // Increase/decrease Altitude with u and j (loop up or down)
-      if (ch === controls.look.up.keybind) {
+      if (ch === ctrls.look.up.keybind) {
         if (camera.theta < 1.55) {
           camera.theta += camera.dr;
         }
         return;
       }
-      if (ch === controls.look.down.keybind) {
+      if (ch === ctrls.look.down.keybind) {
         if (camera.theta > -1.55) {
           camera.theta -= camera.dr;
         }
@@ -199,11 +139,11 @@ export default {
       }
 
       // Widen or narrow the verticle feild of view with g or b (zoom in or zoom out essentially)
-      if (ch === controls.look.zoomout.keybind) {
+      if (ch === ctrls.look.zoomout.keybind) {
         camera.fovy += 1;
         return;
       }
-      if (ch === controls.look.zoomin.keybind) {
+      if (ch === ctrls.look.zoomin.keybind) {
         camera.fovy -= 1;
         return;
       }
@@ -222,7 +162,7 @@ export default {
 
       // Using the orthonormal basis, move forward, backward, left, right, up and down
       // Left
-      if (ch === controls.move.left.keybind) {
+      if (ch === ctrls.move.left.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -235,7 +175,7 @@ export default {
         );
       }
       // Backward
-      if (ch === controls.move.backward.keybind) {
+      if (ch === ctrls.move.backward.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -248,7 +188,7 @@ export default {
         );
       }
       // Right
-      if (ch === controls.move.right.keybind) {
+      if (ch === ctrls.move.right.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -261,7 +201,7 @@ export default {
         );
       }
       // Forward
-      if (ch === controls.move.forward.keybind) {
+      if (ch === ctrls.move.forward.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -274,7 +214,7 @@ export default {
         );
       }
       // Upward
-      if (ch === controls.move.up.keybind) {
+      if (ch === ctrls.move.up.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -287,7 +227,7 @@ export default {
         );
       }
       // Downward
-      if (ch === controls.move.down.keybind) {
+      if (ch === ctrls.move.down.keybind) {
         camera.translation = mv.mult(
           camera.translation,
           mv.translationMatrix(
@@ -306,7 +246,7 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/styles/variables.scss";
-#webgl-camera-controls {
+#webgl-camera-ctrls {
   user-select: none;
   .crtl-container {
     display: grid;
