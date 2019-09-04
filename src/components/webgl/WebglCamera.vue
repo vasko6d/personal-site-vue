@@ -14,9 +14,9 @@
               :class="btn.cls"
               v-on:click="control(ctrls[cType][btn.ctrlName].keybind, camera)"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
-              </i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
+                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
+              }}</i>
             </div>
           </template>
         </div>
@@ -116,11 +116,11 @@ export default {
       }
 
       // Increas or decreas azimuth with h and k (look left or right)
-      if (ch === ctrls.look.left.keybind) {
+      if (ch === ctrls.look.right.keybind) {
         camera.phi += camera.dr;
         return;
       }
-      if (ch === ctrls.look.right.keybind) {
+      if (ch === ctrls.look.left.keybind) {
         camera.phi -= camera.dr;
         return;
       }
