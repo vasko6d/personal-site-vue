@@ -14,9 +14,9 @@
               :class="btn.cls"
               v-on:click="control(ctrls[cType][btn.ctrlName].keybind, camera)"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
-                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
-              }}</i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
             </div>
           </template>
         </div>
@@ -106,7 +106,7 @@ export default {
       };
       return ctrls;
     },
-    getUsedKeybinds(ctrls) {
+    dumpKeysWithHoldFlag(ctrls) {
       // Make default ctrls if no ctrls were passed
       if (!ctrls) {
         ctrls = this.defaultControls();

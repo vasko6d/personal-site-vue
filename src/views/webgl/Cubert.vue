@@ -101,14 +101,29 @@ export default {
       // Other Display Variables
       dt: 0.0,
       cIndex: 0,
-      keepTime: true
+      keepTime: true,
+
+      // Keybind variables
+      activeKeyList: []
     };
   },
 
   mounted() {
     this.configureWebGL();
-    window.addEventListener("keypress", e => {
-      this.keyPressHandler(String.fromCharCode(e.keyCode));
+    window.addEventListener("keydown", e => {
+      let ch = String.fromCharCode(e.keyCode);
+      this.keyPressHandler(ch);
+      var index = this.activeKeyList.indexOf(ch);
+      if (index === -1) {
+        this.activeKeyList.push(ch);
+      }
+    });
+    window.addEventListener("keyup", e => {
+      let ch = String.fromCharCode(e.keyCode);
+      var index = this.activeKeyList.indexOf(ch);
+      if (index > -1) {
+        this.activeKeyList.splice(index, 1);
+      }
     });
     this.render();
   },
@@ -166,6 +181,12 @@ export default {
       vertices.push(mv.vec4(0, 7, 14.9, 1));
       vertices.push(mv.vec4(0, -7, 14.9, 1));
       return vertices;
+    },
+
+    activeKeyHandler() {
+      this.activeKeyList.map(ch => {
+        this.keyPressHandler(ch);
+      });
     },
 
     keyPressHandler(ch) {
