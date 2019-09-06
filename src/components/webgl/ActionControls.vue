@@ -17,9 +17,9 @@
             class="cbtn prm"
             v-on:click="actionCtrls[aKey].updateFlag = true"
           >
-            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
-              {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
-            </i>
+            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">{{
+              kbToggle ? actionCtrls[aKey].keybind : ""
+            }}</i>
           </div>
         </template>
       </div>
@@ -58,6 +58,7 @@ export default {
       display: grid;
       grid-template-areas: ".  .  h  h  kt kt";
       grid-template-columns: repeat(6, 1fr);
+      margin-bottom: 0.5em;
       .h-item {
         grid-area: h;
         font-weight: bold;
@@ -69,20 +70,23 @@ export default {
         text-align: right;
       }
     }
-
-    .cbtn {
-      text-align: center;
-      margin: 0.25em;
-      color: darken($nav-txt, 15%);
-      border-radius: 0.35em;
-      height: 30px;
-      width: 50px;
-    }
-    .prm {
-      background-color: rgba($nav-bg, 0.2);
-      &:hover {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.6);
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+      .cbtn {
+        text-align: center;
+        margin: 0.25em;
+        color: darken($nav-txt, 15%);
+        border-radius: 0.35em;
+        height: 30px;
+      }
+      .prm {
+        background-color: rgba($nav-bg, 0.2);
+        &:hover {
+          color: $nav-txt;
+          background-color: rgba($nav-bg, 0.6);
+        }
       }
     }
   }
