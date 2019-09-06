@@ -160,6 +160,7 @@ export default {
             updateFxn(vav) {
               if (vav.camera.theta < 1.55) {
                 vav.camera.theta += vav.camera.dr;
+                vav.camera.orthoNormalUpdateFlag = true;
               }
             }
           },
@@ -171,6 +172,7 @@ export default {
             updateFxn(vav) {
               if (vav.camera.theta > -1.55) {
                 vav.camera.theta -= vav.camera.dr;
+                vav.camera.orthoNormalUpdateFlag = true;
               }
             }
           },
@@ -181,6 +183,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.phi -= vav.camera.dr;
+              vav.camera.orthoNormalUpdateFlag = true;
             }
           },
           right: {
@@ -190,6 +193,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.phi += vav.camera.dr;
+              vav.camera.orthoNormalUpdateFlag = true;
             }
           },
           zoomin: {
