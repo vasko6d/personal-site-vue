@@ -11,7 +11,11 @@
           <template v-for="btn in gridLayout[cType].gKeys">
             <div
               :key="btn.id"
-              :class="btn.cls"
+              :class="
+                btn.cls.concat({
+                  pactive: ctrls[cType][btn.ctrlName].updateFlag
+                })
+              "
               v-on:click="ctrls[cType][btn.ctrlName].updateFlag = true"
             >
               <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
@@ -48,24 +52,24 @@ export default {
           gClass: "ml",
           gTitle: "Move",
           gKeys: [
-            { cls: "u-item cbtn prm", ctrlName: "forward" },
-            { cls: "d-item cbtn prm", ctrlName: "backward" },
-            { cls: "l-item cbtn prm", ctrlName: "left" },
-            { cls: "r-item cbtn prm", ctrlName: "right" },
-            { cls: "ul-item cbtn scnd", ctrlName: "up" },
-            { cls: "ur-item cbtn scnd", ctrlName: "down" }
+            { cls: ["u-item", "cbtn", "prm"], ctrlName: "forward" },
+            { cls: ["d-item", "cbtn", "prm"], ctrlName: "backward" },
+            { cls: ["l-item", "cbtn", "prm"], ctrlName: "left" },
+            { cls: ["r-item", "cbtn", "prm"], ctrlName: "right" },
+            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "up" },
+            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "down" }
           ]
         },
         look: {
           gClass: "mr",
           gTitle: "Look",
           gKeys: [
-            { cls: "u-item cbtn prm", ctrlName: "up" },
-            { cls: "d-item cbtn prm", ctrlName: "down" },
-            { cls: "l-item cbtn prm", ctrlName: "left" },
-            { cls: "r-item cbtn prm", ctrlName: "right" },
-            { cls: "ul-item cbtn scnd", ctrlName: "zoomin" },
-            { cls: "ur-item cbtn scnd", ctrlName: "zoomout" }
+            { cls: ["u-item", "cbtn", "prm"], ctrlName: "up" },
+            { cls: ["d-item", "cbtn", "prm"], ctrlName: "down" },
+            { cls: ["l-item", "cbtn", "prm"], ctrlName: "left" },
+            { cls: ["r-item", "cbtn", "prm"], ctrlName: "right" },
+            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "zoomin" },
+            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "zoomout" }
           ]
         }
       }
@@ -333,9 +337,13 @@ export default {
         background-color: rgba(darken($nav-bg, 20%), 0.3);
         color: darken($nav-txt, 30%);
         &:hover {
-          color: darken($nav-txt, 20%);
-          background-color: rgba(darken($nav-bg, 20%), 0.6);
+          color: $nav-txt;
+          background-color: rgba($nav-bg, 0.6);
         }
+      }
+      .pactive {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.6);
       }
     }
   }
