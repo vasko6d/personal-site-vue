@@ -20,12 +20,8 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <webgl-camera :camera="this.camera" />
-    <ul>
-      <li v-on:click="keyPressHandler('c')">"c" - Change Color of Cubes</li>
-      <li v-on:click="keyPressHandler('x')">"x" - Display a Crosshair</li>
-      <li v-on:click="keyPressHandler('z')">"z" - Revert to Original State</li>
-    </ul>
+    <webgl-camera :camera="vav.camera" :ctrls="cameraCtrls" />
+    <action-controls :actionCtrls="actionCtrls" />
   </div>
 </template>
 <script>
@@ -33,6 +29,7 @@
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
 import WebglCamera from "@/components/webgl/WebglCamera.vue";
+import ActionControls from "@/components/webgl/ActionControls.vue";
 //var Timer = require("../mixins/webgl/Timer.js");
 
 // Mixin Aliases
@@ -43,7 +40,8 @@ var wglc = WebglCamera.methods;
 export default {
   name: "Cubert",
   components: {
-    WebglCamera
+    WebglCamera,
+    ActionControls
   },
   data() {
     return {
@@ -74,7 +72,6 @@ export default {
       buf: {
         points: ""
       },
-      camera: wglc.initCamera(mv.vec3(30, 0, 0)),
 
       // Data Variables
       cubePositions: [
@@ -93,36 +90,90 @@ export default {
         left: -15.0,
         right: 15.0,
         top: 15.0,
-        bottom: -15.0,
-        show: false
+        bottom: -15.0
       },
       vertices: this.generateCube().concat(this.generateCrosshair(0.1)),
 
-      // Other Display Variables
-      dt: 0.0,
-      cIndex: 0,
-      keepTime: true,
+      // [V]iew [A]ffecting [V]ariables
+      vav: {
+        dt: 0.0,
+        cIndex: 0,
+        showCrosshair: false,
+        camera: wglc.initCamera(mv.vec3(30, 0, 0))
+      },
 
-      // Keybind variables
-      activeKeyList: []
+      // Camera Keybind variables
+      cameraCtrls: wglc.defaultControls(),
+      invCameraCtrls: "", // initialize during mount
+
+      // Other Keybind Variables
+      actionCtrls: {
+        changeColor: {
+          keybind: "c",
+          icon: "fas fa-palette",
+          desc: "Change Color of Cubes",
+          holdable: false,
+          updateFlag: false,
+          updateFxn: function(vav) {
+            vav.cIndex = (vav.cIndex + 1) % 8;
+          }
+        },
+        toggleChrosshair: {
+          keybind: "x",
+          icon: "fas fa-crosshairs",
+          desc: "Toggle Crosshair On/Off",
+          holdable: false,
+          updateFlag: false,
+          updateFxn: function(vav) {
+            vav.showCrosshair = !vav.showCrosshair;
+          }
+        },
+        revert: {
+          keybind: "z",
+          icon: "fas fa-undo",
+          desc: "Revert to Original State",
+          holdable: false,
+          updateFlag: false,
+          updateFxn: function(vav) {
+            vav.camera = wglc.initCamera(vav.camera.origCameraPosition);
+            vav.dt = 0.0;
+            vav.cIndex = 0;
+            vav.showCrosshair = false;
+          }
+        }
+      },
+      invActionCtrls: "" // initialize during mount
     };
   },
 
   mounted() {
     this.configureWebGL();
+    this.invCameraCtrls = {
+      ...wglc.genInvertedControlObject(this.cameraCtrls.move, "move"),
+      ...wglc.genInvertedControlObject(this.cameraCtrls.look, "look")
+    };
+    this.invActionCtrls = wglc.genInvertedControlObject(this.actionCtrls);
     window.addEventListener("keydown", e => {
-      let ch = String.fromCharCode(e.keyCode);
-      this.keyPressHandler(ch);
-      var index = this.activeKeyList.indexOf(ch);
-      if (index === -1) {
-        this.activeKeyList.push(ch);
+      let ch = String.fromCharCode(e.keyCode).toLowerCase();
+      if (ch in this.invActionCtrls) {
+        this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
+        this.executeActions(this.actionCtrls);
+      }
+      if (ch in this.invCameraCtrls) {
+        let invCC = this.invCameraCtrls[ch];
+        this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = true;
+        this.executeActions(this.cameraCtrls.move);
+        this.executeActions(this.cameraCtrls.look);
       }
     });
     window.addEventListener("keyup", e => {
-      let ch = String.fromCharCode(e.keyCode);
-      var index = this.activeKeyList.indexOf(ch);
-      if (index > -1) {
-        this.activeKeyList.splice(index, 1);
+      let ch = String.fromCharCode(e.keyCode).toLowerCase();
+      if (ch in this.invActionCtrls) {
+        this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = false;
+      }
+      if (ch in this.invCameraCtrls) {
+        let invCC = this.invCameraCtrls[ch];
+        this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = false;
       }
     });
     this.render();
@@ -183,38 +234,16 @@ export default {
       return vertices;
     },
 
-    activeKeyHandler() {
-      this.activeKeyList.map(ch => {
-        this.keyPressHandler(ch);
-      });
-    },
-
-    keyPressHandler(ch) {
-      // Make sure character "ch" is lowercase
-      ch = ch.toLowerCase();
-
-      // Change the colors
-      if (ch === "c") {
-        this.cIndex = (this.cIndex + 1) % 8;
+    executeActions(ctrls) {
+      var actions = Object.keys(ctrls);
+      for (let action of actions) {
+        if (ctrls[action].updateFlag) {
+          ctrls[action].updateFxn(this.vav);
+          if (!ctrls[action].holdable) {
+            ctrls[action].updateFlag = false;
+          }
+        }
       }
-      // Display a crosshair
-      if (ch === "x") {
-        this.crosshair.show = !this.crosshair.show;
-      }
-      // Pause Time
-      if (ch === "p") {
-        this.keepTime = !this.keepTime;
-      }
-      // Revert to the original view with z
-      if (ch === "z") {
-        this.camera = wglc.initCamera(this.camera.origCameraPosition);
-        this.dt = 0.0;
-        this.cIndex = 0;
-        this.keepTime = true;
-        this.crosshair.show = false;
-      }
-      // pass the key to the default camera controller
-      wglc.control(ch, this.camera);
     },
 
     configureWebGL() {
@@ -246,7 +275,7 @@ export default {
 
     renderCube(num) {
       // Set the Cube Color
-      let icIndex = (num + this.cIndex) % 8;
+      let icIndex = (num + this.vav.cIndex) % 8;
       this.gl.uniform4f(
         this.loc.color,
         this.val.color[icIndex][0],
@@ -260,29 +289,29 @@ export default {
       switch (num) {
         // Scaled Cubes
         case 0:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.dt / 2));
+          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.vav.dt / 2));
           break;
         case 1:
-          m = mv.scalarMatrix(1 + 0.03 * Math.sin(this.dt + num / 1.17));
+          m = mv.scalarMatrix(1 + 0.03 * Math.sin(this.vav.dt + num / 1.17));
           break;
         case 6:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.dt + num / 1.17));
+          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.vav.dt + num / 1.17));
           break;
         case 7:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.dt * 2 + num / 1.17));
+          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.vav.dt * 2 + num / 1.17));
           break;
         // Rotated Cubes
         case 2:
-          m = mv.rotationMatrix((this.dt * 180) / Math.PI / 2, [1, 0, 0]);
+          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI / 2, [1, 0, 0]);
           break;
         case 3:
-          m = mv.rotationMatrix((this.dt * 180) / Math.PI, [0, 1, 0]);
+          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI, [0, 1, 0]);
           break;
         case 4:
-          m = mv.rotationMatrix((this.dt * 180) / Math.PI / 4, [0, 0, 1]);
+          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI / 4, [0, 0, 1]);
           break;
         case 5:
-          m = mv.rotationMatrix((this.dt * 180) / Math.PI, [1, 1, 1]);
+          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI, [1, 1, 1]);
           break;
       }
       var t = mv.translationMatrix(this.cubePositions[num]); // Move the vertexed cube to our rendering location
@@ -302,19 +331,23 @@ export default {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
       let at = mv.vec3(
-        Math.cos(this.camera.theta) * Math.cos(this.camera.phi),
-        Math.sin(this.camera.theta),
-        Math.cos(this.camera.theta) * Math.sin(this.camera.phi)
+        Math.cos(this.vav.camera.theta) * Math.cos(this.vav.camera.phi),
+        Math.sin(this.vav.camera.theta),
+        Math.cos(this.vav.camera.theta) * Math.sin(this.vav.camera.phi)
       ); // Initially [1, 0, 0]: on the positive x-axis looking toward the origin
 
-      this.dt = this.dt + 0.1; //keep tract of "time"
+      // Action Updates
+      this.executeActions(this.cameraCtrls.move);
+      this.executeActions(this.cameraCtrls.look);
+      this.executeActions(this.actionCtrls);
+      this.vav.dt = this.vav.dt + 0.1; //keep tract of "time"
 
       // Take into account camera
       this.val.mvm = mv.mult(
-        mv.lookAt(this.camera.eye, at, this.camera.up),
-        this.camera.translation
+        mv.lookAt(this.vav.camera.eye, at, this.vav.camera.up),
+        this.vav.camera.translation
       );
-      this.val.proj = mv.perspective(this.camera.fovy, 1.0, 0.1, 100);
+      this.val.proj = mv.perspective(this.vav.camera.fovy, 1.0, 0.1, 100);
 
       // Render Each Cube
       for (let i = 0; i < this.cubePositions.length; ++i) {
@@ -322,7 +355,7 @@ export default {
       }
 
       // Render the Crosshair
-      if (this.crosshair.show) {
+      if (this.vav.showCrosshair) {
         this.gl.uniform4f(
           this.loc.color,
           this.val.color[1][0],
