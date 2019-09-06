@@ -569,36 +569,6 @@ export default {
 
     sizeof(type) {
       return this.sizes[type];
-    },
-
-    // Special helpers for Implementation of webGL Camera
-    genOrthoNormal(phi, theta) {
-      // By rotating the original orthonormal basis twice we get a new ortonormal
-      // basis that is based on our current camera position
-      var orthoNormal = this.rotationMatrix((phi * 180) / Math.PI, [0, 1, 0]);
-      orthoNormal = this.mult(
-        this.rotationMatrix((-1 * theta * 180) / Math.PI, [0, 0, 1]),
-        orthoNormal
-      );
-      return orthoNormal;
-    },
-    move(camera, d, vectorNum) {
-      // Using the orthonormal basis, move forward, backward, left, right, up and down
-      if (camera.orthoNormalUpdateFlag) {
-        camera.orthoNormal = this.genOrthoNormal(camera.phi, camera.theta);
-        camera.orthoNormalUpdateFlag = false;
-      }
-      let onv = camera.orthoNormal[vectorNum];
-      camera.translation = this.mult(
-        camera.translation,
-        this.translationMatrix(
-          this.vec3(
-            camera.stepSize * d * onv[0],
-            camera.stepSize * d * onv[1],
-            camera.stepSize * d * onv[2]
-          )
-        )
-      );
     }
   }
 };

@@ -14,9 +14,9 @@
               :class="btn.cls"
               v-on:click="ctrls[cType][btn.ctrlName].updateFlag = true"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
-              </i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
+                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
+              }}</i>
             </div>
           </template>
         </div>
@@ -82,7 +82,7 @@ export default {
         fovy: 90,
         stepSize: 0.25,
         translation: mv.translationMatrix(origCameraPos),
-        orthoNormal: mv.genOrthoNormal(0.0, 0.0),
+        orthoNormal: this.genOrthoNormal(0.0, 0.0),
         orthoNormalUpdateFlag: false,
         origCameraPosition: origCameraPos
       };
@@ -97,8 +97,8 @@ export default {
             icon: "fas fa-caret-up",
             holdable: true,
             updateFlag: false,
-            updateFxn(vav) {
-              mv.move(vav.camera, -1, 0);
+            updateFxn: vav => {
+              this.move(vav.camera, -1, 0);
             }
           },
           backward: {
@@ -106,8 +106,8 @@ export default {
             icon: "fas fa-caret-down",
             holdable: true,
             updateFlag: false,
-            updateFxn(vav) {
-              mv.move(vav.camera, 1, 0);
+            updateFxn: vav => {
+              this.move(vav.camera, 1, 0);
             }
           },
           left: {
@@ -115,8 +115,8 @@ export default {
             icon: "fas fa-caret-left",
             holdable: true,
             updateFlag: false,
-            updateFxn(vav) {
-              mv.move(vav.camera, 1, 2);
+            updateFxn: vav => {
+              this.move(vav.camera, 1, 2);
             }
           },
           right: {
@@ -124,8 +124,8 @@ export default {
             icon: "fas fa-caret-right",
             holdable: true,
             updateFlag: false,
-            updateFxn(vav) {
-              mv.move(vav.camera, -1, 2);
+            updateFxn: vav => {
+              this.move(vav.camera, -1, 2);
             }
           },
           up: {
@@ -133,8 +133,8 @@ export default {
             icon: "fas fa-arrow-up",
             holdable: true,
             updateFlag: false,
-            updateFxn(vav) {
-              mv.move(vav.camera, -1, 1);
+            updateFxn: vav => {
+              this.move(vav.camera, -1, 1);
             }
           },
           down: {
@@ -142,8 +142,8 @@ export default {
             icon: "fas fa-arrow-down",
             holdable: true,
             updateFlag: false,
-            updateFxn(vav) {
-              mv.move(vav.camera, 1, 1);
+            updateFxn: vav => {
+              this.move(vav.camera, 1, 1);
             }
           }
         },
@@ -218,6 +218,36 @@ export default {
         invCtrls[ctrls[cKey].keybind] = prePath ? [prePath, cKey] : [cKey];
       }
       return invCtrls;
+    },
+
+    genOrthoNormal(phi, theta) {
+      // By rotating the original orthonormal basis twice we get a new ortonormal
+      // basis that is based on our current camera position
+      var orthoNormal = mv.rotationMatrix((phi * 180) / Math.PI, [0, 1, 0]);
+      orthoNormal = mv.mult(
+        mv.rotationMatrix((-1 * theta * 180) / Math.PI, [0, 0, 1]),
+        orthoNormal
+      );
+      return orthoNormal;
+    },
+
+    move(camera, d, vectorNum) {
+      // Using the orthonormal basis, move forward, backward, left, right, up and down
+      if (camera.orthoNormalUpdateFlag) {
+        camera.orthoNormal = this.genOrthoNormal(camera.phi, camera.theta);
+        camera.orthoNormalUpdateFlag = false;
+      }
+      let onv = camera.orthoNormal[vectorNum];
+      camera.translation = mv.mult(
+        camera.translation,
+        mv.translationMatrix(
+          mv.vec3(
+            camera.stepSize * d * onv[0],
+            camera.stepSize * d * onv[1],
+            camera.stepSize * d * onv[2]
+          )
+        )
+      );
     }
   }
 };
