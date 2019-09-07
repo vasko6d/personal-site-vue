@@ -20,30 +20,27 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <h3>Action Controls</h3>
-    <ul>
-      <li
-        v-for="actn in actionCtrls"
-        v-on:click="keyPressHandler(actn.keybind)"
-        :key="actn.id"
-      >
-        {{ '"' + actn.keybind + '"' + " - " + actn.desc }}
-      </li>
-    </ul>
+    <action-controls :actionCtrls="actionCtrls" />
   </div>
 </template>
 <script>
 // Mixin and Class Imports
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
+import WebglCamera from "@/components/webgl/WebglCamera.vue";
+import ActionControls from "@/components/webgl/ActionControls.vue";
 //var Timer = require("../mixins/webgl/Timer.js");
 
 // Mixin Aliases
 var mv = MatrixMath.methods;
 var wglu = WebGLUtils.methods;
+var wglc = WebglCamera.methods;
 
 export default {
   name: "Fractals",
+  components: {
+    ActionControls
+  },
   data() {
     return {
       // Web Gl Variables
@@ -76,35 +73,64 @@ export default {
       goldenRectPoints: this.generateGoldenRectangle(12),
 
       // Other Display Variables
-      inGasket: true,
-      beginRotation: false,
-      cIndex: 6, //index to decide which color is used by the fragment shader
+      vav: {
+        inGasket: true,
+        beginRotation: false,
+        cIndex: 6 //index to decide which color is used by the fragment shader
+      },
 
       // Keybind Variables
       actionCtrls: {
         changeColor: {
           keybind: "c",
           icon: "fas fa-palette",
-          desc: "Change Color"
+          desc: "Change Color",
+          holdable: true,
+          updateFlag: false,
+          updateFxn: function(vav) {
+            vav.cIndex = (vav.cIndex + 1) % 7;
+          }
         },
         changeFractal: {
           keybind: "n",
           icon: "fas fa-step-forward",
-          desc: "Change Fractal"
+          desc: "Change Fractal",
+          holdable: false,
+          updateFlag: false,
+          updateFxn: function(vav) {
+            vav.inGasket = !vav.inGasket;
+          }
         },
         toggleRotation: {
           keybind: "r",
           icon: "fas fa-sync-alt",
-          desc: "Start/Stop Rotation"
+          desc: "Start/Stop Rotation",
+          holdable: false,
+          updateFlag: false,
+          updateFxn: function(vav) {
+            vav.beginRotation = !vav.beginRotation;
+          }
         }
-      }
+      },
+      invActionCtrls: ""
     };
   },
 
   mounted() {
     this.configureWebGL();
-    window.addEventListener("keypress", e => {
-      this.keyPressHandler(String.fromCharCode(e.keyCode));
+    this.invActionCtrls = wglc.genInvertedControlObject(this.actionCtrls);
+    window.addEventListener("keydown", e => {
+      let ch = String.fromCharCode(e.keyCode).toLowerCase();
+      if (ch in this.invActionCtrls) {
+        this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
+        this.executeActions(this.actionCtrls);
+      }
+    });
+    window.addEventListener("keyup", e => {
+      let ch = String.fromCharCode(e.keyCode).toLowerCase();
+      if (ch in this.invActionCtrls) {
+        this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = false;
+      }
     });
     this.render();
   },
@@ -200,20 +226,15 @@ export default {
       return golderRectPoints;
     },
 
-    keyPressHandler(ch) {
-      // Make sure character "ch" is lowercase
-      ch = ch.toLowerCase();
-
-      // Actual key handler logic
-      if (ch === this.actionCtrls.changeColor.keybind) {
-        ++this.cIndex;
-        if (this.cIndex == 7) {
-          this.cIndex += -7;
+    executeActions(ctrls) {
+      var actions = Object.keys(ctrls);
+      for (let action of actions) {
+        if (ctrls[action].updateFlag) {
+          ctrls[action].updateFxn(this.vav);
+          if (!ctrls[action].holdable) {
+            ctrls[action].updateFlag = false;
+          }
         }
-      } else if (ch === this.actionCtrls.changeFractal.keybind) {
-        this.inGasket = !this.inGasket;
-      } else if (ch === this.actionCtrls.toggleRotation.keybind) {
-        this.beginRotation = !this.beginRotation;
       }
     },
 
@@ -221,13 +242,13 @@ export default {
       // Set Color Data
       this.gl.uniform4f(
         this.loc.color,
-        this.val.color[this.cIndex][0],
-        this.val.color[this.cIndex][1],
-        this.val.color[this.cIndex][2],
-        this.val.color[this.cIndex][3]
+        this.val.color[this.vav.cIndex][0],
+        this.val.color[this.vav.cIndex][1],
+        this.val.color[this.vav.cIndex][2],
+        this.val.color[this.vav.cIndex][3]
       );
       // Set Vertices
-      if (this.inGasket) {
+      if (this.vav.inGasket) {
         this.gl.bufferData(
           this.gl.ARRAY_BUFFER,
           mv.flatten(this.gasketPoints),
@@ -266,13 +287,14 @@ export default {
 
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+      this.executeActions(this.actionCtrls);
       this.setBufferData();
 
-      if (this.beginRotation) {
+      if (this.vav.beginRotation) {
         this.val.mvm = mv.mult(this.val.mvm, mv.rotationMatrix(1, [0, 0, 1]));
         this.gl.uniformMatrix4fv(this.loc.mvm, false, mv.flatten(this.val.mvm));
       }
-      if (this.inGasket) {
+      if (this.vav.inGasket) {
         this.gl.drawArrays(this.gl.POINTS, 0, this.gasketPoints.length);
       } else {
         this.gl.drawArrays(this.gl.LINES, 0, this.goldenRectPoints.length);
