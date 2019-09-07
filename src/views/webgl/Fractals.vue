@@ -85,7 +85,7 @@ export default {
           keybind: "c",
           icon: "fas fa-palette",
           desc: "Change Color",
-          holdable: true,
+          holdable: false,
           updateFlag: false,
           updateFxn: function(vav) {
             vav.cIndex = (vav.cIndex + 1) % 7;

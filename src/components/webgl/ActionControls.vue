@@ -72,6 +72,7 @@ export default {
       display: grid;
       grid-template-areas: ".  .  h  h  kt kt";
       grid-template-columns: repeat(6, 1fr);
+      margin-bottom: 0.5em;
       .h-item {
         grid-area: h;
         font-weight: bold;
