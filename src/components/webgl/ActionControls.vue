@@ -1,10 +1,17 @@
 <template>
   <div id="action-ctrls">
+    <control-help-modal
+      v-if="showModal"
+      @close="showModal = false"
+      title="Action Control Help"
+      :ctrls="actionCtrls"
+      :depth="1"
+    />
     <div class="crtl-container">
       <div class="head-container">
         <div class="h-item">
           Action Controls&nbsp;
-          <i class="fas fa-question-circle"></i>
+          <i class="fas fa-question-circle" @click="showModal = true"></i>
         </div>
         <switch-button v-model="kbToggle" class="main-tr"
           >Show Keyboard Binds</switch-button
@@ -17,9 +24,9 @@
             class="cbtn prm"
             v-on:click="actionCtrls[aKey].updateFlag = true"
           >
-            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">{{
-              kbToggle ? actionCtrls[aKey].keybind : ""
-            }}</i>
+            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
+              {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
+            </i>
           </div>
         </template>
       </div>
@@ -29,17 +36,20 @@
 
 <script>
 import SwitchButton from "@/components/SwitchButton.vue";
+import ControlHelpModal from "@/components/webgl/ControlHelpModal.vue";
 export default {
   name: "ActionControls",
   props: {
     actionCtrls: Object
   },
   components: {
-    SwitchButton
+    SwitchButton,
+    ControlHelpModal
   },
   data() {
     return {
-      kbToggle: false
+      kbToggle: false,
+      showModal: false
     };
   }
 };
@@ -53,15 +63,22 @@ export default {
     border-radius: 0.35em;
     margin-top: 1em;
     margin-bottom: 1em;
+    padding-bottom: 0.5em;
     text-align: center;
     .head-container {
       display: grid;
       grid-template-areas: ".  .  h  h  kt kt";
       grid-template-columns: repeat(6, 1fr);
-      margin-bottom: 0.5em;
       .h-item {
         grid-area: h;
         font-weight: bold;
+        i {
+          cursor: pointer;
+          color: darken($nav-txt, 20%);
+          &:hover {
+            color: $nav-txt;
+          }
+        }
       }
       .main-tr {
         grid-area: kt;
@@ -74,12 +91,14 @@ export default {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 10px;
+      margin-bottom: 0.5em;
       .cbtn {
         text-align: center;
         margin: 0.25em;
         color: darken($nav-txt, 15%);
         border-radius: 0.35em;
         height: 30px;
+        cursor: pointer;
       }
       .prm {
         background-color: rgba($nav-bg, 0.2);

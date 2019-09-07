@@ -1,7 +1,17 @@
 <template>
   <div id="webgl-camera-ctrls">
+    <control-help-modal
+      v-if="showModal"
+      @close="showModal = false"
+      title="Camera Control Help"
+      :ctrls="ctrls"
+      :depth="2"
+    />
     <div class="crtl-container">
-      <div class="h-item">Camera Controls</div>
+      <div class="h-item">
+        Camera Controls&nbsp;
+        <i class="fas fa-question-circle" @click="showModal = true"></i>
+      </div>
       <switch-button v-model="kbToggle" class="main-tr"
         >Show Keyboard Binds</switch-button
       >
@@ -33,6 +43,7 @@
 // Mixin and Class Imports
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import SwitchButton from "@/components/SwitchButton.vue";
+import ControlHelpModal from "@/components/webgl/ControlHelpModal.vue";
 var mv = MatrixMath.methods;
 
 export default {
@@ -42,11 +53,13 @@ export default {
     ctrls: Object
   },
   components: {
-    SwitchButton
+    SwitchButton,
+    ControlHelpModal
   },
   data() {
     return {
       kbToggle: false,
+      showModal: false,
       gridLayout: {
         move: {
           gClass: "ml",
@@ -99,6 +112,7 @@ export default {
           forward: {
             keybind: "w",
             icon: "fas fa-caret-up",
+            desc: "Move forward",
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
@@ -108,6 +122,7 @@ export default {
           backward: {
             keybind: "s",
             icon: "fas fa-caret-down",
+            desc: "Move backward",
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
@@ -117,6 +132,7 @@ export default {
           left: {
             keybind: "a",
             icon: "fas fa-caret-left",
+            desc: "Strafe left",
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
@@ -126,6 +142,7 @@ export default {
           right: {
             keybind: "d",
             icon: "fas fa-caret-right",
+            desc: "Strafe right",
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
@@ -135,6 +152,7 @@ export default {
           up: {
             keybind: "q",
             icon: "fas fa-arrow-up",
+            desc: "Float upward",
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
@@ -144,6 +162,7 @@ export default {
           down: {
             keybind: "e",
             icon: "fas fa-arrow-down",
+            desc: "Sink downward",
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
@@ -155,6 +174,7 @@ export default {
           up: {
             keybind: "u",
             icon: "fas fa-caret-up",
+            desc: "Look upward",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
@@ -167,6 +187,7 @@ export default {
           down: {
             keybind: "j",
             icon: "fas fa-caret-down",
+            desc: "Look downward",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
@@ -179,6 +200,7 @@ export default {
           left: {
             keybind: "h",
             icon: "fas fa-caret-left",
+            desc: "Look left",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
@@ -189,6 +211,7 @@ export default {
           right: {
             keybind: "k",
             icon: "fas fa-caret-right",
+            desc: "Look right",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
@@ -199,6 +222,7 @@ export default {
           zoomin: {
             keybind: "y",
             icon: "fas fa-plus",
+            desc: "Narrow field of view",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
@@ -208,6 +232,7 @@ export default {
           zoomout: {
             keybind: "i",
             icon: "fas fa-minus",
+            desc: "Widen field of view",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
@@ -275,6 +300,13 @@ export default {
     .h-item {
       grid-area: h;
       font-weight: bold;
+      i {
+        cursor: pointer;
+        color: darken($nav-txt, 20%);
+        &:hover {
+          color: $nav-txt;
+        }
+      }
     }
     .ml {
       grid-area: ml;
@@ -329,6 +361,7 @@ export default {
         border-radius: 0.35em;
         height: 30px;
         width: 50px;
+        cursor: pointer;
       }
       .prm {
         background-color: rgba($nav-bg, 0.2);
