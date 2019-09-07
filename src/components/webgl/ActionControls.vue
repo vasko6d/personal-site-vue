@@ -22,11 +22,14 @@
           <div
             :key="actionCtrls[aKey].id"
             class="cbtn prm"
-            v-on:click="actionCtrls[aKey].updateFlag = true"
+            @mousedown="actionCtrls[aKey].updateFlag = true"
+            @touchstart="actionCtrls[aKey].updateFlag = true"
+            @mouseup="actionCtrls[aKey].updateFlag = false"
+            @touchend="actionCtrls[aKey].updateFlag = false"
           >
-            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
-              {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
-            </i>
+            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">{{
+              kbToggle ? actionCtrls[aKey].keybind : ""
+            }}</i>
           </div>
         </template>
       </div>

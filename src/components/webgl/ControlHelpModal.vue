@@ -5,10 +5,10 @@
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
-              <h3>
+              <h2>
                 {{ title }}&nbsp;
                 <i class="fas fa-window-close" @click="$emit('close')"></i>
-              </h3>
+              </h2>
             </slot>
           </div>
 

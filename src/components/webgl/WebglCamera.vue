@@ -26,11 +26,14 @@
                   pactive: ctrls[cType][btn.ctrlName].updateFlag
                 })
               "
-              v-on:click="ctrls[cType][btn.ctrlName].updateFlag = true"
+              @mousedown="ctrls[cType][btn.ctrlName].updateFlag = true"
+              @touchstart="ctrls[cType][btn.ctrlName].updateFlag = true"
+              @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
+              @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
-                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
-              }}</i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
             </div>
           </template>
         </div>
