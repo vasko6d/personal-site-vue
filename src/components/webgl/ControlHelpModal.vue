@@ -94,12 +94,14 @@ export default {
 
 .modal-container {
   max-width: 500px;
+  max-height: 400px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: lighten($nav-txt, 5%);
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+  overflow-y: scroll;
 }
 
 .modal-header h3 {
