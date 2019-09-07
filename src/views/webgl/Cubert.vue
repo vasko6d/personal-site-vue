@@ -157,13 +157,13 @@ export default {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
-        this.executeActions(this.actionCtrls);
+        wglu.executeActions(this.actionCtrls, this.vav);
       }
       if (ch in this.invCameraCtrls) {
         let invCC = this.invCameraCtrls[ch];
         this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = true;
-        this.executeActions(this.cameraCtrls.move);
-        this.executeActions(this.cameraCtrls.look);
+        wglu.executeActions(this.cameraCtrls.move, this.vav);
+        wglu.executeActions(this.cameraCtrls.look, this.vav);
       }
     });
     window.addEventListener("keyup", e => {
@@ -232,18 +232,6 @@ export default {
       vertices.push(mv.vec4(0, 7, 14.9, 1));
       vertices.push(mv.vec4(0, -7, 14.9, 1));
       return vertices;
-    },
-
-    executeActions(ctrls) {
-      var actions = Object.keys(ctrls);
-      for (let action of actions) {
-        if (ctrls[action].updateFlag) {
-          ctrls[action].updateFxn(this.vav);
-          if (!ctrls[action].holdable) {
-            ctrls[action].updateFlag = false;
-          }
-        }
-      }
     },
 
     configureWebGL() {
@@ -337,9 +325,9 @@ export default {
       ); // Initially [1, 0, 0]: on the positive x-axis looking toward the origin
 
       // Action Updates
-      this.executeActions(this.cameraCtrls.move);
-      this.executeActions(this.cameraCtrls.look);
-      this.executeActions(this.actionCtrls);
+      wglu.executeActions(this.cameraCtrls.move, this.vav);
+      wglu.executeActions(this.cameraCtrls.look, this.vav);
+      wglu.executeActions(this.actionCtrls), this.vav;
       this.vav.dt = this.vav.dt + 0.1; //keep tract of "time"
 
       // Take into account camera

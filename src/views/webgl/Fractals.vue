@@ -226,18 +226,6 @@ export default {
       return golderRectPoints;
     },
 
-    executeActions(ctrls) {
-      var actions = Object.keys(ctrls);
-      for (let action of actions) {
-        if (ctrls[action].updateFlag) {
-          ctrls[action].updateFxn(this.vav);
-          if (!ctrls[action].holdable) {
-            ctrls[action].updateFlag = false;
-          }
-        }
-      }
-    },
-
     setBufferData() {
       // Set Color Data
       this.gl.uniform4f(
@@ -287,7 +275,7 @@ export default {
 
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-      this.executeActions(this.actionCtrls);
+      wglu.executeActions(this.actionCtrls, this.vav);
       this.setBufferData();
 
       if (this.vav.beginRotation) {

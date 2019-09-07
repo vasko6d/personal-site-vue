@@ -209,6 +209,23 @@ export default {
 
       // Return the GL Context and the program for more specific set up
       return [gl, program];
+    },
+
+    /**
+     * Provide a consitent way to update [V]iew [A]ffecting [V]ariables in
+     * interactive graphics
+     */
+
+    executeActions(ctrls, vav) {
+      var actions = Object.keys(ctrls);
+      for (let action of actions) {
+        if (ctrls[action].updateFlag) {
+          ctrls[action].updateFxn(vav);
+          if (!ctrls[action].holdable) {
+            ctrls[action].updateFlag = false;
+          }
+        }
+      }
     }
   }
 };
