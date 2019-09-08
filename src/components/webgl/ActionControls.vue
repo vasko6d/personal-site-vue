@@ -21,7 +21,11 @@
         <template v-for="aKey in Object.keys(actionCtrls)">
           <div
             :key="actionCtrls[aKey].id"
-            class="cbtn prm"
+            :class="[
+              'cbtn',
+              'prm',
+              { pactive: actionCtrls[aKey].framesActive > 0 }
+            ]"
             @mousedown="actionCtrls[aKey].updateFlag = true"
             @touchstart="actionCtrls[aKey].updateFlag = true"
             @mouseup="actionCtrls[aKey].updateFlag = false"
@@ -54,6 +58,9 @@ export default {
       kbToggle: false,
       showModal: false
     };
+  },
+  methods: {
+    activateButton() {}
   }
 };
 </script>
@@ -104,13 +111,17 @@ export default {
         height: 30px;
         cursor: pointer;
       }
-      .prm {
-        background-color: rgba($nav-bg, 0.2);
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.6);
-        }
+    }
+    .prm {
+      background-color: rgba($nav-bg, 0.2);
+      &:hover {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.6);
       }
+    }
+    .pactive {
+      color: $nav-txt;
+      background-color: rgba($nav-bg, 0.6);
     }
   }
 }

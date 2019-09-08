@@ -113,6 +113,7 @@ export default {
           icon: "fas fa-palette",
           desc: "Change Color of Cubes",
           holdable: false,
+          framesActive: 0,
           updateFlag: false,
           updateFxn: function(vav) {
             vav.cIndex = (vav.cIndex + 1) % 8;
@@ -123,6 +124,7 @@ export default {
           icon: "fas fa-crosshairs",
           desc: "Toggle Crosshair On/Off",
           holdable: false,
+          framesActive: 0,
           updateFlag: false,
           updateFxn: function(vav) {
             vav.showCrosshair = !vav.showCrosshair;
@@ -133,6 +135,7 @@ export default {
           icon: "fas fa-undo",
           desc: "Revert to Original State",
           holdable: false,
+          framesActive: 0,
           updateFlag: false,
           updateFxn: function(vav) {
             vav.camera = wglc.initCamera(vav.camera.origCameraPosition);
@@ -157,13 +160,10 @@ export default {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
-        wglu.executeActions(this.actionCtrls, this.vav);
       }
       if (ch in this.invCameraCtrls) {
         let invCC = this.invCameraCtrls[ch];
         this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = true;
-        wglu.executeActions(this.cameraCtrls.move, this.vav);
-        wglu.executeActions(this.cameraCtrls.look, this.vav);
       }
     });
     window.addEventListener("keyup", e => {
@@ -327,7 +327,7 @@ export default {
       // Action Updates
       wglu.executeActions(this.cameraCtrls.move, this.vav);
       wglu.executeActions(this.cameraCtrls.look, this.vav);
-      wglu.executeActions(this.actionCtrls), this.vav;
+      wglu.executeActions(this.actionCtrls, this.vav);
       this.vav.dt = this.vav.dt + 0.1; //keep tract of "time"
 
       // Take into account camera

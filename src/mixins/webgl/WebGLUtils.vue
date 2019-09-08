@@ -215,14 +215,17 @@ export default {
      * Provide a consitent way to update [V]iew [A]ffecting [V]ariables in
      * interactive graphics
      */
-
     executeActions(ctrls, vav) {
       var actions = Object.keys(ctrls);
       for (let action of actions) {
+        if (ctrls[action].framesActive && ctrls[action].framesActive > 0) {
+          ctrls[action].framesActive--;
+        }
         if (ctrls[action].updateFlag) {
           ctrls[action].updateFxn(vav);
           if (!ctrls[action].holdable) {
             ctrls[action].updateFlag = false;
+            ctrls[action].framesActive = 10; // Hack to make quick boolean changes tied to a CSS value last for a specified number of Render Loops.
           }
         }
       }

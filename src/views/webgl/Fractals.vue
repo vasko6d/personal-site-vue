@@ -87,6 +87,7 @@ export default {
           desc: "Change Color",
           holdable: false,
           updateFlag: false,
+          framesActive: 0,
           updateFxn: function(vav) {
             vav.cIndex = (vav.cIndex + 1) % 7;
           }
@@ -96,6 +97,7 @@ export default {
           icon: "fas fa-step-forward",
           desc: "Change Fractal",
           holdable: false,
+          framesActive: 0,
           updateFlag: false,
           updateFxn: function(vav) {
             vav.inGasket = !vav.inGasket;
@@ -106,6 +108,7 @@ export default {
           icon: "fas fa-sync-alt",
           desc: "Start/Stop Rotation",
           holdable: false,
+          framesActive: 0,
           updateFlag: false,
           updateFxn: function(vav) {
             vav.beginRotation = !vav.beginRotation;
@@ -123,7 +126,6 @@ export default {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
-        this.executeActions(this.actionCtrls);
       }
     });
     window.addEventListener("keyup", e => {
