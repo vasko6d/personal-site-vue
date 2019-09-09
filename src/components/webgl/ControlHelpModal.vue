@@ -24,7 +24,7 @@
                   >
                     <span class="help-itm-title">
                       <i :class="ctrls[tKey][cKey].icon"></i>
-                      {{ cKey + ":" }}
+                      :&nbsp;
                     </span>
                     {{
                       ctrls[tKey][cKey].desc +
@@ -43,7 +43,7 @@
                 >
                   <span class="help-itm-title">
                     <i :class="ctrls[cKey].icon"></i>
-                    {{ cKey + ":" }}
+                    :&nbsp;
                   </span>
                   {{
                     ctrls[cKey].desc +
@@ -53,6 +53,13 @@
                   }}
                 </div>
               </template>
+            </slot>
+          </div>
+          <div class="modal-footer">
+            <slot name="footer">
+              <h2>
+                <i class="fas fa-check-square" @click="$emit('close')"></i>
+              </h2>
             </slot>
           </div>
         </div>
@@ -102,15 +109,17 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   overflow-y: scroll;
-}
-
-.modal-header h3 {
-  margin-top: 0;
   i {
     cursor: pointer;
     &:hover {
       color: $nav-bg;
     }
+  }
+}
+
+.modal-header {
+  h2 {
+    margin-top: 0;
   }
 }
 

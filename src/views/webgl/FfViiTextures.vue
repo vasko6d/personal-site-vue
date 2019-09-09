@@ -196,7 +196,7 @@ export default {
         toggleTextureScrolling: {
           keybind: "f",
           icon: "fas fa-scroll",
-          desc: "Toggle Texture Scrolling on Cube",
+          desc: "Toggle Texture Scrolling on Left Cube",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
@@ -207,7 +207,7 @@ export default {
         toggleTextureRotation: {
           keybind: "g",
           icon: "fas fa-directions",
-          desc: "Toggle Texture Rotation on Cube",
+          desc: "Toggle Texture Rotation on Right Cube",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
