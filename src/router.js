@@ -50,7 +50,7 @@ export default new Router({
         {
           path: "ffvii-textures",
           name: "FFVII Textures",
-          component: () => import("./views/webgl/Fractals.vue")
+          component: () => import("./views/webgl/FfViiTextures.vue")
         },
         {
           path: "galaxy",

@@ -350,6 +350,16 @@ export default {
       return result;
     },
 
+    rotationMatrix2d(thetaInDegrees) {
+      var m = this.mat2();
+      var theta = this.radians(thetaInDegrees);
+      m[0][0] = Math.cos(theta);
+      m[0][1] = Math.sin(theta);
+      m[1][0] = -m[0][1];
+      m[1][1] = m[0][0];
+      return m;
+    },
+
     //  ModelView Matrix Generators
     lookAt(eye, at, up) {
       if (!Array.isArray(eye) || eye.length != 3) {

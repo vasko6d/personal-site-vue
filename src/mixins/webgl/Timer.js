@@ -5,37 +5,79 @@ export default class Timer {
    * @constructor
    */
   constructor() {
-    this.prevTime = 0; //the previously recorded time
-    this.nowTime = 0; //current time
-    this.reset();
+    this.lastStartTime = this.getTrueTime(); // Last start time
+    this.totalTime = 0; // Total time elapsed while not paused
+    this.keepTime = false; // whether timer is paused or not
   }
 
   /**
-   * Set the previous time to current time;
+   * pause timer
+   */
+  pause() {
+    this.keepTime = false;
+    this.totalTime += this.getTrueTime() - this.lastStartTime;
+  }
+
+  /**
+   * pause timer
+   */
+  resume() {
+    this.keepTime = true;
+    this.lastStartTime = this.getTrueTime();
+  }
+
+  /**
+   * reset timer
    */
   reset() {
-    this.prevTime = this.getNowTime();
-    this.nowTime = this.prevTime;
+    this.totalTime = 0;
+    this.lastStartTime = this.getTrueTime();
+  }
+
+  /**
+   * toggle time keeping
+   */
+  toggleTimer() {
+    if (this.keepTime) {
+      this.pause();
+    } else {
+      this.resume();
+    }
+  }
+
+  /**
+   * is the timer active?
+   */
+  isActive() {
+    return this.keepTime;
+  }
+
+  /**
+   * get the non-paused time since timer was started
+   * @return {number} current time.
+   */
+  getTime() {
+    if (this.keepTime) {
+      this.pause();
+      this.resume();
+    }
+    return this.totalTime;
+  }
+
+  /**
+   * get the non-paused time since timer was started
+   * @return {number} current time.
+   */
+  getTimeSec() {
+    return this.getTime() / 1000;
   }
 
   /**
    * Get current time.
    * @return {number} current time.
    */
-  getNowTime = function() {
+  getTrueTime = function() {
     var time = new Date();
     return time.getTime();
-  };
-
-  /**
-   * Get passed time since last time this function
-   * get called or since the reset() if first time
-   * called.
-   * @return {number} dt
-   */
-  getElapsedTime = function() {
-    var dt = this.getNowTime() - this.prevTime;
-    this.prevTime += dt;
-    return dt;
   };
 }

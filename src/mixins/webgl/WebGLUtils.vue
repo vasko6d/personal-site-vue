@@ -1,6 +1,8 @@
 <script>
 import ShaderUtils from "@/mixins/webgl/ShaderUtils.vue";
+import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 var su = ShaderUtils.methods;
+var mv = MatrixMath.methods;
 
 export default {
   name: "WebGLUtils",
@@ -189,7 +191,12 @@ export default {
     /**
      * The configuration steps of WebGL that are the same across my examples.
      */
-    baseWebGL(canvasId, vertexShaderId, fragmentShaderId) {
+    baseWebGL(
+      canvasId,
+      vertexShaderId,
+      fragmentShaderId,
+      clearColor = [0.0, 0.0, 0.0, 1]
+    ) {
       var canvas = document.getElementById(canvasId);
       var gl = this.setupWebGL(canvas);
       if (!gl) {
@@ -197,7 +204,7 @@ export default {
       }
 
       gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
       gl.enable(gl.DEPTH_TEST);
 
       //  Load shaders and initialize attribute buffers
@@ -209,6 +216,53 @@ export default {
 
       // Return the GL Context and the program for more specific set up
       return [gl, program];
+    },
+
+    /**
+     * Create a single picture texture for quick loading
+     */
+    bindSinglePixelTexture(gl, texture) {
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      const level = 0;
+      const internalFormat = gl.RGBA;
+      const width = 1;
+      const height = 1;
+      const border = 0;
+      const srcFormat = gl.RGBA;
+      const srcType = gl.UNSIGNED_BYTE;
+      const pixel = new Uint8Array([0, 0, 255, 255]); // opaque blue
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        level,
+        internalFormat,
+        width,
+        height,
+        border,
+        srcFormat,
+        srcType,
+        pixel
+      );
+    },
+
+    /**
+     * Create webGL buffer bound to gl isntance
+     */
+    buffer(gl, data) {
+      var b = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, b);
+      gl.bufferData(gl.ARRAY_BUFFER, mv.flatten(data), gl.STATIC_DRAW);
+      return b;
+    },
+
+    /**
+     * Create webGL attribute bound to gl isntance and specified buffer
+     */
+    attrib(gl, program, attributeName, length, buf) {
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      var attribute = gl.getAttribLocation(program, attributeName);
+      gl.enableVertexAttribArray(attribute);
+      gl.vertexAttribPointer(attribute, length, gl.FLOAT, false, 0, 0);
+      return attribute;
     },
 
     /**
