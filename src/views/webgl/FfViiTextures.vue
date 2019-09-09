@@ -92,7 +92,7 @@ export default {
     return {
       // Web Gl Variables
       gl: "", // [g]raphics [l]ibrary
-      p: "", // [p]rogram
+      p: "", // Shader [p]rogram
 
       // Location to the variables used in the shader programs
       loc: {
@@ -137,15 +137,14 @@ export default {
         uv: []
       },
 
-      // the vertexes used for each cube
-
       // [A]ction [A]ffected [V]ariables
       aav: {
-        texture: "",
+        textures: [],
         cubeRotTimer: new Timer(),
         texRotTimer: new Timer(),
         texScrTimer: new Timer(),
-        camera: wglc.initCamera(mv.vec3(3, 0, 0))
+        camera: wglc.initCamera(mv.vec3(3, 0, 0), 0.05),
+        textureIndex: 1
       },
 
       // Camera Keybind variables
@@ -165,15 +164,33 @@ export default {
             aav.cubeRotTimer.toggleTimer();
           }
         },
-        toggleTextureRotation: {
+        changeTexture: {
           keybind: "t",
-          icon: "fas fa-sync",
-          desc: "Toggle Texture Rotation on Cube",
+          icon: "fas fa-palette",
+          desc: "Change the texture image",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
           updateFxn: function(aav) {
-            aav.texRotTimer.toggleTimer();
+            aav.textureIndex = (aav.textureIndex + 1) % 3;
+          }
+        },
+        revert: {
+          keybind: "z",
+          icon: "fas fa-undo",
+          desc: "Revert to Original State",
+          holdable: false,
+          framesActive: 0,
+          updateFlag: false,
+          updateFxn: function(aav) {
+            aav.camera = wglc.initCamera(
+              aav.camera.origCameraPosition,
+              aav.camera.stepSize
+            );
+            aav.cubeRotTimer.reset();
+            aav.texRotTimer.reset();
+            aav.texScrTimer.reset();
+            aav.textureIndex = 1;
           }
         },
         toggleTextureScrolling: {
@@ -187,18 +204,15 @@ export default {
             aav.texScrTimer.toggleTimer();
           }
         },
-        revert: {
-          keybind: "z",
-          icon: "fas fa-undo",
-          desc: "Revert to Original State",
+        toggleTextureRotation: {
+          keybind: "g",
+          icon: "fas fa-directions",
+          desc: "Toggle Texture Rotation on Cube",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
           updateFxn: function(aav) {
-            aav.camera = wglc.initCamera(aav.camera.origCameraPosition);
-            aav.cubeRotTimer.reset();
-            aav.texRotTimer.reset();
-            aav.texScrTimer.reset();
+            aav.texRotTimer.toggleTimer();
           }
         }
       },
@@ -253,14 +267,18 @@ export default {
       [this.gl, this.p] = wglu.baseWebGL(
         "gl-canvas",
         "vertex-shader",
-        "fragment-shader",
-        [0.4, 0.4, 0.4, 1]
+        "fragment-shader"
       );
 
       // Set up textures we will be using
-      this.aav.texture = this.createTexture(
-        this.gl,
-        require("@/assets/img/webgl-chrome.jpg")
+      this.aav.textures.push(
+        this.createTexture(this.gl, require("@/assets/img/webgl-chrome.jpg"))
+      );
+      this.aav.textures.push(
+        this.createTexture(this.gl, require("@/assets/img/webgl-ff7.png"))
+      );
+      this.aav.textures.push(
+        this.createTexture(this.gl, require("@/assets/img/webgl-bark.jpg"))
       );
 
       // Set Up Buffers
@@ -413,7 +431,10 @@ export default {
       );
 
       this.gl.activeTexture(this.gl.TEXTURE0);
-      this.gl.bindTexture(this.gl.TEXTURE_2D, this.aav.texture);
+      this.gl.bindTexture(
+        this.gl.TEXTURE_2D,
+        this.aav.textures[this.aav.textureIndex]
+      );
       this.gl.uniform1i(this.loc.u.uSampler, 0);
 
       this.gl.uniform3fv(this.loc.u.lPos, mv.flatten(this.val.lPos));

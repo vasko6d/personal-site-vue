@@ -92,7 +92,7 @@ export default {
     };
   },
   methods: {
-    initCamera(origCameraPos) {
+    initCamera(origCameraPos, stepSize = 0.25) {
       var camera = {
         theta: 0.0,
         phi: 0.0,
@@ -100,7 +100,7 @@ export default {
         eye: mv.vec3(0, 0, 0),
         up: mv.vec3(0.0, 1.0, 0.0),
         fovy: 90,
-        stepSize: 0.25,
+        stepSize: stepSize,
         translation: mv.translationMatrix(origCameraPos),
         orthoNormal: this.genOrthoNormal(0.0, 0.0),
         orthoNormalUpdateFlag: false,

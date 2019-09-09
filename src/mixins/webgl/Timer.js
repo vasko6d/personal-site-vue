@@ -31,6 +31,7 @@ export default class Timer {
    */
   reset() {
     this.totalTime = 0;
+    this.keepTime = false;
     this.lastStartTime = this.getTrueTime();
   }
 
