@@ -34,8 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-$nav-txt: #9dad7f;
-$brdr: #303820;
+@import "@/assets/styles/variables.scss";
 
 .climbing-video-item {
   margin: 5px;

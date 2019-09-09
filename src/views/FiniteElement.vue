@@ -5,7 +5,7 @@
       <p class="blk">
         A computational solver was developed for non-linear membranes
         (neo-hookean) under plane stress conditions. Membrane theory, plane
-        stress condition, and the neohookean constitutive laws constitute the
+        stress condition, and the neohookean constitutive laws represent the
         applied mathematics while the algorithms themselves were written in
         MATLAB R2015a Student Version. The final report can be viewed
         <a href="pdf/finite-element.pdf">here</a> and source code can be viewed
