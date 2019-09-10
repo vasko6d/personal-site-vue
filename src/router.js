@@ -55,7 +55,7 @@ export default new Router({
         {
           path: "galaxy",
           name: "Creating the Galaxy",
-          component: () => import("./views/webgl/Fractals.vue")
+          component: () => import("./views/webgl/Galaxy.vue")
         }
       ]
     },

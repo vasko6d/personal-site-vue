@@ -249,6 +249,10 @@ export default {
      */
     buffer(gl, data) {
       var b = gl.createBuffer();
+      return this.rebuffer(gl, data, b);
+    },
+
+    rebuffer(gl, data, b) {
       gl.bindBuffer(gl.ARRAY_BUFFER, b);
       gl.bufferData(gl.ARRAY_BUFFER, mv.flatten(data), gl.STATIC_DRAW);
       return b;
@@ -258,8 +262,12 @@ export default {
      * Create webGL attribute bound to gl isntance and specified buffer
      */
     attrib(gl, program, attributeName, length, buf) {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
       var attribute = gl.getAttribLocation(program, attributeName);
+      return this.reattrib(gl, attribute, length, buf);
+    },
+
+    reattrib(gl, attribute, length, buf) {
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
       gl.enableVertexAttribArray(attribute);
       gl.vertexAttribPointer(attribute, length, gl.FLOAT, false, 0, 0);
       return attribute;
