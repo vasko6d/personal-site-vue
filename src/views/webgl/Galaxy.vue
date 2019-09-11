@@ -200,7 +200,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
+          updateFxn: aav => {
+            this.resetAav(aav, false, false);
             aav.camera.theta = mv.radians(-89.9);
             aav.camera.phi = 0;
             aav.camera.translation = mv.translationMatrix(mv.vec3(0, -25, 0));
@@ -219,7 +220,6 @@ export default {
               this.resetAav(aav);
             } else {
               aav.attachedToPlanet3 = true;
-              aav.camera.orthoNormalUpdateFlag = true;
             }
           }
         },
@@ -231,7 +231,7 @@ export default {
           framesActive: 0,
           updateFlag: false,
           updateFxn: aav => {
-            this.resetAav(aav);
+            this.resetAav(aav, true, true);
           }
         }
       },
@@ -315,21 +315,23 @@ export default {
       }
     },
 
-    resetAav(aav, clearPlanets = false) {
+    resetAav(aav, clearPlanets = false, resetTimer = false) {
       aav.camera = this.createCamera();
       aav.attachedToPlanet3 = false;
       if (clearPlanets) {
         aav.galaxy.clearPlanets();
         this.addInitialPlanets();
       }
-      aav.galaxy.getTimer().reset();
-      aav.galaxy.getTimer().resume();
+      if (resetTimer) {
+        aav.galaxy.getTimer().reset();
+        aav.galaxy.getTimer().resume();
+      }
     },
 
     createCamera() {
       var camera = wglc.initCamera(
         mv.vec3(0.1 * 90, 0.1 * -51.91254, 0), // initial camera position
-        0.25,
+        0.1,
         mv.radians(-30) // we start looking down at an angle of 30 degrees
       );
       return camera;
@@ -463,8 +465,8 @@ export default {
       let time = this.aav.galaxy.getTimer().getTimeSec();
 
       if (this.aav.attachedToPlanet3) {
-        let p3 = this.aav.galaxy.getPlanetByIndex(3);
-        let rads = time * p3.orbit.omega + p3.orbit.phase;
+        var p3 = this.aav.galaxy.getPlanetByIndex(3);
+        var rads = time * p3.orbit.omega + p3.orbit.phase;
         this.aav.camera.eye = mv.vec3(
           p3.orbit.radius * Math.cos(rads),
           0,
