@@ -14,16 +14,20 @@ export default class Timer {
    * pause timer
    */
   pause() {
+    if (this.keepTime) {
+      this.totalTime += this.getTrueTime() - this.lastStartTime;
+    }
     this.keepTime = false;
-    this.totalTime += this.getTrueTime() - this.lastStartTime;
   }
 
   /**
    * pause timer
    */
   resume() {
+    if (!this.keepTime) {
+      this.lastStartTime = this.getTrueTime();
+    }
     this.keepTime = true;
-    this.lastStartTime = this.getTrueTime();
   }
 
   /**
