@@ -151,11 +151,7 @@ export default {
 
       // [A]ction [A]ffected [V]ariables
       aav: {
-        camera: wglc.initCamera(
-          mv.vec3(0.1 * 90, 0.1 * -51.91254, 0), // initial camera position
-          0.25,
-          mv.radians(-30) // we start looking down at an angle of 30 degrees
-        ),
+        camera: this.createCamera(),
         attachedToPlanet3: false,
         galaxy: ""
       },
@@ -176,21 +172,55 @@ export default {
         specular: mv.vec4(1.0, 1.0, 1.0, 1.0)
       },
 
+      // set the min and max complexity
+      minComplexity: 0,
+      maxComplexity: 6,
+
       // Camera Keybind variables
       cameraCtrls: wglc.defaultControls(),
       invCameraCtrls: "", // initialize during mount
 
       // Other Keybind Variables
       actionCtrls: {
+        toggleTime: {
+          keybind: "p",
+          icon: "fas fa-pause",
+          desc: "Stop/start the universe",
+          holdable: false,
+          framesActive: 0,
+          updateFlag: false,
+          updateFxn: function(aav) {
+            aav.galaxy.getTimer().toggleTimer();
+          }
+        },
+        goToAboveView: {
+          keybind: "t",
+          icon: "fas fa-satellite",
+          desc: "Move to an above view of teh galaxy, looking down",
+          holdable: false,
+          framesActive: 0,
+          updateFlag: false,
+          updateFxn: function(aav) {
+            aav.camera.theta = mv.radians(-89.9);
+            aav.camera.phi = 0;
+            aav.camera.translation = mv.translationMatrix(mv.vec3(0, -25, 0));
+            aav.camera.orthoNormalUpdateFlag = true;
+          }
+        },
         attachToPlanet3: {
-          keybind: "r",
+          keybind: "3",
           icon: "fas fa-link",
           desc: "Attach the camera to planet 3",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.attachedToPlanet3 = !aav.attachedToPlanet3;
+          updateFxn: aav => {
+            if (aav.attachedToPlanet3) {
+              this.resetAav(aav);
+            } else {
+              aav.attachedToPlanet3 = true;
+              aav.camera.orthoNormalUpdateFlag = true;
+            }
           }
         },
         revert: {
@@ -200,13 +230,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.camera = wglc.initCamera(
-              aav.camera.origCameraPosition,
-              aav.camera.stepSize,
-              aav.camera.theta
-            );
-            aav.attachedToPlanet3 = false;
+          updateFxn: aav => {
+            this.resetAav(aav);
           }
         }
       },
@@ -217,7 +242,6 @@ export default {
   mounted() {
     // generate the data and configure webgl
     this.initGalaxy();
-    this.aav.galaxy.getTimer().resume();
     this.configureWebGL();
 
     // Invert the conrtols and the keybinding for simple character lookups
@@ -291,9 +315,38 @@ export default {
       }
     },
 
-    initGalaxy() {
-      this.aav.galaxy = new Galaxy(this.lightSource, this.seedPoints);
+    resetAav(aav, clearPlanets = false) {
+      aav.camera = this.createCamera();
+      aav.attachedToPlanet3 = false;
+      if (clearPlanets) {
+        aav.galaxy.clearPlanets();
+        this.addInitialPlanets();
+      }
+      aav.galaxy.getTimer().reset();
+      aav.galaxy.getTimer().resume();
+    },
 
+    createCamera() {
+      var camera = wglc.initCamera(
+        mv.vec3(0.1 * 90, 0.1 * -51.91254, 0), // initial camera position
+        0.25,
+        mv.radians(-30) // we start looking down at an angle of 30 degrees
+      );
+      return camera;
+    },
+
+    initGalaxy() {
+      this.aav.galaxy = new Galaxy(
+        this.lightSource,
+        this.seedPoints,
+        this.minComplexity,
+        this.maxComplexity
+      );
+      this.addInitialPlanets();
+      this.aav.galaxy.getTimer().resume();
+    },
+
+    addInitialPlanets() {
       // Planet 0 (Sun): Small, blue, medium-high complexity, gourand shading
       var material = this.material(
         [0.48, 0.48, 3.0],
@@ -303,7 +356,7 @@ export default {
         "gourand"
       );
       var orbit = this.orbit();
-      this.aav.galaxy.addPlanet(4, 0.2, material, orbit);
+      this.aav.galaxy.addPlanet(3, 0.2, material, orbit, "Sun");
 
       // Planet 1: Small, icy-white, medium-low complexity, flat-shading, specular highlight
       material = this.material(
@@ -314,7 +367,7 @@ export default {
         "flat"
       );
       orbit = this.orbit(1, 1.177, 0.3, 2);
-      this.aav.galaxy.addPlanet(2, 0.25, material, orbit);
+      this.aav.galaxy.addPlanet(4, 1, material, orbit, "Icicle I");
 
       // Planet 2: Medium, swampy-green, medium complexity, gourand shading, specular highlight
       material = this.material(
@@ -325,7 +378,7 @@ export default {
         "gourand"
       );
       orbit = this.orbit(1, 1 / 2.3, 1.2, 7);
-      this.aav.galaxy.addPlanet(3, 0.8, material, orbit);
+      this.aav.galaxy.addPlanet(3, 1, material, orbit, "Swampert");
 
       // Planet 3: Medium, blue, high-complexity, phong shading, specular highlight
       material = this.material(
@@ -336,9 +389,20 @@ export default {
         "phong"
       );
       orbit = this.orbit(1, -1 / 2.7, 0.3, 12);
-      this.aav.galaxy.addPlanet(6, 1.0, material, orbit);
+      this.aav.galaxy.addPlanet(6, 1.0, material, orbit, "Gargantia");
 
       // Planet 3.1 (moon 1 of planet 3):
+      material = this.material(
+        [1, 1, 0],
+        [0.8, 0.7, 0.4],
+        [1.0, 0.0, 0.0],
+        50.0,
+        "gourand"
+      );
+      orbit = this.orbit(1, 3, 0, 3);
+      this.aav.galaxy.addMoon([3], 5, 0.25, material, orbit, "Titan");
+
+      // Planet 3.1.1 (moon 1 of moon 1 of planet 3):
       material = this.material(
         [0.7, 0.1, 0.5],
         [0.8, 0.0, 0.4],
@@ -346,8 +410,8 @@ export default {
         50.0,
         "gourand"
       );
-      orbit = this.orbit(1, 3, 0, 3);
-      this.aav.galaxy.addMoon([3], 5, 0.25, material, orbit);
+      orbit = this.orbit(1, 6, 0.2, 2);
+      this.aav.galaxy.addMoon([3, 0], 3, 0.125, material, orbit, "Sirens");
 
       // Planet 4: Medium, brown-orange, medium-complexity, gourand shading, no spectral highlight
       material = this.material(
@@ -358,7 +422,7 @@ export default {
         "gourand"
       );
       orbit = this.orbit(1, 1 / 3.2, -0.8, 20);
-      this.aav.galaxy.addPlanet(5, 0.5, material, orbit);
+      this.aav.galaxy.addPlanet(5, 4, material, orbit, "Jupiter");
     },
 
     material(ambient, diffuse, specular, shininess, shading) {
@@ -384,7 +448,9 @@ export default {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
       // Action Updates
-      wglu.executeActions(this.cameraCtrls.move, this.aav);
+      if (!this.aav.attachedToPlanet3) {
+        wglu.executeActions(this.cameraCtrls.move, this.aav);
+      }
       wglu.executeActions(this.cameraCtrls.look, this.aav);
       wglu.executeActions(this.actionCtrls, this.aav);
 

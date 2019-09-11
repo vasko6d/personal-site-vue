@@ -8,12 +8,13 @@ export default class Planet {
    * @param {*} orbit
    * @param {*} bufferIndexer
    */
-  constructor(size, material, orbit, bufferIndexer) {
+  constructor(size, material, orbit, bufferIndexer, name = "Unknown") {
     this.size = size;
     this.orbit = orbit;
     this.material = material;
     this.bufferIndexer = bufferIndexer;
     this.moons = [];
+    this.name = name;
   }
 
   /**
@@ -32,6 +33,10 @@ export default class Planet {
       ),
       mv.scalarMatrix(this.size, this.size, this.size)
     );
+  }
+
+  getMoonByIndex(idx) {
+    return this.moons[idx];
   }
 
   animate(gl, loc, light, time, prevMat = mv.mat4()) {
@@ -54,13 +59,12 @@ export default class Planet {
       this.bufferIndexer.len
     );
 
-    this.animateMoons(gl, loc, light, time);
+    this.animateMoons(gl, loc, light, time, modelMatrix);
   }
 
-  animateMoons(gl, loc, light, time) {
-    var m = this.translationMatrix(time);
+  animateMoons(gl, loc, light, time, prevMat) {
     this.moons.forEach(function(moon) {
-      moon.animate(gl, loc, light, time, m);
+      moon.animate(gl, loc, light, time, prevMat);
     });
   }
 }

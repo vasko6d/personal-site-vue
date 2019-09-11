@@ -11,15 +11,16 @@ export default class Galaxy {
    * associated wtih a "galaxy"
    * @constructor
    */
-  constructor(lightSource, seedPoints) {
+  constructor(lightSource, seedPoints, minComplexity, maxComplexity) {
     this.vertices = [];
     this.normals = [];
     this.flatNormals = [];
     this.planets = [];
-    this.complexityVertexMap = {};
     this.lightSource = lightSource;
     this.seedPoints = seedPoints;
     this.timer = new Timer();
+    this.complexityVertexMap = {};
+    this.generateTetrahedrans(minComplexity, maxComplexity);
   }
 
   getVertices() {
@@ -38,31 +39,41 @@ export default class Galaxy {
     return this.planets[idx];
   }
 
+  clearPlanets() {
+    this.planets = [];
+  }
+
   addPlanet(complexity, size, material, orbit) {
-    this.isGeneratedCheck(complexity);
     this.planets.push(
       new Planet(size, material, orbit, this.complexityVertexMap[complexity])
     );
   }
 
-  addMoon(planetIndexPath, complexity, size, material, orbit) {
-    this.isGeneratedCheck(complexity);
-    let p = this.getPlanetByIndex(planetIndexPath[0]);
-    p.moons.push(
-      new Planet(size, material, orbit, this.complexityVertexMap[complexity])
-    );
-  }
-
-  isGeneratedCheck(complexity) {
-    if (!(complexity in this.complexityVertexMap)) {
+  generateTetrahedrans(minComplexity, maxComplexity) {
+    for (let c = minComplexity; c <= maxComplexity; c++) {
       let offset = this.vertices.length;
-      this.tetrahedron(this.seedPoints, complexity);
+      this.tetrahedron(this.seedPoints, c);
       let len = this.vertices.length - offset;
-      this.complexityVertexMap[complexity] = {
+      this.complexityVertexMap[c] = {
         offset: offset,
         len: len
       };
     }
+  }
+
+  addMoon(planetIndexPath, complexity, size, material, orbit) {
+    var p = this.getPlanetByIndex(planetIndexPath[0]);
+    for (let i = 1; i < planetIndexPath.length; i++) {
+      p = p.getMoonByIndex(planetIndexPath[i]);
+    }
+    p.moons.push(
+      new Planet(
+        size / p.size,
+        material,
+        orbit,
+        this.complexityVertexMap[complexity]
+      )
+    );
   }
 
   rebindBufferData(gl, loc, buf) {
