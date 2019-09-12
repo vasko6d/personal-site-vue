@@ -22,16 +22,18 @@ export default class Planet {
    * @param {*} time
    */
   translationMatrix(time) {
-    let rads = time * this.orbit.omega + this.orbit.phase;
     return mv.mult(
-      mv.translationMatrix(
-        mv.vec3(
-          this.orbit.eccentricity * this.orbit.radius * Math.cos(rads),
-          0,
-          this.orbit.radius * Math.sin(rads)
-        )
-      ),
+      mv.translationMatrix(this.position(time)),
       mv.scalarMatrix(this.size, this.size, this.size)
+    );
+  }
+
+  position(time) {
+    let rads = time * this.orbit.omega + this.orbit.phase;
+    return mv.vec3(
+      this.orbit.eccentricity * this.orbit.radius * Math.cos(rads),
+      0,
+      this.orbit.radius * Math.sin(rads)
     );
   }
 
