@@ -33,9 +33,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
-                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
-              }}</i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
             </div>
           </template>
         </div>
@@ -100,13 +100,12 @@ export default {
         phi: 0.0, // left right angle
         alpha: 0.0, // rolling angle
         dr: mv.rad(1),
-        up: mv.vec3(0, 1, 0),
         fovy: 90,
         aspect: 1,
         near: 0.1,
         far: 100,
         stepSize: 0.25,
-        position: mv.vec3(1, 0, 0),
+        position: mv.vec3(1, 0, 0), // this is also "eye"
         orthoNormal: this.getOrthoNormal(0, 0),
         orthoNormalUpdateFlag: false,
         initialProps: cameraProps
@@ -236,6 +235,28 @@ export default {
               vav.camera.orthoNormalUpdateFlag = true;
             }
           },
+          rollLeft: {
+            keybind: "o",
+            icon: "fas fa-caret-up",
+            desc: "Roll Camera View Counter-clockwise",
+            holdable: true,
+            updateFlag: false,
+            updateFxn(vav) {
+              vav.camera.alpha += vav.camera.dr;
+              vav.camera.orthoNormalUpdateFlag = true;
+            }
+          },
+          rollRight: {
+            keybind: "l",
+            icon: "fas fa-caret-up",
+            desc: "Roll Camera View Counter-clockwise",
+            holdable: true,
+            updateFlag: false,
+            updateFxn(vav) {
+              vav.camera.alpha -= vav.camera.dr;
+              vav.camera.orthoNormalUpdateFlag = true;
+            }
+          },
           zoomin: {
             keybind: "y",
             icon: "fas fa-plus",
@@ -264,16 +285,20 @@ export default {
     getOrthoNormal(phi, theta) {
       // By rotating the original orthonormal basis twice we get a new ortonormal
       // basis that is based on our current camera position
-      var orthoNormal = mv.rotationMatrix((phi * 180) / Math.PI, [0, 1, 0]);
+      var orthoNormal = mv.rotationMatrix(mv.deg(phi), [0, 1, 0]);
       orthoNormal = mv.mult(
-        mv.rotationMatrix((-1 * theta * 180) / Math.PI, [0, 0, 1]),
+        mv.rotationMatrix(-1 * mv.deg(theta), [0, 0, 1]),
         orthoNormal
       );
       return orthoNormal;
     },
 
     viewMatrix(camera) {
-      return mv.lookAt(camera.position, this.atPosition(camera), camera.up);
+      return mv.lookAt(
+        camera.position,
+        this.atPosition(camera),
+        this.upVector(camera)
+      );
     },
 
     perspectiveMatrix(camera) {
@@ -294,6 +319,24 @@ export default {
         Math.cos(camera.theta) * Math.cos(camera.phi),
         Math.sin(camera.theta),
         Math.cos(camera.theta) * Math.sin(camera.phi)
+      );
+    },
+
+    upVector(camera) {
+      let cos = {
+        t: Math.cos(camera.theta),
+        p: Math.cos(camera.phi),
+        a: Math.cos(camera.alpha)
+      };
+      let sin = {
+        t: Math.sin(camera.theta),
+        p: Math.sin(camera.phi),
+        a: Math.sin(camera.alpha)
+      };
+      return mv.vec3(
+        -sin.t * cos.p * cos.a - sin.p * sin.a,
+        cos.t * cos.a,
+        -sin.t * sin.p * cos.a + cos.p * sin.a
       );
     },
 

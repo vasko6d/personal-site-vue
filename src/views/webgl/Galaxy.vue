@@ -452,6 +452,7 @@ export default {
 
       var pMat = wglc.perspectiveMatrix(this.av.camera);
       var at = wglc.atPosition(this.av.camera);
+      var up = wglc.upVector(this.av.camera);
       let time = this.av.galaxy.getTimer().getTimeSec();
 
       if (this.av.attachedToPlanet3) {
@@ -470,7 +471,7 @@ export default {
         pMat = mv.perspective(this.av.camera.fovy, 1, 1, 1000);
       }
 
-      var vMat = mv.lookAt(this.av.camera.position, at, this.av.camera.up);
+      var vMat = mv.lookAt(this.av.camera.position, at, up);
 
       this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
       this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
