@@ -65,7 +65,7 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <webgl-camera :camera="aav.camera" :ctrls="cameraCtrls" />
+    <webgl-camera :camera="av.camera" :ctrls="cameraCtrls" />
     <action-controls :actionCtrls="actionCtrls" />
   </div>
 </template>
@@ -137,13 +137,16 @@ export default {
         uv: []
       },
 
-      // [A]ction [A]ffected [V]ariables
-      aav: {
+      // [A]ction affected [V]ariables
+      av: {
         textures: [],
         cubeRotTimer: new Timer(),
         texRotTimer: new Timer(),
         texScrTimer: new Timer(),
-        camera: wglc.initCamera(mv.vec3(3, 0, 0), 0.05),
+        camera: wglc.initCamera({
+          position: mv.vec3(3, 0, 0),
+          stepSize: 0.05
+        }),
         textureIndex: 1
       },
 
@@ -160,8 +163,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.cubeRotTimer.toggleTimer();
+          updateFxn: function(av) {
+            av.cubeRotTimer.toggleTimer();
           }
         },
         changeTexture: {
@@ -171,8 +174,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.textureIndex = (aav.textureIndex + 1) % 3;
+          updateFxn: function(av) {
+            av.textureIndex = (av.textureIndex + 1) % 3;
           }
         },
         revert: {
@@ -182,15 +185,12 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.camera = wglc.initCamera(
-              aav.camera.origCameraPosition,
-              aav.camera.stepSize
-            );
-            aav.cubeRotTimer.reset();
-            aav.texRotTimer.reset();
-            aav.texScrTimer.reset();
-            aav.textureIndex = 1;
+          updateFxn: function(av) {
+            av.camera = wglc.initCamera(av.camera.initialProps);
+            av.cubeRotTimer.reset();
+            av.texRotTimer.reset();
+            av.texScrTimer.reset();
+            av.textureIndex = 1;
           }
         },
         toggleTextureScrolling: {
@@ -200,8 +200,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.texScrTimer.toggleTimer();
+          updateFxn: function(av) {
+            av.texScrTimer.toggleTimer();
           }
         },
         toggleTextureRotation: {
@@ -211,8 +211,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.texRotTimer.toggleTimer();
+          updateFxn: function(av) {
+            av.texRotTimer.toggleTimer();
           }
         }
       },
@@ -227,10 +227,10 @@ export default {
 
     // Invert the conrtols and the keybinding for simple character lookups
     this.invCameraCtrls = {
-      ...wglc.genInvertedControlObject(this.cameraCtrls.move, "move"),
-      ...wglc.genInvertedControlObject(this.cameraCtrls.look, "look")
+      ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
+      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
     };
-    this.invActionCtrls = wglc.genInvertedControlObject(this.actionCtrls);
+    this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
 
     // Define Keyboard listeners
     window.addEventListener("keydown", e => {
@@ -271,13 +271,13 @@ export default {
       );
 
       // Set up textures we will be using
-      this.aav.textures.push(
+      this.av.textures.push(
         this.createTexture(this.gl, require("@/assets/img/webgl-chrome.jpg"))
       );
-      this.aav.textures.push(
+      this.av.textures.push(
         this.createTexture(this.gl, require("@/assets/img/webgl-ff7.png"))
       );
-      this.aav.textures.push(
+      this.av.textures.push(
         this.createTexture(this.gl, require("@/assets/img/webgl-bark.jpg"))
       );
 
@@ -411,7 +411,7 @@ export default {
     renderCube(dz, deg, axis, tScale, tRotMat, tTransVal) {
       this.val.mMat = mv.mult(
         mv.translationMatrix(mv.vec3(0, 0, dz)),
-        mv.rotationMatrix(this.aav.cubeRotTimer.getTimeSec() * deg, axis)
+        mv.rotationMatrix(this.av.cubeRotTimer.getTimeSec() * deg, axis)
       );
 
       this.gl.uniformMatrix4fv(
@@ -433,7 +433,7 @@ export default {
       this.gl.activeTexture(this.gl.TEXTURE0);
       this.gl.bindTexture(
         this.gl.TEXTURE_2D,
-        this.aav.textures[this.aav.textureIndex]
+        this.av.textures[this.av.textureIndex]
       );
       this.gl.uniform1i(this.loc.u.uSampler, 0);
 
@@ -451,22 +451,22 @@ export default {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
       let at = mv.vec3(
-        Math.cos(this.aav.camera.theta) * Math.cos(this.aav.camera.phi),
-        Math.sin(this.aav.camera.theta),
-        Math.cos(this.aav.camera.theta) * Math.sin(this.aav.camera.phi)
+        Math.cos(this.av.camera.theta) * Math.cos(this.av.camera.phi),
+        Math.sin(this.av.camera.theta),
+        Math.cos(this.av.camera.theta) * Math.sin(this.av.camera.phi)
       ); // Initially [1, 0, 0]: on the positive x-axis looking toward the origin
 
       // Action Updates
-      wglu.executeActions(this.cameraCtrls.move, this.aav);
-      wglu.executeActions(this.cameraCtrls.look, this.aav);
-      wglu.executeActions(this.actionCtrls, this.aav);
+      wglu.executeActions(this.cameraCtrls.move, this.av);
+      wglu.executeActions(this.cameraCtrls.look, this.av);
+      wglu.executeActions(this.actionCtrls, this.av);
 
       // Take into account camera
       this.val.vMat = mv.mult(
-        mv.lookAt(this.aav.camera.eye, at, this.aav.camera.up),
-        this.aav.camera.translation
+        mv.lookAt(this.av.camera.eye, at, this.av.camera.up),
+        mv.translationMatrix(this.av.camera.position)
       );
-      this.val.pMat = mv.perspective(this.aav.camera.fovy, 1.0, 0.001, 1000);
+      this.val.pMat = mv.perspective(this.av.camera.fovy, 1.0, 0.001, 1000);
 
       // Now Render Each Cube
       this.renderCube(
@@ -474,7 +474,7 @@ export default {
         360,
         [0, 1, 0],
         1,
-        mv.rotationMatrix2d(this.aav.texRotTimer.getTimeSec() * 360),
+        mv.rotationMatrix2d(this.av.texRotTimer.getTimeSec() * 360),
         0.0
       );
       this.renderCube(
@@ -483,7 +483,7 @@ export default {
         [1, 0, 0],
         2,
         mv.mat2(),
-        (this.aav.texScrTimer.getTimeSec() % 2) - 1
+        (this.av.texScrTimer.getTimeSec() % 2) - 1
       );
 
       wglu.requestAnimFrame()(this.render);

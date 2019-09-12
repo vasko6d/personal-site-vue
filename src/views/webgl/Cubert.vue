@@ -20,7 +20,7 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <webgl-camera :camera="vav.camera" :ctrls="cameraCtrls" />
+    <webgl-camera :camera="av.camera" :ctrls="cameraCtrls" />
     <action-controls :actionCtrls="actionCtrls" />
   </div>
 </template>
@@ -94,12 +94,14 @@ export default {
       },
       vertices: this.generateCube().concat(this.generateCrosshair(0.1)),
 
-      // [V]iew [A]ffecting [V]ariables
-      vav: {
+      // [A]ction affected [V]ariables
+      av: {
         dt: 0.0,
         cIndex: 0,
         showCrosshair: false,
-        camera: wglc.initCamera(mv.vec3(30, 0, 0))
+        camera: wglc.initCamera({
+          position: mv.vec3(30, 0, 0)
+        })
       },
 
       // Camera Keybind variables
@@ -115,8 +117,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(vav) {
-            vav.cIndex = (vav.cIndex + 1) % 8;
+          updateFxn: function(av) {
+            av.cIndex = (av.cIndex + 1) % 8;
           }
         },
         toggleChrosshair: {
@@ -126,8 +128,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(vav) {
-            vav.showCrosshair = !vav.showCrosshair;
+          updateFxn: function(av) {
+            av.showCrosshair = !av.showCrosshair;
           }
         },
         revert: {
@@ -137,11 +139,11 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(vav) {
-            vav.camera = wglc.initCamera(vav.camera.origCameraPosition);
-            vav.dt = 0.0;
-            vav.cIndex = 0;
-            vav.showCrosshair = false;
+          updateFxn: function(av) {
+            av.camera = wglc.initCamera(av.camera.initialProps);
+            av.dt = 0.0;
+            av.cIndex = 0;
+            av.showCrosshair = false;
           }
         }
       },
@@ -152,10 +154,10 @@ export default {
   mounted() {
     this.configureWebGL();
     this.invCameraCtrls = {
-      ...wglc.genInvertedControlObject(this.cameraCtrls.move, "move"),
-      ...wglc.genInvertedControlObject(this.cameraCtrls.look, "look")
+      ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
+      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
     };
-    this.invActionCtrls = wglc.genInvertedControlObject(this.actionCtrls);
+    this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
     window.addEventListener("keydown", e => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
@@ -263,7 +265,7 @@ export default {
 
     renderCube(num) {
       // Set the Cube Color
-      let icIndex = (num + this.vav.cIndex) % 8;
+      let icIndex = (num + this.av.cIndex) % 8;
       this.gl.uniform4f(
         this.loc.color,
         this.val.color[icIndex][0],
@@ -277,29 +279,29 @@ export default {
       switch (num) {
         // Scaled Cubes
         case 0:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.vav.dt / 2));
+          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.av.dt / 2));
           break;
         case 1:
-          m = mv.scalarMatrix(1 + 0.03 * Math.sin(this.vav.dt + num / 1.17));
+          m = mv.scalarMatrix(1 + 0.03 * Math.sin(this.av.dt + num / 1.17));
           break;
         case 6:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.vav.dt + num / 1.17));
+          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.av.dt + num / 1.17));
           break;
         case 7:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.vav.dt * 2 + num / 1.17));
+          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.av.dt * 2 + num / 1.17));
           break;
         // Rotated Cubes
         case 2:
-          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI / 2, [1, 0, 0]);
+          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI / 2, [1, 0, 0]);
           break;
         case 3:
-          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI, [0, 1, 0]);
+          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI, [0, 1, 0]);
           break;
         case 4:
-          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI / 4, [0, 0, 1]);
+          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI / 4, [0, 0, 1]);
           break;
         case 5:
-          m = mv.rotationMatrix((this.vav.dt * 180) / Math.PI, [1, 1, 1]);
+          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI, [1, 1, 1]);
           break;
       }
       var t = mv.translationMatrix(this.cubePositions[num]); // Move the vertexed cube to our rendering location
@@ -319,23 +321,23 @@ export default {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
       let at = mv.vec3(
-        Math.cos(this.vav.camera.theta) * Math.cos(this.vav.camera.phi),
-        Math.sin(this.vav.camera.theta),
-        Math.cos(this.vav.camera.theta) * Math.sin(this.vav.camera.phi)
+        Math.cos(this.av.camera.theta) * Math.cos(this.av.camera.phi),
+        Math.sin(this.av.camera.theta),
+        Math.cos(this.av.camera.theta) * Math.sin(this.av.camera.phi)
       ); // Initially [1, 0, 0]: on the positive x-axis looking toward the origin
 
       // Action Updates
-      wglu.executeActions(this.cameraCtrls.move, this.vav);
-      wglu.executeActions(this.cameraCtrls.look, this.vav);
-      wglu.executeActions(this.actionCtrls, this.vav);
-      this.vav.dt = this.vav.dt + 0.1; //keep tract of "time"
+      wglu.executeActions(this.cameraCtrls.move, this.av);
+      wglu.executeActions(this.cameraCtrls.look, this.av);
+      wglu.executeActions(this.actionCtrls, this.av);
+      this.av.dt = this.av.dt + 0.1; //keep tract of "time"
 
       // Take into account camera
       this.val.mvm = mv.mult(
-        mv.lookAt(this.vav.camera.eye, at, this.vav.camera.up),
-        this.vav.camera.translation
+        mv.lookAt(this.av.camera.eye, at, this.av.camera.up),
+        mv.translationMatrix(this.av.camera.position)
       );
-      this.val.proj = mv.perspective(this.vav.camera.fovy, 1.0, 0.1, 100);
+      this.val.proj = mv.perspective(this.av.camera.fovy, 1.0, 0.1, 100);
 
       // Render Each Cube
       for (let i = 0; i < this.cubePositions.length; ++i) {
@@ -343,7 +345,7 @@ export default {
       }
 
       // Render the Crosshair
-      if (this.vav.showCrosshair) {
+      if (this.av.showCrosshair) {
         this.gl.uniform4f(
           this.loc.color,
           this.val.color[1][0],

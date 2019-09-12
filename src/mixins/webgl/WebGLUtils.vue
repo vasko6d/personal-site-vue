@@ -291,6 +291,18 @@ export default {
           }
         }
       }
+    },
+
+    /**
+     *
+     */
+    getInvertedControlObject(ctrls, prePath) {
+      var invCtrls = {};
+      const cKeys = Object.keys(ctrls);
+      for (var cKey of cKeys) {
+        invCtrls[ctrls[cKey].keybind] = prePath ? [prePath, cKey] : [cKey];
+      }
+      return invCtrls;
     }
   }
 };

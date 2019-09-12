@@ -27,14 +27,12 @@
 // Mixin and Class Imports
 import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
-import WebglCamera from "@/components/webgl/WebglCamera.vue";
 import ActionControls from "@/components/webgl/ActionControls.vue";
 //var Timer = require("../mixins/webgl/Timer.js");
 
 // Mixin Aliases
 var mv = MatrixMath.methods;
 var wglu = WebGLUtils.methods;
-var wglc = WebglCamera.methods;
 
 export default {
   name: "Fractals",
@@ -121,7 +119,7 @@ export default {
 
   mounted() {
     this.configureWebGL();
-    this.invActionCtrls = wglc.genInvertedControlObject(this.actionCtrls);
+    this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
     window.addEventListener("keydown", e => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {

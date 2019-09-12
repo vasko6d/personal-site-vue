@@ -92,21 +92,30 @@ export default {
     };
   },
   methods: {
-    initCamera(origCameraPos, stepSize = 0.25, theta = 0.0) {
+    initCamera(cameraProps) {
       var camera = {
-        theta: theta,
+        theta: 0.0,
         phi: 0.0,
         dr: mv.rad(1),
         eye: mv.vec3(0, 0, 0),
         up: mv.vec3(0.0, 1.0, 0.0),
         fovy: 90,
-        stepSize: stepSize,
-        translation: mv.translationMatrix(origCameraPos),
-        orthoNormal: this.genOrthoNormal(0.0, 0.0),
+        stepSize: 0.25,
+        position: mv.vec3(1, 0, 0),
+        orthoNormal: this.getOrthoNormal(0.0, 0.0),
         orthoNormalUpdateFlag: false,
-        origCameraPosition: origCameraPos
+        initialProps: cameraProps
       };
+      this.setProps(camera, cameraProps);
       return camera;
+    },
+
+    setProps(camera, cameraProps) {
+      for (var prop of Object.keys(camera)) {
+        if (cameraProps[prop]) {
+          camera[prop] = cameraProps[prop];
+        }
+      }
     },
 
     defaultControls() {
@@ -247,16 +256,7 @@ export default {
       return ctrls;
     },
 
-    genInvertedControlObject(ctrls, prePath) {
-      var invCtrls = {};
-      const cKeys = Object.keys(ctrls);
-      for (var cKey of cKeys) {
-        invCtrls[ctrls[cKey].keybind] = prePath ? [prePath, cKey] : [cKey];
-      }
-      return invCtrls;
-    },
-
-    genOrthoNormal(phi, theta) {
+    getOrthoNormal(phi, theta) {
       // By rotating the original orthonormal basis twice we get a new ortonormal
       // basis that is based on our current camera position
       var orthoNormal = mv.rotationMatrix((phi * 180) / Math.PI, [0, 1, 0]);
@@ -267,21 +267,19 @@ export default {
       return orthoNormal;
     },
 
-    move(camera, d, vectorNum) {
+    move(camera, direction, vectorNum) {
       // Using the orthonormal basis, move forward, backward, left, right, up and down
       if (camera.orthoNormalUpdateFlag) {
-        camera.orthoNormal = this.genOrthoNormal(camera.phi, camera.theta);
+        camera.orthoNormal = this.getOrthoNormal(camera.phi, camera.theta);
         camera.orthoNormalUpdateFlag = false;
       }
       let onv = camera.orthoNormal[vectorNum];
-      camera.translation = mv.mult(
-        camera.translation,
-        mv.translationMatrix(
-          mv.vec3(
-            camera.stepSize * d * onv[0],
-            camera.stepSize * d * onv[1],
-            camera.stepSize * d * onv[2]
-          )
+      camera.position = mv.add(
+        camera.position,
+        mv.vec3(
+          camera.stepSize * direction * onv[0],
+          camera.stepSize * direction * onv[1],
+          camera.stepSize * direction * onv[2]
         )
       );
     }

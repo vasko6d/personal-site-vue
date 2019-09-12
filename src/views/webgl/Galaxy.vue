@@ -91,7 +91,7 @@
     <canvas id="gl-canvas" width="650px" height="650px"
       >Oops ... your browser doesn't support the HTML5 canvas element</canvas
     >
-    <webgl-camera :camera="aav.camera" :ctrls="cameraCtrls" />
+    <webgl-camera :camera="av.camera" :ctrls="cameraCtrls" />
     <action-controls :actionCtrls="actionCtrls" />
   </div>
 </template>
@@ -150,8 +150,12 @@ export default {
       },
 
       // [A]ction [A]ffected [V]ariables
-      aav: {
-        camera: this.createCamera(),
+      av: {
+        camera: wglc.initCamera({
+          position: mv.vec3(0.1 * 90, 0.1 * -51.91254, 0),
+          stepSize: 0.1,
+          theta: mv.rad(-30)
+        }),
         attachedToPlanet3: false,
         galaxy: ""
       },
@@ -189,8 +193,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(aav) {
-            aav.galaxy.getTimer().toggleTimer();
+          updateFxn: function(av) {
+            av.galaxy.getTimer().toggleTimer();
           }
         },
         goToAboveView: {
@@ -200,12 +204,12 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: aav => {
-            this.resetAav(aav, false, false);
-            aav.camera.theta = mv.rad(-90);
-            aav.camera.phi = 0;
-            aav.camera.translation = mv.translationMatrix(mv.vec3(0, -25, 0));
-            aav.camera.orthoNormalUpdateFlag = true;
+          updateFxn: av => {
+            this.resetAav(av, false, false);
+            av.camera.theta = mv.rad(-90);
+            av.camera.phi = 0;
+            av.camera.position = mv.vec3(0, -25, 0);
+            av.camera.orthoNormalUpdateFlag = true;
           }
         },
         attachToPlanet3: {
@@ -215,11 +219,11 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: aav => {
-            if (aav.attachedToPlanet3) {
-              this.resetAav(aav);
+          updateFxn: av => {
+            if (av.attachedToPlanet3) {
+              this.resetAav(av);
             } else {
-              aav.attachedToPlanet3 = true;
+              av.attachedToPlanet3 = true;
             }
           }
         },
@@ -230,8 +234,8 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: aav => {
-            this.resetAav(aav, true, true);
+          updateFxn: av => {
+            this.resetAav(av, true, true);
           }
         }
       },
@@ -246,10 +250,10 @@ export default {
 
     // Invert the conrtols and the keybinding for simple character lookups
     this.invCameraCtrls = {
-      ...wglc.genInvertedControlObject(this.cameraCtrls.move, "move"),
-      ...wglc.genInvertedControlObject(this.cameraCtrls.look, "look")
+      ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
+      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
     };
-    this.invActionCtrls = wglc.genInvertedControlObject(this.actionCtrls);
+    this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
 
     // Define Keyboard listeners
     window.addEventListener("keydown", e => {
@@ -290,12 +294,9 @@ export default {
       );
 
       // Set Up Buffers
-      this.buf.pos = wglu.buffer(this.gl, this.aav.galaxy.getVertices());
-      this.buf.norm = wglu.buffer(this.gl, this.aav.galaxy.getNormals());
-      this.buf.flatNorm = wglu.buffer(
-        this.gl,
-        this.aav.galaxy.getFlatNormals()
-      );
+      this.buf.pos = wglu.buffer(this.gl, this.av.galaxy.getVertices());
+      this.buf.norm = wglu.buffer(this.gl, this.av.galaxy.getNormals());
+      this.buf.flatNorm = wglu.buffer(this.gl, this.av.galaxy.getFlatNormals());
 
       // Set up Attributes
       this.loc.a.pos = wglu.attrib(this.gl, this.p, "vPos", 3, this.buf.pos);
@@ -315,37 +316,28 @@ export default {
       }
     },
 
-    resetAav(aav, clearPlanets = false, resetTimer = false) {
-      aav.camera = this.createCamera();
-      aav.attachedToPlanet3 = false;
+    resetAav(av, clearPlanets = false, resetTimer = false) {
+      av.camera = wglc.initCamera(av.camera.initialProps);
+      av.attachedToPlanet3 = false;
       if (clearPlanets) {
-        aav.galaxy.clearPlanets();
+        av.galaxy.clearPlanets();
         this.addInitialPlanets();
       }
       if (resetTimer) {
-        aav.galaxy.getTimer().reset();
-        aav.galaxy.getTimer().resume();
+        av.galaxy.getTimer().reset();
+        av.galaxy.getTimer().resume();
       }
     },
 
-    createCamera() {
-      var camera = wglc.initCamera(
-        mv.vec3(0.1 * 90, 0.1 * -51.91254, 0), // initial camera position
-        0.1,
-        mv.rad(-30) // we start looking down at an angle of 30 degrees
-      );
-      return camera;
-    },
-
     initGalaxy() {
-      this.aav.galaxy = new Galaxy(
+      this.av.galaxy = new Galaxy(
         this.lightSource,
         this.seedPoints,
         this.minComplexity,
         this.maxComplexity
       );
       this.addInitialPlanets();
-      this.aav.galaxy.getTimer().resume();
+      this.av.galaxy.getTimer().resume();
     },
 
     addInitialPlanets() {
@@ -358,7 +350,7 @@ export default {
         "gourand"
       );
       var orbit = this.orbit();
-      this.aav.galaxy.addPlanet(3, 0.2, material, orbit, "Sun");
+      this.av.galaxy.addPlanet(3, 0.2, material, orbit, "Sun");
 
       // Planet 1: Small, icy-white, medium-low complexity, flat-shading, specular highlight
       material = this.material(
@@ -369,7 +361,7 @@ export default {
         "flat"
       );
       orbit = this.orbit(1, 1.177, 0.3, 2);
-      this.aav.galaxy.addPlanet(4, 1, material, orbit, "Icicle I");
+      this.av.galaxy.addPlanet(4, 1, material, orbit, "Icicle I");
 
       // Planet 2: Medium, swampy-green, medium complexity, gourand shading, specular highlight
       material = this.material(
@@ -380,7 +372,7 @@ export default {
         "gourand"
       );
       orbit = this.orbit(1, 1 / 2.3, 1.2, 7);
-      this.aav.galaxy.addPlanet(3, 1, material, orbit, "Swampert");
+      this.av.galaxy.addPlanet(3, 1, material, orbit, "Swampert");
 
       // Planet 3: Medium, blue, high-complexity, phong shading, specular highlight
       material = this.material(
@@ -391,7 +383,7 @@ export default {
         "phong"
       );
       orbit = this.orbit(1, -1 / 2.7, 0.3, 12);
-      this.aav.galaxy.addPlanet(6, 1.0, material, orbit, "Gargantia");
+      this.av.galaxy.addPlanet(6, 1.0, material, orbit, "Gargantia");
 
       // Planet 3.1 (moon 1 of planet 3):
       material = this.material(
@@ -402,7 +394,7 @@ export default {
         "gourand"
       );
       orbit = this.orbit(1, 3, 0, 3);
-      this.aav.galaxy.addMoon([3], 5, 0.25, material, orbit, "Titan");
+      this.av.galaxy.addMoon([3], 5, 0.25, material, orbit, "Titan");
 
       // Planet 3.1.1 (moon 1 of moon 1 of planet 3):
       material = this.material(
@@ -413,7 +405,7 @@ export default {
         "gourand"
       );
       orbit = this.orbit(1, 6, 0.2, 2);
-      this.aav.galaxy.addMoon([3, 0], 3, 0.125, material, orbit, "Sirens");
+      this.av.galaxy.addMoon([3, 0], 3, 0.125, material, orbit, "Sirens");
 
       // Planet 4: Medium, brown-orange, medium-complexity, gourand shading, no spectral highlight
       material = this.material(
@@ -424,7 +416,7 @@ export default {
         "gourand"
       );
       orbit = this.orbit(1, 1 / 3.2, -0.8, 20);
-      this.aav.galaxy.addPlanet(5, 4, material, orbit, "Jupiter");
+      this.av.galaxy.addPlanet(5, 4, material, orbit, "Jupiter");
     },
 
     material(ambient, diffuse, specular, shininess, shading) {
@@ -433,7 +425,7 @@ export default {
         diffuse: mv.vec4(diffuse),
         specular: mv.vec4(specular),
         shininess: shininess,
-        shading: this.aav.galaxy.getShadingFlag(shading)
+        shading: this.av.galaxy.getShadingFlag(shading)
       };
     },
 
@@ -450,45 +442,45 @@ export default {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
       // Action Updates
-      if (!this.aav.attachedToPlanet3) {
-        wglu.executeActions(this.cameraCtrls.move, this.aav);
+      if (!this.av.attachedToPlanet3) {
+        wglu.executeActions(this.cameraCtrls.move, this.av);
       }
-      wglu.executeActions(this.cameraCtrls.look, this.aav);
-      wglu.executeActions(this.actionCtrls, this.aav);
+      wglu.executeActions(this.cameraCtrls.look, this.av);
+      wglu.executeActions(this.actionCtrls, this.av);
 
-      var pMat = mv.perspective(this.aav.camera.fovy, 1, 0.1, 1000);
+      var pMat = mv.perspective(this.av.camera.fovy, 1, 0.1, 1000);
       var at = mv.vec3(
-        Math.cos(this.aav.camera.theta) * Math.cos(this.aav.camera.phi),
-        Math.sin(this.aav.camera.theta),
-        Math.cos(this.aav.camera.theta) * Math.sin(this.aav.camera.phi)
+        Math.cos(this.av.camera.theta) * Math.cos(this.av.camera.phi),
+        Math.sin(this.av.camera.theta),
+        Math.cos(this.av.camera.theta) * Math.sin(this.av.camera.phi)
       );
-      let time = this.aav.galaxy.getTimer().getTimeSec();
+      let time = this.av.galaxy.getTimer().getTimeSec();
 
-      if (this.aav.attachedToPlanet3) {
-        var p3 = this.aav.galaxy.getPlanetByIndex(3);
+      if (this.av.attachedToPlanet3) {
+        var p3 = this.av.galaxy.getPlanetByIndex(3);
         var rads = time * p3.orbit.omega + p3.orbit.phase;
-        this.aav.camera.eye = mv.vec3(
+        this.av.camera.eye = mv.vec3(
           p3.orbit.radius * Math.cos(rads),
           0,
           p3.orbit.radius * Math.sin(rads)
         );
         at = mv.vec3(
-          Math.cos(-this.aav.camera.phi) - p3.orbit.radius * Math.cos(rads),
+          Math.cos(-this.av.camera.phi) - p3.orbit.radius * Math.cos(rads),
           0,
-          -Math.sin(-this.aav.camera.phi) + p3.orbit.radius * Math.sin(rads)
+          -Math.sin(-this.av.camera.phi) + p3.orbit.radius * Math.sin(rads)
         );
-        pMat = mv.perspective(this.aav.camera.fovy, 1, 1, 1000);
+        pMat = mv.perspective(this.av.camera.fovy, 1, 1, 1000);
       }
 
       var vMat = mv.mult(
-        mv.lookAt(this.aav.camera.eye, at, this.aav.camera.up),
-        this.aav.camera.translation
+        mv.lookAt(this.av.camera.eye, at, this.av.camera.up),
+        mv.translationMatrix(this.av.camera.position)
       );
 
       this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
       this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
 
-      this.aav.galaxy.animatePlanets(this.gl, this.loc);
+      this.av.galaxy.animatePlanets(this.gl, this.loc);
 
       wglu.requestAnimFrame()(this.render);
     }
