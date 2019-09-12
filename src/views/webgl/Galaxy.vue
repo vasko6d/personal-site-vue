@@ -202,7 +202,7 @@ export default {
           updateFlag: false,
           updateFxn: aav => {
             this.resetAav(aav, false, false);
-            aav.camera.theta = mv.radians(-89.9);
+            aav.camera.theta = mv.rad(-90);
             aav.camera.phi = 0;
             aav.camera.translation = mv.translationMatrix(mv.vec3(0, -25, 0));
             aav.camera.orthoNormalUpdateFlag = true;
@@ -332,7 +332,7 @@ export default {
       var camera = wglc.initCamera(
         mv.vec3(0.1 * 90, 0.1 * -51.91254, 0), // initial camera position
         0.1,
-        mv.radians(-30) // we start looking down at an angle of 30 degrees
+        mv.rad(-30) // we start looking down at an angle of 30 degrees
       );
       return camera;
     },

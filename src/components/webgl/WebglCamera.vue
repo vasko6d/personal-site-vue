@@ -31,9 +31,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
-                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
-              }}</i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
             </div>
           </template>
         </div>
@@ -96,7 +96,7 @@ export default {
       var camera = {
         theta: theta,
         phi: 0.0,
-        dr: mv.radians(1),
+        dr: mv.rad(1),
         eye: mv.vec3(0, 0, 0),
         up: mv.vec3(0.0, 1.0, 0.0),
         fovy: 90,

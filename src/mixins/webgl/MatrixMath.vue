@@ -307,9 +307,9 @@ export default {
       var y = v[1];
       var z = v[2];
 
-      var c = Math.cos(this.radians(angle));
+      var c = Math.cos(this.rad(angle));
       var omc = 1.0 - c;
-      var s = Math.sin(this.radians(angle));
+      var s = Math.sin(this.rad(angle));
 
       var result = this.mat4(
         this.vec4(
@@ -352,7 +352,7 @@ export default {
 
     rotationMatrix2d(thetaInDegrees) {
       var m = this.mat2();
-      var theta = this.radians(thetaInDegrees);
+      var theta = this.rad(thetaInDegrees);
       m[0][0] = Math.cos(theta);
       m[0][1] = Math.sin(theta);
       m[1][0] = -m[0][1];
@@ -418,7 +418,7 @@ export default {
       return result;
     },
     perspective(fovy, aspect, near, far) {
-      var f = 1.0 / Math.tan(this.radians(fovy) / 2);
+      var f = 1.0 / Math.tan(this.rad(fovy) / 2);
       var d = far - near;
 
       var result = this.mat4();
@@ -573,8 +573,12 @@ export default {
       return [].concat.apply([], Array.prototype.slice.apply(args));
     },
 
-    radians(degrees) {
+    rad(degrees) {
       return (degrees * Math.PI) / 180.0;
+    },
+
+    deg(radians) {
+      return (radians * 180) / Math.PI;
     },
 
     sizeof(type) {
