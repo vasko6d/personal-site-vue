@@ -149,10 +149,10 @@ export default {
         flatNorm: ""
       },
 
-      // [A]ction [A]ffected [V]ariables
+      // [A]ction affected [V]ariables
       av: {
         camera: wglc.initCamera({
-          position: mv.vec3(0.1 * 90, 0.1 * -51.91254, 0),
+          position: mv.vec3(-15, 5, 0),
           stepSize: 0.1,
           theta: mv.rad(-30),
           near: 0.1,
@@ -210,7 +210,7 @@ export default {
             this.resetAav(av, false, false);
             av.camera.theta = mv.rad(-90);
             av.camera.phi = 0;
-            av.camera.position = mv.vec3(0, -25, 0);
+            av.camera.position = mv.vec3(0, 25, 0);
             av.camera.orthoNormalUpdateFlag = true;
           }
         },
@@ -451,7 +451,7 @@ export default {
       wglu.executeActions(this.actionCtrls, this.av);
 
       var pMat = wglc.perspectiveMatrix(this.av.camera);
-      var at = wglc.at(this.av.camera);
+      var at = wglc.atPosition(this.av.camera);
       let time = this.av.galaxy.getTimer().getTimeSec();
 
       if (this.av.attachedToPlanet3) {
@@ -470,10 +470,7 @@ export default {
         pMat = mv.perspective(this.av.camera.fovy, 1, 1, 1000);
       }
 
-      var vMat = mv.mult(
-        mv.lookAt(this.av.camera.eye, at, this.av.camera.up),
-        mv.translationMatrix(this.av.camera.position)
-      );
+      var vMat = mv.lookAt(this.av.camera.position, at, this.av.camera.up);
 
       this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
       this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));

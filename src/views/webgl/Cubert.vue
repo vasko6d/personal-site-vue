@@ -100,7 +100,7 @@ export default {
         cIndex: 0,
         showCrosshair: false,
         camera: wglc.initCamera({
-          position: mv.vec3(30, 0, 0)
+          position: mv.vec3(-30, 0, 0)
         })
       },
 

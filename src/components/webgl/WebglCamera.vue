@@ -9,8 +9,10 @@
     />
     <div class="crtl-container">
       <div class="h-item">
-        Camera Controls&nbsp;
-        <i class="fas fa-question-circle" @click="showModal = true"></i>
+        <div>
+          Camera Controls&nbsp;
+          <i class="fas fa-question-circle" @click="showModal = true"></i>
+        </div>
       </div>
       <switch-button v-model="kbToggle" class="main-tr"
         >Show Keyboard Binds</switch-button
@@ -31,9 +33,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
-              </i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
+                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
+              }}</i>
             </div>
           </template>
         </div>
@@ -94,18 +96,18 @@ export default {
   methods: {
     initCamera(cameraProps) {
       var camera = {
-        theta: 0.0,
-        phi: 0.0,
+        theta: 0.0, // up down angle
+        phi: 0.0, // left right angle
+        alpha: 0.0, // rolling angle
         dr: mv.rad(1),
-        eye: mv.vec3(0, 0, 0),
-        up: mv.vec3(0.0, 1.0, 0.0),
+        up: mv.vec3(0, 1, 0),
         fovy: 90,
         aspect: 1,
         near: 0.1,
         far: 100,
         stepSize: 0.25,
         position: mv.vec3(1, 0, 0),
-        orthoNormal: this.getOrthoNormal(0.0, 0.0),
+        orthoNormal: this.getOrthoNormal(0, 0),
         orthoNormalUpdateFlag: false,
         initialProps: cameraProps
       };
@@ -131,7 +133,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
-              this.move(vav.camera, -1, 0);
+              this.move(vav.camera, 1, 0);
             }
           },
           backward: {
@@ -141,7 +143,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
-              this.move(vav.camera, 1, 0);
+              this.move(vav.camera, -1, 0);
             }
           },
           left: {
@@ -151,7 +153,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
-              this.move(vav.camera, 1, 2);
+              this.move(vav.camera, -1, 2);
             }
           },
           right: {
@@ -161,7 +163,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
-              this.move(vav.camera, -1, 2);
+              this.move(vav.camera, 1, 2);
             }
           },
           up: {
@@ -171,7 +173,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
-              this.move(vav.camera, -1, 1);
+              this.move(vav.camera, 1, 1);
             }
           },
           down: {
@@ -181,7 +183,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn: vav => {
-              this.move(vav.camera, 1, 1);
+              this.move(vav.camera, -1, 1);
             }
           }
         },
@@ -193,7 +195,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
-              if (vav.camera.theta < 1.55) {
+              if (vav.camera.theta < mv.rad(90)) {
                 vav.camera.theta += vav.camera.dr;
                 vav.camera.orthoNormalUpdateFlag = true;
               }
@@ -206,7 +208,7 @@ export default {
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
-              if (vav.camera.theta > -1.55) {
+              if (vav.camera.theta > -mv.rad(90)) {
                 vav.camera.theta -= vav.camera.dr;
                 vav.camera.orthoNormalUpdateFlag = true;
               }
@@ -271,10 +273,7 @@ export default {
     },
 
     viewMatrix(camera) {
-      return mv.mult(
-        mv.lookAt(camera.eye, this.at(camera), camera.up),
-        mv.translationMatrix(camera.position)
-      );
+      return mv.lookAt(camera.position, this.atPosition(camera), camera.up);
     },
 
     perspectiveMatrix(camera) {
@@ -286,7 +285,11 @@ export default {
       );
     },
 
-    at(camera) {
+    atPosition(camera) {
+      return mv.add(this.atVector(camera), camera.position);
+    },
+
+    atVector(camera) {
       return mv.vec3(
         Math.cos(camera.theta) * Math.cos(camera.phi),
         Math.sin(camera.theta),
@@ -301,13 +304,10 @@ export default {
         camera.orthoNormalUpdateFlag = false;
       }
       let onv = camera.orthoNormal[vectorNum];
+      let dx = camera.stepSize * direction;
       camera.position = mv.add(
         camera.position,
-        mv.vec3(
-          camera.stepSize * direction * onv[0],
-          camera.stepSize * direction * onv[1],
-          camera.stepSize * direction * onv[2]
-        )
+        mv.vec3(dx * onv[0], dx * onv[1], dx * onv[2])
       );
     }
   }

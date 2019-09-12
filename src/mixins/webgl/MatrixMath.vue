@@ -375,16 +375,16 @@ export default {
         return this.mat4();
       }
 
-      var v = this.normalize(this.subtract(at, eye)); // view direction vector
-      var n = this.normalize(this.cross(v, up)); // perpendicular vector
-      var u = this.normalize(this.cross(n, v)); // "new" up vector
+      var n = this.normalize(this.subtract(eye, at)); // view direction vector
+      var u = this.normalize(this.cross(up, n)); // perpendicular vector
+      var v = this.normalize(this.cross(n, u)); // "new" up vector
 
-      v = this.negate(v);
+      //v = this.negate(v);
 
       var result = this.mat4(
-        this.vec4(n, -this.dot(n, eye)),
         this.vec4(u, -this.dot(u, eye)),
         this.vec4(v, -this.dot(v, eye)),
+        this.vec4(n, -this.dot(n, eye)),
         this.vec4()
       );
 

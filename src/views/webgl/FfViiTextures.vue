@@ -144,7 +144,7 @@ export default {
         texRotTimer: new Timer(),
         texScrTimer: new Timer(),
         camera: wglc.initCamera({
-          position: mv.vec3(3, 0, 0),
+          position: mv.vec3(-3, 0, 0),
           stepSize: 0.05,
           near: 0.001,
           far: 1000
