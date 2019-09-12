@@ -320,12 +320,6 @@ export default {
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-      let at = mv.vec3(
-        Math.cos(this.av.camera.theta) * Math.cos(this.av.camera.phi),
-        Math.sin(this.av.camera.theta),
-        Math.cos(this.av.camera.theta) * Math.sin(this.av.camera.phi)
-      ); // Initially [1, 0, 0]: on the positive x-axis looking toward the origin
-
       // Action Updates
       wglu.executeActions(this.cameraCtrls.move, this.av);
       wglu.executeActions(this.cameraCtrls.look, this.av);
@@ -333,11 +327,8 @@ export default {
       this.av.dt = this.av.dt + 0.1; //keep tract of "time"
 
       // Take into account camera
-      this.val.mvm = mv.mult(
-        mv.lookAt(this.av.camera.eye, at, this.av.camera.up),
-        mv.translationMatrix(this.av.camera.position)
-      );
-      this.val.proj = mv.perspective(this.av.camera.fovy, 1.0, 0.1, 100);
+      this.val.mvm = wglc.viewMatrix(this.av.camera);
+      this.val.proj = wglc.perspectiveMatrix(this.av.camera);
 
       // Render Each Cube
       for (let i = 0; i < this.cubePositions.length; ++i) {

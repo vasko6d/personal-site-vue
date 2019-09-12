@@ -154,7 +154,9 @@ export default {
         camera: wglc.initCamera({
           position: mv.vec3(0.1 * 90, 0.1 * -51.91254, 0),
           stepSize: 0.1,
-          theta: mv.rad(-30)
+          theta: mv.rad(-30),
+          near: 0.1,
+          far: 1000
         }),
         attachedToPlanet3: false,
         galaxy: ""
@@ -448,12 +450,8 @@ export default {
       wglu.executeActions(this.cameraCtrls.look, this.av);
       wglu.executeActions(this.actionCtrls, this.av);
 
-      var pMat = mv.perspective(this.av.camera.fovy, 1, 0.1, 1000);
-      var at = mv.vec3(
-        Math.cos(this.av.camera.theta) * Math.cos(this.av.camera.phi),
-        Math.sin(this.av.camera.theta),
-        Math.cos(this.av.camera.theta) * Math.sin(this.av.camera.phi)
-      );
+      var pMat = wglc.perspectiveMatrix(this.av.camera);
+      var at = wglc.at(this.av.camera);
       let time = this.av.galaxy.getTimer().getTimeSec();
 
       if (this.av.attachedToPlanet3) {

@@ -145,7 +145,9 @@ export default {
         texScrTimer: new Timer(),
         camera: wglc.initCamera({
           position: mv.vec3(3, 0, 0),
-          stepSize: 0.05
+          stepSize: 0.05,
+          near: 0.001,
+          far: 1000
         }),
         textureIndex: 1
       },
@@ -450,23 +452,14 @@ export default {
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-      let at = mv.vec3(
-        Math.cos(this.av.camera.theta) * Math.cos(this.av.camera.phi),
-        Math.sin(this.av.camera.theta),
-        Math.cos(this.av.camera.theta) * Math.sin(this.av.camera.phi)
-      ); // Initially [1, 0, 0]: on the positive x-axis looking toward the origin
-
       // Action Updates
       wglu.executeActions(this.cameraCtrls.move, this.av);
       wglu.executeActions(this.cameraCtrls.look, this.av);
       wglu.executeActions(this.actionCtrls, this.av);
 
       // Take into account camera
-      this.val.vMat = mv.mult(
-        mv.lookAt(this.av.camera.eye, at, this.av.camera.up),
-        mv.translationMatrix(this.av.camera.position)
-      );
-      this.val.pMat = mv.perspective(this.av.camera.fovy, 1.0, 0.001, 1000);
+      this.val.vMat = wglc.viewMatrix(this.av.camera);
+      this.val.pMat = wglc.perspectiveMatrix(this.av.camera);
 
       // Now Render Each Cube
       this.renderCube(

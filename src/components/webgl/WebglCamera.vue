@@ -100,6 +100,9 @@ export default {
         eye: mv.vec3(0, 0, 0),
         up: mv.vec3(0.0, 1.0, 0.0),
         fovy: 90,
+        aspect: 1,
+        near: 0.1,
+        far: 100,
         stepSize: 0.25,
         position: mv.vec3(1, 0, 0),
         orthoNormal: this.getOrthoNormal(0.0, 0.0),
@@ -265,6 +268,30 @@ export default {
         orthoNormal
       );
       return orthoNormal;
+    },
+
+    viewMatrix(camera) {
+      return mv.mult(
+        mv.lookAt(camera.eye, this.at(camera), camera.up),
+        mv.translationMatrix(camera.position)
+      );
+    },
+
+    perspectiveMatrix(camera) {
+      return mv.perspective(
+        camera.fovy,
+        camera.aspect,
+        camera.near,
+        camera.far
+      );
+    },
+
+    at(camera) {
+      return mv.vec3(
+        Math.cos(camera.theta) * Math.cos(camera.phi),
+        Math.sin(camera.theta),
+        Math.cos(camera.theta) * Math.sin(camera.phi)
+      );
     },
 
     move(camera, direction, vectorNum) {
