@@ -221,7 +221,7 @@ export default {
     /**
      * Create a single picture texture for quick loading
      */
-    bindSinglePixelTexture(gl, texture) {
+    bindSinglePixelTexture(gl, texture, pixelColor = [0, 0, 255, 255]) {
       gl.bindTexture(gl.TEXTURE_2D, texture);
       const level = 0;
       const internalFormat = gl.RGBA;
@@ -230,7 +230,7 @@ export default {
       const border = 0;
       const srcFormat = gl.RGBA;
       const srcType = gl.UNSIGNED_BYTE;
-      const pixel = new Uint8Array([0, 0, 255, 255]); // opaque blue
+      const pixel = new Uint8Array(pixelColor); // opaque blue
       gl.texImage2D(
         gl.TEXTURE_2D,
         level,

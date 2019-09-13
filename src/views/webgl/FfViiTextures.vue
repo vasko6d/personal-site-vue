@@ -140,6 +140,7 @@ export default {
       // [A]ction affected [V]ariables
       av: {
         textures: [],
+        floorTexture: "",
         cubeRotTimer: new Timer(),
         texRotTimer: new Timer(),
         texScrTimer: new Timer(),
@@ -269,7 +270,8 @@ export default {
       [this.gl, this.p] = wglu.baseWebGL(
         "gl-canvas",
         "vertex-shader",
-        "fragment-shader"
+        "fragment-shader",
+        [0.235, 0.482, 0.827, 1]
       );
 
       // Set up textures we will be using
@@ -281,6 +283,10 @@ export default {
       );
       this.av.textures.push(
         this.createTexture(this.gl, require("@/assets/img/webgl-bark.jpg"))
+      );
+      this.av.floorTexture = this.createTexture(
+        this.gl,
+        require("@/assets/img/webgl-ground.jpg")
       );
 
       // Set Up Buffers
@@ -300,45 +306,46 @@ export default {
       }
     },
 
-    createTexture(gl, imgSrc) {
+    createTexture(gl, imgSrc, singlePixelColor) {
       var t = gl.createTexture();
 
       // temporarly use single pixel texture while texture image loads
-      wglu.bindSinglePixelTexture(gl, t);
+      wglu.bindSinglePixelTexture(gl, t, singlePixelColor);
 
       // actual texture image
-      t.image = new Image();
-      t.image.onload = function() {
-        gl.bindTexture(gl.TEXTURE_2D, t);
-        gl.texImage2D(
-          gl.TEXTURE_2D,
-          0,
-          gl.RGBA,
-          gl.RGBA,
-          gl.UNSIGNED_BYTE,
-          t.image
-        );
+      if (imgSrc) {
+        t.image = new Image();
+        t.image.onload = function() {
+          gl.bindTexture(gl.TEXTURE_2D, t);
+          gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            gl.RGBA,
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
+            t.image
+          );
 
-        // mipmap only works on inages of dimension base 2
-        gl.generateMipmap(gl.TEXTURE_2D);
+          // mipmap only works on inages of dimension base 2
+          gl.generateMipmap(gl.TEXTURE_2D);
 
-        //use nearest neighbor for zooming in
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+          //use nearest neighbor for zooming in
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-        //use mipmap trilinear filtering for zoomed out
-        gl.texParameteri(
-          gl.TEXTURE_2D,
-          gl.TEXTURE_MIN_FILTER,
-          gl.LINEAR_MIPMAP_LINEAR
-        );
+          //use mipmap trilinear filtering for zoomed out
+          gl.texParameteri(
+            gl.TEXTURE_2D,
+            gl.TEXTURE_MIN_FILTER,
+            gl.LINEAR_MIPMAP_LINEAR
+          );
 
-        //use repeat to make the texture repeat in both the s and t directions
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-
-        gl.bindTexture(gl.TEXTURE_2D, null); // unbind texture
-      };
-      t.image.src = imgSrc;
+          //use repeat to make the texture repeat in both the s and t directions
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+        };
+        t.image.src = imgSrc;
+      }
+      gl.bindTexture(gl.TEXTURE_2D, null); // unbind texture
 
       return t;
     },
@@ -449,6 +456,42 @@ export default {
       this.gl.drawArrays(this.gl.TRIANGLES, 0, 36);
     },
 
+    renderFloorCube() {
+      this.val.mMat = mv.mult(
+        mv.scalarMatrix([1000, 0.1, 1000]),
+        mv.translationMatrix(mv.vec3(0, -10, 0))
+      );
+
+      this.gl.uniformMatrix4fv(
+        this.loc.u.vMat,
+        false,
+        mv.flatten(this.val.vMat)
+      );
+      this.gl.uniformMatrix4fv(
+        this.loc.u.mMat,
+        false,
+        mv.flatten(this.val.mMat)
+      );
+      this.gl.uniformMatrix4fv(
+        this.loc.u.pMat,
+        false,
+        mv.flatten(this.val.pMat)
+      );
+
+      this.gl.activeTexture(this.gl.TEXTURE0);
+      this.gl.bindTexture(this.gl.TEXTURE_2D, this.av.floorTexture);
+      this.gl.uniform1i(this.loc.u.uSampler, 0);
+
+      this.gl.uniform3fv(this.loc.u.lPos, mv.flatten(this.val.lPos));
+      this.gl.uniform1f(this.loc.u.shininess, 0);
+      this.gl.uniform1f(this.loc.u.texS, 500);
+
+      this.gl.uniformMatrix2fv(this.loc.u.texR, false, mv.flatten(mv.mat2()));
+      this.gl.uniform1f(this.loc.u.texT, 0);
+
+      this.gl.drawArrays(this.gl.TRIANGLES, 0, 36);
+    },
+
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
@@ -478,6 +521,7 @@ export default {
         mv.mat2(),
         (this.av.texScrTimer.getTimeSec() % 2) - 1
       );
+      this.renderFloorCube();
 
       wglu.requestAnimFrame()(this.render);
     }
