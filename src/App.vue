@@ -142,6 +142,7 @@ export default {
       }
     }
     .dropdown {
+      z-index: 3;
       position: absolute;
       left: 50%;
       width: 100%;

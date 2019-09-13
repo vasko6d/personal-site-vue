@@ -93,6 +93,7 @@ export default {
     }
     .navigation {
       position: relative;
+      z-index: 2;
       a {
         h3 {
           margin-top: 0px;
