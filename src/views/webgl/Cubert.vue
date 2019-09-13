@@ -80,6 +80,68 @@ export default {
       },
 
       // Data Variables
+      cubes: [
+        this.cube([10, -10, -10], function(time) {
+          return 1 + 0.1 * Math.sin(time / 2);
+        }),
+        this.cube([10, -10, 10], function(time) {
+          return 1 + 0.03 * Math.sin(time + 1 / 1.17);
+        }),
+
+        this.cube(
+          [10, 10, -10],
+          function() {
+            return 1;
+          },
+          function(time) {
+            return mv.deg(time) / 2;
+          },
+          [1, 0, 0]
+        ),
+
+        this.cube(
+          [10, 10, 10],
+          function() {
+            return 1;
+          },
+          function(time) {
+            return mv.deg(time);
+          },
+          [0, 1, 0]
+        ),
+
+        this.cube(
+          [-10, -10, -10],
+          function() {
+            return 1;
+          },
+          function(time) {
+            return mv.deg(time) / 4;
+          },
+          [0, 0, 1]
+        ),
+
+        this.cube(
+          [-10, -10, 10],
+          function() {
+            return 1;
+          },
+          function(time) {
+            return mv.deg(time);
+          },
+          [1, 1, 1]
+        ),
+
+        this.cube([-10, 10, -10], function(time) {
+          return 1 + 0.1 * Math.sin(time + 6 / 1.17);
+        }),
+        this.cube([-10, 10, 10], function(time) {
+          return 1 + 0.1 * Math.sin(time * 2 + 7 / 1.17);
+        }),
+        this.cube([0, -11.4, 0], function() {
+          return [1000, 0.1, 1000];
+        })
+      ],
       color: [
         mv.vec4(0.3, 0.3, 0.3, 1.0), // grey
         mv.vec4(1.0, 0.0, 0.0, 1.0), // red
@@ -88,17 +150,8 @@ export default {
         mv.vec4(0.0, 0.0, 1.0, 1.0), // blue
         mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
         mv.vec4(0.0, 1.0, 1.0, 1.0), // cyan
-        mv.vec4(1.0, 1.0, 1.0, 1.0) // white
-      ],
-      cubePositions: [
-        mv.vec3(10, -10, -10),
-        mv.vec3(10, -10, 10),
-        mv.vec3(10, 10, -10),
-        mv.vec3(10, 10, 10),
-        mv.vec3(-10, -10, -10),
-        mv.vec3(-10, -10, 10),
-        mv.vec3(-10, 10, -10),
-        mv.vec3(-10, 10, 10)
+        mv.vec4(1.0, 1.0, 1.0, 1.0), // white
+        mv.vec4(0.803, 0.592, 0.278) // brown
       ],
       crosshair: {
         near: -15,
@@ -167,9 +220,12 @@ export default {
   },
 
   mounted() {
-    this.generateCube();
-    this.generateCrosshair(0.1);
+    // Generate Vetex Dat and set up web gl
+    this.generateCubeVertices();
+    this.generateCrosshairVertices(0.1);
     this.configureWebGL();
+
+    // Set up the inverted controls adn window events
     this.invCameraCtrls = {
       ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
       ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
@@ -195,6 +251,8 @@ export default {
         this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = false;
       }
     });
+
+    // begin render loop
     this.render();
   },
 
@@ -203,7 +261,7 @@ export default {
   },
 
   methods: {
-    generateCube(sz = 1) {
+    generateCubeVertices(sz = 1) {
       // Ideal Triangle Strip: 3 2 6 7 4 2 0 3 1 6 5 4 1 0
       // --> 14 is the minimum numbers of points to define a cube with triangles.
       var verts = [
@@ -243,7 +301,7 @@ export default {
       wglu.updateBufferIndex(this.bufIdx, "cube", stripArray.length);
     },
 
-    generateCrosshair(stepSize) {
+    generateCrosshairVertices(stepSize) {
       // First add points that make a circle.
       var verts = [];
       for (var alpha = 0; alpha < 6.28; alpha = alpha + stepSize) {
@@ -260,6 +318,15 @@ export default {
       verts.push(mv.vec3(0, -7, 14.9));
       Array.prototype.push.apply(this.dat.pos, verts);
       wglu.updateBufferIndex(this.bufIdx, "plus", verts.length);
+    },
+
+    cube(position, sf, rf = "", rAxis = "") {
+      return {
+        position: mv.vec3(position),
+        scalarFunction: sf,
+        rotationFunction: rf,
+        rotationAxis: rAxis
+      };
     },
 
     configureWebGL() {
@@ -285,61 +352,32 @@ export default {
 
     renderCube(num) {
       // Set the Cube Color
-      let icIndex = (num + this.av.cIndex) % 8;
+      let ci = (num + this.av.cIndex) % this.color.length;
       this.gl.uniform4f(
         this.loc.u.color,
-        this.color[icIndex][0],
-        this.color[icIndex][1],
-        this.color[icIndex][2],
-        this.color[icIndex][3]
+        this.color[ci][0],
+        this.color[ci][1],
+        this.color[ci][2],
+        this.color[ci][3]
       );
 
       //-----------Individually Scale or Rotate each Cube--------------
-      var m = mv.mat4();
-      switch (num) {
-        // Scaled Cubes
-        case 0:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.av.dt / 2));
-          break;
-        case 1:
-          m = mv.scalarMatrix(1 + 0.03 * Math.sin(this.av.dt + num / 1.17));
-          break;
-        case 6:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.av.dt + num / 1.17));
-          break;
-        case 7:
-          m = mv.scalarMatrix(1 + 0.1 * Math.sin(this.av.dt * 2 + num / 1.17));
-          break;
-        // Rotated Cubes
-        case 2:
-          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI / 2, [1, 0, 0]);
-          break;
-        case 3:
-          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI, [0, 1, 0]);
-          break;
-        case 4:
-          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI / 4, [0, 0, 1]);
-          break;
-        case 5:
-          m = mv.rotationMatrix((this.av.dt * 180) / Math.PI, [1, 1, 1]);
-          break;
+      let cubert = this.cubes[num];
+      var t = mv.translationMatrix(cubert.position); // Move the vertexed cube to our rendering location
+      var sr = mv.scalarMatrix(cubert.scalarFunction(this.av.dt));
+      if (cubert.rotationAxis) {
+        sr = mv.mult(
+          sr,
+          mv.rotationMatrix(
+            cubert.rotationFunction(this.av.dt),
+            cubert.rotationAxis
+          )
+        );
       }
-      var t = mv.translationMatrix(this.cubePositions[num]); // Move the vertexed cube to our rendering location
-      var mMat = mv.mult(t, m);
+      var mMat = mv.mult(t, sr);
 
       // Actually set the WebGl values
       this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mMat));
-      wglu.draw(this.gl, this.gl.TRIANGLE_STRIP, this.bufIdx, "cube");
-    },
-
-    renderFloorCube() {
-      var s = mv.scalarMatrix(mv.vec3(1000, 0.1, 1000));
-      var t = mv.translationMatrix(mv.vec3(0, -11.9, 0));
-      var mMat = mv.mult(t, s);
-
-      // Actually set the WebGl values
-      this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mMat));
-      this.gl.uniform4f(this.loc.u.color, 0.803, 0.592, 0.278, 1);
       wglu.draw(this.gl, this.gl.TRIANGLE_STRIP, this.bufIdx, "cube");
     },
 
@@ -389,10 +427,9 @@ export default {
       this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
       this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
 
-      for (let i = 0; i < this.cubePositions.length; ++i) {
+      for (let i = 0; i < this.cubes.length; ++i) {
         this.renderCube(i);
       }
-      this.renderFloorCube();
       this.renderCrosshair(); // Crosshair has no view or model transofrmations
 
       wglu.requestAnimFrame()(this.render);
