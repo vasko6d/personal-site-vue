@@ -240,7 +240,8 @@ export default {
       [this.gl, this.program] = wglu.baseWebGL(
         "gl-canvas",
         "vertex-shader",
-        "fragment-shader"
+        "fragment-shader",
+        [0.235, 0.482, 0.827, 1]
       );
 
       // Set Up Buffers
@@ -317,6 +318,22 @@ export default {
       this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 14);
     },
 
+    renderFloorCube() {
+      var s = mv.scalarMatrix(mv.vec3(1000, 0.1, 1000));
+      var t = mv.translationMatrix(mv.vec3(0, -11.9, 0));
+      var cubeChangeMatrix = mv.mult(mv.mult(this.val.mvm, t), s);
+
+      // Actually set the WebGl values
+      this.gl.uniformMatrix4fv(
+        this.loc.mvm,
+        false,
+        mv.flatten(cubeChangeMatrix)
+      );
+      this.gl.uniformMatrix4fv(this.loc.proj, false, mv.flatten(this.val.proj));
+      this.gl.uniform4f(this.loc.color, 0.803, 0.592, 0.278, 1);
+      this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 14);
+    },
+
     render() {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
@@ -334,6 +351,7 @@ export default {
       for (let i = 0; i < this.cubePositions.length; ++i) {
         this.renderCube(i);
       }
+      this.renderFloorCube();
 
       // Render the Crosshair
       if (this.av.showCrosshair) {
