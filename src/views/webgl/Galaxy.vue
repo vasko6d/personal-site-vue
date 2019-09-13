@@ -226,6 +226,7 @@ export default {
               this.resetAav(av);
             } else {
               av.attachedToPlanet3 = true;
+              av.camera.near = 1.1;
             }
           }
         },
@@ -444,35 +445,20 @@ export default {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
       // Action Updates
-      if (!this.av.attachedToPlanet3) {
+      if (this.av.attachedToPlanet3) {
+        var time = this.av.galaxy.getTimer().getTimeSec();
+        var p3 = this.av.galaxy.getPlanetByIndex(3);
+        this.av.camera.position = p3.getPosition(time);
+        wglc.setAt(this.av.camera, mv.vec3(0, 0, 0));
+      } else {
         wglu.executeActions(this.cameraCtrls.move, this.av);
+        wglu.executeActions(this.cameraCtrls.look, this.av);
       }
-      wglu.executeActions(this.cameraCtrls.look, this.av);
       wglu.executeActions(this.actionCtrls, this.av);
 
+      // View and perspective matrices
       var pMat = wglc.perspectiveMatrix(this.av.camera);
-      var at = wglc.atPosition(this.av.camera);
-      var up = wglc.upVector(this.av.camera);
-      let time = this.av.galaxy.getTimer().getTimeSec();
-
-      if (this.av.attachedToPlanet3) {
-        var p3 = this.av.galaxy.getPlanetByIndex(3);
-        var rads = time * p3.orbit.omega + p3.orbit.phase;
-        this.av.camera.eye = mv.vec3(
-          p3.orbit.radius * Math.cos(rads),
-          0,
-          p3.orbit.radius * Math.sin(rads)
-        );
-        at = mv.vec3(
-          Math.cos(-this.av.camera.phi) - p3.orbit.radius * Math.cos(rads),
-          0,
-          -Math.sin(-this.av.camera.phi) + p3.orbit.radius * Math.sin(rads)
-        );
-        pMat = mv.perspective(this.av.camera.fovy, 1, 1, 1000);
-      }
-
-      var vMat = mv.lookAt(this.av.camera.position, at, up);
-
+      var vMat = wglc.viewMatrix(this.av.camera);
       this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
       this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
 

@@ -23,12 +23,12 @@ export default class Planet {
    */
   translationMatrix(time) {
     return mv.mult(
-      mv.translationMatrix(this.position(time)),
+      mv.translationMatrix(this.getPosition(time)),
       mv.scalarMatrix(this.size, this.size, this.size)
     );
   }
 
-  position(time) {
+  getPosition(time) {
     let rads = time * this.orbit.omega + this.orbit.phase;
     return mv.vec3(
       this.orbit.eccentricity * this.orbit.radius * Math.cos(rads),

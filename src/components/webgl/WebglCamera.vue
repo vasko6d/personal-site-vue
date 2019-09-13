@@ -33,9 +33,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
-              </i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
+                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
+              }}</i>
             </div>
           </template>
         </div>
@@ -320,6 +320,15 @@ export default {
         Math.sin(camera.theta),
         Math.cos(camera.theta) * Math.sin(camera.phi)
       );
+    },
+
+    setAt(camera, atPos) {
+      var atVec = mv.normalize(mv.subtract(atPos, camera.position));
+      // phases on arc trig functions are annoying. This may only work in my planets case...
+      // ...will troubleshoot further errors if teh come up
+      var correction = atVec[2] < 0 ? -1 : 1;
+      camera.theta = Math.asin(atVec[1]);
+      camera.phi = Math.acos(atVec[0] / Math.cos(camera.theta)) * correction;
     },
 
     upVector(camera) {
