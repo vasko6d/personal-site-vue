@@ -303,6 +303,19 @@ export default {
         invCtrls[ctrls[cKey].keybind] = prePath ? [prePath, cKey] : [cKey];
       }
       return invCtrls;
+    },
+
+    updateBufferIndex(bufferIndexer, bufferItem, len) {
+      bufferIndexer[bufferItem] = {
+        start: bufferIndexer.lastEnd,
+        len: len
+      };
+      bufferIndexer.lastEnd += len;
+    },
+
+    draw(gl, arrayType, bufferIndexer, bufferItem) {
+      var idx = bufferIndexer[bufferItem];
+      gl.drawArrays(arrayType, idx.start, idx.len);
     }
   }
 };

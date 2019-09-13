@@ -1,20 +1,21 @@
 <template>
   <div id="cubert">
     <script id="vertex-shader" type="x-shader/x-vertex">
-      attribute  vec4 vPos;
-      uniform mat4 mvm;
-      uniform mat4 proj;
+      attribute  vec3 vPos;
+      uniform mat4 mMat;
+      uniform mat4 vMat;
+      uniform mat4 pMat;
       void main()
       {
-          gl_Position = proj*mvm*vPos;
+          gl_Position = pMat * vMat * mMat * vec4(vPos, 1);
       }
     </script>
     <script id="fragment-shader" type="x-shader/x-fragment">
       precision mediump float;
-      uniform vec4 Color;
+      uniform vec4 color;
       void main()
       {
-          gl_FragColor = Color;
+          gl_FragColor = color;
       }
     </script>
     <canvas id="gl-canvas" width="650px" height="650px"
@@ -46,34 +47,49 @@ export default {
   data() {
     return {
       // Web Gl Variables
-      gl: "",
-      program: "",
+      gl: "", // [g]raphics [l]ibrary
+      p: "", // Shader [p]rogram
+
+      // Location to the variables used in the shader programs
       loc: {
-        color: "",
-        mvm: "",
-        proj: "",
-        vPos: ""
+        // Uniforms
+        u: {
+          pMat: "", // projection matrix
+          vMat: "", // view matrix
+          mMat: "", // model matrix
+          color: "" // RGBA color for the shape
+        },
+        // Attributes
+        a: {
+          pos: "" // Position
+        }
       },
-      val: {
-        color: [
-          mv.vec4(0.3, 0.3, 0.3, 1.0), // grey
-          mv.vec4(1.0, 0.0, 0.0, 1.0), // red
-          mv.vec4(1.0, 1.0, 0.0, 1.0), // yellow
-          mv.vec4(0.0, 1.0, 0.0, 1.0), // green
-          mv.vec4(0.0, 0.0, 1.0, 1.0), // blue
-          mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
-          mv.vec4(0.0, 1.0, 1.0, 1.0), // cyan
-          mv.vec4(1.0, 1.0, 1.0, 1.0) // white
-        ],
-        mvm: mv.mat4(),
-        proj: mv.mat4(),
-        vPos: ""
-      },
+
+      // Buffer Data
       buf: {
-        points: ""
+        pos: ""
+      },
+      dat: {
+        pos: []
+      },
+      bufIdx: {
+        lastEnd: 0,
+        cube: "",
+        circle: "",
+        plus: ""
       },
 
       // Data Variables
+      color: [
+        mv.vec4(0.3, 0.3, 0.3, 1.0), // grey
+        mv.vec4(1.0, 0.0, 0.0, 1.0), // red
+        mv.vec4(1.0, 1.0, 0.0, 1.0), // yellow
+        mv.vec4(0.0, 1.0, 0.0, 1.0), // green
+        mv.vec4(0.0, 0.0, 1.0, 1.0), // blue
+        mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
+        mv.vec4(0.0, 1.0, 1.0, 1.0), // cyan
+        mv.vec4(1.0, 1.0, 1.0, 1.0) // white
+      ],
       cubePositions: [
         mv.vec3(10, -10, -10),
         mv.vec3(10, -10, 10),
@@ -92,7 +108,6 @@ export default {
         top: 15.0,
         bottom: -15.0
       },
-      vertices: this.generateCube().concat(this.generateCrosshair(0.1)),
 
       // [A]ction affected [V]ariables
       av: {
@@ -152,6 +167,8 @@ export default {
   },
 
   mounted() {
+    this.generateCube();
+    this.generateCrosshair(0.1);
     this.configureWebGL();
     this.invCameraCtrls = {
       ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
@@ -186,19 +203,18 @@ export default {
   },
 
   methods: {
-    generateCube() {
+    generateCube(sz = 1) {
       // Ideal Triangle Strip: 3 2 6 7 4 2 0 3 1 6 5 4 1 0
       // --> 14 is the minimum numbers of points to define a cube with triangles.
-      let len = 1;
       var verts = [
-        mv.vec4(len, -len, len, 1.0), //0
-        mv.vec4(-len, -len, len, 1.0), //1
-        mv.vec4(len, -len, -len, 1.0), //2
-        mv.vec4(-len, -len, -len, 1.0), //3
-        mv.vec4(len, len, len, 1.0), //4
-        mv.vec4(-len, len, len, 1.0), //5
-        mv.vec4(-len, len, -len, 1.0), //6
-        mv.vec4(len, len, -len, 1.0) //7
+        mv.vec3(sz, -sz, sz), //0
+        mv.vec3(-sz, -sz, sz), //1
+        mv.vec3(sz, -sz, -sz), //2
+        mv.vec3(-sz, -sz, -sz), //3
+        mv.vec3(sz, sz, sz), //4
+        mv.vec3(-sz, sz, sz), //5
+        mv.vec3(-sz, sz, -sz), //6
+        mv.vec3(sz, sz, -sz) //7
       ];
 
       //stripArray has all the vertices of a cube in the correct order to use just 1 triangle strip
@@ -217,27 +233,37 @@ export default {
       stripArray.push(verts[4]);
       stripArray.push(verts[1]);
       stripArray.push(verts[0]);
-      return stripArray;
+
+      // Add strip array to our data object and add entry to buffer index
+      Array.prototype.push.apply(this.dat.pos, stripArray);
+      this.bufIdx.cube = {
+        start: this.bufIdx.lastEnd,
+        len: stripArray.length
+      };
+      wglu.updateBufferIndex(this.bufIdx, "cube", stripArray.length);
     },
 
     generateCrosshair(stepSize) {
-      var vertices = [];
       // First add points that make a circle.
+      var verts = [];
       for (var alpha = 0; alpha < 6.28; alpha = alpha + stepSize) {
-        vertices.push(
-          mv.vec4(5 * Math.cos(alpha), 5 * Math.sin(alpha), 14.9, 1)
-        );
+        verts.push(mv.vec3(5 * Math.cos(alpha), 5 * Math.sin(alpha), 14.9));
       }
+      Array.prototype.push.apply(this.dat.pos, verts);
+      wglu.updateBufferIndex(this.bufIdx, "circle", verts.length);
+
       // now add plus sign to complete crosshair
-      vertices.push(mv.vec4(7, 0, 14.9, 1));
-      vertices.push(mv.vec4(-7, 0, 14.9, 1));
-      vertices.push(mv.vec4(0, 7, 14.9, 1));
-      vertices.push(mv.vec4(0, -7, 14.9, 1));
-      return vertices;
+      verts = [];
+      verts.push(mv.vec3(7, 0, 14.9));
+      verts.push(mv.vec3(-7, 0, 14.9));
+      verts.push(mv.vec3(0, 7, 14.9));
+      verts.push(mv.vec3(0, -7, 14.9));
+      Array.prototype.push.apply(this.dat.pos, verts);
+      wglu.updateBufferIndex(this.bufIdx, "plus", verts.length);
     },
 
     configureWebGL() {
-      [this.gl, this.program] = wglu.baseWebGL(
+      [this.gl, this.p] = wglu.baseWebGL(
         "gl-canvas",
         "vertex-shader",
         "fragment-shader",
@@ -245,34 +271,27 @@ export default {
       );
 
       // Set Up Buffers
-      this.buf.points = this.gl.createBuffer();
-      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buf.points);
-      this.gl.bufferData(
-        this.gl.ARRAY_BUFFER,
-        mv.flatten(this.vertices),
-        this.gl.STATIC_DRAW
-      );
+      this.buf.pos = wglu.buffer(this.gl, this.dat.pos);
 
       // Set up Shader Variables
-      this.loc.vPos = this.gl.getAttribLocation(this.program, "vPos");
-      this.gl.vertexAttribPointer(this.loc.vPos, 4, this.gl.FLOAT, false, 0, 0);
-      this.gl.enableVertexAttribArray(this.loc.vPos);
+      this.loc.a.vPos = wglu.attrib(this.gl, this.p, "vPos", 3, this.buf.pos);
 
       // Set up Uniform Locations
-      this.loc.color = this.gl.getUniformLocation(this.program, "Color");
-      this.loc.mvm = this.gl.getUniformLocation(this.program, "mvm");
-      this.loc.proj = this.gl.getUniformLocation(this.program, "proj");
+      var uName;
+      for (uName of Object.keys(this.loc.u)) {
+        this.loc.u[uName] = this.gl.getUniformLocation(this.p, uName);
+      }
     },
 
     renderCube(num) {
       // Set the Cube Color
       let icIndex = (num + this.av.cIndex) % 8;
       this.gl.uniform4f(
-        this.loc.color,
-        this.val.color[icIndex][0],
-        this.val.color[icIndex][1],
-        this.val.color[icIndex][2],
-        this.val.color[icIndex][3]
+        this.loc.u.color,
+        this.color[icIndex][0],
+        this.color[icIndex][1],
+        this.color[icIndex][2],
+        this.color[icIndex][3]
       );
 
       //-----------Individually Scale or Rotate each Cube--------------
@@ -306,65 +325,38 @@ export default {
           break;
       }
       var t = mv.translationMatrix(this.cubePositions[num]); // Move the vertexed cube to our rendering location
-      var cubeChangeMatrix = mv.mult(mv.mult(this.val.mvm, t), m);
+      var mMat = mv.mult(t, m);
 
       // Actually set the WebGl values
-      this.gl.uniformMatrix4fv(
-        this.loc.mvm,
-        false,
-        mv.flatten(cubeChangeMatrix)
-      );
-      this.gl.uniformMatrix4fv(this.loc.proj, false, mv.flatten(this.val.proj));
-      this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 14);
+      this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mMat));
+      wglu.draw(this.gl, this.gl.TRIANGLE_STRIP, this.bufIdx, "cube");
     },
 
     renderFloorCube() {
       var s = mv.scalarMatrix(mv.vec3(1000, 0.1, 1000));
       var t = mv.translationMatrix(mv.vec3(0, -11.9, 0));
-      var cubeChangeMatrix = mv.mult(mv.mult(this.val.mvm, t), s);
+      var mMat = mv.mult(t, s);
 
       // Actually set the WebGl values
-      this.gl.uniformMatrix4fv(
-        this.loc.mvm,
-        false,
-        mv.flatten(cubeChangeMatrix)
-      );
-      this.gl.uniformMatrix4fv(this.loc.proj, false, mv.flatten(this.val.proj));
-      this.gl.uniform4f(this.loc.color, 0.803, 0.592, 0.278, 1);
-      this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 14);
+      this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mMat));
+      this.gl.uniform4f(this.loc.u.color, 0.803, 0.592, 0.278, 1);
+      wglu.draw(this.gl, this.gl.TRIANGLE_STRIP, this.bufIdx, "cube");
     },
 
-    render() {
-      this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-
-      // Action Updates
-      wglu.executeActions(this.cameraCtrls.move, this.av);
-      wglu.executeActions(this.cameraCtrls.look, this.av);
-      wglu.executeActions(this.actionCtrls, this.av);
-      this.av.dt = this.av.dt + 0.1; //keep tract of "time"
-
-      // Take into account camera
-      this.val.mvm = wglc.viewMatrix(this.av.camera);
-      this.val.proj = wglc.perspectiveMatrix(this.av.camera);
-
-      // Render Each Cube
-      for (let i = 0; i < this.cubePositions.length; ++i) {
-        this.renderCube(i);
-      }
-      this.renderFloorCube();
-
-      // Render the Crosshair
+    renderCrosshair() {
       if (this.av.showCrosshair) {
+        // color is Red
         this.gl.uniform4f(
-          this.loc.color,
-          this.val.color[1][0],
-          this.val.color[1][1],
-          this.val.color[1][2],
-          this.val.color[1][3]
-        ); // color is Red
-        this.gl.uniformMatrix4fv(this.loc.mvm, false, mv.flatten(mv.mat4()));
+          this.loc.u.color,
+          this.color[1][0],
+          this.color[1][1],
+          this.color[1][2],
+          this.color[1][3]
+        );
+        this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(mv.mat4()));
+        this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mv.mat4()));
         this.gl.uniformMatrix4fv(
-          this.loc.proj,
+          this.loc.u.pMat,
           false,
           mv.flatten(
             mv.ortho(
@@ -377,9 +369,31 @@ export default {
             )
           )
         );
-        this.gl.drawArrays(this.gl.LINE_LOOP, 14, 63); // NOTE: hardcoded vertex numbers
-        this.gl.drawArrays(this.gl.LINES, 77, 4);
+        wglu.draw(this.gl, this.gl.LINE_LOOP, this.bufIdx, "circle");
+        wglu.draw(this.gl, this.gl.LINES, this.bufIdx, "plus");
       }
+    },
+
+    render() {
+      this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
+      // Action Updates
+      wglu.executeActions(this.cameraCtrls.move, this.av);
+      wglu.executeActions(this.cameraCtrls.look, this.av);
+      wglu.executeActions(this.actionCtrls, this.av);
+      this.av.dt = this.av.dt + 0.1; //keep tract of "time"
+
+      // Take into account camera
+      var vMat = wglc.viewMatrix(this.av.camera);
+      var pMat = wglc.perspectiveMatrix(this.av.camera);
+      this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
+      this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
+
+      for (let i = 0; i < this.cubePositions.length; ++i) {
+        this.renderCube(i);
+      }
+      this.renderFloorCube();
+      this.renderCrosshair(); // Crosshair has no view or model transofrmations
 
       wglu.requestAnimFrame()(this.render);
     }
