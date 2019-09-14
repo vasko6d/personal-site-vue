@@ -23,9 +23,9 @@
               :key="child.index"
               @click="onClose()"
             >
-              <router-link :to="correctedUrl(child.path)">{{
-                child.name
-              }}</router-link>
+              <router-link :to="correctedUrl(child.path)">
+                {{ child.name }}
+              </router-link>
             </li>
           </ul>
         </div>
@@ -75,26 +75,28 @@ export default {
 .light {
   @import "@/assets/styles/dark-theme.scss";
 }
-#webgl-examples {
-  .blk-container {
-    width: 100%;
-    max-width: 650px;
-    h2 {
-      margin-bottom: 1em;
-    }
-    ul {
-      margin-left: 0px;
-    }
-    .navigation {
-      position: relative;
-      margin-bottom: 1em;
-      z-index: 2;
-      a {
-        h3 {
-          margin-top: 0px;
-          margin-bottom: 0px;
+.wrapper {
+  #webgl-examples {
+    .blk-container {
+      width: 100%;
+      max-width: 650px;
+      h2 {
+        margin-bottom: 0.5em;
+      }
+      ul {
+        margin-left: 0px;
+      }
+      .navigation {
+        position: relative;
+        margin-bottom: 1em;
+        z-index: 2;
+        a {
+          h3 {
+            margin-top: 0px;
+            margin-bottom: 0px;
+          }
+          display: inline-block;
         }
-        display: inline-block;
       }
     }
   }
