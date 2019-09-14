@@ -1,11 +1,6 @@
 <template id="switch-button">
   <div class="switch-button-control">
-    <div
-      class="switch-button"
-      :class="{ enabled: isEnabled }"
-      @click="toggle"
-      :style="{ '--color': color }"
-    >
+    <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle">
       <div class="button"></div>
     </div>
     <div class="switch-button-label">
@@ -22,12 +17,7 @@ export default {
     event: "toggle"
   },
   props: {
-    isEnabled: Boolean,
-    color: {
-      type: String,
-      required: false,
-      default: "#9dad7f"
-    }
+    isEnabled: Boolean
   },
   methods: {
     toggle: function() {
@@ -38,6 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/variables.scss";
 .switch-button-control {
   display: grid;
   justify-content: right;
@@ -46,7 +37,7 @@ export default {
   .switch-button {
     grid-area: sb;
     $switch-button-height: 1.6em;
-    $switch-button-color: darken(#9dad7f, 20%);
+    $switch-button-color: darken($nav-txt, 20%);
     $switch-button-border-thickness: 2px;
     $switch-transition: all 0.3s ease-in-out;
     $switch-is-rounded: true;
