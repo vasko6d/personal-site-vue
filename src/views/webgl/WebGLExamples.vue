@@ -23,9 +23,9 @@
               :key="child.index"
               @click="onClose()"
             >
-              <router-link :to="correctedUrl(child.path)">
-                {{ child.name }}
-              </router-link>
+              <router-link :to="correctedUrl(child.path)">{{
+                child.name
+              }}</router-link>
             </li>
           </ul>
         </div>
@@ -87,6 +87,7 @@ export default {
     }
     .navigation {
       position: relative;
+      margin-bottom: 1em;
       z-index: 2;
       a {
         h3 {

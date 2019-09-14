@@ -46,6 +46,11 @@
           </li>
         </ul>
       </div>
+      <div>
+        <span class="set-theme" @click="setTheme('light')">light</span>&nbsp;|
+        <span class="set-theme" @click="setTheme('dark')">dark</span>&nbsp;|
+        <span class="set-theme" @click="setTheme('blue')">blue</span>
+      </div>
       <router-view />
       <footer-links />
     </div>
@@ -54,6 +59,7 @@
 <script>
 import FooterLinks from "@/components/FooterLinks.vue";
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "app",
@@ -116,7 +122,8 @@ export default {
   methods: {
     onClose() {
       this.isOpen = false;
-    }
+    },
+    ...mapActions(["setTheme"])
   }
 };
 </script>
@@ -147,7 +154,6 @@ export default {
     width: 100%;
     .navigation {
       user-select: none;
-      margin-bottom: 1em;
       ul {
         list-style-type: none;
         li {
@@ -225,9 +231,12 @@ export default {
       margin-left: 4%;
     }
     img {
-      margin-top: 1em;
+      margin-top: 0.5em;
       margin-bottom: 1em;
       max-width: 90%;
+    }
+    .set-theme {
+      cursor: pointer;
     }
   }
 }
