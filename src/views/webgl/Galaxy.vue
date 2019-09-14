@@ -347,14 +347,14 @@ export default {
     addInitialPlanets() {
       // Planet 0 (Sun): Small, blue, medium-high complexity, gourand shading
       var material = this.material(
-        [0.48, 0.48, 3.0],
+        [5, 2.5, 0],
         [0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0],
         0.0,
         "gourand"
       );
       var orbit = this.orbit();
-      this.av.galaxy.addPlanet(3, 0.2, material, orbit, "Sun");
+      this.av.galaxy.addPlanet(3, 0.4, material, orbit, "Sun");
 
       // Planet 1: Small, icy-white, medium-low complexity, flat-shading, specular highlight
       material = this.material(
