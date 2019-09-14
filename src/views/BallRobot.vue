@@ -46,6 +46,14 @@
 
 <style lang="scss" scoped>
 #billiard-ball-robot {
+  .blk-container {
+    ul {
+      list-style-type: circle;
+      li {
+        margin-left: 5px;
+      }
+    }
+  }
   iframe {
     display: block;
     margin-left: auto;

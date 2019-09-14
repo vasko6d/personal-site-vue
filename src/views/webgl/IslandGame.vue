@@ -31,7 +31,7 @@
         <li>Physics</li>
         <li>Bump Mapping</li>
       </ul>
-      <h3>Other cool stuff:</h3>
+      <h3>Other cool stuff</h3>
       <ul>
         <li>
           The island is partially randomly generated. There are 4 regions:
@@ -58,3 +58,13 @@
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+#island-game {
+  .blk-container {
+    ul {
+      list-style-position: inside;
+      margin-left: 5px;
+    }
+  }
+}
+</style>
