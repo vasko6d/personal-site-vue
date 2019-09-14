@@ -293,7 +293,8 @@ export default {
       [this.gl, this.p] = wglu.baseWebGL(
         "gl-canvas",
         "vertex-shader",
-        "fragment-shader"
+        "fragment-shader",
+        [0.2, 0.2, 0.3, 1]
       );
 
       // Set Up Buffers
