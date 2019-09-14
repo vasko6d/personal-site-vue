@@ -23,9 +23,9 @@
               :key="child.index"
               @click="onClose()"
             >
-              <router-link :to="correctedUrl(child.path)">
-                {{ child.name }}
-              </router-link>
+              <router-link :to="correctedUrl(child.path)">{{
+                child.name
+              }}</router-link>
             </li>
           </ul>
         </div>
@@ -73,7 +73,7 @@ export default {
   @import "@/assets/styles/dark-theme.scss";
 }
 .light {
-  @import "@/assets/styles/dark-theme.scss";
+  @import "@/assets/styles/light-theme.scss";
 }
 .wrapper {
   #webgl-examples {

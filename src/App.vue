@@ -146,7 +146,7 @@ export default {
   @import "./assets/styles/dark-theme.scss";
 }
 .light {
-  @import "./assets/styles/dark-theme.scss";
+  @import "./assets/styles/light-theme.scss";
 }
 
 #app {
