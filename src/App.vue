@@ -155,6 +155,7 @@ export default {
 
       li {
         width: 100%;
+        padding-right: 9px;
       }
       &.isOpen {
         transform: translatex(-50%);

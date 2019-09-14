@@ -74,22 +74,7 @@ export default {
       margin-bottom: 1em;
     }
     ul {
-      list-style-type: none;
-      text-align: left;
       margin-left: 0px;
-      li {
-        text-align: center;
-        margin: 0.25em;
-        color: darken($nav-txt, 15%);
-        border-radius: 0.35em;
-        background-color: rgba($nav-bg, 0.3);
-        width: 100%;
-        height: 100%;
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.6);
-        }
-      }
     }
     .navigation {
       position: relative;
