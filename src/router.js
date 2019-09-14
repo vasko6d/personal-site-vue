@@ -18,11 +18,6 @@ export default new Router({
       component: () => import("./views/BallRobot.vue")
     },
     {
-      path: "/island-game",
-      name: "island-game",
-      component: () => import("./views/IslandGame.vue")
-    },
-    {
       path: "/finite-volume",
       name: "finite volume",
       component: () => import("./views/FiniteVolume.vue")
@@ -56,6 +51,11 @@ export default new Router({
           path: "galaxy",
           name: "Creating the Galaxy",
           component: () => import("./views/webgl/Galaxy.vue")
+        },
+        {
+          path: "island-game",
+          name: "Island Game",
+          component: () => import("./views/webgl/IslandGame.vue")
         }
       ]
     },

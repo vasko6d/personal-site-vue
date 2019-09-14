@@ -5,7 +5,7 @@
       Final project for CS 174A, Introduction to Computer Graphics, UCLA Fall
       2014
     </h4>
-    <img src="../assets/img/island-pic.jpg" />
+    <img src="../../assets/img/island-pic.jpg" />
     <h4>
       See a demo
       <a href="http://ipetkov.github.io/IslandMysteryGame">here</a>! And see the

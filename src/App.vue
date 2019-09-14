@@ -83,12 +83,8 @@ export default {
               name: "Ball Robot"
             },
             {
-              url: "/webgl-graphics/fractals",
+              url: "/webgl-graphics/galaxy",
               name: "Graphics"
-            },
-            {
-              url: "/island-game",
-              name: "Island Game"
             },
             {
               url: "/finite-volume",

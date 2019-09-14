@@ -91,6 +91,7 @@ export default {
         margin-bottom: 1em;
         z-index: 2;
         a {
+          text-align: center;
           h3 {
             margin-top: 0px;
             margin-bottom: 0px;
