@@ -28,7 +28,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/dark-theme.scss";
+}
 .switch-button-control {
   display: grid;
   justify-content: right;
@@ -37,14 +46,12 @@ export default {
   .switch-button {
     grid-area: sb;
     $switch-button-height: 1.6em;
-    $switch-button-color: darken($nav-txt, 20%);
     $switch-button-border-thickness: 2px;
     $switch-transition: all 0.3s ease-in-out;
     $switch-is-rounded: true;
 
     height: $switch-button-height;
     width: calc(#{$switch-button-height} * 2);
-    border: $switch-button-border-thickness solid $switch-button-color;
     box-shadow: inset 0px 0px $switch-button-border-thickness 0px
       rgba(0, 0, 0, 0.33);
     border-radius: if($switch-is-rounded, $switch-button-height, 0);
@@ -60,16 +67,12 @@ export default {
     .button {
       height: $button-side-length;
       width: $button-side-length;
-      border: $switch-button-border-thickness solid $switch-button-color;
       border-radius: if($switch-is-rounded, $button-side-length, 0);
-      background: $switch-button-color;
 
       transition: $switch-transition;
     }
 
     &.enabled {
-      background-color: lighten($switch-button-color, 10%);
-      border-color: lighten($switch-button-color, 10%);
       box-shadow: none;
 
       .button {

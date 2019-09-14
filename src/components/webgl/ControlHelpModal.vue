@@ -80,7 +80,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/dark-theme.scss";
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -96,7 +105,6 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
-  color: darken($nav-bg, 20%);
 }
 
 .modal-container {
@@ -104,16 +112,12 @@ export default {
   max-height: 400px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: lighten($nav-txt, 5%);
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   overflow-y: scroll;
   i {
     cursor: pointer;
-    &:hover {
-      color: $nav-bg;
-    }
   }
 }
 

@@ -1,49 +1,59 @@
 <template>
-  <div id="app">
-    <div class="navigation">
-      <ul>
-        <li v-for="item in navList" :key="item.id">
-          <template v-if="item.children">
-            <a
-              :ref="item.name"
-              :href="item.url"
-              :title="item.name"
-              @click="isOpen = !isOpen"
-            >
-              {{ item.name }}
-              <i ref="drop-i" class="fa fa-angle-down"></i>
-            </a>
-            <div
-              :class="{ isOpen }"
-              class="dropdown"
-              v-closable="{
-                excludeList: [item.name, 'drop-i'],
-                handler: 'onClose'
-              }"
-            >
-              <ul>
-                <li
-                  v-for="{ url, name, index } in item.children"
-                  :key="index"
-                  @click="onClose()"
-                >
-                  <router-link :to="url">{{ name }}</router-link>
-                </li>
-              </ul>
-            </div>
-          </template>
-          <template v-else>
-            <router-link :to="item.url">{{ item.name }}</router-link>
-          </template>
-        </li>
-      </ul>
+  <div
+    id="app"
+    :class="{
+      blue: isBlue,
+      dark: isDark,
+      light: isLight
+    }"
+  >
+    <div class="wrapper">
+      <div class="navigation">
+        <ul>
+          <li v-for="item in navList" :key="item.id">
+            <template v-if="item.children">
+              <a
+                :ref="item.name"
+                :href="item.url"
+                :title="item.name"
+                @click="isOpen = !isOpen"
+              >
+                {{ item.name }}
+                <i ref="drop-i" class="fa fa-angle-down"></i>
+              </a>
+              <div
+                :class="{ isOpen }"
+                class="dropdown"
+                v-closable="{
+                  excludeList: [item.name, 'drop-i'],
+                  handler: 'onClose'
+                }"
+              >
+                <ul>
+                  <li
+                    v-for="{ url, name, index } in item.children"
+                    :key="index"
+                    @click="onClose()"
+                  >
+                    <router-link :to="url">{{ name }}</router-link>
+                  </li>
+                </ul>
+              </div>
+            </template>
+            <template v-else>
+              <router-link :to="item.url">{{ item.name }}</router-link>
+            </template>
+          </li>
+        </ul>
+      </div>
+      <router-view />
+      <footer-links />
     </div>
-    <router-view />
-    <footer-links />
   </div>
 </template>
 <script>
 import FooterLinks from "@/components/FooterLinks.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "app",
@@ -91,6 +101,18 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapGetters(["themeMatches"]),
+    isBlue() {
+      return this.themeMatches("blue");
+    },
+    isDark() {
+      return this.themeMatches("dark");
+    },
+    isLight() {
+      return this.themeMatches("light");
+    }
+  },
   methods: {
     onClose() {
       this.isOpen = false;
@@ -101,7 +123,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
-@import "./assets/styles/variables.scss";
+@import "./assets/styles/dark-theme.scss";
 
 *,
 ::before,
@@ -110,104 +132,103 @@ export default {
   padding: 0;
   margin: 0;
 }
-
-#app {
-  width: 100%;
-  .navigation {
-    user-select: none;
-    margin-bottom: 1em;
-    ul {
-      list-style-type: none;
-      li {
-        position: relative;
-        margin: 0.25em;
-        text-align: center;
-        display: inline-block;
-      }
-    }
-    a {
-      display: block;
-      padding: 0.55em 1em;
-      text-decoration: none;
-      width: 100%;
-      height: 100%;
-      color: darken($nav-txt, 5%);
-      border-radius: 0.35em;
-      background-color: rgba($nav-bg, 0.5);
-      transition: all 200ms ease;
-
-      &:hover {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.8);
-      }
-    }
-    .dropdown {
-      z-index: 3;
-      position: absolute;
-      left: 50%;
-      width: 100%;
-      transform: translatex(-50%) rotatex(90deg) scale(0);
-      margin-top: 0.55em;
-      transform-origin: 0 0;
-      border-radius: 0.35em;
-      background-color: rgba($nav-bg, 0.5);
-      transition: all 200ms linear;
-
-      li {
-        width: 100%;
-        padding-right: 9px;
-      }
-      &.isOpen {
-        transform: translatex(-50%);
-        opacity: 1;
-      }
-    }
-  }
+.blue {
+  @import "./assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "./assets/styles/dark-theme.scss";
+}
+.light {
+  @import "./assets/styles/dark-theme.scss";
 }
 
-body {
-  margin-left: calc(100vw - 100%); /* fixes jumping scrollbar issue */
-  position: relative;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  min-height: 100vh;
-  background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
-  background-position: 0 0, 5px 5px;
-  background-size: 5px 5px;
+#app {
+  .wrapper {
+    width: 100%;
+    .navigation {
+      user-select: none;
+      margin-bottom: 1em;
+      ul {
+        list-style-type: none;
+        li {
+          position: relative;
+          margin: 0.25em;
+          text-align: center;
+          display: inline-block;
+        }
+      }
+      a {
+        display: block;
+        padding: 0.55em 1em;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.35em;
+        transition: all 200ms ease;
+      }
+      .dropdown {
+        z-index: 3;
+        position: absolute;
+        left: 50%;
+        width: 100%;
+        transform: translatex(-50%) rotatex(90deg) scale(0);
+        margin-top: 0.55em;
+        transform-origin: 0 0;
+        border-radius: 0.35em;
+        background-color: rgba($nav-bg, 0.5);
+        transition: all 200ms linear;
 
-  text-align: center;
-  font: {
-    family: "Raleway", sans-serif;
-    size: 16px;
-    weight: 500;
-  }
-  color: $nav-txt;
-  line-height: 1.5;
-
-  .blk-container {
-    display: inline-block;
-    max-width: 850px;
-    ul {
-      list-style-type: circle;
-      margin-left: 5%;
-      text-align: left;
-      li {
-        text-align: left;
+        li {
+          width: 100%;
+          padding-right: 9px;
+        }
+        &.isOpen {
+          transform: translatex(-50%);
+          opacity: 1;
+        }
       }
     }
-  }
-  h3 {
-    margin-bottom: 1em;
-    margin-top: 1em;
-  }
-  p {
-    text-align: left;
-    margin-left: 4%;
-  }
-  img {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    max-width: 90%;
+    padding-left: calc(100vw - 100%); /* fixes jumping scrollbar issue */
+    position: relative;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    min-height: 100vh;
+    background-position: 0 0, 5px 5px;
+    background-size: 5px 5px;
+
+    text-align: center;
+    font: {
+      family: "Raleway", sans-serif;
+      size: 16px;
+      weight: 500;
+    }
+    line-height: 1.5;
+
+    .blk-container {
+      display: inline-block;
+      max-width: 850px;
+      ul {
+        list-style-type: circle;
+        margin-left: 5%;
+        text-align: left;
+        li {
+          text-align: left;
+        }
+      }
+    }
+    h3 {
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+    p {
+      text-align: left;
+      margin-left: 4%;
+    }
+    img {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      max-width: 90%;
+    }
   }
 }
 </style>

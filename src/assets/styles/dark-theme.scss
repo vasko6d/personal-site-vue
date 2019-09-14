@@ -1,0 +1,124 @@
+$nav-bg: #444;
+$nav-txt: #9dad7f;
+$bg-clr: #000000;
+$bg-clr-2: #2d3029;
+
+$brdr: #303820;
+
+.wrapper {
+  .navigation {
+    a {
+      color: darken($nav-txt, 5%);
+      background-color: rgba($nav-bg, 0.5);
+      &:hover {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.8);
+      }
+    }
+  }
+
+  #footer-links {
+    a {
+      color: darken($nav-txt, 25%);
+      :hover {
+        color: $nav-txt;
+      }
+    }
+  }
+
+  .climbing-video-item {
+    border: 3px solid $brdr;
+    background-color: rgba(lighten($nav-txt, 15%), 0.7);
+    color: #222;
+
+    img {
+      border: 2px solid $brdr;
+    }
+    &:hover {
+      border: 3px solid darken($nav-txt, 8%);
+    }
+    &:visited {
+      background-color: darken($nav-txt, 15%);
+    }
+  }
+
+  #webgl-camera-ctrls,
+  #action-ctrls {
+    i {
+      color: darken($nav-txt, 20%);
+      &:hover {
+        color: $nav-txt;
+      }
+    }
+    background-color: rgba($nav-bg, 0.3);
+    .cbtn {
+      color: darken($nav-txt, 15%);
+    }
+    .prm {
+      background-color: rgba($nav-bg, 0.2);
+      &:hover {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.6);
+      }
+    }
+    .scnd {
+      background-color: rgba(darken($nav-bg, 20%), 0.3);
+      color: darken($nav-txt, 30%);
+      &:hover {
+        color: $nav-txt;
+        background-color: rgba($nav-bg, 0.6);
+      }
+    }
+    .pactive {
+      color: $nav-txt;
+      background-color: rgba($nav-bg, 0.6);
+    }
+  }
+
+  #webgl-examples {
+    .navigation {
+      a {
+        color: darken($nav-txt, 15%);
+        background-color: rgba($nav-bg, 0.3);
+        &:hover {
+          color: $nav-txt;
+          background-color: rgba($nav-bg, 0.6);
+        }
+      }
+    }
+  }
+
+  .modal-mask {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .modal-wrapper {
+    color: darken($nav-bg, 20%);
+  }
+  .modal-container {
+    background-color: lighten($nav-txt, 5%);
+    i {
+      &:hover {
+        color: $nav-bg;
+      }
+    }
+  }
+
+  .switch-button-control {
+    .switch-button {
+      $switch-button-color: darken($nav-txt, 20%);
+      $switch-button-border-thickness: 2px;
+      border: $switch-button-border-thickness solid $switch-button-color;
+      .button {
+        border: $switch-button-border-thickness solid $switch-button-color;
+        background: $switch-button-color;
+      }
+      &.enabled {
+        background-color: lighten($switch-button-color, 10%);
+        border-color: lighten($switch-button-color, 10%);
+      }
+    }
+  }
+
+  background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
+  color: $nav-txt;
+}

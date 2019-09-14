@@ -65,7 +65,16 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/dark-theme.scss";
+}
 #webgl-examples {
   .blk-container {
     width: 100%;
@@ -83,12 +92,6 @@ export default {
         h3 {
           margin-top: 0px;
           margin-bottom: 0px;
-        }
-        color: darken($nav-txt, 15%);
-        background-color: rgba($nav-bg, 0.3);
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.6);
         }
         display: inline-block;
       }

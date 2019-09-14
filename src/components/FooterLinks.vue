@@ -38,17 +38,22 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/dark-theme.scss";
+}
 #footer-links {
   margin: 15px 0px;
   a {
-    color: darken($nav-txt, 25%);
     text-decoration: none;
     text-align: center;
     padding: 0px 10px;
-    :hover {
-      color: $nav-txt;
-    }
   }
 }
 </style>

@@ -33,9 +33,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
-                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
-              }}</i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
             </div>
           </template>
         </div>
@@ -366,7 +366,16 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/dark-theme.scss";
+}
 #webgl-camera-ctrls {
   user-select: none;
   .crtl-container {
@@ -382,10 +391,6 @@ export default {
       font-weight: bold;
       i {
         cursor: pointer;
-        color: darken($nav-txt, 20%);
-        &:hover {
-          color: $nav-txt;
-        }
       }
     }
     .ml {
@@ -401,7 +406,6 @@ export default {
       text-align: right;
     }
     grid-gap: 2px;
-    background-color: rgba($nav-bg, 0.3);
     border-radius: 0.35em;
     margin-top: 1em;
     margin-bottom: 1em;
@@ -437,30 +441,10 @@ export default {
       .cbtn {
         text-align: center;
         margin: 0.25em;
-        color: darken($nav-txt, 15%);
         border-radius: 0.35em;
         height: 30px;
         width: 50px;
         cursor: pointer;
-      }
-      .prm {
-        background-color: rgba($nav-bg, 0.2);
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.6);
-        }
-      }
-      .scnd {
-        background-color: rgba(darken($nav-bg, 20%), 0.3);
-        color: darken($nav-txt, 30%);
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.6);
-        }
-      }
-      .pactive {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.6);
       }
     }
   }
