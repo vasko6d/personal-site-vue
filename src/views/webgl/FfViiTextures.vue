@@ -118,9 +118,6 @@ export default {
 
       // The value/buffer that goes with those variables
       val: {
-        pMat: "",
-        vMat: "",
-        mMat: "",
         lPos: mv.vec3(-2.0, 2.0, 2.0),
         shininess: 50
       },
@@ -304,6 +301,9 @@ export default {
       for (uName of Object.keys(this.loc.u)) {
         this.loc.u[uName] = this.gl.getUniformLocation(this.p, uName);
       }
+
+      // Constant Uniforms
+      this.gl.uniform3fv(this.loc.u.lPos, mv.flatten(this.val.lPos));
     },
 
     createTexture(gl, imgSrc, singlePixelColor) {
@@ -418,26 +418,11 @@ export default {
     },
 
     renderCube(dz, deg, axis, tScale, tRotMat, tTransVal) {
-      this.val.mMat = mv.mult(
+      var mMat = mv.mult(
         mv.translationMatrix(mv.vec3(0, 0, dz)),
         mv.rotationMatrix(this.av.cubeRotTimer.getTimeSec() * deg, axis)
       );
-
-      this.gl.uniformMatrix4fv(
-        this.loc.u.vMat,
-        false,
-        mv.flatten(this.val.vMat)
-      );
-      this.gl.uniformMatrix4fv(
-        this.loc.u.mMat,
-        false,
-        mv.flatten(this.val.mMat)
-      );
-      this.gl.uniformMatrix4fv(
-        this.loc.u.pMat,
-        false,
-        mv.flatten(this.val.pMat)
-      );
+      this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mMat));
 
       this.gl.activeTexture(this.gl.TEXTURE0);
       this.gl.bindTexture(
@@ -446,48 +431,31 @@ export default {
       );
       this.gl.uniform1i(this.loc.u.uSampler, 0);
 
-      this.gl.uniform3fv(this.loc.u.lPos, mv.flatten(this.val.lPos));
-      this.gl.uniform1f(this.loc.u.shininess, this.val.shininess);
       this.gl.uniform1f(this.loc.u.texS, tScale);
-
       this.gl.uniformMatrix2fv(this.loc.u.texR, false, mv.flatten(tRotMat));
       this.gl.uniform1f(this.loc.u.texT, tTransVal);
+
+      this.gl.uniform1f(this.loc.u.shininess, this.val.shininess);
 
       this.gl.drawArrays(this.gl.TRIANGLES, 0, 36);
     },
 
     renderFloorCube() {
-      this.val.mMat = mv.mult(
+      var mMat = mv.mult(
         mv.scalarMatrix([1000, 0.1, 1000]),
         mv.translationMatrix(mv.vec3(0, -10, 0))
       );
-
-      this.gl.uniformMatrix4fv(
-        this.loc.u.vMat,
-        false,
-        mv.flatten(this.val.vMat)
-      );
-      this.gl.uniformMatrix4fv(
-        this.loc.u.mMat,
-        false,
-        mv.flatten(this.val.mMat)
-      );
-      this.gl.uniformMatrix4fv(
-        this.loc.u.pMat,
-        false,
-        mv.flatten(this.val.pMat)
-      );
+      this.gl.uniformMatrix4fv(this.loc.u.mMat, false, mv.flatten(mMat));
 
       this.gl.activeTexture(this.gl.TEXTURE0);
       this.gl.bindTexture(this.gl.TEXTURE_2D, this.av.floorTexture);
       this.gl.uniform1i(this.loc.u.uSampler, 0);
 
-      this.gl.uniform3fv(this.loc.u.lPos, mv.flatten(this.val.lPos));
-      this.gl.uniform1f(this.loc.u.shininess, 0);
       this.gl.uniform1f(this.loc.u.texS, 500);
-
       this.gl.uniformMatrix2fv(this.loc.u.texR, false, mv.flatten(mv.mat2()));
       this.gl.uniform1f(this.loc.u.texT, 0);
+
+      this.gl.uniform1f(this.loc.u.shininess, 0.0);
 
       this.gl.drawArrays(this.gl.TRIANGLES, 0, 36);
     },
@@ -501,8 +469,10 @@ export default {
       wglu.executeActions(this.actionCtrls, this.av);
 
       // Take into account camera
-      this.val.vMat = wglc.viewMatrix(this.av.camera);
-      this.val.pMat = wglc.perspectiveMatrix(this.av.camera);
+      var vMat = wglc.viewMatrix(this.av.camera);
+      var pMat = wglc.perspectiveMatrix(this.av.camera);
+      this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
+      this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
 
       // Now Render Each Cube
       this.renderCube(
