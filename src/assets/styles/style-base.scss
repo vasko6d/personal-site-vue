@@ -37,10 +37,12 @@
 
   #webgl-camera-ctrls,
   #action-ctrls {
-    i {
-      color: darken($nav-txt, 20%);
-      &:hover {
-        color: $nav-txt;
+    .h-item {
+      i {
+        color: darken($nav-txt, 20%);
+        &:hover {
+          color: $nav-txt;
+        }
       }
     }
     background-color: rgba($nav-bg, 0.3);
@@ -83,15 +85,20 @@
 
   .modal-mask {
     background-color: rgba(0, 0, 0, 0.5);
-  }
-  .modal-wrapper {
-    color: darken($nav-bg, 20%);
-  }
-  .modal-container {
-    background-color: lighten($nav-txt, 5%);
-    i {
-      &:hover {
-        color: $nav-bg;
+    .modal-wrapper {
+      color: darken($nav-bg, 20%);
+      .modal-container {
+        background-color: lighten($nav-txt, 5%);
+        .modal-header,
+        .modal-footer {
+          h2 {
+            i {
+              &:hover {
+                color: $nav-bg;
+              }
+            }
+          }
+        }
       }
     }
   }

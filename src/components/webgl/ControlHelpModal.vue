@@ -97,46 +97,46 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
-}
 
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
 
-.modal-container {
-  max-width: 500px;
-  max-height: 400px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  overflow-y: scroll;
-  i {
-    cursor: pointer;
+    .modal-container {
+      max-width: 500px;
+      max-height: 400px;
+      margin: 0px auto;
+      padding: 20px 30px;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      transition: all 0.3s ease;
+      overflow-y: scroll;
+
+      .modal-header,
+      .modal-footer {
+        h2 {
+          margin-top: 0;
+          i {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .modal-body {
+        margin: 20px 0;
+      }
+
+      .modal-default-button {
+        float: right;
+      }
+      .help-itm-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
   }
-}
-
-.modal-header {
-  h2 {
-    margin-top: 0;
-  }
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-.help-itm-title {
-  font-size: 18px;
-  font-weight: 700;
 }
 /*
  * The following styles are auto-applied to elements with
