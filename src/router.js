@@ -9,8 +9,28 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
+      isMainNav: true,
       component: () => import("./views/Home.vue")
+    },
+    {
+      path: "/climbing",
+      name: "Climbing",
+      isMainNav: true,
+      component: () => import("./views/Climbing.vue")
+    },
+    {
+      // This is a dummy route that just is a grouping for other routes
+      path: "#",
+      name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
+      isMainNav: true,
+      nestedLinks: [
+        { path: "/billiard-ball-robot", name: "Ball Robot" },
+        { path: "/webgl-graphics/galaxy", name: "Graphics" },
+        { path: "/finite-volume", name: "Finite Volume" },
+        { path: "/finite-element", name: "Finite Element" },
+        { path: "/crossword", name: "Crossword" }
+      ]
     },
     {
       path: "/billiard-ball-robot",
@@ -58,11 +78,6 @@ export default new Router({
           component: () => import("./views/webgl/IslandGame.vue")
         }
       ]
-    },
-    {
-      path: "/climbing",
-      name: "climbing",
-      component: () => import("./views/Climbing.vue")
     },
     {
       path: "/crossword",

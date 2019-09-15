@@ -11,10 +11,10 @@
       <div class="navigation">
         <ul>
           <li v-for="item in navList" :key="item.id">
-            <template v-if="item.children">
+            <template v-if="item.nestedLinks">
               <a
                 :ref="item.name"
-                :href="item.url"
+                :href="item.path"
                 :title="item.name"
                 @click="isOpen = !isOpen"
               >
@@ -31,17 +31,17 @@
               >
                 <ul>
                   <li
-                    v-for="{ url, name, index } in item.children"
+                    v-for="{ path, name, index } in item.nestedLinks"
                     :key="index"
                     @click="onClose()"
                   >
-                    <router-link :to="url">{{ name }}</router-link>
+                    <router-link :to="path">{{ name }}</router-link>
                   </li>
                 </ul>
               </div>
             </template>
             <template v-else>
-              <router-link :to="item.url">{{ item.name }}</router-link>
+              <router-link :to="item.path">{{ item.name }}</router-link>
             </template>
           </li>
         </ul>
@@ -71,36 +71,7 @@ export default {
     return {
       isOpen: false,
       toggle: false,
-      navList: [
-        { url: "/", name: "Home" },
-        { url: "/climbing", name: "Climbing" },
-        {
-          url: "#/",
-          name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
-          children: [
-            {
-              url: "/billiard-ball-robot",
-              name: "Ball Robot"
-            },
-            {
-              url: "/webgl-graphics/galaxy",
-              name: "Graphics"
-            },
-            {
-              url: "/finite-volume",
-              name: "Finite Volume"
-            },
-            {
-              url: "/finite-element",
-              name: "Finite Element"
-            },
-            {
-              url: "/crosswords",
-              name: "Crosswords"
-            }
-          ]
-        }
-      ]
+      navList: []
     };
   },
   computed: {
@@ -113,6 +84,13 @@ export default {
     },
     isLight() {
       return this.themeMatches("light");
+    }
+  },
+  mounted() {
+    for (let route of this.$router.options.routes) {
+      if (route.isMainNav) {
+        this.navList.push(route);
+      }
     }
   },
   methods: {
