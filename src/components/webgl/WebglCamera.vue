@@ -106,8 +106,6 @@ export default {
         far: 100,
         stepSize: 0.25,
         position: mv.vec3(1, 0, 0), // this is also "eye"
-        orthoNormal: this.getOrthoNormal(0, 0),
-        orthoNormalUpdateFlag: false,
         initialProps: cameraProps
       };
       this.setProps(camera, cameraProps);
@@ -196,7 +194,6 @@ export default {
             updateFxn(vav) {
               if (vav.camera.theta < mv.rad(90)) {
                 vav.camera.theta += vav.camera.dr;
-                vav.camera.orthoNormalUpdateFlag = true;
               }
             }
           },
@@ -209,7 +206,6 @@ export default {
             updateFxn(vav) {
               if (vav.camera.theta > -mv.rad(90)) {
                 vav.camera.theta -= vav.camera.dr;
-                vav.camera.orthoNormalUpdateFlag = true;
               }
             }
           },
@@ -221,7 +217,6 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.phi -= vav.camera.dr;
-              vav.camera.orthoNormalUpdateFlag = true;
             }
           },
           right: {
@@ -232,29 +227,26 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.phi += vav.camera.dr;
-              vav.camera.orthoNormalUpdateFlag = true;
             }
           },
           rollLeft: {
-            keybind: "o",
-            icon: "fas fa-caret-up",
-            desc: "Roll Camera View Counter-clockwise",
+            keybind: "l",
+            icon: "fas fa-redo",
+            desc: "Roll Camera View Clockwise",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.alpha += vav.camera.dr;
-              vav.camera.orthoNormalUpdateFlag = true;
             }
           },
           rollRight: {
-            keybind: "l",
-            icon: "fas fa-caret-up",
+            keybind: "o",
+            icon: "fas fa-redo fa-flip-horizontal",
             desc: "Roll Camera View Counter-clockwise",
             holdable: true,
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.alpha -= vav.camera.dr;
-              vav.camera.orthoNormalUpdateFlag = true;
             }
           },
           zoomin: {
@@ -280,17 +272,6 @@ export default {
         }
       };
       return ctrls;
-    },
-
-    getOrthoNormal(phi, theta) {
-      // By rotating the original orthonormal basis twice we get a new ortonormal
-      // basis that is based on our current camera position
-      var orthoNormal = mv.rotationMatrix(mv.deg(phi), [0, 1, 0]);
-      orthoNormal = mv.mult(
-        mv.rotationMatrix(-1 * mv.deg(theta), [0, 0, 1]),
-        orthoNormal
-      );
-      return orthoNormal;
     },
 
     viewMatrix(camera) {
@@ -350,16 +331,17 @@ export default {
     },
 
     move(camera, direction, vectorNum) {
-      // Using the orthonormal basis, move forward, backward, left, right, up and down
-      if (camera.orthoNormalUpdateFlag) {
-        camera.orthoNormal = this.getOrthoNormal(camera.phi, camera.theta);
-        camera.orthoNormalUpdateFlag = false;
-      }
-      let onv = camera.orthoNormal[vectorNum];
+      // create Orthonormal Basis based on camera
+      var up = this.upVector(camera);
+      var forward = this.atVector(camera);
+      var right = mv.normalize(mv.cross(forward, up));
+      var otrhoNormalBasis = [forward, up, right];
+
+      let v = otrhoNormalBasis[vectorNum];
       let dx = camera.stepSize * direction;
       camera.position = mv.add(
         camera.position,
-        mv.vec3(dx * onv[0], dx * onv[1], dx * onv[2])
+        mv.vec3(dx * v[0], dx * v[1], dx * v[2])
       );
     }
   }
