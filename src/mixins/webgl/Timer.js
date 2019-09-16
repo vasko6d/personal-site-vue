@@ -4,10 +4,10 @@ export default class Timer {
    * as well as elapsed from since last check.
    * @constructor
    */
-  constructor() {
+  constructor(keepTime = false) {
     this.lastStartTime = this.getTrueTime(); // Last start time
     this.totalTime = 0; // Total time elapsed while not paused
-    this.keepTime = false; // whether timer is paused or not
+    this.keepTime = keepTime; // whether timer is paused or not
   }
 
   /**

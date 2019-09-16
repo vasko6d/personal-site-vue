@@ -31,7 +31,7 @@ import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import WebGLUtils from "@/mixins/webgl/WebGLUtils.vue";
 import WebglCamera from "@/components/webgl/WebglCamera.vue";
 import ActionControls from "@/components/webgl/ActionControls.vue";
-//var Timer = require("../mixins/webgl/Timer.js");
+import Timer from "@/mixins/webgl/Timer.js";
 
 // Mixin Aliases
 var mv = MatrixMath.methods;
@@ -81,15 +81,15 @@ export default {
 
       // Data Variables
       cubes: [
-        this.cube([10, -10, -10], [1, 0.1, 1, 0.855], false),
-        this.cube([10, -10, 10], [1, 0.03, 1, 0.855], false),
-        this.cube([10, 10, -10], false, [0.5, [1, 0, 0]]),
-        this.cube([10, 10, 10], false, [1, [0, 1, 0]]),
-        this.cube([-10, -10, -10], false, [0.25, [0, 0, 1]]),
-        this.cube([-10, -10, 10], false, [1, [1, 1, 1]]),
-        this.cube([-10, 10, -10], [1, 0.1, 2, 5.12], false),
-        this.cube([-10, 10, 10], [1, 0.1, 2, 5.98], false),
-        this.cube([0, -11.4, 0], [[1000, 0.1, 1000]], false), // floor "cube"
+        this.cube([10, -10, -10], [1, 0.5, 5, 0.855], false),
+        this.cube([10, -10, 10], [1, 0.7, 2, 0.855], false),
+        this.cube([10, 10, -10], false, [2, [1, 0, 0]]),
+        this.cube([10, 10, 10], false, [5, [0, 1, 0]]),
+        this.cube([-10, -10, -10], false, [1, [0, 0, 1]]),
+        this.cube([-10, -10, 10], false, [4, [1, 1, 1]]),
+        this.cube([-10, 10, -10], [1, 0.5, 2.5, 5.12], false),
+        this.cube([-10, 10, 10], [1, 0.25, 5, 5.98], false),
+        this.cube([0, -12, 0], [[1000, 0.1, 1000]], false), // floor "cube"
         this.cube([50, -10, 50], false, false),
         this.cube([-50, -10, 50], false, false),
         this.cube([50, -10, -50], false, false),
@@ -106,7 +106,7 @@ export default {
         this.cube([-100, 10, 100], false, false),
         this.cube([100, 10, -100], false, false),
         this.cube([-100, 10, -100], false, false),
-        this.cube([500, 60, 0], [10, 1, 0.1, 4.3], [0.2, [-1, -1, -1]])
+        this.cube([500, 60, 0], [10, 1, 1, 4.3], [2, [-1, -1, -1]])
       ],
       color: [
         mv.vec4(0.3, 0.3, 0.3, 1.0), // grey
@@ -130,7 +130,7 @@ export default {
 
       // [A]ction affected [V]ariables
       av: {
-        dt: 0.0,
+        timer: new Timer(true),
         cIndex: 0,
         showCrosshair: false,
         camera: wglc.initCamera({
@@ -145,6 +145,17 @@ export default {
 
       // Other Keybind Variables
       actionCtrls: {
+        toggleTime: {
+          keybind: "p",
+          icon: "fas fa-pause",
+          desc: "Stop/start the rotation/scaling of cubes",
+          holdable: false,
+          framesActive: 0,
+          updateFlag: false,
+          updateFxn: function(av) {
+            av.timer.toggleTimer();
+          }
+        },
         changeColor: {
           keybind: "c",
           icon: "fas fa-palette",
@@ -176,9 +187,10 @@ export default {
           updateFlag: false,
           updateFxn: function(av) {
             av.camera = wglc.initCamera(av.camera.initialProps);
-            av.dt = 0.0;
             av.cIndex = 0;
             av.showCrosshair = false;
+            av.timer.reset();
+            av.timer.resume();
           }
         }
       },
@@ -333,7 +345,10 @@ export default {
     },
 
     sclEqn(mag, sinMag, omega, phase) {
-      return mag * (1 + sinMag * Math.sin(this.av.dt * omega + phase));
+      return (
+        mag *
+        (1 + sinMag * Math.sin(this.av.timer.getTimeSec() * omega + phase))
+      );
     },
 
     cubeScaleMatrix(s) {
@@ -388,7 +403,7 @@ export default {
         sr = mv.mult(
           sr,
           mv.rotationMatrix(
-            mv.deg(this.av.dt) * cubert.rotation.omega,
+            mv.deg(this.av.timer.getTimeSec()) * cubert.rotation.omega,
             cubert.rotation.axis
           )
         );
@@ -438,7 +453,6 @@ export default {
       wglu.executeActions(this.cameraCtrls.move, this.av);
       wglu.executeActions(this.cameraCtrls.look, this.av);
       wglu.executeActions(this.actionCtrls, this.av);
-      this.av.dt = this.av.dt + 0.1; //keep tract of "time"
 
       // Take into account camera
       var vMat = wglc.viewMatrix(this.av.camera);
