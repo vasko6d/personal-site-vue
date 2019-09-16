@@ -80,34 +80,6 @@ export default {
       },
 
       // Data Variables
-      cubes: [
-        this.cube([10, -10, -10], [1, 0.5, 5, 0.855], false),
-        this.cube([10, -10, 10], [1, 0.7, 2, 0.855], false),
-        this.cube([10, 10, -10], false, [2, [1, 0, 0]]),
-        this.cube([10, 10, 10], false, [5, [0, 1, 0]]),
-        this.cube([-10, -10, -10], false, [1, [0, 0, 1]]),
-        this.cube([-10, -10, 10], false, [4, [1, 1, 1]]),
-        this.cube([-10, 10, -10], [1, 0.5, 2.5, 5.12], false),
-        this.cube([-10, 10, 10], [1, 0.25, 5, 5.98], false),
-        this.cube([0, -12, 0], [[1000, 0.1, 1000]], false), // floor "cube"
-        this.cube([50, -10, 50], false, false),
-        this.cube([-50, -10, 50], false, false),
-        this.cube([50, -10, -50], false, false),
-        this.cube([-50, -10, -50], false, false),
-        this.cube([100, -10, 100], false, false),
-        this.cube([-100, -10, 100], false, false),
-        this.cube([100, -10, -100], false, false),
-        this.cube([-100, -10, -100], false, false),
-        this.cube([50, 10, 50], false, false),
-        this.cube([-50, 10, 50], false, false),
-        this.cube([50, 10, -50], false, false),
-        this.cube([-50, 10, -50], false, false),
-        this.cube([100, 10, 100], false, false),
-        this.cube([-100, 10, 100], false, false),
-        this.cube([100, 10, -100], false, false),
-        this.cube([-100, 10, -100], false, false),
-        this.cube([500, 60, 0], [10, 1, 1, 4.3], [2, [-1, -1, -1]])
-      ],
       color: [
         mv.vec4(0.3, 0.3, 0.3, 1.0), // grey
         mv.vec4(1.0, 0.0, 0.0, 1.0), // red
@@ -136,7 +108,36 @@ export default {
         camera: wglc.initCamera({
           position: mv.vec3(-30, 0, 0),
           far: 1000
-        })
+        }),
+        cubes: [
+          this.cube([10, -10, -10], [1, 0.5, 5, 0.855], false),
+          this.cube([10, -10, 10], [1, 0.7, 2, 0.855], false),
+          this.cube([10, 10, -10], false, [2, [1, 0, 0]]),
+          this.cube([10, 10, 10], false, [5, [0, 1, 0]]),
+          this.cube([-10, -10, -10], false, [1, [0, 0, 1]]),
+          this.cube([-10, -10, 10], false, [4, [1, 1, 1]]),
+          this.cube([-10, 10, -10], [1, 0.5, 2.5, 5.12], false),
+          this.cube([-10, 10, 10], [1, 0.25, 5, 5.98], false),
+          this.cube([0, -12, 0], [[1000, 0.1, 1000]], false), // floor "cube"
+          this.cube([50, -10, 50], false, false),
+          this.cube([-50, -10, 50], false, false),
+          this.cube([50, -10, -50], false, false),
+          this.cube([-50, -10, -50], false, false),
+          this.cube([100, -10, 100], false, false),
+          this.cube([-100, -10, 100], false, false),
+          this.cube([100, -10, -100], false, false),
+          this.cube([-100, -10, -100], false, false),
+          this.cube([50, 10, 50], false, false),
+          this.cube([-50, 10, 50], false, false),
+          this.cube([50, 10, -50], false, false),
+          this.cube([-50, 10, -50], false, false),
+          this.cube([100, 10, 100], false, false),
+          this.cube([-100, 10, 100], false, false),
+          this.cube([100, 10, -100], false, false),
+          this.cube([-100, 10, -100], false, false),
+          this.cube([500, 60, 0], [10, 1, 1, 4.3], [2, [-1, -1, -1]])
+        ],
+        numInitialCubes: ""
       },
 
       // Camera Keybind variables
@@ -145,6 +146,28 @@ export default {
 
       // Other Keybind Variables
       actionCtrls: {
+        toggleChrosshair: {
+          keybind: "r",
+          icon: "fas fa-crosshairs",
+          desc: "Toggle Crosshair On/Off",
+          holdable: false,
+          framesActive: 0,
+          updateFlag: false,
+          updateFxn: function(av) {
+            av.showCrosshair = !av.showCrosshair;
+          }
+        },
+        goToStart: {
+          keybind: "t",
+          icon: "fas fa-map-marked",
+          desc: "Warp to starting position",
+          holdable: false,
+          framesActive: 0,
+          updateFlag: false,
+          updateFxn: function(av) {
+            av.camera = wglc.initCamera(av.camera.initialProps);
+          }
+        },
         toggleTime: {
           keybind: "p",
           icon: "fas fa-pause",
@@ -157,7 +180,7 @@ export default {
           }
         },
         changeColor: {
-          keybind: "c",
+          keybind: "f",
           icon: "fas fa-palette",
           desc: "Change Color of Cubes",
           holdable: false,
@@ -167,21 +190,25 @@ export default {
             av.cIndex = (av.cIndex + 1) % 8;
           }
         },
-        toggleChrosshair: {
-          keybind: "x",
-          icon: "fas fa-crosshairs",
-          desc: "Toggle Crosshair On/Off",
+        addCube: {
+          keybind: "g",
+          icon: "fas fa-plus",
+          desc: "Add new cube infront of current view",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
-            av.showCrosshair = !av.showCrosshair;
+          updateFxn: av => {
+            var newCubePos = mv.add(
+              av.camera.position,
+              mv.scale(10, wglc.atVector(av.camera))
+            );
+            av.cubes.push(this.cube(newCubePos, false, false));
           }
         },
         revert: {
           keybind: "z",
-          icon: "fas fa-undo",
-          desc: "Revert to Original State",
+          icon: "fas fa-trash",
+          desc: "Revert to Original State, disregarding changes",
           holdable: false,
           framesActive: 0,
           updateFlag: false,
@@ -191,6 +218,7 @@ export default {
             av.showCrosshair = false;
             av.timer.reset();
             av.timer.resume();
+            av.cubes = av.cubes.slice(0, av.numInitialCubes);
           }
         }
       },
@@ -202,6 +230,7 @@ export default {
     // Generate Vetex Dat and set up web gl
     this.generateCubeVertices();
     this.generateCrosshairVertices(0.1);
+    this.av.numInitialCubes = this.av.cubes.length;
     this.configureWebGL();
 
     // Set up the inverted controls adn window events
@@ -396,7 +425,7 @@ export default {
       );
 
       // Individually transalte and optionally Scale/Rotate each Cube
-      let cubert = this.cubes[num];
+      let cubert = this.av.cubes[num];
       var t = mv.translationMatrix(cubert.position);
       var sr = this.cubeScaleMatrix(cubert.scalar);
       if (cubert.rotation) {
@@ -460,7 +489,7 @@ export default {
       this.gl.uniformMatrix4fv(this.loc.u.vMat, false, mv.flatten(vMat));
       this.gl.uniformMatrix4fv(this.loc.u.pMat, false, mv.flatten(pMat));
 
-      for (let i = 0; i < this.cubes.length; ++i) {
+      for (let i = 0; i < this.av.cubes.length; ++i) {
         this.renderCube(i);
       }
       this.renderCrosshair(); // Crosshair has no view or model transofrmations
