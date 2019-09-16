@@ -81,66 +81,32 @@ export default {
 
       // Data Variables
       cubes: [
-        this.cube([10, -10, -10], function(time) {
-          return 1 + 0.1 * Math.sin(time / 2);
-        }),
-        this.cube([10, -10, 10], function(time) {
-          return 1 + 0.03 * Math.sin(time + 1 / 1.17);
-        }),
-
-        this.cube(
-          [10, 10, -10],
-          function() {
-            return 1;
-          },
-          function(time) {
-            return mv.deg(time) / 2;
-          },
-          [1, 0, 0]
-        ),
-
-        this.cube(
-          [10, 10, 10],
-          function() {
-            return 1;
-          },
-          function(time) {
-            return mv.deg(time);
-          },
-          [0, 1, 0]
-        ),
-
-        this.cube(
-          [-10, -10, -10],
-          function() {
-            return 1;
-          },
-          function(time) {
-            return mv.deg(time) / 4;
-          },
-          [0, 0, 1]
-        ),
-
-        this.cube(
-          [-10, -10, 10],
-          function() {
-            return 1;
-          },
-          function(time) {
-            return mv.deg(time);
-          },
-          [1, 1, 1]
-        ),
-
-        this.cube([-10, 10, -10], function(time) {
-          return 1 + 0.1 * Math.sin(time + 6 / 1.17);
-        }),
-        this.cube([-10, 10, 10], function(time) {
-          return 1 + 0.1 * Math.sin(time * 2 + 7 / 1.17);
-        }),
-        this.cube([0, -11.4, 0], function() {
-          return [1000, 0.1, 1000];
-        })
+        this.cube([10, -10, -10], [1, 0.1, 1, 0.855], false),
+        this.cube([10, -10, 10], [1, 0.03, 1, 0.855], false),
+        this.cube([10, 10, -10], false, [0.5, [1, 0, 0]]),
+        this.cube([10, 10, 10], false, [1, [0, 1, 0]]),
+        this.cube([-10, -10, -10], false, [0.25, [0, 0, 1]]),
+        this.cube([-10, -10, 10], false, [1, [1, 1, 1]]),
+        this.cube([-10, 10, -10], [1, 0.1, 2, 5.12], false),
+        this.cube([-10, 10, 10], [1, 0.1, 2, 5.98], false),
+        this.cube([0, -11.4, 0], [[1000, 0.1, 1000]], false), // floor "cube"
+        this.cube([50, -10, 50], false, false),
+        this.cube([-50, -10, 50], false, false),
+        this.cube([50, -10, -50], false, false),
+        this.cube([-50, -10, -50], false, false),
+        this.cube([100, -10, 100], false, false),
+        this.cube([-100, -10, 100], false, false),
+        this.cube([100, -10, -100], false, false),
+        this.cube([-100, -10, -100], false, false),
+        this.cube([50, 10, 50], false, false),
+        this.cube([-50, 10, 50], false, false),
+        this.cube([50, 10, -50], false, false),
+        this.cube([-50, 10, -50], false, false),
+        this.cube([100, 10, 100], false, false),
+        this.cube([-100, 10, 100], false, false),
+        this.cube([100, 10, -100], false, false),
+        this.cube([-100, 10, -100], false, false),
+        this.cube([500, 60, 0], [10, 1, 0.1, 4.3], [0.2, [-1, -1, -1]])
       ],
       color: [
         mv.vec4(0.3, 0.3, 0.3, 1.0), // grey
@@ -168,7 +134,8 @@ export default {
         cIndex: 0,
         showCrosshair: false,
         camera: wglc.initCamera({
-          position: mv.vec3(-30, 0, 0)
+          position: mv.vec3(-30, 0, 0),
+          far: 1000
         })
       },
 
@@ -320,13 +287,65 @@ export default {
       wglu.updateBufferIndex(this.bufIdx, "plus", verts.length);
     },
 
-    cube(position, sf, rf = "", rAxis = "") {
-      return {
+    cube(position, scalarValues, rotationValues) {
+      // Cube object has a position and optionaly a scaling object and a rotation object
+      var c = {
         position: mv.vec3(position),
-        scalarFunction: sf,
-        rotationFunction: rf,
-        rotationAxis: rAxis
+        scalar: {
+          // defaults
+          mag: 1,
+          sinMag: 0,
+          omega: 0,
+          phase: 0
+        }
       };
+
+      // Set up Scalar Object if values were passed
+      // * uniform scaling defined by equation: mag (1 + sinMag * Sin( omega * time + phase)
+      // * Each value can be a single number for uniform scalaing in each direction or an array of 3
+      if (scalarValues) {
+        c.scalar.mag = scalarValues[0];
+        if (Array.isArray(c.scalar.mag)) {
+          c.scalar.sinMag = [0, 0, 0];
+          c.scalar.omega = [0, 0, 0];
+          c.scalar.phase = [0, 0, 0];
+        }
+        if (scalarValues.length > 1) {
+          c.scalar.sinMag = scalarValues[1];
+          if (scalarValues.length > 2) {
+            c.scalar.omega = scalarValues[2];
+            if (scalarValues.length > 3) {
+              c.scalar.phase = scalarValues[3];
+            }
+          }
+        }
+      }
+
+      // Set up rotation object if values were passed
+      // * simple rotation about an axis with speed omega.
+      if (rotationValues) {
+        c.rotation = {
+          omega: rotationValues[0],
+          axis: rotationValues[1]
+        };
+      }
+      return c;
+    },
+
+    sclEqn(mag, sinMag, omega, phase) {
+      return mag * (1 + sinMag * Math.sin(this.av.dt * omega + phase));
+    },
+
+    cubeScaleMatrix(s) {
+      if (Array.isArray(s.mag)) {
+        return mv.scalarMatrix(
+          this.sclEqn(s.mag[0], s.sinMag[0], s.omega[0], s.phase[0]),
+          this.sclEqn(s.mag[1], s.sinMag[1], s.omega[1], s.phase[1]),
+          this.sclEqn(s.mag[2], s.sinMag[2], s.omega[2], s.phase[2])
+        );
+      } else {
+        return mv.scalarMatrix(this.sclEqn(s.mag, s.sinMag, s.omega, s.phase));
+      }
     },
 
     configureWebGL() {
@@ -361,16 +380,16 @@ export default {
         this.color[ci][3]
       );
 
-      //-----------Individually Scale or Rotate each Cube--------------
+      // Individually transalte and optionally Scale/Rotate each Cube
       let cubert = this.cubes[num];
-      var t = mv.translationMatrix(cubert.position); // Move the vertexed cube to our rendering location
-      var sr = mv.scalarMatrix(cubert.scalarFunction(this.av.dt));
-      if (cubert.rotationAxis) {
+      var t = mv.translationMatrix(cubert.position);
+      var sr = this.cubeScaleMatrix(cubert.scalar);
+      if (cubert.rotation) {
         sr = mv.mult(
           sr,
           mv.rotationMatrix(
-            cubert.rotationFunction(this.av.dt),
-            cubert.rotationAxis
+            mv.deg(this.av.dt) * cubert.rotation.omega,
+            cubert.rotation.axis
           )
         );
       }
