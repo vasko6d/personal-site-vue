@@ -65,7 +65,7 @@ export default {
     margin-bottom: 0px;
   }
   .clue-list {
-    width: 100%;
+    width: calc(100% - 40px);
     margin-left: 40px;
     ol {
       font-size: 18px;

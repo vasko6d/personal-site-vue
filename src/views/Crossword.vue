@@ -56,32 +56,30 @@ export default {
             4: { txt: "Hurried" },
             9: { txt: "By _" },
             10: { txt: "Word with Man or nine" },
-            12: { txt: "Certain shoes or large wild cats" },
+            12: { txt: "Certain shoes or cats" },
             14: { txt: "Bull" },
             15: { txt: "A brand of, and generic term for a ballpoint pen" },
-            16: { txt: "This one thing is the result of a three and out" },
+            16: { txt: "Result of a three and out" },
             17: { txt: "Gives weapons to" },
             18: { txt: "Say 'boo' to" },
-            20: {
-              txt: "A risky but necessary move in paintball may be called this"
-            },
+            20: { txt: "A risky but necessary move in paintball?" },
             22: {
               txt:
-                "add 't' to the front you get a type of plant, append 'd' and you get a vibrating mouthpiece"
+                "Prepend 't' to make a plant, append 'd' to make a mouthpiece"
             },
             23: { txt: "Big _, California" },
             24: { txt: "It causes neuromuscular incapacitation" },
             27: { txt: "Toward the back" },
             32: { txt: "Vespa e.g" },
             33: { txt: "Bat" },
-            36: { txt: "'Live _' or 'Jack _' or 'Do _'" },
+            36: { txt: "'Juice _!'" },
             37: { txt: "Steryotypical red farm buildings" },
-            38: { txt: "Square or figure eight e.g" },
-            39: { txt: "Pizza man, or Mail man e.g." },
+            38: { txt: "Square or figure eight, e.g" },
+            39: { txt: "Pizza man or Mail man, e.g." },
             41: { txt: "Pulls in a fish" },
             42: { txt: "Weaken" },
             43: { txt: "Musical form with repeating theme" },
-            44: { txt: "Part of a set, in the gym" },
+            44: { txt: "Part of a set" },
             46: { txt: "Currency of Spn. and Fra." },
             47: {
               txt:
@@ -89,17 +87,15 @@ export default {
             },
             51: { txt: "Often called a plantar wart" },
             56: {
-              txt:
-                "Honeycomb-like mushroom, or if you want additional of a spanish article"
+              txt: "A honeycomb-like mushroom"
             },
             57: { txt: "sin(x)^2 + cos(x)^2 + 1" },
             59: {
-              txt:
-                "The approach ramp of a ski jump , also the last three letters are the present form of 4 across"
+              txt: "The approach ramp of a ski jump"
             },
-            60: { txt: "'_ to the challenge' (personally)" },
+            60: { txt: "'And Still ___', by Maya Angelou" },
             61: {
-              txt: "This is used for lubrication, illumination and combustion"
+              txt: "Lubricant, illuminator and combustor"
             },
             62: { txt: "Mother, to Juan" },
             63: { txt: "Highway, briefly" },
@@ -111,20 +107,14 @@ export default {
           },
           down: {
             1: { txt: "Curved bones, or teases good-naturedly" },
-            2: { txt: "2010 film starring Jeff Bridges, 'True _'" },
-            3: { txt: "Bora" },
+            2: { txt: "2010 film, 'True _'" },
+            3: { txt: "When repeated, an island group in French Polynesia" },
             4: { txt: "Currency in Sri Lanka" },
-            5: {
-              txt:
-                "a meausrement used sometime to express molecular weights, briefly"
-            },
-            6: {
-              txt:
-                "logic gates that return false only if all inputs are ture, briefly"
-            },
+            5: { txt: "A meausrement used to express molecular wts." },
+            6: { txt: "Logic gates that return false if all inputs are ture" },
             7: { txt: "_ Fiesta" },
             8: { txt: "Swarm" },
-            9: { txt: "A girls name or popular flower" },
+            9: { txt: "A girls name or flower" },
             11: {
               txt:
                 "This word is used to present the second of two untrue alternatives"
@@ -141,7 +131,7 @@ export default {
             25: { txt: "'Beat him to _'" },
             26: { txt: "Reddish brown pigment" },
             28: { txt: "Voucher" },
-            29: { txt: "having old languages inscribed" },
+            29: { txt: "Having old languages inscribed" },
             30: {
               txt:
                 "You may score this one part in an opera if you are very good"
@@ -151,14 +141,14 @@ export default {
             33: { txt: "7Zip and Win_ are copresson and unpacking software" },
             34: { txt: "Before" },
             35: { txt: "What you deserve after some good hard work, briefly" },
-            37: { txt: "a type of flat cap" },
+            37: { txt: "A type of flat cap" },
             40: { txt: "Having strength, energy, and a strong sex drive" },
             41: {
               txt:
                 "By performing this action on this answer, it will be right side up"
             },
             43: { txt: "Regret" },
-            45: { txt: "this type of tube is used to measure pressure" },
+            45: { txt: "This type of tube is used to measure pressure" },
             46: { txt: "Rock climbing shoe brand" },
             47: { txt: "Turkish title" },
             48: { txt: "_ Goldman, a character in Family Guy" },
@@ -167,10 +157,7 @@ export default {
             52: { txt: "It is made of U, G, C and A" },
             53: { txt: "An Arabic language" },
             54: { txt: "Mongrel dogs" },
-            55: {
-              txt:
-                "A male insect, or add a 'g' to the middle and you get a strong feeling of displeasure"
-            },
+            55: { txt: "A male insect" },
             58: { txt: "May be worn to disguise baldness" }
           }
         }

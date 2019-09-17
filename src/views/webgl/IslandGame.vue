@@ -21,7 +21,7 @@
           Pick up branches from trees to start a fire (hint: find the firepit!)
         </li>
         <li>Relax and listen to the soothing sounds of nature</li>
-        <li>Rhrow rocks</li>
+        <li>Throw rocks</li>
         <li>Climb the mountain</li>
         <li>Explore!</li>
       </ul>
@@ -62,8 +62,10 @@
 #island-game {
   .blk-container {
     ul {
-      list-style-position: inside;
-      margin-left: 5px;
+      li {
+        width: calc(100% - 40px);
+        margin-left: 40px;
+      }
     }
   }
 }
