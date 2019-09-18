@@ -1,5 +1,6 @@
-# personal-site-vue
+# David Vasko: Personal Website w/ VueJS
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3371fca4-2d3a-4e52-b950-3c65e675386d/deploy-status)](https://app.netlify.com/sites/vasko6d/deploys)
 Hosted on Netlify at: https://vasko6d.netlify.com
 
 ## Project setup
