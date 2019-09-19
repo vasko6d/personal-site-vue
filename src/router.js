@@ -83,6 +83,7 @@ export default new Router({
       path: "/crossword",
       name: "crossword",
       component: () => import("./views/Crossword.vue")
-    }
+    },
+    { path: "*", component: () => import("./components/NotFound.vue") }
   ]
 });
