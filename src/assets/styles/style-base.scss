@@ -2,10 +2,10 @@
   .navigation {
     a {
       color: darken($nav-txt, 5%);
-      background-color: rgba($nav-bg, 0.5);
+      background-color: rgba(darken($nav-bg, 5%), 0.7);
       &:hover {
-        color: $nav-txt;
-        background-color: rgba($nav-bg, 0.8);
+        color: lighten($nav-txt, 5%);
+        background-color: rgba(lighten($nav-bg, 5%), 0.9);
       }
     }
   }
@@ -64,19 +64,6 @@
     .pactive {
       color: $nav-txt;
       background-color: rgba($nav-bg, 0.6);
-    }
-  }
-
-  #webgl-examples {
-    .navigation {
-      a {
-        color: darken($nav-txt, 15%);
-        background-color: rgba($nav-bg, 0.3);
-        &:hover {
-          color: $nav-txt;
-          background-color: rgba($nav-bg, 0.6);
-        }
-      }
     }
   }
 
