@@ -4,11 +4,12 @@ High Priority
 
 General
 
-- [ ] 404 not found
+- [x] 404 not found
 - [ ] remove the space character from portfolio.... name
 - [ ] climbing heat map, use 8a data
 - [ ] netlify not working when going directly to children urls
 - [ ] Move finite Volume and element to "Computational catagory"
+- [ ] cookies for type!
 
 Graphics
 
