@@ -7,9 +7,9 @@ General
 - [x] 404 not found
 - [ ] remove the space character from portfolio.... name
 - [ ] climbing heat map, use 8a data
-- [ ] netlify not working when going directly to children urls
+- [x] netlify not working when going directly to children urls
 - [ ] Move finite Volume and element to "Computational catagory"
-- [ ] cookies for type!
+- [ ] localStorage for theme.
 
 Graphics
 
@@ -42,6 +42,8 @@ Crossword
 - [ ] show all intersecting clues?
 - [ ] lock screen position to make crossword work easier
 - [ ] make dynamic! then so much, ratings etc.
+- [ ] try grid for sizing. now kind of annoying with trying to get a max-width with flex grow.
+- [ ] maybe add across clues on left, down clues right on big screens?
 
 Lofty
 

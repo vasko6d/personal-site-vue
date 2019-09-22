@@ -185,4 +185,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#crossword {
+  .blk-container {
+    max-width: 500px;
+    width: 100%;
+  }
+}
+</style>
