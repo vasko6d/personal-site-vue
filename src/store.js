@@ -13,6 +13,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setTheme(state, theme) {
+      localStorage.theme = theme;
       state.theme = theme;
     }
   },

@@ -92,6 +92,9 @@ export default {
         this.navList.push(route);
       }
     }
+    if (localStorage.theme) {
+      this.setTheme(localStorage.theme);
+    }
   },
   methods: {
     onClose() {

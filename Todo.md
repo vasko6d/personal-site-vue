@@ -6,10 +6,12 @@ General
 
 - [x] 404 not found
 - [ ] remove the space character from portfolio.... name
-- [ ] climbing heat map, use 8a data
 - [x] netlify not working when going directly to children urls
 - [ ] Move finite Volume and element to "Computational catagory"
 - [ ] localStorage for theme.
+- [ ] flex-grow = 1 for navigation main header
+- [ ] nav bar vs, sub page drop down colors
+- [ ] Move control name to the left?
 
 Graphics
 
@@ -44,6 +46,16 @@ Crossword
 - [ ] make dynamic! then so much, ratings etc.
 - [ ] try grid for sizing. now kind of annoying with trying to get a max-width with flex grow.
 - [ ] maybe add across clues on left, down clues right on big screens?
+- [ ] MAKE. SOLVE and SEARCH tabs!
+
+Climbing
+
+- [ ] Split into parts "Videos", "Development/MK"
+- [ ] Searching of videos? Like date? Location?
+- [ ] MK Blog tab
+- [ ] Make intergactive map for recent development in MK
+- [ ] custom layer for GPS data? My own top that is gps correct?
+- [ ] climbing heat map, use 8a data
 
 Lofty
 
