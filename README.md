@@ -1,6 +1,6 @@
 # David Vasko: Personal Website w/ VueJS
 
-### Hosted on Netlify at: https://vasko6d.netlify.com
+### Hosted on Netlify at: https://david.vaskos.com
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3371fca4-2d3a-4e52-b950-3c65e675386d/deploy-status)](https://app.netlify.com/sites/vasko6d/deploys)
 
