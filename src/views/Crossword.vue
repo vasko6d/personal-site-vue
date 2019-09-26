@@ -6,6 +6,7 @@
         by {{ xwords[curIdx].author }}, {{ xwords[curIdx].createDate }}
       </div>
       <xword-puzzle :puzzle="curPuzzle" />
+      <xword-keyboard :currentCell="curPuzzle[0][0]" />
       <xword-clues :clues="xwords[curIdx].clues.across" title="Across" />
       <xword-clues :clues="xwords[curIdx].clues.down" title="Down" />
     </div>
@@ -15,6 +16,7 @@
 <script>
 import XwordPuzzle from "@/components/crossword/XwordPuzzle.vue";
 import XwordClues from "@/components/crossword/XwordClues.vue";
+import XwordKeyboard from "@/components/crossword/XwordKeyboard.vue";
 
 // Xword Data Source Imports
 import Xword1 from "@/assets/xword/Xword1.vue";
@@ -30,7 +32,8 @@ export default {
   name: "crossword",
   components: {
     XwordClues,
-    XwordPuzzle
+    XwordPuzzle,
+    XwordKeyboard
   },
   data() {
     return {

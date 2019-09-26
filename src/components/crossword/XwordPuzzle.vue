@@ -86,5 +86,6 @@ export default {
       }
     }
   }
+  margin-bottom: 0.5em;
 }
 </style>

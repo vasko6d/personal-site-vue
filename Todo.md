@@ -5,15 +5,15 @@ High Priority
 General
 
 - [x] 404 not found
-- [ ] remove the space character from portfolio.... name
+- [ ] ~~remove the space character from portfolio.... name~~
 - [x] netlify not working when going directly to children urls
 - [x] Move finite Volume and element to "Computational catagory"
 - [x] localStorage for theme.
 - [ ] flex-grow = 1 for navigation main header
 - [x] nav bar vs, sub page drop down colors
 - [ ] Move control name to the left?
-- [ ] make generic the sub page with dropdown.
-- [ ] clean up naming of "computation" "numerical analysis" etc
+- [x] make generic the sub page with dropdown.
+- [x] clean up naming of "computation" "numerical analysis" etc
 
 Graphics
 
@@ -68,7 +68,3 @@ Low Priority
 
 - [ ] port island game over!!!
 - [ ] properly use mixins?
-
-Depracated
-
-- [ ] Add cube controls on cubers (add cube, move existing cube)
