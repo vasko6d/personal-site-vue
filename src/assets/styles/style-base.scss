@@ -103,6 +103,20 @@
     }
   }
 
+  .keyboard-container {
+    background-color: rgba(lighten($nav-bg, 10%), 0.7);
+    .key-row {
+      .key {
+        background-color: rgba(darken($nav-bg, 20%), 0.4);
+        color: darken($nav-txt, 10%);
+        &:hover {
+          color: $nav-txt;
+          background-color: rgba(lighten($nav-bg, 15%), 0.6);
+        }
+      }
+    }
+  }
+
   background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
   color: $nav-txt;
 }

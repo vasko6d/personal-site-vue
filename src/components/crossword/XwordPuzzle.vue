@@ -79,8 +79,7 @@ export default {
           .entry {
             position: absolute; // need better zindex and centering
             top: 0;
-            left: 25%;
-            margin-top: 0.5ch;
+            transform: translatex(-50%);
           }
         }
       }

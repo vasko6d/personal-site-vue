@@ -8,9 +8,9 @@
         :key="keyBtn.id"
         @click="keyBtn.actn(currentCell)"
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>
@@ -61,10 +61,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/light-theme.scss";
-
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/light-theme.scss";
+}
 .keyboard-container {
-  background-color: rgba(lighten($nav-bg, 10%), 0.7);
   border-radius: 0.35em;
   .key-row {
     display: flex;
@@ -74,12 +81,6 @@ export default {
       display: flex;
       justify-content: center;
       flex-direction: column;
-      background-color: rgba(darken($nav-bg, 20%), 0.3);
-      color: darken($nav-txt, 10%);
-      &:hover {
-        color: $nav-txt;
-        background-color: rgba(lighten($nav-bg, 15%), 0.6);
-      }
       text-align: center;
       margin: 0.25em;
       border-radius: 0.35em;
