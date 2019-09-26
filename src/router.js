@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import NestedViewer from "./components/NestedViewer.vue";
 
 Vue.use(Router);
 
@@ -26,8 +27,8 @@ export default new Router({
       isMainNav: true,
       nestedLinks: [
         { path: "/billiard-ball-robot", name: "Robotics" },
-        { path: "/webgl-graphics/galaxy", name: "Graphics" },
-        { path: "/computational/finite-element", name: "Numerical Analysis" },
+        { path: "/webgl/galaxy", name: "Graphics" },
+        { path: "/numerical/finite-element", name: "Numerical Analysis" },
         { path: "/crossword", name: "Crossword" }
       ]
     },
@@ -37,9 +38,10 @@ export default new Router({
       component: () => import("./views/BallRobot.vue")
     },
     {
-      path: "/computational",
-      name: "Computation",
-      component: () => import("./views/compute/Computational.vue"),
+      path: "/numerical",
+      name: "Numerical",
+      component: NestedViewer,
+      props: { path: "numerical", title: "Numerical Analysis" },
       children: [
         {
           path: "finite-element",
@@ -54,9 +56,10 @@ export default new Router({
       ]
     },
     {
-      path: "/webgl-graphics",
+      path: "/webgl",
       name: "WebGL Examples",
-      component: () => import("./views/webgl/WebGLExamples.vue"),
+      component: NestedViewer,
+      props: { path: "webgl", title: "Graphics using WebGL" },
       children: [
         {
           path: "fractals",

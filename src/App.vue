@@ -51,7 +51,7 @@
         <span class="set-theme" @click="setTheme('dark')">dark</span>&nbsp;|
         <span class="set-theme" @click="setTheme('blue')">blue</span>
       </div>
-      <router-view />
+      <router-view :key="$route.path" />
       <footer-links />
     </div>
   </div>

@@ -1,19 +1,19 @@
 <template>
-  <div id="computational">
+  <div class="nested-viewer">
     <div class="blk-container">
-      <h2>Numerical Analysis</h2>
+      <h2>{{ title }}</h2>
       <div class="navigation">
-        <a ref="comp-a" href="#/" @click="isOpen = !isOpen">
-          <h3 ref="comp-h3">
+        <a ref="ref-a" href="#/" @click="isOpen = !isOpen">
+          <h3 ref="ref-h3">
             {{ $router.currentRoute.name }}
-            <i ref="comp-i" class="fa fa-angle-down"></i>
+            <i ref="ref-i" class="fa fa-angle-down"></i>
           </h3>
         </a>
         <div
           :class="{ isOpen }"
           class="dropdown"
           v-closable="{
-            excludeList: ['comp-a', 'comp-h3', 'comp-i'],
+            excludeList: ['ref-a', 'ref-h3', 'ref-i'],
             handler: 'onClose'
           }"
         >
@@ -33,7 +33,11 @@
 
 <script>
 export default {
-  name: "Computational",
+  name: "NestedViewer",
+  props: {
+    path: String,
+    title: String
+  },
   data() {
     return {
       // dropdown data
@@ -43,7 +47,7 @@ export default {
   },
   mounted() {
     this.children = this.$router.options.routes.find(r => {
-      return r.path === "/computational";
+      return r.path === "/" + this.path;
     }).children;
   },
   methods: {
@@ -51,8 +55,8 @@ export default {
       this.isOpen = false;
     },
     correctedUrl(url) {
-      if (this.$router.currentRoute.path === "/computational") {
-        return "computational/" + url;
+      if (this.$router.currentRoute.path === "/" + this.path) {
+        return this.path + "/" + url;
       }
       return url;
     }
@@ -71,28 +75,30 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
-.wrapper {
-  #computational {
-    .blk-container {
-      width: 100%;
-      max-width: 650px;
-      h2 {
-        margin-bottom: 0.5em;
-      }
-      ul {
-        margin-left: 0px;
-      }
-      .navigation {
-        position: relative;
-        margin-bottom: 1em;
-        z-index: 2;
-        a {
-          text-align: center;
-          h3 {
-            margin-top: 0px;
-            margin-bottom: 0px;
+#app {
+  .wrapper {
+    .nested-viewer {
+      .blk-container {
+        width: 100%;
+        max-width: 650px;
+        h2 {
+          margin-bottom: 0.5em;
+        }
+        ul {
+          margin-left: 0px;
+        }
+        .navigation {
+          position: relative;
+          margin-bottom: 1em;
+          z-index: 2;
+          a {
+            text-align: center;
+            h3 {
+              margin-top: 0px;
+              margin-bottom: 0px;
+            }
+            display: inline-block;
           }
-          display: inline-block;
         }
       }
     }
