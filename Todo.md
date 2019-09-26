@@ -7,11 +7,13 @@ General
 - [x] 404 not found
 - [ ] remove the space character from portfolio.... name
 - [x] netlify not working when going directly to children urls
-- [ ] Move finite Volume and element to "Computational catagory"
-- [ ] localStorage for theme.
+- [x] Move finite Volume and element to "Computational catagory"
+- [x] localStorage for theme.
 - [ ] flex-grow = 1 for navigation main header
-- [ ] nav bar vs, sub page drop down colors
+- [x] nav bar vs, sub page drop down colors
 - [ ] Move control name to the left?
+- [ ] make generic the sub page with dropdown.
+- [ ] clean up naming of "computation" "numerical analysis" etc
 
 Graphics
 

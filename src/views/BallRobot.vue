@@ -47,6 +47,8 @@
 <style lang="scss" scoped>
 #billiard-ball-robot {
   .blk-container {
+    width: 100%;
+    max-width: 650px;
     ul {
       list-style-type: circle;
       li {

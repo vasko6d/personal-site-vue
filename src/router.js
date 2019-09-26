@@ -25,27 +25,33 @@ export default new Router({
       name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
       isMainNav: true,
       nestedLinks: [
-        { path: "/billiard-ball-robot", name: "Ball Robot" },
+        { path: "/billiard-ball-robot", name: "Robotics" },
         { path: "/webgl-graphics/galaxy", name: "Graphics" },
-        { path: "/finite-volume", name: "Finite Volume" },
-        { path: "/finite-element", name: "Finite Element" },
+        { path: "/computational/finite-element", name: "Numerical Analysis" },
         { path: "/crossword", name: "Crossword" }
       ]
     },
     {
       path: "/billiard-ball-robot",
-      name: "ball-robot",
+      name: "Ball Robot",
       component: () => import("./views/BallRobot.vue")
     },
     {
-      path: "/finite-volume",
-      name: "finite volume",
-      component: () => import("./views/FiniteVolume.vue")
-    },
-    {
-      path: "/finite-element",
-      name: "finite element",
-      component: () => import("./views/FiniteElement.vue")
+      path: "/computational",
+      name: "Computation",
+      component: () => import("./views/compute/Computational.vue"),
+      children: [
+        {
+          path: "finite-element",
+          name: "Neo-Hookean Membranes",
+          component: () => import("./views/compute/FiniteElement.vue")
+        },
+        {
+          path: "finite-volume",
+          name: "Supersonic Jet Inlet",
+          component: () => import("./views/compute/FiniteVolume.vue")
+        }
+      ]
     },
     {
       path: "/webgl-graphics",
