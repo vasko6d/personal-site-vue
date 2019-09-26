@@ -6,24 +6,28 @@ import store from "./store";
 Vue.config.productionTip = false;
 
 // Directive to make the allow items to have an "off-click" event
-let handleOutsideClick;
+let handleOutsideClick = {};
 Vue.directive("closable", {
   bind(el, binding, vnode) {
-    handleOutsideClick = e => {
+    const { handler, excludeList, uniqueFxnId } = binding.value;
+    // handler: fxn to close the 'closable' element
+    // excludeList: the list if refs that represent the item being clicked,
+    //              as to prevent the 'closable' from closing immediatly when
+    //              opening it
+    // uniqueFxnId: a hack to make sure that the registered "click/touch" event
+    //              has a unique way to be identified, otherwise the
+    //              removeEventListener may remove the wrong event.
+    handleOutsideClick[uniqueFxnId] = e => {
       e.stopPropagation();
-      const { handler, excludeList } = binding.value;
       let clickedOnExcludedEl = false;
       excludeList.forEach(exclude => {
         if (!clickedOnExcludedEl) {
-          //console.log("Will not Close on " + "{" + exclude + "}");
           const excludedEls = vnode.context.$refs[exclude];
           if (Array.isArray(excludedEls)) {
             excludedEls.forEach(excludedEl => {
               clickedOnExcludedEl = excludedEl === e.target;
             });
           } else {
-            //console.log(excludedEls);
-            //console.log(e.target);
             clickedOnExcludedEl = excludedEls === e.target;
           }
         }
@@ -33,12 +37,15 @@ Vue.directive("closable", {
         vnode.context[handler]();
       }
     };
-    document.addEventListener("click", handleOutsideClick);
-    document.addEventListener("touchstart", handleOutsideClick);
+    //console.log("[bind]: " + uniqueFxnId);
+    document.addEventListener("click", handleOutsideClick[uniqueFxnId]);
+    document.addEventListener("touchstart", handleOutsideClick[uniqueFxnId]);
   },
-  unbind() {
-    document.removeEventListener("click", handleOutsideClick);
-    document.removeEventListener("touchstart", handleOutsideClick);
+  unbind(el, binding) {
+    const { uniqueFxnId } = binding.value;
+    //console.log("[unbind]: " + uniqueFxnId);
+    document.removeEventListener("click", handleOutsideClick[uniqueFxnId]);
+    document.removeEventListener("touchstart", handleOutsideClick[uniqueFxnId]);
   }
 });
 

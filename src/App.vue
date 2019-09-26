@@ -26,7 +26,8 @@
                 class="dropdown"
                 v-closable="{
                   excludeList: [item.name, 'drop-i'],
-                  handler: 'onClose'
+                  handler: 'onClose',
+                  uniqueFxnId: 'drop1'
                 }"
               >
                 <ul>
