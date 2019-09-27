@@ -69,6 +69,7 @@ export default {
 }
 .keyboard-container {
   border-radius: 0.35em;
+  margin-bottom: 0.5em;
   .key-row {
     display: flex;
     justify-content: center;

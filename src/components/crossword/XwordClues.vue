@@ -1,7 +1,9 @@
 <template>
   <div class="clues">
     <div class="clue-h" @click="showClues = !showClues">
-      {{ title }}&nbsp;({{ filled }}/{{ Object.keys(clues).length }})
+      {{ clueHead }}&nbsp;({{ filled }}/{{
+        Object.keys(xword[direction]).length
+      }})
       <i
         :class="{
           fas: true,
@@ -12,10 +14,15 @@
     </div>
     <div class="clue-list">
       <ol v-show="showClues">
-        <li :value="num" class="clue" v-for="(clue, num) in clues" :key="num">
-          <span class="clue-txt" @click="jumpTo(title, num)">
-            {{ clue.txt }}
-          </span>
+        <li
+          :value="num"
+          class="clue"
+          v-for="(clue, num) in xword[direction]"
+          :key="num"
+        >
+          <span class="clue-txt" @click="jumpTo(direction, num)">{{
+            clue.txt
+          }}</span>
         </li>
       </ol>
     </div>
@@ -23,11 +30,14 @@
 </template>
 
 <script>
+import Xword from "./Xword.js";
 export default {
   name: "XwordClues",
   props: {
-    clues: Object,
-    title: String
+    xword: Xword,
+    direction: String,
+    showClueContext: Boolean,
+    showFilled: Boolean
   },
   data() {
     return {
@@ -35,9 +45,12 @@ export default {
     };
   },
   computed: {
+    clueHead() {
+      return this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
+    },
     filled() {
       let cnt = 0;
-      for (const c of Object.values(this.clues)) {
+      for (const c of Object.values(this.xword[this.direction])) {
         if (c.filled) {
           cnt++;
         }
@@ -60,7 +73,7 @@ export default {
   .clue-h {
     text-align: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 17px;
     cursor: pointer;
     margin-bottom: 0px;
   }

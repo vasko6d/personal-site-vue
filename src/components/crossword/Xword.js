@@ -22,7 +22,16 @@ export default class Xword {
    * Xword is a helper class for all the important Xword Functions
    * @constructor
    */
-  constructor(title, author, editor, publishDate, solnArr, clues, opts = {}) {
+  constructor(
+    title,
+    author,
+    editor,
+    publishDate,
+    solnArr,
+    across,
+    down,
+    opts = {}
+  ) {
     console.log("Initializing crossword '" + title + "' by: " + author);
     this.r = 0;
     this.c = 0;
@@ -32,11 +41,11 @@ export default class Xword {
     this.editor = editor;
     this.publishDate = publishDate;
     this.timer = new Timer(true);
-    this.across = clues.across;
+    this.across = across;
     for (let k of Object.keys(this.across)) {
       this.across[k].filled = false;
     }
-    this.down = clues.down;
+    this.down = down;
     for (let k of Object.keys(this.down)) {
       this.down[k].filled = false;
     }
@@ -66,6 +75,8 @@ export default class Xword {
         }
       }
     }
+
+    // If speial numbering is passed
 
     // Since we have successfully proccessed flag it as such
     this.initialized = true;

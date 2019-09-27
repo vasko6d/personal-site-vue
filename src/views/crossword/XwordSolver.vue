@@ -7,17 +7,16 @@
       </div>
       <xword-puzzle :xword="xword" />
       <xword-keyboard @executePress="executePress" />
-      <xword-clues :clues="xword.across ? xword.across : {}" title="Across" />
-      <xword-clues :clues="xword.down ? xword.down : {}" title="Down" />
+      <xword-clue-panel :xword="xword" />
     </div>
   </div>
 </template>
 
 <script>
 import XwordPuzzle from "@/components/crossword/XwordPuzzle.vue";
-import XwordClues from "@/components/crossword/XwordClues.vue";
+import XwordCluePanel from "@/components/crossword/XwordCluePanel.vue";
 import XwordKeyboard from "@/components/crossword/XwordKeyboard.vue";
-import Xword from "./Xword.js";
+import Xword from "@/components/crossword//Xword.js";
 
 // Xword Data Source Imports
 import Xword1 from "@/assets/xword/Xword1.vue";
@@ -25,7 +24,7 @@ import Xword1 from "@/assets/xword/Xword1.vue";
 export default {
   name: "crossword",
   components: {
-    XwordClues,
+    XwordCluePanel,
     XwordPuzzle,
     XwordKeyboard
   },
@@ -36,7 +35,7 @@ export default {
       rawXwords: {
         1: Xword1.data().xword
       },
-      xword: {},
+      xword: new Xword("", "", "", "", [], {}, {}),
       xwordId: 1
     };
   },
@@ -51,9 +50,10 @@ export default {
       raw.editor,
       raw.createDate,
       raw.solution,
-      raw.clues
+      raw.clues.across,
+      raw.clues.down
     );
-    console.log("puzzle:", this.xword.puzzle);
+    console.log("xword:", this.xword["across"]);
   },
   methods: {
     executePress(ch) {
