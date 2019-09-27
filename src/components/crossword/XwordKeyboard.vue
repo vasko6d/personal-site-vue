@@ -18,9 +18,6 @@
 
 <script>
 export default {
-  props: {
-    currentCell: Object
-  },
   data() {
     return {
       keyLayout: []
@@ -31,7 +28,6 @@ export default {
   },
   methods: {
     executePress(ch) {
-      this.currentCell.entry = ch;
       this.$emit("executePress", ch);
     },
     createQwerty(includeBackspace = true) {

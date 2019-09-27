@@ -91,7 +91,7 @@ export default new Router({
     {
       path: "/crossword",
       name: "crossword",
-      component: () => import("./views/Crossword.vue")
+      component: () => import("./views/crossword/XwordSolver.vue")
     },
     { path: "*", component: () => import("./components/NotFound.vue") }
   ]
