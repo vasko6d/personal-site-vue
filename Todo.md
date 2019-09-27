@@ -14,6 +14,7 @@ General
 - [ ] Move control name to the left?
 - [x] make generic the sub page with dropdown.
 - [x] clean up naming of "computation" "numerical analysis" etc
+- [ ] v-lazy? v-tooltip? v-scroll-lock? v-input-mask?
 
 Graphics
 

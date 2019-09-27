@@ -1,6 +1,6 @@
 <template>
   <div class="keyboard-container">
-    <div>Keyboard</div>
+    <!--div>Keyboard</div-->
     <div class="key-row" v-for="keyRow in keyLayout" :key="keyRow.id">
       <div
         class="key"
@@ -8,9 +8,9 @@
         :key="keyBtn.id"
         @click="executePress(keyBtn.val)"
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>

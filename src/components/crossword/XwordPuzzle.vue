@@ -1,8 +1,17 @@
 <template>
   <div id="puzzle">
-    <div class="p-row" v-for="row in xword.puzzle" :key="row.id">
-      <div class="p-cell" v-for="cell in row" :key="cell.id">
-        <div :class="[cell.color, { input: isInput(cell.color) }]">
+    <div class="p-row" v-for="(row, r) in xword.puzzle" :key="row.id">
+      <div class="p-cell" v-for="(cell, c) in row" :key="cell.id">
+        <div
+          :class="[
+            cell.color,
+            {
+              input: isInput(cell.color),
+              active: isActive(cell),
+              exact: isExact(r, c)
+            }
+          ]"
+        >
           <div class="cell-wrapper">
             <span class="numbering">{{ cell.cellNum }}</span>
             <span class="entry">{{ cell.entry }}</span>
@@ -21,6 +30,15 @@ export default {
   methods: {
     isInput(color) {
       return color != "black";
+    },
+    isActive(cell) {
+      let xCell = this.xword.getCell();
+      return this.xword.isHoriz
+        ? xCell.acrossNum === cell.acrossNum
+        : xCell.downNum === cell.downNum;
+    },
+    isExact(r, c) {
+      return r === this.xword.r && c == this.xword.c;
     }
   }
 };
@@ -33,6 +51,7 @@ export default {
     justify-content: center;
     .p-cell {
       flex-grow: 1;
+      border: 1px solid black;
       .black {
         background-color: black;
         color: white;
@@ -41,13 +60,21 @@ export default {
         background-color: white;
         color: black;
       }
+      .active {
+        background-color: rgb(255, 255, 152);
+        color: black;
+      }
+      .exact {
+        background-color: rgb(158, 240, 255);
+        color: black;
+        border: 2px solid rgb(18, 219, 255);
+      }
       .black,
       .white {
         text-align: center;
         position: relative;
         min-width: 1ch;
         min-height: 1ch;
-        border: 1px solid black;
         .cell-wrapper {
           width: 100%;
           height: 0;

@@ -6,6 +6,7 @@
         by {{ xword.author }}, {{ xword.publishDate }}
       </div>
       <xword-puzzle :xword="xword" />
+      <xword-current-clue :clue="currentClue" />
       <xword-keyboard @executePress="executePress" />
       <xword-clue-panel :xword="xword" />
     </div>
@@ -15,6 +16,7 @@
 <script>
 import XwordPuzzle from "@/components/crossword/XwordPuzzle.vue";
 import XwordCluePanel from "@/components/crossword/XwordCluePanel.vue";
+import XwordCurrentClue from "@/components/crossword/XwordCurrentClue.vue";
 import XwordKeyboard from "@/components/crossword/XwordKeyboard.vue";
 import Xword from "@/components/crossword//Xword.js";
 
@@ -26,6 +28,7 @@ export default {
   components: {
     XwordCluePanel,
     XwordPuzzle,
+    XwordCurrentClue,
     XwordKeyboard
   },
   data() {
@@ -38,6 +41,20 @@ export default {
       xword: new Xword("", "", "", "", [], {}, {}),
       xwordId: 1
     };
+  },
+  computed: {
+    currentClue() {
+      let cell = this.xword.getCell();
+      let isAcross = this.xword.isHoriz;
+      let num = isAcross ? cell.acrossNum : cell.downum;
+      let entry = isAcross ? this.xword.across[num] : this.xword.down[num];
+      let txt = entry ? entry.txt : "";
+      return {
+        num: num,
+        txt: txt,
+        isAcross: isAcross
+      };
+    }
   },
   mounted() {
     if (localStorage.xwords && localStorage.xwords[this.xwordId]) {

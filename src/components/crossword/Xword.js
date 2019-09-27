@@ -86,7 +86,10 @@ export default class Xword {
   // Getters
   //
   getCell() {
-    return this.puzzle[this.r][this.c];
+    if (this.r < this.puzzle.length && this.c < this.puzzle[this.r].length) {
+      return this.puzzle[this.r][this.c];
+    }
+    return {};
   }
 
   isInputCell(r, c) {
