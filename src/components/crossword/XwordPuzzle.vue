@@ -1,6 +1,6 @@
 <template>
   <div id="puzzle">
-    <div class="p-row" v-for="row in puzzle" :key="row.id">
+    <div class="p-row" v-for="row in xword.puzzle" :key="row.id">
       <div class="p-cell" v-for="cell in row" :key="cell.id">
         <div :class="[cell.color, { input: isInput(cell.color) }]">
           <div class="cell-wrapper">
@@ -16,22 +16,7 @@
 <script>
 export default {
   props: {
-    puzzle: Array
-  },
-  data() {
-    return {
-      horizOrVert: true,
-      curCol: 0,
-      curRow: 0
-    };
-  },
-  computed: {
-    isHoriz() {
-      return this.horizOrVert;
-    },
-    isVert() {
-      return !this.horizOrVert;
-    }
+    xword: Object
   },
   methods: {
     isInput(color) {

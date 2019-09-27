@@ -5,7 +5,7 @@
         <h2>{{ xword.title }}</h2>
         by {{ xword.author }}, {{ xword.publishDate }}
       </div>
-      <xword-puzzle :puzzle="xword.puzzle" />
+      <xword-puzzle :xword="xword" />
       <xword-keyboard @executePress="executePress" />
       <xword-clues :clues="xword.across ? xword.across : {}" title="Across" />
       <xword-clues :clues="xword.down ? xword.down : {}" title="Down" />
@@ -62,16 +62,6 @@ export default {
       if (ch) {
         console.log("incrementPosition");
       }
-    },
-    getClueContext(puzzle, r, c, d) {
-      // d should either be {r: 0, c: -1} or {r: -1, c: 0}
-      var clueContext = [puzzle[r][c].entry];
-      while (this.isInputCell(puzzle, r, c)) {
-        clueContext.push(puzzle[r][c].entry);
-        r += d.r;
-        c += d.c;
-      }
-      return clueContext;
     }
   }
 };

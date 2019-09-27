@@ -88,6 +88,17 @@ export default class Xword {
     return colors.black != this.puzzle[r][c].color;
   }
 
+  getClueContext(r, c, d) {
+    // d should either be {r: 0, c: -1} or {r: -1, c: 0}
+    var clueContext = [];
+    while (this.isInputCell(this.puzzle, r, c)) {
+      clueContext.push(this.puzzle[r][c].entry);
+      r += d.r;
+      c += d.c;
+    }
+    return clueContext;
+  }
+
   //
   // Initialization Functions
   //
