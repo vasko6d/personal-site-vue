@@ -6,7 +6,10 @@
         by {{ xwords[curIdx].author }}, {{ xwords[curIdx].createDate }}
       </div>
       <xword-puzzle :puzzle="curPuzzle" />
-      <xword-keyboard :currentCell="curPuzzle[0][0]" />
+      <xword-keyboard
+        :currentCell="curPuzzle[0][0]"
+        @executePress="executePress"
+      />
       <xword-clues :clues="xwords[curIdx].clues.across" title="Across" />
       <xword-clues :clues="xwords[curIdx].clues.down" title="Down" />
     </div>
@@ -49,6 +52,9 @@ export default {
     this.setPuzzle(this.curIdx);
   },
   methods: {
+    executePress(ch) {
+      console.log("executePress: ", ch);
+    },
     setPuzzle(idx) {
       this.curPuzzle = this.xwords[idx].puzzle;
     },

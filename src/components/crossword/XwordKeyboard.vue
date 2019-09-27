@@ -6,11 +6,11 @@
         class="key"
         v-for="keyBtn in keyRow"
         :key="keyBtn.id"
-        @click="keyBtn.actn(currentCell)"
+        @click="executePress(keyBtn.val)"
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
-          {{ keyBtn.isFA ? "" : keyBtn.disp }}
-        </i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
+          keyBtn.isFA ? "" : keyBtn.disp
+        }}</i>
       </div>
     </div>
   </div>
@@ -30,6 +30,10 @@ export default {
     this.keyLayout = this.createQwerty();
   },
   methods: {
+    executePress(ch) {
+      this.currentCell.entry = ch;
+      this.$emit("executePress", ch);
+    },
     createQwerty(includeBackspace = true) {
       let retArr = [];
       let qwerty = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
@@ -38,9 +42,7 @@ export default {
         for (let ch of row) {
           retRow.push({
             disp: ch,
-            actn: cell => {
-              cell.entry = ch;
-            }
+            val: ch
           });
         }
         retArr.push(retRow);
@@ -49,9 +51,7 @@ export default {
         retArr[2].push({
           disp: "fas fa-backspace",
           isFA: true,
-          actn: cell => {
-            cell.entry = "";
-          }
+          val: ""
         });
       }
       return retArr;
