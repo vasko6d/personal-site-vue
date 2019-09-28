@@ -55,6 +55,9 @@ Crossword
 - [ ] fix flash button!
 - [ ] highlight current clue
 - [ ] use id of crossword in url so i can eventually make dynamic
+- [ ] click on black is bad
+- [ ] maybe for moving stay in quadrent
+- [ ] or when finish a clue move to next?
 
 Climbing
 

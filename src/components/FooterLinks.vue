@@ -25,7 +25,7 @@
     <a href="mailto:vasko6d@gmail.com">
       <i class="fas fa-envelope fa-2x"></i>
     </a>
-    <a href="/pdf/20190814-resume.pdf" target="_blank">
+    <a href="/pdf/20190928-resume.pdf" target="_blank">
       <i class="fas fa-file fa-2x"></i>
     </a>
   </div>
