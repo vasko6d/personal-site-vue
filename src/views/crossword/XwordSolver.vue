@@ -8,7 +8,7 @@
         <i class="fas fa-question-circle" @click="showModal = true"></i>
         <i class="fas fa-cog" @click="showModal = true"></i>
       </div>
-      <xword-puzzle :xword="xword" />
+      <xword-puzzle :xword="xword" @executePress="executePress" />
       <xword-current-clue :clue="currentClue" />
       <xword-keyboard @executePress="executePress" />
       <xword-clue-panel :xword="xword" />

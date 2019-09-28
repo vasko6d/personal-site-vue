@@ -1,7 +1,12 @@
 <template>
   <div id="puzzle">
     <div class="p-row" v-for="(row, r) in xword.puzzle" :key="row.id">
-      <div class="p-cell" v-for="(cell, c) in row" :key="cell.id">
+      <div
+        class="p-cell"
+        v-for="(cell, c) in row"
+        :key="cell.id"
+        @click="clickFxn(r, c)"
+      >
         <div
           :class="[
             cell.color,
@@ -39,6 +44,14 @@ export default {
     },
     isExact(r, c) {
       return r === this.xword.r && c == this.xword.c;
+    },
+    clickFxn(r, c) {
+      if (this.isExact(r, c)) {
+        this.$emit("executePress", "$SWITCHDIRECTION");
+      } else {
+        this.xword.r = r;
+        this.xword.c = c;
+      }
     }
   }
 };
