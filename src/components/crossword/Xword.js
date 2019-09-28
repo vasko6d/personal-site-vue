@@ -99,7 +99,43 @@ export default class Xword {
     if (c >= this.puzzle[r].length || c < 0) {
       return false;
     }
+    return this.isInputColor(r, c);
+  }
+  isInputColor(r, c) {
     return colors.black != this.puzzle[r][c].color;
+  }
+
+  //
+  // Mutators
+  //
+  incrementPosition() {
+    let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
+    this.move(d);
+  }
+  move(d) {
+    // early return incase empty puzzle
+    if (!this.puzzle) {
+      return;
+    }
+
+    this.r += d.r;
+    this.c += d.c;
+
+    // Keep the r,c in bounds
+    if (this.r >= this.puzzle.length) {
+      this.r = 0;
+      this.c = (this.c + 1) % this.puzzle[this.r].length;
+    } else {
+      if (this.c >= this.puzzle[this.r].length) {
+        this.c = 0;
+        this.r = (this.r + 1) % this.puzzle.length;
+      }
+    }
+
+    // recurse if not inputable cell
+    if (!this.isInputColor(this.r, this.c)) {
+      this.move(d);
+    }
   }
 
   getClueContext(r, c, d) {

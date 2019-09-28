@@ -70,7 +70,6 @@ export default {
       raw.clues.across,
       raw.clues.down
     );
-    console.log("xword:", this.xword["across"]);
   },
   methods: {
     executePress(ch) {
@@ -78,6 +77,7 @@ export default {
       this.$set(this.xword.getCell(), "entry", ch);
       if (ch) {
         console.log("incrementPosition");
+        this.xword.incrementPosition();
       }
     }
   }

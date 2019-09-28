@@ -20,9 +20,9 @@
           v-for="(clue, num) in xword[direction]"
           :key="num"
         >
-          <span class="clue-txt" @click="jumpTo(direction, num)">{{
-            clue.txt
-          }}</span>
+          <span class="clue-txt" @click="jumpTo(direction, num)">
+            {{ clue.txt }}
+          </span>
         </li>
       </ol>
     </div>
@@ -72,7 +72,6 @@ export default {
   max-width: 650px;
   .clue-h {
     text-align: center;
-    font-weight: bold;
     font-size: 17px;
     cursor: pointer;
     margin-bottom: 0px;
