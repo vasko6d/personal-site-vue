@@ -50,6 +50,9 @@ Crossword
 - [ ] try grid for sizing. now kind of annoying with trying to get a max-width with flex grow.
 - [ ] maybe add across clues on left, down clues right on big screens?
 - [ ] MAKE. SOLVE and SEARCH tabs!
+- [ ] next clue on tab
+- [ ] switch entry way on space or enter
+- [ ] fix flash button!
 
 Climbing
 

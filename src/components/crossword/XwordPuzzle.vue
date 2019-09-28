@@ -58,10 +58,12 @@ export default {
       }
       .white {
         background-color: white;
+        border: 2px solid white;
         color: black;
       }
       .active {
         background-color: rgb(255, 255, 152);
+        border: 2px solid rgb(255, 255, 152);
         color: black;
       }
       .exact {
@@ -85,12 +87,11 @@ export default {
             top: 0;
             left: 0;
             margin-top: -0.65ch;
-            margin-left: 0.1ch;
             font-size: 10px;
           }
           .entry {
             position: absolute; // need better zindex and centering
-            top: 0;
+            bottom: 0;
             transform: translatex(-50%);
           }
         }

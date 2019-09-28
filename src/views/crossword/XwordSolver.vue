@@ -1,9 +1,12 @@
 <template>
   <div id="crossword">
     <div class="blk-container">
-      <div>
+      <div class="x-head">
         <h2>{{ xword.title }}</h2>
         by {{ xword.author }}, {{ xword.publishDate }}
+        &nbsp;
+        <i class="fas fa-question-circle" @click="showModal = true"></i>
+        <i class="fas fa-cog" @click="showModal = true"></i>
       </div>
       <xword-puzzle :xword="xword" />
       <xword-current-clue :clue="currentClue" />
@@ -35,6 +38,7 @@ export default {
     return {
       showAcross: false,
       showDown: false,
+      showModal: false,
       rawXwords: {
         1: Xword1.data().xword
       },
@@ -74,10 +78,30 @@ export default {
   methods: {
     executePress(ch) {
       console.log("executePress: ", ch);
-      this.$set(this.xword.getCell(), "entry", ch);
-      if (ch) {
-        console.log("incrementPosition");
+
+      if (ch.startsWith("$")) {
+        this.executeAction(ch);
+      } else {
+        this.$set(this.xword.getCell(), "entry", ch);
         this.xword.incrementPosition();
+      }
+    },
+    executeAction(actn) {
+      switch (actn) {
+        case "$ARROWLEFT":
+          this.xword.move({ r: 0, c: -1 });
+          break;
+        case "$ARROWRIGHT":
+          this.xword.move({ r: 0, c: 1 });
+          break;
+        case "$ARROWDOWN":
+          this.xword.move({ r: 1, c: 0 });
+          break;
+        case "$ARROWUP":
+          this.xword.move({ r: -1, c: 0 });
+          break;
+        case "$BACKSPACE":
+          break;
       }
     }
   }
@@ -89,6 +113,11 @@ export default {
   .blk-container {
     max-width: 500px;
     width: 100%;
+    .x-head {
+      i {
+        margin-right: 0.25em;
+      }
+    }
   }
 }
 </style>

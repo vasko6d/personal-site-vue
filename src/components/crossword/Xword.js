@@ -32,7 +32,9 @@ export default class Xword {
     down,
     opts = {}
   ) {
-    console.log("Initializing crossword '" + title + "' by: " + author);
+    if (opts.debug) {
+      console.log("Initializing crossword '" + title + "' by: " + author);
+    }
     this.r = 0;
     this.c = 0;
     this.isHoriz = true;
@@ -49,6 +51,7 @@ export default class Xword {
     for (let k of Object.keys(this.down)) {
       this.down[k].filled = false;
     }
+    this.rcAdjust = {};
 
     // Process the solition array into a usable puzzle
     this.puzzle = [];
@@ -125,11 +128,19 @@ export default class Xword {
     if (this.r >= this.puzzle.length) {
       this.r = 0;
       this.c = (this.c + 1) % this.puzzle[this.r].length;
-    } else {
-      if (this.c >= this.puzzle[this.r].length) {
-        this.c = 0;
-        this.r = (this.r + 1) % this.puzzle.length;
-      }
+    } else if (this.r < 0) {
+      this.r = this.puzzle.length - 1;
+      console.log("negative r [c]", this.c);
+      this.c = this.c === 0 ? this.puzzle[this.r].length - 1 : this.c - 1;
+      console.log("negative r [c]", this.c);
+    } else if (this.c >= this.puzzle[this.r].length) {
+      this.c = 0;
+      this.r = (this.r + 1) % this.puzzle.length;
+    } else if (this.c < 0) {
+      this.r = this.r === 0 ? this.puzzle.length - 1 : this.r - 1;
+      console.log("negative c [r]", this.c, this.r);
+      this.c = this.puzzle[this.r].length - 1;
+      console.log("negative c [r]", this.r);
     }
 
     // recurse if not inputable cell

@@ -3,10 +3,13 @@
     <!--div>Keyboard</div-->
     <div class="key-row" v-for="keyRow in keyLayout" :key="keyRow.id">
       <div
-        class="key"
+        :class="['key', { 'key-a': keyBtn.isActive }]"
         v-for="keyBtn in keyRow"
         :key="keyBtn.id"
-        @click="executePress(keyBtn.val)"
+        @click="
+          executePress(keyBtn.val);
+          flashBtn(keyBtn);
+        "
       >
         <i :class="keyBtn.isFA ? keyBtn.disp : ''">
           {{ keyBtn.isFA ? "" : keyBtn.disp }}
@@ -20,26 +23,67 @@
 export default {
   data() {
     return {
-      keyLayout: []
+      keyLayout: [],
+      invKeyLayout: {}
     };
   },
   mounted() {
-    this.keyLayout = this.createQwerty();
+    [this.keyLayout, this.invKeyLayout] = this.createQwerty();
+    window.addEventListener("keydown", e => {
+      let ch = e.key.toUpperCase();
+      if (ch.match(/^[A-Z]$/)) {
+        this.executePress(ch);
+        this.flashBtn(
+          this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c]
+        );
+      } else {
+        switch (ch) {
+          case "ARROWLEFT":
+          // Falls through
+          case "ARROWRIGHT":
+          // Falls through
+          case "ARROWDOWN":
+          // Falls through
+          case "ARROWUP":
+            e.preventDefault();
+            this.executePress("$" + ch);
+            break;
+          case "BACKSPACE":
+            this.executePress("$" + ch);
+            this.flashBtn(
+              this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c]
+            );
+            break;
+        }
+      }
+    });
   },
   methods: {
     executePress(ch) {
       this.$emit("executePress", ch);
     },
+    flashBtn(btn) {
+      btn.isActive = true;
+      setTimeout(() => {
+        btn.isActive = false;
+      }, 200);
+    },
+    deleteKeyFxn() {},
     createQwerty(includeBackspace = true) {
       let retArr = [];
+      let retInv = {};
       let qwerty = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
-      for (let row of qwerty) {
+      for (let i = 0; i < qwerty.length; i++) {
+        let row = qwerty[i];
         let retRow = [];
-        for (let ch of row) {
+        for (let j = 0; j < row.length; j++) {
+          let ch = row[j];
           retRow.push({
             disp: ch,
-            val: ch
+            val: ch,
+            isActive: false
           });
+          retInv[ch] = { r: i, c: j };
         }
         retArr.push(retRow);
       }
@@ -47,10 +91,11 @@ export default {
         retArr[2].push({
           disp: "fas fa-backspace",
           isFA: true,
-          val: ""
+          val: "$BACKSPACE",
+          isActive: false
         });
       }
-      return retArr;
+      return [retArr, retInv];
     }
   }
 };
@@ -68,6 +113,7 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 .keyboard-container {
+  user-select: none;
   border-radius: 0.35em;
   margin-bottom: 0.5em;
   .key-row {

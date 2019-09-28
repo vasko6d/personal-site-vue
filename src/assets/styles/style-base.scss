@@ -114,6 +114,11 @@
           background-color: rgba(lighten($nav-bg, 15%), 0.6);
         }
       }
+      .key-a {
+        color: $nav-txt;
+        background-color: rgba(lighten($nav-bg, 15%), 0.6);
+        transition-delay: 2s;
+      }
     }
   }
 
