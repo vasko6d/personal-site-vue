@@ -11,9 +11,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
-          {{ keyBtn.isFA ? "" : keyBtn.disp }}
-        </i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
+          keyBtn.isFA ? "" : keyBtn.disp
+        }}</i>
       </div>
     </div>
   </div>
@@ -31,6 +31,7 @@ export default {
     [this.keyLayout, this.invKeyLayout] = this.createQwerty();
     window.addEventListener("keydown", e => {
       let ch = e.key.toUpperCase();
+      //console.log("|" + ch + "|");
       if (ch.match(/^[A-Z]$/)) {
         this.executePress(ch);
         this.flashBtn(
@@ -47,6 +48,12 @@ export default {
           case "ARROWUP":
             e.preventDefault();
             this.executePress("$" + ch);
+            break;
+          case "ENTER":
+          // Falls through
+          case " ":
+            e.preventDefault();
+            this.executePress("$SWITCHDIRECTION");
             break;
           case "BACKSPACE":
             this.executePress("$" + ch);

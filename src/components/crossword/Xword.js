@@ -130,17 +130,13 @@ export default class Xword {
       this.c = (this.c + 1) % this.puzzle[this.r].length;
     } else if (this.r < 0) {
       this.r = this.puzzle.length - 1;
-      console.log("negative r [c]", this.c);
       this.c = this.c === 0 ? this.puzzle[this.r].length - 1 : this.c - 1;
-      console.log("negative r [c]", this.c);
     } else if (this.c >= this.puzzle[this.r].length) {
       this.c = 0;
       this.r = (this.r + 1) % this.puzzle.length;
     } else if (this.c < 0) {
       this.r = this.r === 0 ? this.puzzle.length - 1 : this.r - 1;
-      console.log("negative c [r]", this.c, this.r);
       this.c = this.puzzle[this.r].length - 1;
-      console.log("negative c [r]", this.r);
     }
 
     // recurse if not inputable cell
@@ -231,7 +227,7 @@ export default class Xword {
   getDownNumber(r, c) {
     let curCell = null;
     while (this.isInputCell(r, c)) {
-      curCell = this.puzzle[r][c].acrossNum;
+      curCell = this.puzzle[r][c].downNum;
       r--;
     }
     return curCell;

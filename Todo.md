@@ -53,6 +53,8 @@ Crossword
 - [ ] next clue on tab
 - [ ] switch entry way on space or enter
 - [ ] fix flash button!
+- [ ] highlight current clue
+- [ ] use id of crossword in url so i can eventually make dynamic
 
 Climbing
 

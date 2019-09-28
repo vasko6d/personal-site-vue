@@ -50,7 +50,7 @@ export default {
     currentClue() {
       let cell = this.xword.getCell();
       let isAcross = this.xword.isHoriz;
-      let num = isAcross ? cell.acrossNum : cell.downum;
+      let num = isAcross ? cell.acrossNum : cell.downNum;
       let entry = isAcross ? this.xword.across[num] : this.xword.down[num];
       let txt = entry ? entry.txt : "";
       return {
@@ -74,6 +74,7 @@ export default {
       raw.clues.across,
       raw.clues.down
     );
+    console.log(this.xword);
   },
   methods: {
     executePress(ch) {
@@ -100,7 +101,18 @@ export default {
         case "$ARROWUP":
           this.xword.move({ r: -1, c: 0 });
           break;
+        case "$SWITCHDIRECTION":
+          this.xword.isHoriz = !this.xword.isHoriz;
+          break;
         case "$BACKSPACE":
+          if (!this.xword.getCell().entry) {
+            if (this.xword.isHoriz) {
+              this.xword.move({ r: 0, c: -1 });
+            } else {
+              this.xword.move({ r: -1, c: 0 });
+            }
+          }
+          this.xword.getCell().entry = "";
           break;
       }
     }
