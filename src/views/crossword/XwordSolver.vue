@@ -61,9 +61,6 @@ export default {
     }
   },
   mounted() {
-    if (localStorage.xwords && localStorage.xwords[this.xwordId]) {
-      this.xword = localStorage.xwords[this.xwordId];
-    }
     let raw = this.rawXwords[this.xwordId];
     this.xword = new Xword(
       raw.title,
@@ -74,6 +71,12 @@ export default {
       raw.clues.across,
       raw.clues.down
     );
+    if (localStorage["xword:" + this.xwordId.toString()]) {
+      let progress = JSON.parse(
+        localStorage["xword:" + this.xwordId.toString()]
+      );
+      this.xword.puzzle = progress;
+    }
     console.log(this.xword);
   },
   methods: {
@@ -86,6 +89,11 @@ export default {
         this.$set(this.xword.getCell(), "entry", ch);
         this.xword.incrementPosition();
       }
+
+      // Save Progress
+      localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
+        this.xword.puzzle
+      );
     },
     executeAction(actn) {
       switch (actn) {
