@@ -34,6 +34,9 @@ export default {
     XwordCurrentClue,
     XwordKeyboard
   },
+  props: {
+    xwordId: Number
+  },
   data() {
     return {
       showAcross: false,
@@ -42,8 +45,7 @@ export default {
       rawXwords: {
         1: Xword1.data().xword
       },
-      xword: new Xword("", "", "", "", [], {}, {}),
-      xwordId: 1
+      xword: new Xword("", "", "", "", [], {}, {})
     };
   },
   computed: {

@@ -29,7 +29,7 @@ export default new Router({
         { path: "/billiard-ball-robot", name: "Robotics" },
         { path: "/webgl/galaxy", name: "Graphics" },
         { path: "/numerical/finite-element", name: "Numerical Analysis" },
-        { path: "/crossword", name: "Crossword" }
+        { path: "/crossword/1", name: "Crossword" }
       ]
     },
     {
@@ -89,9 +89,10 @@ export default new Router({
       ]
     },
     {
-      path: "/crossword",
+      path: "/crossword/:xwordId",
       name: "crossword",
-      component: () => import("./views/crossword/XwordSolver.vue")
+      component: () => import("./views/crossword/XwordSolver.vue"),
+      props: true
     },
     { path: "*", component: () => import("./components/NotFound.vue") }
   ]
