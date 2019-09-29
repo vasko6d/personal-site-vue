@@ -5,7 +5,7 @@
         class="p-cell"
         v-for="(cell, c) in row"
         :key="cell.id"
-        @click="clickFxn(r, c)"
+        @click="clickFxn(r, c, cell.color)"
       >
         <div
           :class="[
@@ -45,12 +45,14 @@ export default {
     isExact(r, c) {
       return r === this.xword.r && c == this.xword.c;
     },
-    clickFxn(r, c) {
-      if (this.isExact(r, c)) {
-        this.$emit("executePress", "$SWITCHDIRECTION");
-      } else {
-        this.xword.r = r;
-        this.xword.c = c;
+    clickFxn(r, c, color) {
+      if (this.isInput(color)) {
+        if (this.isExact(r, c)) {
+          this.$emit("executePress", "$SWITCHDIRECTION");
+        } else {
+          this.xword.r = r;
+          this.xword.c = c;
+        }
       }
     }
   }
