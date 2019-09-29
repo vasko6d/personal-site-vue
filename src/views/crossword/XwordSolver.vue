@@ -115,6 +115,9 @@ export default {
         case "$TAB":
           this.xword.moveClue(true);
           break;
+        case "$!TAB":
+          this.xword.moveClue(false);
+          break;
         case "$BACKSPACE":
           if (!this.xword.getCell().entry) {
             if (this.xword.isHoriz) {

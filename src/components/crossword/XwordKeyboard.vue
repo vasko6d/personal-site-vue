@@ -24,11 +24,18 @@ export default {
   data() {
     return {
       keyLayout: [],
-      invKeyLayout: {}
+      invKeyLayout: {},
+      shift: false
     };
   },
   mounted() {
     [this.keyLayout, this.invKeyLayout] = this.createQwerty();
+    window.addEventListener("keyup", e => {
+      let ch = e.key.toUpperCase();
+      if (ch === "SHIFT") {
+        this.shift = false;
+      }
+    });
     window.addEventListener("keydown", e => {
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
@@ -39,6 +46,9 @@ export default {
         );
       } else {
         switch (ch) {
+          case "SHIFT":
+            this.shift = true;
+            break;
           case "ARROWLEFT":
           // Falls through
           case "ARROWRIGHT":
@@ -49,7 +59,11 @@ export default {
           // Falls through
           case "TAB":
             e.preventDefault();
-            this.executePress("$" + ch);
+            if (this.shift) {
+              this.executePress("$!" + ch);
+            } else {
+              this.executePress("$" + ch);
+            }
             break;
           case "ENTER":
           // Falls through
