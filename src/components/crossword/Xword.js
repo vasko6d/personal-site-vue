@@ -43,15 +43,14 @@ export default class Xword {
     this.editor = editor;
     this.publishDate = publishDate;
     this.timer = new Timer(true);
+
+    // Pre Process across Clues
     this.across = across;
-    for (let k of Object.keys(this.across)) {
-      this.across[k].filled = false;
-    }
+    this.processClueList(this.across);
+
+    // Pre Process down clues
     this.down = down;
-    for (let k of Object.keys(this.down)) {
-      this.down[k].filled = false;
-    }
-    this.rcAdjust = {};
+    this.processClueList(this.down);
 
     // Process the solition array into a usable puzzle
     this.puzzle = [];
@@ -144,6 +143,18 @@ export default class Xword {
       this.move(d);
     }
   }
+  moveClue(forward = true) {
+    const cell = this.getCell();
+    const curClue = this.isHoriz
+      ? this.across[cell.acrossNum]
+      : this.down[cell.downNum];
+    const newClueNum = forward ? curClue.next : curClue.prev;
+    const newClue = this.isHoriz
+      ? this.across[newClueNum]
+      : this.down[newClueNum];
+    this.r = newClue.index.r;
+    this.c = newClue.index.c;
+  }
 
   getClueContext(r, c, d) {
     // d should either be {r: 0, c: -1} or {r: -1, c: 0}
@@ -205,6 +216,12 @@ export default class Xword {
 
           // if this cell will have a number on the final crossword
           if (dNum == clueNumber || aNum == clueNumber) {
+            if (dNum == clueNumber) {
+              this.down[clueNumber].index = { r: r, c: c };
+            }
+            if (aNum == clueNumber) {
+              this.across[clueNumber].index = { r: r, c: c };
+            }
             cellNum = clueNumber;
             clueNumber++;
           }
@@ -231,6 +248,24 @@ export default class Xword {
       r--;
     }
     return curCell;
+  }
+  processClueList(clueList) {
+    let cKeys = Object.keys(clueList).sort(function(a, b) {
+      parseInt(a) - parseInt(b);
+    });
+    if (cKeys) {
+      let i = 1;
+      let prev = cKeys[cKeys.length - 1];
+      let next = cKeys[1 % cKeys.length];
+      for (let k of cKeys) {
+        clueList[k].prev = prev;
+        clueList[k].next = next;
+        clueList[k].filled = false;
+        prev = k;
+        i++;
+        next = cKeys[i % cKeys.length];
+      }
+    }
   }
   createPuzzleElement(ans, acrossNum, downNum, cellNum, color, shape) {
     var puzzleElement = {

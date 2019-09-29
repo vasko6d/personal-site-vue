@@ -58,6 +58,7 @@ Crossword
 - [ ] click on black is bad
 - [ ] maybe for moving stay in quadrent
 - [ ] or when finish a clue move to next?
+- [ ] verify integrity of clues to puzzle?
 
 Climbing
 

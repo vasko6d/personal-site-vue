@@ -112,6 +112,9 @@ export default {
         case "$SWITCHDIRECTION":
           this.xword.isHoriz = !this.xword.isHoriz;
           break;
+        case "$TAB":
+          this.xword.moveClue(true);
+          break;
         case "$BACKSPACE":
           if (!this.xword.getCell().entry) {
             if (this.xword.isHoriz) {

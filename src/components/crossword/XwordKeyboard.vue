@@ -11,9 +11,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>
@@ -46,6 +46,8 @@ export default {
           case "ARROWDOWN":
           // Falls through
           case "ARROWUP":
+          // Falls through
+          case "TAB":
             e.preventDefault();
             this.executePress("$" + ch);
             break;
