@@ -16,13 +16,13 @@
       <ol v-show="showClues">
         <li
           :value="num"
-          class="clue"
+          :class="['clue', { active: isActive(num, direction) }]"
           v-for="(clue, num) in xword[direction]"
           :key="num"
         >
-          <span class="clue-txt" @click="jumpTo(direction, num)">
-            {{ clue.txt }}
-          </span>
+          <span class="clue-txt" @click="jumpTo(direction, num)">{{
+            clue.txt
+          }}</span>
         </li>
       </ol>
     </div>
@@ -61,12 +61,28 @@ export default {
   methods: {
     jumpTo(title, num) {
       console.log("Jump to " + title + "-" + num);
+    },
+    isActive(num, direction) {
+      let cell = this.xword.getCell();
+      return this.xword.isHoriz
+        ? direction === "across" && cell.acrossNum == num
+        : direction === "down" && cell.downNum == num;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/light-theme.scss";
+}
 .clues {
   text-align: left;
   max-width: 650px;

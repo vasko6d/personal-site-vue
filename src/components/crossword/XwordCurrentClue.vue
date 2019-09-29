@@ -1,7 +1,7 @@
 <template>
   <div id="current-clue">
-    <div>{{ clue.isAcross ? "Across" : "Down" }}</div>
-    <div class="indent">{{ clue.num }}: {{ clue.txt }}</div>
+    <div>{{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}</div>
+    <div class="indent">{{ clue.txt }}</div>
   </div>
 </template>
 
@@ -14,7 +14,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/blue-theme.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/light-theme.scss";
+}
 #current-clue {
   background-color: rgba(lighten($nav-bg, 10%), 0.7);
   text-align: left;

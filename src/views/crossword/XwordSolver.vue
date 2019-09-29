@@ -35,7 +35,7 @@ export default {
     XwordKeyboard
   },
   props: {
-    xwordId: Number
+    xwordId: String
   },
   data() {
     return {

@@ -39,19 +39,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/blue-theme.scss";
+@import "@/assets/styles/dark-theme.scss";
+.blue {
+  @import "@/assets/styles/blue-theme.scss";
+}
+.dark {
+  @import "@/assets/styles/dark-theme.scss";
+}
+.light {
+  @import "@/assets/styles/light-theme.scss";
+}
 #clue-panel {
-  background-color: rgba(lighten($nav-bg, 10%), 0.7);
   border-radius: 0.35em;
   #clue-head {
     font-weight: bold;
     font-size: 17px;
     i {
       cursor: pointer;
-      color: darken($nav-txt, 10%);
-      &:hover {
-        color: $nav-txt;
-      }
     }
   }
 }
