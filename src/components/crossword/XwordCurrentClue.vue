@@ -1,6 +1,10 @@
 <template>
   <div id="current-clue">
-    <div>{{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}</div>
+    <div>
+      <i class="fas fa-caret-square-left" @click="moveClue(false)"></i>
+      {{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}&nbsp;
+      <i class="fas fa-caret-square-right" @click="moveClue(true)"></i>
+    </div>
     <div class="indent">{{ clue.txt }}</div>
   </div>
 </template>
@@ -9,6 +13,11 @@
 export default {
   props: {
     clue: Object
+  },
+  methods: {
+    moveClue(forward) {
+      this.$emit("moveClue", forward);
+    }
   }
 };
 </script>
@@ -25,7 +34,9 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 #current-clue {
-  background-color: rgba(lighten($nav-bg, 10%), 0.7);
+  i {
+    cursor: pointer;
+  }
   text-align: left;
   border-radius: 0.35em;
   min-height: 10px;

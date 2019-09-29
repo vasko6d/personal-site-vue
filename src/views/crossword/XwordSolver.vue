@@ -9,7 +9,7 @@
         <i class="fas fa-cog" @click="showModal = true"></i>
       </div>
       <xword-puzzle :xword="xword" @executePress="executePress" />
-      <xword-current-clue :clue="currentClue" />
+      <xword-current-clue :clue="currentClue" @moveClue="moveClue" />
       <xword-keyboard @executePress="executePress" />
       <xword-clue-panel :xword="xword" />
     </div>
@@ -82,6 +82,9 @@ export default {
     console.log(this.xword);
   },
   methods: {
+    moveClue(forward) {
+      this.xword.moveClue(forward);
+    },
     executePress(ch) {
       console.log("executePress: ", ch);
 

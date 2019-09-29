@@ -146,6 +146,12 @@
 
   #current-clue {
     background-color: rgba(lighten($nav-bg, 10%), 0.7);
+    i {
+      color: darken($nav-txt, 20%);
+      &:hover {
+        color: lighten($nav-txt, 20%);
+      }
+    }
   }
 
   background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
