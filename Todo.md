@@ -30,8 +30,8 @@ Graphics
 
 Crossword
 
-- [ ] show only uncompleted clues, or highligh them?
-- [ ] on click jump to that clue?
+- [x] show only uncompleted clues, or highligh them?
+- [ ] ~~on click jump to that clue?~~
 - [ ] cart like system for "check later", or other custom catagory?
 - [ ] click on author (to search by author)
 - [ ] next and previous
@@ -47,7 +47,7 @@ Crossword
 - [ ] ~~show all intersecting clues?~~
 - [ ] ~~lock screen position to make crossword work easier~~
 - [ ] make dynamic! then so much, ratings etc.
-- [ ] try grid for sizing. now kind of annoying with trying to get a max-width with flex grow.
+- [ ] ~~try grid for sizing. now kind of annoying with trying to get a max-width with flex grow.~~
 - [ ] maybe add across clues on left, down clues right on big screens?
 - [ ] MAKE. SOLVE and SEARCH tabs!
 - [x] next clue on tab
