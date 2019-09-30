@@ -35,8 +35,6 @@ export default class Xword {
     if (opts.debug) {
       console.log("Initializing crossword '" + title + "' by: " + author);
     }
-    this.r = 0;
-    this.c = 0;
     this.isHoriz = true;
     this.title = title;
     this.author = author;
@@ -55,6 +53,16 @@ export default class Xword {
     // Process the solition array into a usable puzzle
     this.puzzle = [];
     this.buildPuzzle(solnArr);
+    this.r = 0;
+    this.c = 0;
+    let aKeys = Object.keys(this.across).sort(function(a, b) {
+      parseInt(a) - parseInt(b);
+    });
+    if (aKeys.length > 0) {
+      let idx = this.across[aKeys[0]].index;
+      this.r = idx.r;
+      this.c = idx.c;
+    }
 
     // list of (r,c, color) of coloring other than black or white
     if (opts.coloredCells) {
@@ -287,7 +295,7 @@ export default class Xword {
     let cKeys = Object.keys(clueList).sort(function(a, b) {
       parseInt(a) - parseInt(b);
     });
-    if (cKeys) {
+    if (cKeys.length > 0) {
       let i = 1;
       let prev = cKeys[cKeys.length - 1];
       let next = cKeys[1 % cKeys.length];

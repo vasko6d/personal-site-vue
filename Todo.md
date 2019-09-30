@@ -60,6 +60,8 @@ Crossword
 - [ ] or when finish a clue move to next?
 - [ ] verify integrity of clues to puzzle?
 - [ ] dont let backspace go through black or walls
+- [ ] manually checked for doen with?
+- [ ] add ability to flag certain cells?
 
 Climbing
 

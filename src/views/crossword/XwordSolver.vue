@@ -5,8 +5,8 @@
         <h2>{{ xword.title }}</h2>
         by {{ xword.author }}, {{ xword.publishDate }}
         &nbsp;
-        <i class="fas fa-question-circle" @click="showModal = true"></i>
-        <i class="fas fa-cog" @click="showModal = true"></i>
+        <i class="fas fa-question-circle" @click="showHelp = true"></i>
+        <i class="fas fa-cog" @click="showOptions = true"></i>
       </div>
       <xword-puzzle :xword="xword" @executePress="executePress" />
       <xword-current-clue
@@ -29,6 +29,7 @@ import Xword from "@/components/crossword//Xword.js";
 
 // Xword Data Source Imports
 import Xword1 from "@/assets/xword/Xword1.vue";
+import Xword2 from "@/assets/xword/Xword2.vue";
 
 export default {
   name: "crossword",
@@ -45,9 +46,11 @@ export default {
     return {
       showAcross: false,
       showDown: false,
-      showModal: false,
+      showOptions: false,
+      showHelp: false,
       rawXwords: {
-        1: Xword1.data().xword
+        1: Xword1.data().xword,
+        2: Xword2.data().xword
       },
       xword: new Xword("", "", "", "", [], {}, {})
     };
@@ -137,6 +140,7 @@ export default {
             }
           }
           this.xword.getCell().entry = "";
+          this.xword.updateFilled();
           break;
       }
     }

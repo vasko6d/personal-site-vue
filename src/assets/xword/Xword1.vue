@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "xword1",
+  name: "Xword1",
   data() {
     return {
       xword: {
@@ -9,12 +9,11 @@ export default {
         author: "David Vasko",
         editor: "David Vasko",
         createDate: "20140101",
-        editedDate: "20190917",
-        sequenceChar: "|",
-        blackChar: "#",
-        nullChar: "_",
-        colorCells: {},
-        shapeCells: {},
+        theme:
+          "The Railroad Crossing is literally depicted by the letter 'R' forming an X across the entire puzzle.",
+        colorCells: [],
+        shapeCells: [],
+        numbering: [],
         solution: [
           "RGB###RAN###FAR",
           "IRON#PUMAS#TORO",
@@ -31,12 +30,6 @@ export default {
           "MOREL#TWO#INRUN",
           "IRISE#OIL#MADRE",
           "RTE###TGV###USR"
-        ],
-        numbering: [
-          [1, 2, 3, "", "", "", 4, 5, 6, "", "", "", 7, 8, 9],
-          [10, "", "", 11, "", 12, "", "", "", 13, "", 14, "", "", ""],
-          [15, "", "", "", "", 16, "", "", "", "", "", 17, "", "", ""],
-          ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
         ],
         clues: {
           across: {
@@ -127,9 +120,6 @@ export default {
         }
       }
     };
-  },
-  mounted() {
-    console.log(this);
   }
 };
 </script>

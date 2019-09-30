@@ -66,15 +66,15 @@ export default {
     .p-cell {
       flex-grow: 1;
       flex-shrink: 1;
-      max-width: 4ch;
+      max-width: 3ch;
       .black,
       .white {
         .cell-wrapper {
           .numbering {
-            font-size: calc(12px + 0.2vw);
+            font-size: calc(9px + 0.1vw);
           }
           .entry {
-            font-size: calc(20px + 0.2vw);
+            font-size: calc(14px + 0.2vw);
           }
         }
       }
