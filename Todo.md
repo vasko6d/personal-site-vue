@@ -62,6 +62,8 @@ Crossword
 - [ ] dont let backspace go through black or walls
 - [ ] manually checked for doen with?
 - [ ] add ability to flag certain cells?
+- [ ] need to shrink text on smaller boxes?
+- [ ] performance issue on large puzzle
 
 Climbing
 

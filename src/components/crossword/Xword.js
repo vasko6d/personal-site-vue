@@ -148,11 +148,15 @@ export default class Xword {
   // Mutators
   //
   incrementPosition() {
-    this.updateFilled();
-    let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
-    this.move(d);
+    if (this.updateFilled()) {
+      this.moveClue(true);
+    } else {
+      let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
+      this.move(d);
+    }
   }
   updateFilled() {
+    let ret = false;
     let cell = this.getCell();
     let b = this.isFilled(
       this.across[cell.acrossNum].index.r,
@@ -160,12 +164,19 @@ export default class Xword {
       true
     );
     this.across[cell.acrossNum].filled = b;
+    if (this.isHoriz) {
+      ret = b;
+    }
     b = this.isFilled(
       this.down[cell.downNum].index.r,
       this.down[cell.downNum].index.c,
       false
     );
     this.down[cell.downNum].filled = b;
+    if (!this.isHoriz) {
+      ret = b;
+    }
+    return ret;
   }
   move(d) {
     // early return incase empty puzzle

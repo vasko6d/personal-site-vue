@@ -11,9 +11,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>
@@ -91,7 +91,6 @@ export default {
         btn.isActive = false;
       }, 200);
     },
-    deleteKeyFxn() {},
     createQwerty(includeBackspace = true) {
       let retArr = [];
       let retInv = {};
