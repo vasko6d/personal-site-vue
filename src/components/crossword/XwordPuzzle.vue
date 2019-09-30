@@ -61,59 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 #puzzle {
-  .p-row {
-    display: flex;
-    justify-content: center;
-    .p-cell {
-      flex-grow: 1;
-      border: 1px solid black;
-      .black {
-        background-color: black;
-        color: white;
-      }
-      .white {
-        background-color: white;
-        border: 2px solid white;
-        color: black;
-      }
-      .active {
-        background-color: rgb(255, 255, 152);
-        border: 2px solid rgb(255, 255, 152);
-        color: black;
-      }
-      .exact {
-        background-color: rgb(158, 240, 255);
-        color: black;
-        border: 2px solid rgb(18, 219, 255);
-      }
-      .black,
-      .white {
-        text-align: center;
-        position: relative;
-        min-width: 1ch;
-        min-height: 1ch;
-        .cell-wrapper {
-          width: 100%;
-          height: 0;
-          padding-top: 100%;
-          .numbering {
-            user-select: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin-top: -0.65ch;
-            font-size: calc(7px + 0.1vw);
-          }
-          .entry {
-            position: absolute; // need better zindex and centering
-            bottom: 0;
-            font-size: calc(12px + 0.2vw);
-            transform: translatex(-50%) translatey(8%);
-          }
-        }
-      }
-    }
-  }
+  @import "@/assets/styles/xword-puzzle.scss";
   margin-bottom: 0.5em;
 }
 </style>

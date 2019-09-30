@@ -20,9 +20,17 @@
           v-for="(clue, num) in xword[direction]"
           :key="num"
         >
-          <span class="clue-txt" @click="jumpTo(direction, num)">{{
-            clue.txt
-          }}</span>
+          <span class="clue-txt">{{ clue.txt }}</span>
+          <xword-clue-context
+            :xword="xword"
+            :context="
+              xword.getClueContext(
+                clue.index.r,
+                clue.index.c,
+                direction === 'across'
+              )
+            "
+          />
         </li>
       </ol>
     </div>
@@ -31,8 +39,12 @@
 
 <script>
 import Xword from "./Xword.js";
+import XwordClueContext from "@/components/crossword/XwordClueContext.vue";
 export default {
   name: "XwordClues",
+  components: {
+    XwordClueContext
+  },
   props: {
     xword: Xword,
     direction: String,
@@ -59,9 +71,6 @@ export default {
     }
   },
   methods: {
-    jumpTo(title, num) {
-      console.log("Jump to " + title + "-" + num);
-    },
     isActive(num, direction) {
       let cell = this.xword.getCell();
       return this.xword.isHoriz

@@ -156,15 +156,17 @@ export default class Xword {
     this.c = newClue.index.c;
   }
 
-  getClueContext(r, c, d) {
-    // d should either be {r: 0, c: -1} or {r: -1, c: 0}
-    var clueContext = [];
-    while (this.isInputCell(this.puzzle, r, c)) {
-      clueContext.push(this.puzzle[r][c].entry);
+  getClueContext(r, c, isHoriz) {
+    let d = isHoriz ? { r: 0, c: 1 } : { r: 1, c: 0 };
+    var ctx = [[r, c]];
+    r += d.r;
+    c += d.c;
+    while (this.isInputCell(r, c)) {
+      ctx.push([r, c]);
       r += d.r;
       c += d.c;
     }
-    return clueContext;
+    return ctx;
   }
 
   //

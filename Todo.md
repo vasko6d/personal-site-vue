@@ -53,8 +53,8 @@ Crossword
 - [x] next clue on tab
 - [x] switch entry way on space or enter
 - [ ] fix flash button!
-- [ ] highlight current clue
-- [ ] use id of crossword in url so i can eventually make dynamic
+- [x] highlight current clue
+- [x] use id of crossword in url so i can eventually make dynamic
 - [x] click on black is bad
 - [ ] maybe for moving stay in quadrent
 - [ ] or when finish a clue move to next?
