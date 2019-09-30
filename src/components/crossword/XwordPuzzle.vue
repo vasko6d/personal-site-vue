@@ -102,12 +102,13 @@ export default {
             top: 0;
             left: 0;
             margin-top: -0.65ch;
-            font-size: 10px;
+            font-size: calc(7px + 0.1vw);
           }
           .entry {
             position: absolute; // need better zindex and centering
             bottom: 0;
-            transform: translatex(-50%);
+            font-size: calc(12px + 0.2vw);
+            transform: translatex(-50%) translatey(8%);
           }
         }
       }

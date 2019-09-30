@@ -156,10 +156,9 @@
       i,
       .clue-body {
         cursor: pointer;
-        color: darken($nav-txt, 20%);
+        color: $nav-txt;
         background-color: rgba($nav-bg, 0.7);
         &:hover {
-          color: $nav-txt;
           background-color: rgba(darken($nav-bg, 5%), 0.6);
         }
       }

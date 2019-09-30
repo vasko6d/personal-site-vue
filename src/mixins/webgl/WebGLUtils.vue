@@ -182,9 +182,10 @@ export default {
       // Check if the canvas is not the same size.
       if (gl.canvas.width > displayWidth || gl.canvas.height > displayHeight) {
         // Make the canvas the same size
-        gl.canvas.width = displayWidth;
-        gl.canvas.height = displayWidth;
-        gl.viewport(0, 0, displayWidth, displayWidth);
+        const minDimension = Math.min(displayWidth, displayHeight);
+        gl.canvas.width = minDimension;
+        gl.canvas.height = minDimension;
+        gl.viewport(0, 0, minDimension, minDimension);
       }
     },
 
