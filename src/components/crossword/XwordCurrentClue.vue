@@ -18,10 +18,14 @@ export default {
   },
   methods: {
     moveClue(forward) {
-      this.$emit("moveClue", forward);
+      if (forward) {
+        this.$emit("executePress", "$TAB");
+      } else {
+        this.$emit("executePress", "$!TAB");
+      }
     },
     switchDirection() {
-      this.$emit("switchDirection");
+      this.$emit("executePress", "$SWITCHDIRECTION");
     }
   }
 };

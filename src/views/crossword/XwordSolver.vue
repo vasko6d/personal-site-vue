@@ -17,11 +17,7 @@
         :downNum="downNum"
         @executePress="executePress"
       />
-      <xword-current-clue
-        :clue="currentClue"
-        @moveClue="moveClue"
-        @switchDirection="xword.isHoriz = !xword.isHoriz"
-      />
+      <xword-current-clue :clue="currentClue" @executePress="executePress" />
       <xword-keyboard @executePress="executePress" />
       <xword-clue-panel :xword="xword" />
     </div>
