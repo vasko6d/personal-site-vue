@@ -5,23 +5,21 @@
         class="p-cell"
         v-for="ctx in context"
         :key="ctx.id"
-        @click="clickFxn(ctx[0], ctx[1])"
+        @click="clickFxn(ctx.r, ctx.c, isHoriz)"
       >
         <div
           :class="[
-            xword.puzzle[ctx[0]][ctx[1]].color,
+            ctx.color,
             {
-              input: isInput(xword.puzzle[ctx[0]][ctx[1]].color),
-              active: isActive(xword.puzzle[ctx[0]][ctx[1]]),
-              exact: isExact(ctx[0], ctx[1])
+              input: ctx.isInput,
+              active: ctx.isActive,
+              exact: ctx.isExact
             }
           ]"
         >
           <div class="cell-wrapper">
-            <span class="numbering">{{
-              xword.puzzle[ctx[0]][ctx[1]].cellNum
-            }}</span>
-            <span class="entry">{{ xword.puzzle[ctx[0]][ctx[1]].entry }}</span>
+            <span class="numbering">{{ ctx.num }}</span>
+            <span class="entry">{{ ctx.entry }}</span>
           </div>
         </div>
       </div>
@@ -30,30 +28,14 @@
 </template>
 
 <script>
-import Xword from "@/components/crossword//Xword.js";
 export default {
   props: {
-    xword: Xword,
     context: Array,
     isHoriz: Boolean
   },
   methods: {
-    isInput(color) {
-      return color != "black";
-    },
-    isActive(cell) {
-      let xCell = this.xword.getCell();
-      return this.xword.isHoriz
-        ? xCell.acrossNum === cell.acrossNum
-        : xCell.downNum === cell.downNum;
-    },
-    isExact(r, c) {
-      return r === this.xword.r && c == this.xword.c;
-    },
-    clickFxn(r, c) {
-      this.xword.r = r;
-      this.xword.c = c;
-      this.xword.isHoriz = this.isHoriz;
+    clickFxn(r, c, isHoriz) {
+      this.$emit("contextClick", r, c, isHoriz);
     }
   }
 };

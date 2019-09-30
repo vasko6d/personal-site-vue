@@ -8,7 +8,15 @@
         <i class="fas fa-question-circle" @click="showHelp = true"></i>
         <i class="fas fa-cog" @click="showOptions = true"></i>
       </div>
-      <xword-puzzle :xword="xword" @executePress="executePress" />
+      <xword-puzzle
+        :puzzle="xword.puzzle"
+        :r="xword.r"
+        :c="xword.c"
+        :isHoriz="xword.isHoriz"
+        :acrossNum="acrossNum"
+        :downNum="downNum"
+        @executePress="executePress"
+      />
       <xword-current-clue
         :clue="currentClue"
         @moveClue="moveClue"
@@ -67,6 +75,12 @@ export default {
         txt: txt,
         isAcross: isAcross
       };
+    },
+    acrossNum() {
+      return this.xword.getCell().acrossNum;
+    },
+    downNum() {
+      return this.xword.getCell().downNum;
     }
   },
   mounted() {
@@ -85,6 +99,8 @@ export default {
         localStorage["xword:" + this.xwordId.toString()]
       );
       this.xword.puzzle = progress;
+      this.xword.processClueList(this.xword.across, true);
+      this.xword.processClueList(this.xword.down, false);
       this.xword.bulkUpdateFilled();
     }
     console.log(this.xword);
@@ -93,22 +109,33 @@ export default {
     moveClue(forward) {
       this.xword.moveClue(forward);
     },
-    executePress(ch) {
-      console.log("executePress: ", ch);
+    executePress(ch, opts) {
+      console.log("executePress: ", ch, ", Options: ", opts);
 
+      //The cell before any moving occurs
+      let xCell1 = this.xword.getCell();
+
+      // All press/action handler
       if (ch.startsWith("$")) {
-        this.executeAction(ch);
+        this.executeAction(ch, opts);
       } else {
-        this.$set(this.xword.getCell(), "entry", ch);
+        this.$set(xCell1, "entry", ch);
         this.xword.incrementPosition();
       }
+
+      // The cell after moving occurs
+      let xCell2 = this.xword.getCell();
+
+      // Update relevant contexts
+      this.updateContexts(xCell1);
+      this.updateContexts(xCell2);
 
       // Save Progress
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
         this.xword.puzzle
       );
     },
-    executeAction(actn) {
+    executeAction(actn, opts) {
       switch (actn) {
         case "$ARROWLEFT":
           this.xword.move({ r: 0, c: -1 });
@@ -131,6 +158,10 @@ export default {
         case "$!TAB":
           this.xword.moveClue(false);
           break;
+        case "$SETPOSITION":
+          this.xword.r = opts.r;
+          this.xword.c = opts.c;
+          break;
         case "$BACKSPACE":
           if (!this.xword.getCell().entry) {
             if (this.xword.isHoriz) {
@@ -143,6 +174,18 @@ export default {
           this.xword.updateFilled();
           break;
       }
+    },
+    updateContexts(xCell) {
+      this.xword.across[xCell.acrossNum].ctx = this.xword.getFullClueContext(
+        this.xword.across,
+        xCell.acrossNum,
+        true
+      );
+      this.xword.down[xCell.downNum].ctx = this.xword.getFullClueContext(
+        this.xword.down,
+        xCell.downNum,
+        false
+      );
     }
   }
 };

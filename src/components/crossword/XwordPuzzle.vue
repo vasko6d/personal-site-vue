@@ -1,6 +1,6 @@
 <template>
   <div id="puzzle">
-    <div class="p-row" v-for="(row, r) in xword.puzzle" :key="row.id">
+    <div class="p-row" v-for="(row, r) in puzzle" :key="row.id">
       <div
         class="p-cell"
         v-for="(cell, c) in row"
@@ -30,28 +30,32 @@
 <script>
 export default {
   props: {
-    xword: Object
+    puzzle: Array,
+    r: Number,
+    c: Number,
+    isHoriz: Boolean,
+    acrossNum: Number,
+    downNum: Number
   },
   methods: {
     isInput(color) {
       return color != "black";
     },
     isActive(cell) {
-      let xCell = this.xword.getCell();
-      return this.xword.isHoriz
-        ? xCell.acrossNum === cell.acrossNum
-        : xCell.downNum === cell.downNum;
+      console.log(this.acrossNum, cell.acrossNum);
+      return this.isHoriz
+        ? this.acrossNum === cell.acrossNum
+        : this.downNum === cell.downNum;
     },
     isExact(r, c) {
-      return r === this.xword.r && c == this.xword.c;
+      return r === this.r && c == this.c;
     },
     clickFxn(r, c, color) {
       if (this.isInput(color)) {
         if (this.isExact(r, c)) {
           this.$emit("executePress", "$SWITCHDIRECTION");
         } else {
-          this.xword.r = r;
-          this.xword.c = c;
+          this.$emit("executePress", "$SETPOSITION", { r: r, c: c });
         }
       }
     }

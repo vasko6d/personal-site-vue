@@ -41,18 +41,15 @@ export default class Xword {
     this.editor = editor;
     this.publishDate = publishDate;
     this.timer = new Timer(true);
-
-    // Pre Process across Clues
     this.across = across;
-    this.processClueList(this.across);
-
-    // Pre Process down clues
     this.down = down;
-    this.processClueList(this.down);
 
     // Process the solition array into a usable puzzle
     this.puzzle = [];
     this.buildPuzzle(solnArr);
+    this.processClueList(this.across, true);
+    this.processClueList(this.down, false);
+
     this.r = 0;
     this.c = 0;
     let aKeys = Object.keys(this.across).sort(function(a, b) {
@@ -219,6 +216,32 @@ export default class Xword {
     this.r = newClue.index.r;
     this.c = newClue.index.c;
   }
+  getFullClueContext(clueList, num, isHoriz) {
+    let simpleContext = this.getClueContext(
+      clueList[num].index.r,
+      clueList[num].index.c,
+      isHoriz
+    );
+    let fullContext = [];
+    for (const ctx of simpleContext) {
+      let cell = this.puzzle[ctx[0]][ctx[1]];
+      let xCell = this.getCell();
+      let el = {
+        color: cell.color,
+        isInput: cell.color !== "black",
+        isActive: this.isHoriz
+          ? xCell.acrossNum === cell.acrossNum
+          : xCell.downNum === cell.downNum,
+        isExact: ctx[0] === this.r && ctx[1] == this.c,
+        num: cell.cellNum,
+        entry: cell.entry,
+        r: ctx[0],
+        c: ctx[1]
+      };
+      fullContext.push(el);
+    }
+    return fullContext;
+  }
 
   //
   // Initialization Functions
@@ -302,7 +325,7 @@ export default class Xword {
     }
     return curCell;
   }
-  processClueList(clueList) {
+  processClueList(clueList, isHoriz) {
     let cKeys = Object.keys(clueList).sort(function(a, b) {
       parseInt(a) - parseInt(b);
     });
@@ -317,6 +340,8 @@ export default class Xword {
         prev = k;
         i++;
         next = cKeys[i % cKeys.length];
+        // Contexts
+        clueList[k].ctx = this.getFullClueContext(clueList, k, isHoriz);
       }
     }
   }

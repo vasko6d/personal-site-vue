@@ -18,20 +18,14 @@
           :value="num"
           :class="['clue', { active: isActive(num, direction) }]"
           v-for="(clue, num) in xword[direction]"
-          :key="num"
+          :key="clue.id"
           v-show="!clue.filled"
         >
           <span class="clue-txt">{{ clue.txt }}</span>
           <xword-clue-context
-            :xword="xword"
-            :context="
-              xword.getClueContext(
-                clue.index.r,
-                clue.index.c,
-                direction === 'across'
-              )
-            "
+            :context="clue.ctx"
             :isHoriz="direction === 'across'"
+            @contextClick="contextClick"
           />
         </li>
       </ol>
@@ -69,6 +63,11 @@ export default {
       return this.xword.isHoriz
         ? direction === "across" && cell.acrossNum == num
         : direction === "down" && cell.downNum == num;
+    },
+    contextClick(r, c, isHoriz) {
+      this.xword.r = r;
+      this.xword.c = c;
+      this.xword.isHoriz = isHoriz;
     }
   }
 };
