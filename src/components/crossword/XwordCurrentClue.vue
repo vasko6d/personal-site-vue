@@ -1,11 +1,13 @@
 <template>
   <div id="current-clue">
-    <div>
-      <i class="fas fa-caret-square-left" @click="moveClue(false)"></i>
-      {{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}&nbsp;
-      <i class="fas fa-caret-square-right" @click="moveClue(true)"></i>
+    <div class="clue-flex">
+      <i class="fas fa-caret-left" @click="moveClue(false)"></i>
+      <div class="clue-body" @click="switchDirection">
+        {{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}&nbsp;
+        <div class="indent">{{ clue.txt }}</div>
+      </div>
+      <i class="fas fa-caret-right" @click="moveClue(true)"></i>
     </div>
-    <div class="indent">{{ clue.txt }}</div>
   </div>
 </template>
 
@@ -17,6 +19,9 @@ export default {
   methods: {
     moveClue(forward) {
       this.$emit("moveClue", forward);
+    },
+    switchDirection() {
+      this.$emit("switchDirection");
     }
   }
 };
@@ -34,16 +39,28 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 #current-clue {
-  i {
-    cursor: pointer;
+  .clue-flex {
+    display: flex;
+
+    i {
+      user-select: none;
+      display: flex;
+      min-width: 40px;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 0.35em;
+    }
+    .clue-body {
+      flex-grow: 1;
+      text-align: left;
+      min-height: 10px;
+      padding-left: 0.5em;
+      border-radius: 0.35em;
+      .indent {
+        margin-left: 1em;
+      }
+    }
   }
-  text-align: left;
-  border-radius: 0.35em;
-  min-height: 10px;
   margin-bottom: 0.5em;
-  padding-left: 0.5em;
-  .indent {
-    margin-left: 1em;
-  }
 }
 </style>

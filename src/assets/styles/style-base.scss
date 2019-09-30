@@ -138,18 +138,30 @@
     .clue-list {
       ol {
         .active {
-          color: complement($nav-txt);
+          color: #9e738f;
+          .clue-txt {
+            font-weight: bold;
+          }
         }
       }
     }
   }
 
   #current-clue {
-    background-color: rgba(lighten($nav-bg, 10%), 0.7);
-    i {
-      color: darken($nav-txt, 20%);
-      &:hover {
-        color: lighten($nav-txt, 20%);
+    .clue-flex {
+      .clue-body {
+        margin-left: 7px;
+        margin-right: 7px;
+      }
+      i,
+      .clue-body {
+        cursor: pointer;
+        color: darken($nav-txt, 20%);
+        background-color: rgba($nav-bg, 0.7);
+        &:hover {
+          color: $nav-txt;
+          background-color: rgba(darken($nav-bg, 5%), 0.6);
+        }
       }
     }
   }

@@ -9,7 +9,11 @@
         <i class="fas fa-cog" @click="showModal = true"></i>
       </div>
       <xword-puzzle :xword="xword" @executePress="executePress" />
-      <xword-current-clue :clue="currentClue" @moveClue="moveClue" />
+      <xword-current-clue
+        :clue="currentClue"
+        @moveClue="moveClue"
+        @switchDirection="xword.isHoriz = !xword.isHoriz"
+      />
       <xword-keyboard @executePress="executePress" />
       <xword-clue-panel :xword="xword" />
     </div>
