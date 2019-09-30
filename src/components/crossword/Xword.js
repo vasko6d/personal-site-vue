@@ -93,7 +93,18 @@ export default class Xword {
     }
     return {};
   }
-
+  getClueContext(r, c, isHoriz) {
+    let d = isHoriz ? { r: 0, c: 1 } : { r: 1, c: 0 };
+    var ctx = [[r, c]];
+    r += d.r;
+    c += d.c;
+    while (this.isInputCell(r, c)) {
+      ctx.push([r, c]);
+      r += d.r;
+      c += d.c;
+    }
+    return ctx;
+  }
   isInputCell(r, c) {
     if (r >= this.puzzle.length || r < 0) {
       return false;
@@ -106,13 +117,47 @@ export default class Xword {
   isInputColor(r, c) {
     return colors.black != this.puzzle[r][c].color;
   }
+  isFilled(r, c, isHoriz) {
+    const ctxs = this.getClueContext(r, c, isHoriz);
+    for (const ctx of ctxs) {
+      if (!this.puzzle[ctx[0]][ctx[1]].entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+  filledCount(direction) {
+    let cnt = 0;
+    for (const c of Object.values(this[direction])) {
+      if (c.filled) {
+        cnt++;
+      }
+    }
+    return cnt;
+  }
 
   //
   // Mutators
   //
   incrementPosition() {
+    this.updateFilled();
     let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
     this.move(d);
+  }
+  updateFilled() {
+    let cell = this.getCell();
+    let b = this.isFilled(
+      this.across[cell.acrossNum].index.r,
+      this.across[cell.acrossNum].index.c,
+      true
+    );
+    this.across[cell.acrossNum].filled = b;
+    b = this.isFilled(
+      this.down[cell.downNum].index.r,
+      this.down[cell.downNum].index.c,
+      false
+    );
+    this.down[cell.downNum].filled = b;
   }
   move(d) {
     // early return incase empty puzzle
@@ -154,19 +199,6 @@ export default class Xword {
       : this.down[newClueNum];
     this.r = newClue.index.r;
     this.c = newClue.index.c;
-  }
-
-  getClueContext(r, c, isHoriz) {
-    let d = isHoriz ? { r: 0, c: 1 } : { r: 1, c: 0 };
-    var ctx = [[r, c]];
-    r += d.r;
-    c += d.c;
-    while (this.isInputCell(r, c)) {
-      ctx.push([r, c]);
-      r += d.r;
-      c += d.c;
-    }
-    return ctx;
   }
 
   //
@@ -280,5 +312,15 @@ export default class Xword {
       cellNum: cellNum // If this cell will have a clue number in it
     };
     return puzzleElement;
+  }
+  bulkUpdateFilled() {
+    for (let k of Object.keys(this.across)) {
+      let clue = this.across[k];
+      clue.filled = this.isFilled(clue.index.r, clue.index.c, true);
+    }
+    for (let k of Object.keys(this.down)) {
+      let clue = this.down[k];
+      clue.filled = this.isFilled(clue.index.r, clue.index.c, false);
+    }
   }
 }

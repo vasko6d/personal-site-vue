@@ -1,7 +1,7 @@
 <template>
   <div class="clues">
     <div class="clue-h" @click="showClues = !showClues">
-      {{ clueHead }}&nbsp;({{ filled }}/{{
+      {{ clueHead }}&nbsp;({{ xword.filledCount(direction) }}/{{
         Object.keys(xword[direction]).length
       }})
       <i
@@ -19,6 +19,7 @@
           :class="['clue', { active: isActive(num, direction) }]"
           v-for="(clue, num) in xword[direction]"
           :key="num"
+          v-show="!clue.filled"
         >
           <span class="clue-txt">{{ clue.txt }}</span>
           <xword-clue-context
@@ -30,6 +31,7 @@
                 direction === 'across'
               )
             "
+            :isHoriz="direction === 'across'"
           />
         </li>
       </ol>
@@ -59,15 +61,6 @@ export default {
   computed: {
     clueHead() {
       return this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
-    },
-    filled() {
-      let cnt = 0;
-      for (const c of Object.values(this.xword[this.direction])) {
-        if (c.filled) {
-          cnt++;
-        }
-      }
-      return cnt;
     }
   },
   methods: {

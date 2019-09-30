@@ -5,7 +5,7 @@
         class="p-cell"
         v-for="ctx in context"
         :key="ctx.id"
-        @click="clickFxn(ctx[0], ctx[1], xword.puzzle[ctx[0]][ctx[1]].color)"
+        @click="clickFxn(ctx[0], ctx[1])"
       >
         <div
           :class="[
@@ -18,9 +18,9 @@
           ]"
         >
           <div class="cell-wrapper">
-            <span class="numbering">
-              {{ xword.puzzle[ctx[0]][ctx[1]].cellNum }}
-            </span>
+            <span class="numbering">{{
+              xword.puzzle[ctx[0]][ctx[1]].cellNum
+            }}</span>
             <span class="entry">{{ xword.puzzle[ctx[0]][ctx[1]].entry }}</span>
           </div>
         </div>
@@ -34,7 +34,8 @@ import Xword from "@/components/crossword//Xword.js";
 export default {
   props: {
     xword: Xword,
-    context: Array
+    context: Array,
+    isHoriz: Boolean
   },
   methods: {
     isInput(color) {
@@ -49,11 +50,10 @@ export default {
     isExact(r, c) {
       return r === this.xword.r && c == this.xword.c;
     },
-    clickFxn(r, c, color) {
-      if (this.isInput(color)) {
-        this.xword.r = r;
-        this.xword.c = c;
-      }
+    clickFxn(r, c) {
+      this.xword.r = r;
+      this.xword.c = c;
+      this.xword.isHoriz = this.isHoriz;
     }
   }
 };

@@ -82,6 +82,7 @@ export default {
         localStorage["xword:" + this.xwordId.toString()]
       );
       this.xword.puzzle = progress;
+      this.xword.bulkUpdateFilled();
     }
     console.log(this.xword);
   },
