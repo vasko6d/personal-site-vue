@@ -1,25 +1,26 @@
 <template>
   <div class="clue-ctx">
-    <div class="p-row">
-      <div
-        class="p-cell"
-        v-for="ctx in context"
-        :key="ctx.id"
-        @click="clickFxn(ctx.r, ctx.c)"
-      >
+    <div class="c-wrap">
+      <div class="p-row">
         <div
-          :class="[
-            ctx.color,
-            {
-              input: ctx.isInput,
-              active: isActive(ctx.acrossNum, ctx.downNum),
-              exact: isExact(ctx.r, ctx.c)
-            }
-          ]"
+          class="p-cell"
+          v-for="ctx in context"
+          :key="ctx.id"
+          @click="clickFxn(ctx.r, ctx.c)"
         >
-          <div class="cell-wrapper">
-            <span class="numbering">{{ ctx.num }}</span>
-            <span class="entry">{{ ctx.entry }}</span>
+          <div
+            :class="[
+              ctx.color,
+              {
+                input: ctx.isInput,
+                active: isActive(ctx.acrossNum, ctx.downNum),
+                exact: isExact(ctx.r, ctx.c)
+              }
+            ]"
+          >
+            <div class="cell-wrapper">
+              <span class="entry">{{ ctx.entry }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -64,11 +65,10 @@ export default {
       .black,
       .white {
         .cell-wrapper {
-          .numbering {
-            font-size: calc(9px + 0.1vw);
-          }
           .entry {
-            font-size: calc(14px + 0.2vw);
+            color: black;
+            font-size: 75%;
+            transform: translatex(-50%) translatey(20%);
           }
         }
       }

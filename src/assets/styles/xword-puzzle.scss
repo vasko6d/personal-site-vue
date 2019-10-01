@@ -4,6 +4,7 @@
   .p-cell {
     flex-grow: 1;
     border: 1px solid black;
+    max-width: 4ch;
     .black {
       background-color: black;
       color: white;
@@ -39,12 +40,12 @@
           top: 0;
           left: 0;
           margin-top: -0.65ch;
-          font-size: calc(7px + 0.1vw);
+          font-size: calc(20% + 0.2vw);
         }
         .entry {
           position: absolute; // need better zindex and centering
           bottom: 0;
-          font-size: calc(12px + 0.2vw);
+          font-size: calc(35% + 0.15vw + 3px);
           transform: translatex(-50%) translatey(8%);
         }
       }
