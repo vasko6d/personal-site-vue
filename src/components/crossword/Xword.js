@@ -22,16 +22,7 @@ export default class Xword {
    * Xword is a helper class for all the important Xword Functions
    * @constructor
    */
-  constructor(
-    title,
-    author,
-    editor,
-    publishDate,
-    solnArr,
-    across,
-    down,
-    opts = {}
-  ) {
+  constructor(title, author, editor, date, solnArr, across, down, opts = {}) {
     if (opts.debug) {
       console.log("Initializing crossword '" + title + "' by: " + author);
     }
@@ -39,7 +30,11 @@ export default class Xword {
     this.title = title;
     this.author = author;
     this.editor = editor;
-    this.publishDate = publishDate;
+    this.publishDate = new Date(
+      parseInt(date.substring(0, 4)),
+      parseInt(date.substring(4, 6)) - 1,
+      parseInt(date.substring(6, 8))
+    );
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;

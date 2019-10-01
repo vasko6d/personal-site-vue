@@ -3,7 +3,7 @@
     <div class="blk-container">
       <div class="x-head">
         <h2>{{ xword.title }}</h2>
-        by {{ xword.author }}, {{ xword.publishDate }}
+        by {{ xword.author }}, {{ xword.publishDate.toDateString() }}
         &nbsp;
         <i class="fas fa-question-circle" @click="showHelp = true"></i>
         <i class="fas fa-cog" @click="showOptions = true"></i>
