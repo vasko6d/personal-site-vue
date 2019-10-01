@@ -43,6 +43,10 @@ export default class Xword {
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;
+    this.filled = {
+      across: 0,
+      down: 0
+    };
 
     // Process the solition array into a usable puzzle
     this.puzzle = [];
@@ -160,6 +164,8 @@ export default class Xword {
       this.across[cell.acrossNum].index.c,
       true
     );
+    this.filled.across += this.across[cell.acrossNum].filled ? -1 : 0;
+    this.filled.across += b ? 1 : 0;
     this.across[cell.acrossNum].filled = b;
     if (this.isHoriz) {
       ret = b;
@@ -169,6 +175,8 @@ export default class Xword {
       this.down[cell.downNum].index.c,
       false
     );
+    this.filled.down += this.down[cell.downNum].filled ? -1 : 0;
+    this.filled.down += b ? 1 : 0;
     this.down[cell.downNum].filled = b;
     if (!this.isHoriz) {
       ret = b;
@@ -355,13 +363,19 @@ export default class Xword {
     return puzzleElement;
   }
   bulkUpdateFilled() {
+    this.filled = {
+      across: 0,
+      down: 0
+    };
     for (let k of Object.keys(this.across)) {
       let clue = this.across[k];
       clue.filled = this.isFilled(clue.index.r, clue.index.c, true);
+      this.filled.across += clue.filled ? 1 : 0;
     }
     for (let k of Object.keys(this.down)) {
       let clue = this.down[k];
       clue.filled = this.isFilled(clue.index.r, clue.index.c, false);
+      this.filled.down += clue.filled ? 1 : 0;
     }
   }
 }

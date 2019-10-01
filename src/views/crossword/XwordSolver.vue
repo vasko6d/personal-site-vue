@@ -22,10 +22,7 @@
       <xword-clue-panel
         :acrossClueObj="xword.across"
         :downClueObj="xword.down"
-        :filledObj="{
-          across: xword.filledCount('across'),
-          down: xword.filledCount('down')
-        }"
+        :filledObj="xword.filled"
         :r="xword.r"
         :c="xword.c"
         :acrossNum="acrossNum"
@@ -119,22 +116,21 @@ export default {
       console.log("executePress: ", ch, ", Options: ", opts);
 
       //The cell before any moving occurs
-      let xCell1 = this.xword.getCell();
+      let beforeImage = this.xword.getCell();
 
       // All press/action handler
       if (ch.startsWith("$")) {
         this.executeAction(ch, opts);
       } else {
-        this.$set(xCell1, "entry", ch);
+        this.$set(beforeImage, "entry", ch);
         this.xword.incrementPosition();
       }
 
       // The cell after moving occurs
-      let xCell2 = this.xword.getCell();
+      let afterImage = this.xword.getCell();
 
       // Update relevant contexts
-      this.updateContexts(xCell1);
-      this.updateContexts(xCell2);
+      this.updateContexts([beforeImage, afterImage]);
 
       // Save Progress
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
@@ -184,17 +180,32 @@ export default {
           break;
       }
     },
-    updateContexts(xCell) {
-      this.xword.across[xCell.acrossNum].ctx = this.xword.getFullClueContext(
-        this.xword.across,
-        xCell.acrossNum,
-        true
-      );
-      this.xword.down[xCell.downNum].ctx = this.xword.getFullClueContext(
-        this.xword.down,
-        xCell.downNum,
-        false
-      );
+    updateContexts(xCells) {
+      // figure out how many clues need updated contexts
+      let acrossToUpdate = new Set();
+      let downToUpdate = new Set();
+      for (const xcell of xCells) {
+        for (const el of this.xword.across[xcell.acrossNum].ctx) {
+          acrossToUpdate.add(el.acrossNum);
+          downToUpdate.add(el.downNum);
+        }
+      }
+
+      // Actually update the contexts
+      for (const aNum of acrossToUpdate) {
+        this.xword.across[aNum].ctx = this.xword.getFullClueContext(
+          this.xword.across,
+          aNum,
+          true
+        );
+      }
+      for (const dNum of downToUpdate) {
+        this.xword.down[dNum].ctx = this.xword.getFullClueContext(
+          this.xword.down,
+          dNum,
+          false
+        );
+      }
     }
   }
 };
