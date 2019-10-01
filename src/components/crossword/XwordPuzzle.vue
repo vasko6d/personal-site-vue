@@ -42,7 +42,6 @@ export default {
       return color != "black";
     },
     isActive(cell) {
-      console.log(this.acrossNum, cell.acrossNum);
       return this.isHoriz
         ? this.acrossNum === cell.acrossNum
         : this.downNum === cell.downNum;

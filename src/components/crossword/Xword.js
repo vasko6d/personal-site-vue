@@ -225,14 +225,11 @@ export default class Xword {
     let fullContext = [];
     for (const ctx of simpleContext) {
       let cell = this.puzzle[ctx[0]][ctx[1]];
-      let xCell = this.getCell();
       let el = {
         color: cell.color,
         isInput: cell.color !== "black",
-        isActive: this.isHoriz
-          ? xCell.acrossNum === cell.acrossNum
-          : xCell.downNum === cell.downNum,
-        isExact: ctx[0] === this.r && ctx[1] == this.c,
+        downNum: cell.downNum,
+        acrossNum: cell.acrossNum,
         num: cell.cellNum,
         entry: cell.entry,
         r: ctx[0],

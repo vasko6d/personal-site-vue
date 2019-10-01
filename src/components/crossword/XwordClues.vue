@@ -1,9 +1,7 @@
 <template>
   <div class="clues">
     <div class="clue-h" @click="showClues = !showClues">
-      {{ clueHead }}&nbsp;({{ xword.filledCount(direction) }}/{{
-        Object.keys(xword[direction]).length
-      }})
+      {{ clueHead }}&nbsp;({{ filledCount }}/{{ Object.keys(clueObj).length }})
       <i
         :class="{
           fas: true,
@@ -15,16 +13,20 @@
     <div class="clue-list">
       <ol v-show="showClues">
         <li
+          v-for="(clue, num) in clueObj"
           :value="num"
-          :class="['clue', { active: isActive(num, direction) }]"
-          v-for="(clue, num) in xword[direction]"
+          :class="['clue', { active: isActive(num) }]"
           :key="clue.id"
           v-show="!clue.filled"
         >
           <span class="clue-txt">{{ clue.txt }}</span>
           <xword-clue-context
             :context="clue.ctx"
-            :isHoriz="direction === 'across'"
+            :xr="r"
+            :xc="c"
+            :xAcrossNum="acrossNum"
+            :xDownNum="downNum"
+            :xIsHoriz="puzzleIsHoriz"
             @contextClick="contextClick"
           />
         </li>
@@ -34,7 +36,6 @@
 </template>
 
 <script>
-import Xword from "./Xword.js";
 import XwordClueContext from "@/components/crossword/XwordClueContext.vue";
 export default {
   name: "XwordClues",
@@ -42,8 +43,14 @@ export default {
     XwordClueContext
   },
   props: {
-    xword: Xword,
+    clueObj: Object,
+    filledCount: Number,
+    r: Number,
+    c: Number,
+    acrossNum: Number,
+    downNum: Number,
     direction: String,
+    puzzleIsHoriz: Boolean,
     showClueContext: Boolean,
     showFilled: Boolean
   },
@@ -58,16 +65,16 @@ export default {
     }
   },
   methods: {
-    isActive(num, direction) {
-      let cell = this.xword.getCell();
-      return this.xword.isHoriz
-        ? direction === "across" && cell.acrossNum == num
-        : direction === "down" && cell.downNum == num;
+    isActive(num) {
+      return this.puzzleIsHoriz
+        ? this.direction === "across" && this.acrossNum == num
+        : this.direction === "down" && this.downNum == num;
     },
-    contextClick(r, c, isHoriz) {
-      this.xword.r = r;
-      this.xword.c = c;
-      this.xword.isHoriz = isHoriz;
+    contextClick(r, c) {
+      this.$emit("executePress", "$SETPOSITION", { r: r, c: c });
+      this.$emit("executePress", "$SETDIRECTION", {
+        direction: this.direction === "across"
+      });
     }
   }
 };

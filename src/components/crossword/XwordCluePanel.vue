@@ -5,35 +5,60 @@
       <i class="fas fa-cog"></i>
     </div>
     <xword-clues
-      :xword="xword"
+      :clueObj="acrossClueObj"
+      :filledCount="filledObj.across"
+      :r="r"
+      :c="c"
+      :acrossNum="acrossNum"
+      :downNum="downNum"
       direction="across"
+      :puzzleIsHoriz="puzzleIsHoriz"
       :showClueContext="showClueContext"
       :showFilled="showFilled"
+      @executePress="executePress"
     />
     <xword-clues
-      :xword="xword"
+      :clueObj="downClueObj"
+      :filledCount="filledObj.down"
+      :r="r"
+      :c="c"
+      :acrossNum="acrossNum"
+      :downNum="downNum"
       direction="down"
+      :puzzleIsHoriz="puzzleIsHoriz"
       :showClueContext="showClueContext"
       :showFilled="showFilled"
+      @executePress="executePress"
     />
   </div>
 </template>
 
 <script>
 import XwordClues from "@/components/crossword/XwordClues.vue";
-import Xword from "@/components/crossword//Xword.js";
 export default {
   components: {
     XwordClues
   },
   props: {
-    xword: Xword
+    acrossClueObj: Object,
+    downClueObj: Object,
+    filledObj: Object,
+    r: Number,
+    c: Number,
+    acrossNum: Number,
+    downNum: Number,
+    puzzleIsHoriz: Boolean
   },
   data() {
     return {
       showClueContext: true,
       showFilled: false
     };
+  },
+  methods: {
+    executePress(ch, opts) {
+      this.$emit("executePress", ch, opts);
+    }
   }
 };
 </script>

@@ -56,7 +56,9 @@ export default {
           case "ARROWDOWN":
           // Falls through
           case "ARROWUP":
-          // Falls through
+            e.preventDefault();
+            this.executePress("$" + ch);
+            break;
           case "TAB":
             e.preventDefault();
             if (this.shift) {

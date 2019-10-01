@@ -19,7 +19,20 @@
       />
       <xword-current-clue :clue="currentClue" @executePress="executePress" />
       <xword-keyboard @executePress="executePress" />
-      <xword-clue-panel :xword="xword" />
+      <xword-clue-panel
+        :acrossClueObj="xword.across"
+        :downClueObj="xword.down"
+        :filledObj="{
+          across: xword.filledCount('across'),
+          down: xword.filledCount('down')
+        }"
+        :r="xword.r"
+        :c="xword.c"
+        :acrossNum="acrossNum"
+        :downNum="downNum"
+        :puzzleIsHoriz="xword.isHoriz"
+        @executePress="executePress"
+      />
     </div>
   </div>
 </template>
@@ -102,9 +115,6 @@ export default {
     console.log(this.xword);
   },
   methods: {
-    moveClue(forward) {
-      this.xword.moveClue(forward);
-    },
     executePress(ch, opts) {
       console.log("executePress: ", ch, ", Options: ", opts);
 
@@ -147,6 +157,9 @@ export default {
           break;
         case "$SWITCHDIRECTION":
           this.xword.isHoriz = !this.xword.isHoriz;
+          break;
+        case "$SETDIRECTION":
+          this.xword.isHoriz = opts.direction;
           break;
         case "$TAB":
           this.xword.moveClue(true);

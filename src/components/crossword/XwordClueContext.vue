@@ -5,15 +5,15 @@
         class="p-cell"
         v-for="ctx in context"
         :key="ctx.id"
-        @click="clickFxn(ctx.r, ctx.c, isHoriz)"
+        @click="clickFxn(ctx.r, ctx.c)"
       >
         <div
           :class="[
             ctx.color,
             {
               input: ctx.isInput,
-              active: ctx.isActive,
-              exact: ctx.isExact
+              active: isActive(ctx.acrossNum, ctx.downNum),
+              exact: isExact(ctx.r, ctx.c)
             }
           ]"
         >
@@ -31,11 +31,23 @@
 export default {
   props: {
     context: Array,
-    isHoriz: Boolean
+    xr: Number,
+    xc: Number,
+    xAcrossNum: Number,
+    xDownNum: Number,
+    xIsHoriz: Boolean
   },
   methods: {
-    clickFxn(r, c, isHoriz) {
-      this.$emit("contextClick", r, c, isHoriz);
+    clickFxn(r, c) {
+      this.$emit("contextClick", r, c);
+    },
+    isActive(acrossNum, downNum) {
+      return this.xIsHoriz
+        ? this.xAcrossNum === acrossNum
+        : this.xDownNum === downNum;
+    },
+    isExact(r, c) {
+      return this.xr === r && this.xc === c;
     }
   }
 };
@@ -61,6 +73,7 @@ export default {
         }
       }
     }
+    margin-right: 10px;
   }
   margin-bottom: 0.5em;
 }
