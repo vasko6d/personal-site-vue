@@ -78,6 +78,9 @@ export default {
 }
 #xword-search {
   #xwords {
+    @media only screen and (max-width: 600px) {
+      font-size: 8px;
+    }
     border-collapse: collapse;
     width: 100%;
     td,
