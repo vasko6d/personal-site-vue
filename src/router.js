@@ -89,6 +89,11 @@ export default new Router({
       ]
     },
     {
+      path: "/crossword/search",
+      name: "crossword-search",
+      component: () => import("./views/crossword/XwordSearch.vue")
+    },
+    {
       path: "/crossword/:xwordId",
       name: "crossword",
       component: () => import("./views/crossword/XwordSolver.vue"),

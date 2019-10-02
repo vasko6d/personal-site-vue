@@ -9,6 +9,7 @@ export default {
         author: "David Vasko",
         editor: "David Vasko",
         createDate: "20140101",
+        difficulty: 5,
         theme:
           "The Railroad Crossing is literally depicted by the letter 'R' forming an X across the entire puzzle.",
         colorCells: [],

@@ -177,6 +177,24 @@
     }
   }
 
+  #xword-search {
+    #xwords {
+      tr {
+        background-color: darken($nav-bg, 15%);
+      }
+      tr:nth-child(even) {
+        background-color: darken($nav-bg, 5%);
+      }
+      tr:hover {
+        background-color: lighten($nav-bg, 5%);
+      }
+      th {
+        background-color: $nav-txt;
+        color: $nav-bg;
+      }
+    }
+  }
+
   background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
   color: $nav-txt;
 }
