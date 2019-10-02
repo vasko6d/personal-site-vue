@@ -29,7 +29,7 @@ export default new Router({
         { path: "/billiard-ball-robot", name: "Robotics" },
         { path: "/webgl/galaxy", name: "Graphics" },
         { path: "/numerical/finite-element", name: "Numerical Analysis" },
-        { path: "/crossword/1", name: "Crossword" }
+        { path: "/crossword/search", name: "Crossword" }
       ]
     },
     {
