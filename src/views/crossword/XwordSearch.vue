@@ -1,31 +1,20 @@
 <template>
-  <div id="xword-search">
+  <div class="xword-search">
     <div class="blk-container">
       <h2>Select a Crossword</h2>
-      <v-table :data="rawXwords" id="xwords">
-        <thead slot="head">
-          <th>Title</th>
-          <th>Author</th>
-          <th>Difficulty (1-10)</th>
-          <th>Create Date</th>
-          <th>Dimension</th>
-          <th>Status</th>
-        </thead>
-        <tbody slot="body" slot-scope="{ displayData }">
-          <tr
-            v-for="row in displayData"
-            :key="row.id"
-            @click="$router.push('' + row.id)"
-          >
-            <td>{{ row.title }}</td>
-            <td>{{ row.author }}</td>
-            <td>{{ row.difficulty }}</td>
-            <td>{{ toDateString(row.createDate) }}</td>
-            <td>{{ row.dimension }}</td>
-            <td>{{ getStatus(row.id) }}</td>
-          </tr>
-        </tbody>
-      </v-table>
+      <v-client-table
+        :columns="columns"
+        :data="data"
+        :options="options"
+        @row-click="rowClick"
+      >
+        <div slot="createDate" slot-scope="props">
+          {{ toDateString(props.row.createDate) }}
+        </div>
+        <div slot="status" slot-scope="props">
+          {{ getStatus(props.row.id) }}
+        </div>
+      </v-client-table>
     </div>
   </div>
 </template>
@@ -40,7 +29,71 @@ export default {
   name: "XwordSearch",
   data() {
     return {
-      rawXwords: [Xword1.data().xword, Xword2.data().xword, Xword3.data().xword]
+      columns: [
+        "title",
+        "author",
+        "difficulty",
+        "dimension",
+        "createDate",
+        "status"
+      ],
+      data: [Xword1.data().xword, Xword2.data().xword, Xword3.data().xword],
+      options: {
+        headings: {
+          name: "Title",
+          code: "Author",
+          difficulty: "Difficulty",
+          dimension: "Size",
+          createDate: "Create Date",
+          status: "Status"
+        },
+        sortable: [
+          "title",
+          "author",
+          "difficulty",
+          "dimension",
+          "createDate",
+          "status"
+        ],
+        filterable: ["title", "author", "difficulty", "dimension", "status"],
+        sortIcon: {
+          base: "fas",
+          is: "fa-arrows-alt-v",
+          up: "fa-caret-up",
+          down: "fa-caret-down"
+        },
+        customSorting: {
+          status: ascending => {
+            return (a, b) => {
+              const sa = this.getStatus(a.id);
+              const sb = this.getStatus(b.id);
+              if (ascending) {
+                return this.statusMap[sa] > this.statusMap[sb] ? 1 : -1;
+              }
+              return this.statusMap[sa] <= this.statusMap[sb] ? 1 : -1;
+            };
+          },
+          dimension: ascending => {
+            return (a, b) => {
+              const da = a.dimension.split("x").map(function(d) {
+                return parseInt(d);
+              });
+              const db = b.dimension.split("x").map(function(d) {
+                return parseInt(d);
+              });
+              if (ascending) {
+                return da[0] > db[0] ? 1 : -1;
+              }
+              return da[0] <= db[0] ? 1 : -1;
+            };
+          }
+        }
+      },
+      statusMap: {
+        Completed: 2,
+        Started: 1,
+        "Not Started": 0
+      }
     };
   },
   methods: {
@@ -60,6 +113,14 @@ export default {
         return "Started";
       }
       return "Not Started";
+    },
+    statusSort(a, b) {
+      const sa = this.getStatus(a.id);
+      const sb = this.getStatus(b.id);
+      return this.statusMap[sa] - this.statusMap[sb];
+    },
+    rowClick(e) {
+      this.$router.push("" + e.row.id);
     }
   }
 };
@@ -76,37 +137,39 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
-#xword-search {
-  #xwords {
-    @media only screen and (max-width: 600px) {
-      font-size: 8px;
-    }
+.xword-search {
+  @media only screen and (max-width: 600px) {
+    font-size: 8px;
+  }
+  table {
     border-collapse: collapse;
     width: 100%;
-    td,
-    th {
-      padding: 8px;
-    }
+  }
 
-    tr:last-child {
-      td:first-child {
-        border-bottom-left-radius: 0.5em;
-      }
-      td:last-child {
-        border-bottom-right-radius: 0.5em;
-      }
-    }
+  td,
+  th {
+    padding: 8px;
+  }
 
-    th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: center;
-      &:first-child {
-        border-top-left-radius: 0.5em;
-      }
-      &:last-child {
-        border-top-right-radius: 0.5em;
-      }
+  tr:last-child {
+    td:first-child {
+      border-bottom-left-radius: 0.5em;
+    }
+    td:last-child {
+      border-bottom-right-radius: 0.5em;
+    }
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    cursor: pointer;
+    &:first-child {
+      border-top-left-radius: 0.5em;
+    }
+    &:last-child {
+      border-top-right-radius: 0.5em;
     }
   }
 }
