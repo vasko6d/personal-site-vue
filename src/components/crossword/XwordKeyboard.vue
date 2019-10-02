@@ -11,9 +11,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
-          {{ keyBtn.isFA ? "" : keyBtn.disp }}
-        </i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
+          keyBtn.isFA ? "" : keyBtn.disp
+        }}</i>
       </div>
     </div>
   </div>
@@ -118,7 +118,7 @@ export default {
           val: "$BACKSPACE",
           isActive: false
         });
-        retInv["BACKSPACE"] = { r: 2, c: retArr.length - 1 };
+        retInv["BACKSPACE"] = { r: 2, c: retArr[2].length - 1 };
       }
       return [retArr, retInv];
     }

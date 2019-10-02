@@ -73,8 +73,12 @@ export default class Timer {
    * get the non-paused time since timer was started
    * @return {number} current time.
    */
-  getTimeSec() {
-    return this.getTime() / 1000;
+  getTimeSec(discardDecimal = false) {
+    let s = this.getTime() / 1000;
+    if (discardDecimal) {
+      s = Math.floor(s);
+    }
+    return s;
   }
 
   /**

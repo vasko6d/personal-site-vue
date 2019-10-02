@@ -1,13 +1,12 @@
 <template>
   <div id="crossword">
     <div class="blk-container">
-      <div class="x-head">
-        <h2>{{ xword.title }}</h2>
-        by {{ xword.author }}, {{ xword.publishDate.toDateString() }}
-        &nbsp;
-        <i class="fas fa-question-circle" @click="showHelp = true"></i>
-        <i class="fas fa-cog" @click="showOptions = true"></i>
-      </div>
+      <xword-header
+        :title="xword.title"
+        :author="xword.author"
+        :publishDate="xword.publishDate"
+        :timer="xword.timer"
+      />
       <xword-puzzle
         :puzzle="xword.puzzle"
         :r="xword.r"
@@ -39,6 +38,7 @@ import XwordPuzzle from "@/components/crossword/XwordPuzzle.vue";
 import XwordCluePanel from "@/components/crossword/XwordCluePanel.vue";
 import XwordCurrentClue from "@/components/crossword/XwordCurrentClue.vue";
 import XwordKeyboard from "@/components/crossword/XwordKeyboard.vue";
+import XwordHeader from "@/components/crossword/XwordHeader.vue";
 import Xword from "@/components/crossword//Xword.js";
 
 // Xword Data Source Imports
@@ -51,7 +51,8 @@ export default {
     XwordCluePanel,
     XwordPuzzle,
     XwordCurrentClue,
-    XwordKeyboard
+    XwordKeyboard,
+    XwordHeader
   },
   props: {
     xwordId: String
@@ -216,11 +217,6 @@ export default {
   .blk-container {
     max-width: 500px;
     width: 100%;
-    .x-head {
-      i {
-        margin-right: 0.25em;
-      }
-    }
   }
 }
 </style>

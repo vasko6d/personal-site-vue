@@ -117,19 +117,31 @@
       .key-a {
         color: $nav-txt;
         background-color: rgba(lighten($nav-bg, 15%), 0.6);
-        transition-delay: 2s;
       }
     }
   }
 
   #clue-panel {
-    background-color: rgba(lighten($nav-bg, 10%), 0.7);
+    background-color: rgba(lighten($nav-bg, 5%), 0.7);
     #clue-head {
       i {
         color: darken($nav-txt, 10%);
         &:hover {
           color: $nav-txt;
         }
+      }
+    }
+  }
+
+  #x-head {
+    background-color: rgba(lighten($nav-bg, 5%), 0.6);
+    border-radius: 0.35em;
+    margin-bottom: 0.5em;
+    i {
+      cursor: pointer;
+      color: darken($nav-txt, 10%);
+      &:hover {
+        color: $nav-txt;
       }
     }
   }

@@ -5,7 +5,7 @@ export default {
     return {
       xword: {
         id: 2,
-        title: "BWST: Untitled",
+        title: "B.W.S.T - 12",
         author: "Dustin Goldbarg",
         editor: "Dustin Goldbarg",
         createDate: "20180429",
