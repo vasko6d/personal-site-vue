@@ -1,7 +1,6 @@
 <template>
   <div class="xword-search">
     <div class="blk-container">
-      <h2>Select a Crossword</h2>
       <v-client-table
         :columns="columns"
         :data="data"
@@ -44,7 +43,7 @@ export default {
           code: "Author",
           difficulty: "Difficulty",
           dimension: "Size",
-          createDate: "Create Date",
+          createDate: "Date",
           status: "Status"
         },
         sortable: [
@@ -138,8 +137,11 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 .xword-search {
-  @media only screen and (max-width: 600px) {
-    font-size: 8px;
+  @media only screen and (max-width: 850px) {
+    font-size: 10px;
+  }
+  @media only screen and (max-width: 700px) {
+    font-size: 7px;
   }
   table {
     border-collapse: collapse;

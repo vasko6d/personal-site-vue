@@ -130,6 +130,18 @@ export default {
 #app {
   .wrapper {
     width: 100%;
+    input[type="text"],
+    select {
+      padding: 5px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    label {
+      font-weight: bold;
+    }
     .navigation {
       user-select: none;
       ul {
