@@ -14,19 +14,19 @@
 			</i>
     </a-->
     <a href="https://www.hackerrank.com/vasko6d" target="_blank">
-      <i class="fab fa-hackerrank fa-2x"></i>
+      <i class="fab fa-hackerrank"></i>
     </a>
     <a href="https://www.instagram.com/vasko6d/" target="_blank">
-      <i class="fab fa-instagram fa-2x"></i>
+      <i class="fab fa-instagram"></i>
     </a>
     <a href="https://www.facebook.com/david.vasko.77" target="_blank">
-      <i class="fab fa-facebook-square fa-2x"></i>
+      <i class="fab fa-facebook-square"></i>
     </a>
     <a href="mailto:vasko6d@gmail.com">
-      <i class="fas fa-envelope fa-2x"></i>
+      <i class="fas fa-envelope"></i>
     </a>
     <a href="/pdf/20190928-resume.pdf" target="_blank">
-      <i class="fas fa-file fa-2x"></i>
+      <i class="fas fa-file"></i>
     </a>
   </div>
 </template>
@@ -54,6 +54,16 @@ export default {
     text-decoration: none;
     text-align: center;
     padding: 0px 10px;
+  }
+  .fas,
+  .fab {
+    font-size: 32px;
+    @media only screen and (max-width: 850px) {
+      font-size: 30px;
+    }
+    @media only screen and (max-width: 700px) {
+      font-size: 28px;
+    }
   }
 }
 </style>
