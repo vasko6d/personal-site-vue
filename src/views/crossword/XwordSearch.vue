@@ -8,6 +8,7 @@
           <th>Author</th>
           <th>Difficulty (1-10)</th>
           <th>Create Date</th>
+          <th>Dimension</th>
           <th>Status</th>
         </thead>
         <tbody slot="body" slot-scope="{ displayData }">
@@ -20,6 +21,7 @@
             <td>{{ row.author }}</td>
             <td>{{ row.difficulty }}</td>
             <td>{{ toDateString(row.createDate) }}</td>
+            <td>{{ row.dimension }}</td>
             <td>{{ getStatus(row.id) }}</td>
           </tr>
         </tbody>
@@ -32,12 +34,13 @@
 // Xword Data Source Imports
 import Xword1 from "@/assets/xword/Xword1.vue";
 import Xword2 from "@/assets/xword/Xword2.vue";
+import Xword3 from "@/assets/xword/Xword3.vue";
 
 export default {
   name: "XwordSearch",
   data() {
     return {
-      rawXwords: [Xword1.data().xword, Xword2.data().xword]
+      rawXwords: [Xword1.data().xword, Xword2.data().xword, Xword3.data().xword]
     };
   },
   methods: {

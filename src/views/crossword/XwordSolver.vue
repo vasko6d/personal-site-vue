@@ -44,6 +44,7 @@ import Xword from "@/components/crossword//Xword.js";
 // Xword Data Source Imports
 import Xword1 from "@/assets/xword/Xword1.vue";
 import Xword2 from "@/assets/xword/Xword2.vue";
+import Xword3 from "@/assets/xword/Xword3.vue";
 
 export default {
   name: "crossword",
@@ -65,7 +66,8 @@ export default {
       showHelp: false,
       rawXwords: {
         1: Xword1.data().xword,
-        2: Xword2.data().xword
+        2: Xword2.data().xword,
+        3: Xword3.data().xword
       },
       xword: new Xword("", "", "", "", [], {}, {})
     };

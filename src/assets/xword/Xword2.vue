@@ -10,6 +10,7 @@ export default {
         editor: "Dustin Goldbarg",
         createDate: "20180429",
         difficulty: 7,
+        dimension: "21x21",
         theme:
           "Each asterisked clue is two famous band names next to eachother",
         colorCells: [],
