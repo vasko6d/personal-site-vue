@@ -2,7 +2,7 @@
   <div id="webgl-camera-ctrls">
     <control-help-modal
       v-if="showModal"
-      @close="showModal = false"
+      @close="modalToggle(false)"
       title="Camera Control Help"
       :ctrls="ctrls"
       :depth="2"
@@ -11,7 +11,7 @@
       <div class="h-item">
         <div>
           Camera Controls&nbsp;
-          <i class="fas fa-question-circle" @click="showModal = true"></i>
+          <i class="fas fa-question-circle" @click="modalToggle(true)"></i>
         </div>
       </div>
       <switch-button v-model="kbToggle" class="main-tr"
@@ -61,6 +61,7 @@ export default {
     SwitchButton,
     ControlHelpModal
   },
+  watch: {},
   data() {
     return {
       kbToggle: false,
@@ -94,6 +95,14 @@ export default {
     };
   },
   methods: {
+    modalToggle(b) {
+      this.showModal = b;
+      if (b) {
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        document.documentElement.style.overflow = "auto";
+      }
+    },
     initCamera(cameraProps) {
       var camera = {
         theta: 0.0, // up down angle

@@ -2,7 +2,7 @@
   <div id="action-ctrls">
     <control-help-modal
       v-if="showModal"
-      @close="showModal = false"
+      @close="modalToggle(false)"
       title="Action Control Help"
       :ctrls="actionCtrls"
       :depth="1"
@@ -11,7 +11,7 @@
       <div class="head-container">
         <div class="h-item">
           Action Controls&nbsp;
-          <i class="fas fa-question-circle" @click="showModal = true"></i>
+          <i class="fas fa-question-circle" @click="modalToggle(true)"></i>
         </div>
         <switch-button v-model="kbToggle" class="main-tr"
           >Show Keyboard Binds</switch-button
@@ -60,7 +60,14 @@ export default {
     };
   },
   methods: {
-    activateButton() {}
+    modalToggle(b) {
+      this.showModal = b;
+      if (b) {
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        document.documentElement.style.overflow = "auto";
+      }
+    }
   }
 };
 </script>
