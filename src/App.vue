@@ -8,44 +8,46 @@
     }"
   >
     <div class="wrapper">
-      <div class="navigation">
-        <ul>
-          <li v-for="item in navList" :key="item.id">
-            <template v-if="item.nestedLinks">
-              <a
-                :ref="item.name"
-                :href="item.path"
-                :title="item.name"
-                @click="isOpen = !isOpen"
-              >
-                {{ item.name }}
-                <i ref="drop-i" class="fa fa-angle-down"></i>
-              </a>
-              <div
-                :class="{ isOpen }"
-                class="dropdown"
-                v-closable="{
-                  excludeList: [item.name, 'drop-i'],
-                  handler: 'onClose',
-                  uniqueFxnId: 'drop1'
-                }"
-              >
-                <ul>
-                  <li
-                    v-for="{ path, name, index } in item.nestedLinks"
-                    :key="index"
-                    @click="onClose()"
-                  >
-                    <router-link :to="path">{{ name }}</router-link>
-                  </li>
-                </ul>
-              </div>
-            </template>
-            <template v-else>
-              <router-link :to="item.path">{{ item.name }}</router-link>
-            </template>
-          </li>
-        </ul>
+      <div class="main-nav-wrapper">
+        <div class="navigation">
+          <ul>
+            <li v-for="item in navList" :key="item.id">
+              <template v-if="item.nestedLinks">
+                <a
+                  :ref="item.name"
+                  :href="item.path"
+                  :title="item.name"
+                  @click="isOpen = !isOpen"
+                >
+                  {{ item.name }}
+                  <i ref="drop-i" class="fa fa-angle-down"></i>
+                </a>
+                <div
+                  :class="{ isOpen }"
+                  class="dropdown"
+                  v-closable="{
+                    excludeList: [item.name, 'drop-i'],
+                    handler: 'onClose',
+                    uniqueFxnId: 'drop1'
+                  }"
+                >
+                  <ul>
+                    <li
+                      v-for="{ path, name, index } in item.nestedLinks"
+                      :key="index"
+                      @click="onClose()"
+                    >
+                      <router-link :to="path">{{ name }}</router-link>
+                    </li>
+                  </ul>
+                </div>
+              </template>
+              <template v-else>
+                <router-link :to="item.path">{{ item.name }}</router-link>
+              </template>
+            </li>
+          </ul>
+        </div>
       </div>
       <div>
         <span class="set-theme" @click="setTheme('light')">light</span>&nbsp;|
@@ -130,6 +132,16 @@ export default {
 #app {
   .wrapper {
     width: 100%;
+    .main-nav-wrapper {
+      display: inline-block;
+      max-width: 750px;
+      @media only screen and (max-width: 850px) {
+        font-size: 15.5px;
+      }
+      @media only screen and (max-width: 700px) {
+        font-size: 15px;
+      }
+    }
     input[type="text"],
     select {
       padding: 5px;
@@ -142,15 +154,20 @@ export default {
     label {
       font-weight: bold;
     }
+
     .navigation {
-      user-select: none;
+      width: 100%;
       ul {
+        display: flex;
+        justify-content: space-between;
+        user-select: none;
         list-style-type: none;
         li {
           position: relative;
           margin: 0.25em;
           text-align: center;
-          display: inline-block;
+          flex-grow: 1;
+          flex-shrink: 1;
         }
       }
       a {
@@ -174,9 +191,13 @@ export default {
         background-color: rgba($nav-bg, 0.5);
         transition: all 200ms linear;
 
-        li {
-          width: 100%;
-          padding-right: 9px;
+        ul {
+          display: inline;
+          li {
+            display: inline-block;
+            width: 100%;
+            padding-right: 9px;
+          }
         }
         &.isOpen {
           transform: translatex(-50%);
@@ -184,6 +205,7 @@ export default {
         }
       }
     }
+
     padding-left: calc(100vw - 100%); /* fixes jumping scrollbar issue */
     position: relative;
     padding-top: 2em;
