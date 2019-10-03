@@ -426,6 +426,14 @@ export default {
         border-radius: 0.35em;
         height: 30px;
         width: 50px;
+        @media only screen and (max-width: 850px) {
+          height: 28.5px;
+          width: 47.5px;
+        }
+        @media only screen and (max-width: 700px) {
+          height: 27px;
+          width: 45px;
+        }
         cursor: pointer;
       }
     }
