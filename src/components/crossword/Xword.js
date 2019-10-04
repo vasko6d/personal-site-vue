@@ -268,6 +268,7 @@ export default class Xword {
         acrossNum: cell.acrossNum,
         num: cell.cellNum,
         entry: cell.entry,
+        flag: cell.flag,
         r: ctx[0],
         c: ctx[1]
       };

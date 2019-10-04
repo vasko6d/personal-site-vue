@@ -28,6 +28,7 @@
             :xDownNum="downNum"
             :xIsHoriz="puzzleIsHoriz"
             :curCellValue="curCellValue"
+            :curCellFlag="curCellFlag"
             @contextClick="contextClick"
           />
         </li>
@@ -52,6 +53,7 @@ export default {
     downNum: Number,
     direction: String,
     curCellValue: String,
+    curCellFlag: Boolean,
     puzzleIsHoriz: Boolean,
     showClueContext: Boolean,
     showFilled: Boolean

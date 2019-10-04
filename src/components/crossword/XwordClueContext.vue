@@ -14,7 +14,8 @@
               {
                 input: ctx.isInput,
                 active: isActive(ctx.acrossNum, ctx.downNum),
-                exact: isExact(ctx.r, ctx.c)
+                exact: isExact(ctx.r, ctx.c),
+                flagged: ctx.flag
               }
             ]"
           >
@@ -37,6 +38,7 @@ export default {
     xAcrossNum: Number,
     xDownNum: Number,
     xIsHoriz: Boolean,
+    curCellFlag: Boolean,
     curCellValue: String
   },
   methods: {

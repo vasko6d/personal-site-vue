@@ -27,6 +27,7 @@
         :r="xword.r"
         :c="xword.c"
         :curCellValue="xword.getCell().entry"
+        :curCellFlag="xword.getCell().flag"
         :acrossNum="acrossNum"
         :downNum="downNum"
         :puzzleIsHoriz="xword.isHoriz"
