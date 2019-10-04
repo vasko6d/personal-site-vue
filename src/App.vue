@@ -256,6 +256,7 @@ export default {
 .tooltip {
   display: block !important;
   z-index: 9000;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 .tooltip .tooltip-inner {

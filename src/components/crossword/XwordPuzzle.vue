@@ -21,7 +21,7 @@
           <div
             class="cell-wrapper"
             v-tooltip="{
-              content: cell.entry ? cell.entry : '_',
+              content: cell.entry + flashDash,
               show: isExact(r, c) && cell.isSpecialInput,
               trigger: 'manual'
             }"
@@ -47,6 +47,21 @@ export default {
     isHoriz: Boolean,
     acrossNum: Number,
     downNum: Number
+  },
+  data() {
+    return {
+      halfSecs: 0
+    };
+  },
+  computed: {
+    flashDash() {
+      return this.halfSecs % 2 === 0 ? "_" : "&nbsp";
+    }
+  },
+  mounted() {
+    this.interval = setInterval(() => {
+      this.halfSecs = (this.halfSecs + 1) % 100;
+    }, 500);
   },
   methods: {
     isInput(color) {
