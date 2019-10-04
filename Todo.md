@@ -65,6 +65,10 @@ Crossword
 - [x] need to shrink text on smaller boxes?
 - [x] performance issue on large puzzle
 - [ ] when more than 1 character enterd create a specail fa icon that opens up to show/edit
+- [ ] maybe no direct flag icon but clicking brings it up?
+- [ ] close elsewhere div
+- [ ] clipboard-check good for grading?
+- [ ] clue context not updating on 1-flag, 2-isSpecialInput adn addinc ch to specila input.. moving does somethign to trigger
 
 Climbing
 

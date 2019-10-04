@@ -13,13 +13,24 @@
             {
               input: isInput(cell.color),
               active: isActive(cell),
-              exact: isExact(r, c)
+              exact: isExact(r, c),
+              flagged: cell.flag
             }
           ]"
         >
-          <div class="cell-wrapper">
+          <div
+            class="cell-wrapper"
+            v-tooltip="{
+              content: cell.entry ? cell.entry : '_',
+              show: isExact(r, c) && cell.isSpecialInput,
+              trigger: 'manual'
+            }"
+          >
             <span class="numbering">{{ cell.cellNum }}</span>
-            <span class="entry">{{ cell.entry }}</span>
+            <div class="entry">
+              <span v-if="!cell.isSpecialInput">{{ cell.entry }}</span>
+              <i v-else class="fas fa-comment-dots"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -40,6 +51,9 @@ export default {
   methods: {
     isInput(color) {
       return color != "black";
+    },
+    isSpecialInput(entry) {
+      return entry && !entry.match(/^[A-Z]$/);
     },
     isActive(cell) {
       return this.isHoriz

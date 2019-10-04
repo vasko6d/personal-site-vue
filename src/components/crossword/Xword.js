@@ -14,7 +14,8 @@ var shapes = {};
 var sChars = {
   black: "#",
   null: "_",
-  seq: "|"
+  seq: "|",
+  eq: "="
 };
 
 export default class Xword {
@@ -178,11 +179,41 @@ export default class Xword {
     }
     return ret;
   }
+  specialInputIntegrity() {
+    // Remove speical input if not special
+    if (this.getCell().entry.match(/^[A-Z]$/) || !this.getCell().entry) {
+      this.getCell().isSpecialInput = false;
+    }
+  }
+  enableSpecialEdit() {
+    this.getCell().isSpecialInput = true;
+  }
+  enterChar(ch) {
+    let cell = this.getCell();
+    if (cell.isSpecialInput) {
+      // If we are in a sepcial input cell all characters are valid
+      cell.entry += ch;
+    } else if (ch.match(/^[A-Z]$/)) {
+      // Normally only A-Z are allowed
+      cell.entry = ch;
+      this.incrementPosition();
+    }
+  }
+  toggleCellFlag() {
+    this.getCell().flag = !this.getCell().flag;
+  }
+  setPosition(r, c) {
+    this.specialInputIntegrity();
+    this.r = r;
+    this.c = c;
+  }
   move(d) {
     // early return incase empty puzzle
     if (!this.puzzle) {
       return;
     }
+
+    this.specialInputIntegrity();
 
     this.r += d.r;
     this.c += d.c;
@@ -208,6 +239,7 @@ export default class Xword {
     }
   }
   moveClue(forward = true) {
+    this.specialInputIntegrity();
     const cell = this.getCell();
     const curClue = this.isHoriz
       ? this.across[cell.acrossNum]
@@ -353,7 +385,9 @@ export default class Xword {
       shape: shape, // If a shape is used in rendering
       acrossNum: acrossNum, // the number of the across clue
       downNum: downNum, // the number of the down clue
-      cellNum: cellNum // If this cell will have a clue number in it
+      cellNum: cellNum, // If this cell will have a clue number in it
+      flag: false, // Has this cell been manually flagged?
+      isSpecialInput: false // Does this cell have special input?
     };
     return puzzleElement;
   }

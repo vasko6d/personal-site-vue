@@ -17,7 +17,12 @@
       </div>
       <div class="middle"></div>
       <div class="right">
-        <i class="fas fa-pen-square"></i>| <i class="fas fa-flag"></i>|
+        <i class="fas fa-pen-square" @click="$emit('specialEdit')"></i>|
+        <i
+          class="fas fa-flag"
+          @click="$emit('flagCell', { flag: 'orange' })"
+        ></i
+        >|
         <i class="fas fa-cog" @click="modalToggle(true, 'showSettings')"></i>
         |
         <i

@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import { ClientTable } from "vue-tables-2";
 Vue.use(ClientTable);
+import VTooltip from "v-tooltip";
+Vue.use(VTooltip);
 
 Vue.config.productionTip = false;
 

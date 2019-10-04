@@ -24,6 +24,9 @@
       color: black;
       border: 2px solid rgb(18, 219, 255);
     }
+    .flagged {
+      border: 2px solid rgb(255, 166, 2);
+    }
     .black,
     .white {
       text-align: center;
@@ -46,7 +49,7 @@
           position: absolute; // need better zindex and centering
           bottom: 0;
           font-size: calc(35% + 0.15vw + 3px);
-          transform: translatex(-50%) translatey(8%);
+          width: 100%;
         }
       }
     }

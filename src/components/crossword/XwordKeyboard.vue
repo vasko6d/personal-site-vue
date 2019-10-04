@@ -11,9 +11,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>
@@ -39,11 +39,13 @@ export default {
     window.addEventListener("keydown", e => {
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
-      if (ch.match(/^[A-Z]$/)) {
+      if (ch.match(/^[^\s]$/)) {
         this.executePress(ch);
-        this.flashBtn(
-          this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c]
-        );
+        if (ch.match(/^[A-Z]$/)) {
+          this.flashBtn(
+            this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c]
+          );
+        }
       } else {
         switch (ch) {
           case "SHIFT":
@@ -68,7 +70,9 @@ export default {
             }
             break;
           case "ENTER":
-          // Falls through
+            e.preventDefault();
+            this.executePress("$LEAVESPECIALINPUT");
+            break;
           case " ":
             e.preventDefault();
             this.executePress("$SWITCHDIRECTION");

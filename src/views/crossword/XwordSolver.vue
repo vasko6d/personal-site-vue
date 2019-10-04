@@ -6,6 +6,8 @@
         :author="xword.author"
         :publishDate="xword.publishDate"
         :timer="xword.timer"
+        @flagCell="flagCell"
+        @specialEdit="executePress('$SPECIALEDIT')"
       />
       <xword-puzzle
         :puzzle="xword.puzzle"
@@ -115,6 +117,13 @@ export default {
     console.log(this.xword);
   },
   methods: {
+    specialEdit() {
+      console.log(`specialEdit: (${this.xword.r}, ${this.xword.c})`);
+      let cell = (cell.isSpecialInput = true);
+    },
+    flagCell() {
+      this.executePress("$FLAGCELL");
+    },
     executePress(ch, opts) {
       console.log("executePress: ", ch, ", Options: ", opts);
 
@@ -125,8 +134,7 @@ export default {
       if (ch.startsWith("$")) {
         this.executeAction(ch, opts);
       } else {
-        this.$set(beforeImage, "entry", ch);
-        this.xword.incrementPosition();
+        this.xword.enterChar(ch);
       }
 
       // The cell after moving occurs
@@ -167,21 +175,46 @@ export default {
           this.xword.moveClue(false);
           break;
         case "$SETPOSITION":
-          this.xword.r = opts.r;
-          this.xword.c = opts.c;
+          this.xword.setPosition(opts.r, opts.c);
+          break;
+        case "$FLAGCELL":
+          this.xword.toggleCellFlag();
+          break;
+        case "$LEAVESPECIALINPUT":
+          if (this.xword.getCell().isSpecialInput) {
+            this.xword.incrementPosition();
+          } else {
+            this.executePress("$TAB");
+          }
+          break;
+        case "$SPECIALEDIT":
+          this.xword.enableSpecialEdit();
           break;
         case "$BACKSPACE":
-          if (!this.xword.getCell().entry) {
-            if (this.xword.isHoriz) {
-              this.xword.move({ r: 0, c: -1 });
-            } else {
-              this.xword.move({ r: -1, c: 0 });
-            }
-          }
-          this.xword.getCell().entry = "";
-          this.xword.updateFilled();
+          this.backSpaceLogic();
           break;
       }
+    },
+    backSpaceLogic() {
+      // if the original cell was empty move then do it again
+      const moved = !this.xword.getCell().entry;
+      if (moved) {
+        if (this.xword.isHoriz) {
+          this.xword.move({ r: 0, c: -1 });
+        } else {
+          this.xword.move({ r: -1, c: 0 });
+        }
+      }
+      let cell = this.xword.getCell();
+      if (cell.isSpecialInput) {
+        // If its special input simply elete end character
+        if (cell.entry && !moved) {
+          cell.entry = cell.entry.slice(0, -1);
+        }
+      } else {
+        this.xword.getCell().entry = "";
+      }
+      this.xword.updateFilled();
     },
     updateContexts(xCells) {
       // figure out how many clues need updated contexts
