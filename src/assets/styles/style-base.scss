@@ -70,15 +70,15 @@
   .modal-mask {
     background-color: rgba(0, 0, 0, 0.5);
     .modal-wrapper {
-      color: darken($nav-bg, 20%);
+      color: darken($nav-txt, 10%);
       .modal-container {
-        background-color: lighten($nav-txt, 5%);
+        background-color: darken($nav-bg, 20%);
         .modal-header,
         .modal-footer {
           h2 {
             i {
               &:hover {
-                color: $nav-bg;
+                color: lighten($nav-txt, 10%);
               }
             }
           }
