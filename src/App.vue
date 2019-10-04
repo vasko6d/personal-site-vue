@@ -180,7 +180,7 @@ export default {
         transition: all 200ms ease;
       }
       .dropdown {
-        z-index: 3;
+        z-index: 5000;
         position: absolute;
         left: 50%;
         width: 100%;
@@ -255,7 +255,7 @@ export default {
 
 .tooltip {
   display: block !important;
-  z-index: 9000;
+  z-index: 4000;
   font-family: "Lucida Console", Monaco, monospace;
 }
 
