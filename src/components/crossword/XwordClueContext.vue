@@ -36,7 +36,8 @@ export default {
     xc: Number,
     xAcrossNum: Number,
     xDownNum: Number,
-    xIsHoriz: Boolean
+    xIsHoriz: Boolean,
+    curCellValue: String
   },
   methods: {
     clickFxn(r, c) {

@@ -26,6 +26,7 @@
         :filledObj="xword.filled"
         :r="xword.r"
         :c="xword.c"
+        :curCellValue="xword.getCell().entry"
         :acrossNum="acrossNum"
         :downNum="downNum"
         :puzzleIsHoriz="xword.isHoriz"

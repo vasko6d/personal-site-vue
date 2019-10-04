@@ -11,6 +11,7 @@
       :c="c"
       :acrossNum="acrossNum"
       :downNum="downNum"
+      :curCellValue="curCellValue"
       direction="across"
       :puzzleIsHoriz="puzzleIsHoriz"
       :showClueContext="showClueContext"
@@ -24,6 +25,7 @@
       :c="c"
       :acrossNum="acrossNum"
       :downNum="downNum"
+      :curCellValue="curCellValue"
       direction="down"
       :puzzleIsHoriz="puzzleIsHoriz"
       :showClueContext="showClueContext"
@@ -45,6 +47,7 @@ export default {
     filledObj: Object,
     r: Number,
     c: Number,
+    curCellValue: String,
     acrossNum: Number,
     downNum: Number,
     puzzleIsHoriz: Boolean

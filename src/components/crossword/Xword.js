@@ -87,6 +87,7 @@ export default class Xword {
 
     // Since we have successfully proccessed flag it as such
     this.initialized = true;
+    this.updateHack = 1;
   }
 
   //
