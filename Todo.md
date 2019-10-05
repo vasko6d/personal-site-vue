@@ -35,7 +35,8 @@ Crossword
 - [ ] Support for types of cells: ~~white~~, ~~black~~, grey input, circle input
 - [ ] verify integrity of clues to puzzle?
 - [ ] clipboard-check good for grading?
-- [ ] make sure special input dynamic in clue context
+- [ ] moveClue repositions pointer at start
+- [x] make sure special input dynamic in clue context
 - [x] show only uncompleted clues, or highligh them?
 - [x] show context for clue underneath
 - [x] class for cell

@@ -1,9 +1,6 @@
 <template>
   <div id="clue-panel">
-    <div id="clue-head">
-      Clue Panel&nbsp;
-      <i class="fas fa-cog"></i>
-    </div>
+    <div id="clue-head">Clue Panel</div>
     <xword-clues
       :clueObj="acrossClueObj"
       :filledCount="filledObj.across"
@@ -85,9 +82,6 @@ export default {
   #clue-head {
     font-weight: bold;
     font-size: 17px;
-    i {
-      cursor: pointer;
-    }
   }
 }
 </style>

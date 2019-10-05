@@ -73,10 +73,21 @@ export default {
   },
   data() {
     return {
-      showAcross: false,
-      showDown: false,
+      opts: {
+        clues: {
+          showContext: "always", // Valid Types: "always", "toggle", "never"
+          showWhich: "filled" // Valid Types: "unfilled", "incomplete", "all"
+        },
+        keyboard: {
+          showOnPageKeyboard: true
+        },
+        errors: {
+          showErrors: false
+        }
+      },
       showOptions: false,
       showHelp: false,
+      showTools: false,
       rawXwords: {
         1: Xword1.data().xword,
         2: Xword2.data().xword,

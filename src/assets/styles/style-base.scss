@@ -123,14 +123,6 @@
 
   #clue-panel {
     background-color: rgba(lighten($nav-bg, 5%), 0.7);
-    #clue-head {
-      i {
-        color: darken($nav-txt, 10%);
-        &:hover {
-          color: $nav-txt;
-        }
-      }
-    }
   }
 
   #x-head {

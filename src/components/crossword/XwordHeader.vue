@@ -5,6 +5,7 @@
       v-if="showSettings"
       @close="modalToggle(false, 'showSettings')"
     />
+    <xword-tools v-if="showTools" @close="modalToggle(false, 'showTools')" />
     <div class="info-nav">
       <div class="info">
         <h2>{{ title }}</h2>
@@ -23,6 +24,8 @@
           @click="$emit('flagCell', { flag: 'orange' })"
         ></i
         >|
+        <i class="fas fa-tools" @click="modalToggle(true, 'showTools')"></i>
+        |
         <i class="fas fa-cog" @click="modalToggle(true, 'showSettings')"></i>
         |
         <i
@@ -38,6 +41,7 @@
 import Timer from "@/mixins/webgl/Timer.js";
 import XwordHelp from "@/components/crossword/XwordHelp.vue";
 import XwordSettings from "@/components/crossword/XwordSettings.vue";
+import XwordTools from "@/components/crossword/XwordTools.vue";
 export default {
   props: {
     title: String,
@@ -47,7 +51,8 @@ export default {
   },
   components: {
     XwordHelp,
-    XwordSettings
+    XwordSettings,
+    XwordTools
   },
   data() {
     return {
