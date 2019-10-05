@@ -73,6 +73,10 @@ export default {
             e.preventDefault();
             this.executePress("$LEAVESPECIALINPUT");
             break;
+          case "ESCAPE":
+            e.preventDefault();
+            this.executePress("$REMOVESPECIALINPUT");
+            break;
           case " ":
             e.preventDefault();
             this.executePress("$SWITCHDIRECTION");
@@ -88,8 +92,8 @@ export default {
     });
   },
   methods: {
-    executePress(ch) {
-      this.$emit("executePress", ch);
+    executePress(ch, opts) {
+      this.$emit("executePress", ch, opts);
     },
     flashBtn(btn) {
       btn.isActive = true;

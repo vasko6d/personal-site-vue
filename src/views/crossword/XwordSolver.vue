@@ -1,6 +1,14 @@
 <template>
   <div id="crossword">
     <div class="blk-container">
+      <div style="height: 0; overflow: hidden;">
+        <input
+          type="text"
+          ref="psuedo-input"
+          style="opacity: 0;"
+          purpose="To trick the phone into bringing up its keyboard"
+        />
+      </div>
       <xword-header
         :title="xword.title"
         :author="xword.author"
@@ -17,6 +25,7 @@
         :acrossNum="acrossNum"
         :downNum="downNum"
         @executePress="executePress"
+        @specialKeyboard="specialKeyboard"
       />
       <xword-current-clue :clue="currentClue" @executePress="executePress" />
       <xword-keyboard @executePress="executePress" />
@@ -119,9 +128,14 @@ export default {
     console.log(this.xword);
   },
   methods: {
-    specialEdit() {
-      console.log(`specialEdit: (${this.xword.r}, ${this.xword.c})`);
-      let cell = (cell.isSpecialInput = true);
+    specialKeyboard() {
+      if (this.xword.getCell().isSpecialInput) {
+        //console.log("...bringing up special edit keyboard");
+        this.$refs["psuedo-input"].focus();
+      } else {
+        //console.log("...hiding up special edit keyboard");
+        this.$refs["psuedo-input"].blur();
+      }
     },
     flagCell() {
       this.executePress("$FLAGCELL");
@@ -144,6 +158,9 @@ export default {
 
       // Update relevant contexts
       this.updateContexts([beforeImage, afterImage]);
+
+      // Bring Up keyboard if afterImage is soecial
+      this.specialKeyboard();
 
       // Save Progress
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
@@ -181,6 +198,12 @@ export default {
           break;
         case "$FLAGCELL":
           this.xword.toggleCellFlag();
+          break;
+        case "$REMOVESPECIALINPUT":
+          // Only removes it if just created
+          if (this.xword.getCell().isSpecialInput) {
+            this.xword.specialInputIntegrity();
+          }
           break;
         case "$LEAVESPECIALINPUT":
           if (this.xword.getCell().isSpecialInput) {
