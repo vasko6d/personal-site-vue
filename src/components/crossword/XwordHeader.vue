@@ -18,18 +18,21 @@
       </div>
       <div class="middle"></div>
       <div class="right">
-        <i class="fas fa-pen-square" @click="$emit('specialEdit')"></i>|
+        <i class="icn fas fa-pen-square" @click="$emit('specialEdit')"></i>|
         <i
-          class="fas fa-flag"
+          class="icn fas fa-flag"
           @click="$emit('flagCell', { flag: 'orange' })"
         ></i
         >|
-        <i class="fas fa-tools" @click="modalToggle(true, 'showTools')"></i>
-        |
-        <i class="fas fa-cog" @click="modalToggle(true, 'showSettings')"></i>
+        <i class="icn fas fa-tools" @click="modalToggle(true, 'showTools')"></i>
         |
         <i
-          class="fas fa-question-circle"
+          class="icn fas fa-cog"
+          @click="modalToggle(true, 'showSettings')"
+        ></i>
+        |
+        <i
+          class="icn fas fa-question-circle"
           @click="modalToggle(true, 'showHelp')"
         ></i>
       </div>
@@ -62,7 +65,8 @@ export default {
       interval: "",
       // Help Modals
       showHelp: false,
-      showSettings: false
+      showSettings: false,
+      showTools: false
     };
   },
   computed: {
@@ -115,7 +119,7 @@ export default {
     .middle {
       flex-grow: 1;
     }
-    i {
+    .icn {
       margin-left: 4px;
       margin-right: 4px;
     }

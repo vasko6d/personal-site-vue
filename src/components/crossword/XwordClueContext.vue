@@ -72,6 +72,7 @@ export default {
             color: black;
             font-size: 75%;
             transform: translatex(-50%) translatey(20%);
+            overflow: hidden;
           }
         }
       }

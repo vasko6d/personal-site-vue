@@ -6,6 +6,7 @@ General
 
 - [ ] v-lazy? v-tooltip? v-scroll-lock? v-input-mask?
 - [ ] flex-grow = 1 for navigation main header
+- [ ] Fix the conflict of splitting css between Vue component and "style-base.css"...
 - [x] 404 not found
 - [x] netlify not working when going directly to children urls
 - [x] Move finite Volume and element to "Computational catagory"

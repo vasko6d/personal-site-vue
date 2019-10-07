@@ -129,7 +129,7 @@
     background-color: rgba(lighten($nav-bg, 5%), 0.6);
     border-radius: 0.35em;
     margin-bottom: 0.5em;
-    i {
+    .icn {
       cursor: pointer;
       color: darken($nav-txt, 10%);
       &:hover {
