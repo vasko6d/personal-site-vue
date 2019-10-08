@@ -19,7 +19,12 @@
               }
             ]"
           >
-            <div class="cell-wrapper">
+            <div
+              :class="[
+                'cell-wrapper',
+                { wrong: showErrors && ctx.entry && ctx.entry != ctx.ans }
+              ]"
+            >
               <span class="entry">{{ ctx.entry }}</span>
             </div>
           </div>
@@ -39,7 +44,8 @@ export default {
     xDownNum: Number,
     xIsHoriz: Boolean,
     curCellFlag: Boolean,
-    curCellValue: String
+    curCellValue: String,
+    showErrors: Boolean
   },
   methods: {
     clickFxn(r, c) {
@@ -69,7 +75,6 @@ export default {
       .white {
         .cell-wrapper {
           .entry {
-            color: black;
             font-size: 75%;
             transform: translatex(-50%) translatey(20%);
             overflow: hidden;

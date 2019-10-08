@@ -14,6 +14,7 @@
       :puzzleIsHoriz="puzzleIsHoriz"
       :showClueContext="showClueContext"
       :showFilled="showFilled"
+      :showErrors="opts.errors.showErrors"
       @executePress="executePress"
     />
     <xword-clues
@@ -29,6 +30,7 @@
       :puzzleIsHoriz="puzzleIsHoriz"
       :showClueContext="showClueContext"
       :showFilled="showFilled"
+      :showErrors="opts.errors.showErrors"
       @executePress="executePress"
     />
   </div>
@@ -44,6 +46,7 @@ export default {
     acrossClueObj: Object,
     downClueObj: Object,
     filledObj: Object,
+    opts: Object,
     r: Number,
     c: Number,
     acrossNum: Number,

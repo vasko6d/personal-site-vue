@@ -29,6 +29,7 @@
             :xIsHoriz="puzzleIsHoriz"
             :curCellValue="curCellValue"
             :curCellFlag="curCellFlag"
+            :showErrors="showErrors"
             @contextClick="contextClick"
           />
         </li>
@@ -56,7 +57,8 @@ export default {
     curCellFlag: Boolean,
     puzzleIsHoriz: Boolean,
     showClueContext: Boolean,
-    showFilled: Boolean
+    showFilled: Boolean,
+    showErrors: Boolean
   },
   data() {
     return {

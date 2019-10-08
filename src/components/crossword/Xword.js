@@ -266,6 +266,7 @@ export default class Xword {
         isInput: cell.color !== "black",
         downNum: cell.downNum,
         acrossNum: cell.acrossNum,
+        ans: cell.ans,
         num: cell.cellNum,
         entry: cell.entry,
         flag: cell.flag,

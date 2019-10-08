@@ -26,12 +26,13 @@
         :isHoriz="xword.isHoriz"
         :acrossNum="acrossNum"
         :downNum="downNum"
+        :showErrors="opts.errors.showErrors"
         @executePress="executePress"
         @specialKeyboard="specialKeyboard"
       />
       <xword-current-clue :clue="currentClue" @executePress="executePress" />
       <xword-keyboard
-        v-if="opts.keyboard.showOnPageKeyboard"
+        v-show="opts.keyboard.showOnPageKeyboard"
         @executePress="executePress"
       />
       <xword-clue-panel
@@ -46,6 +47,7 @@
         :acrossNum="acrossNum"
         :downNum="downNum"
         :puzzleIsHoriz="xword.isHoriz"
+        :opts="opts"
         @executePress="executePress"
       />
     </div>

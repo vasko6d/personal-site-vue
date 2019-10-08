@@ -19,7 +19,10 @@
           ]"
         >
           <div
-            class="cell-wrapper"
+            :class="[
+              'cell-wrapper',
+              { wrong: showErrors && cell.entry && cell.entry != cell.ans }
+            ]"
             v-tooltip="{
               content: cell.entry + flashDash,
               show: isExact(r, c) && cell.isSpecialInput,
@@ -46,7 +49,8 @@ export default {
     c: Number,
     isHoriz: Boolean,
     acrossNum: Number,
-    downNum: Number
+    downNum: Number,
+    showErrors: Boolean
   },
   data() {
     return {
