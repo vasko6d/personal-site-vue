@@ -29,6 +29,7 @@ Graphics
 
 Crossword
 
+- [ ] Tool Actions: clear all flags, submit for grading, solve-clue,cell,puzzle, clear all wrong answers.
 - [ ] click on author (to search by author)
 - [ ] make dynamic! Fetch data etc. ratings etc
 - [ ] crossword maker!
@@ -38,9 +39,9 @@ Crossword
 - [ ] clipboard-check good for grading?
 - [ ] moveClue repositions pointer at start
 - [ ] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
-- [ ] write options to localStorage
 - [ ] Add option note from author to Xword?
 - [ ] make the ctx objects full blown cells... i need it all
+- [x] write options to localStorage
 - [x] make sure special input dynamic in clue context
 - [x] show only uncompleted clues, or highligh them?
 - [x] show context for clue underneath

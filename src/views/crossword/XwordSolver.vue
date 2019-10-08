@@ -158,6 +158,9 @@ export default {
       this.xword.processClueList(this.xword.down, false);
       this.xword.bulkUpdateFilled();
     }
+    if (localStorage["xwordOpts"]) {
+      this.opts = JSON.parse(localStorage["xwordOpts"]);
+    }
     console.log(this.xword);
   },
   methods: {
@@ -167,6 +170,7 @@ export default {
         opt = opt[p.optionPath[i]];
       }
       opt[p.optionPath[p.optionPath.length - 1]] = p.value;
+      localStorage["xwordOpts"] = JSON.stringify(this.opts);
     },
     specialKeyboard() {
       if (this.xword.getCell().isSpecialInput) {
