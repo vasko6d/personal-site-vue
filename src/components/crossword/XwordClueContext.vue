@@ -45,6 +45,7 @@ export default {
     xIsHoriz: Boolean,
     curCellFlag: Boolean,
     curCellValue: String,
+    showContextKey: String,
     showErrors: Boolean
   },
   methods: {

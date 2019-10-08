@@ -19,8 +19,21 @@
           :key="clue.id"
           v-show="!clue.filled"
         >
-          <span class="clue-txt">{{ clue.txt }}</span>
+          <span
+            class="clue-txt"
+            @click="
+              $emit('executePress', '$TOGGLESHOWCONTEXT', {
+                direction: direction,
+                number: num
+              })
+            "
+            >{{ clue.txt }}</span
+          >
           <xword-clue-context
+            v-show="
+              contextOpt === 'always' ||
+                (contextOpt === 'toggle' && clue.showContext)
+            "
             :context="clue.ctx"
             :xr="r"
             :xc="c"
@@ -29,6 +42,7 @@
             :xIsHoriz="puzzleIsHoriz"
             :curCellValue="curCellValue"
             :curCellFlag="curCellFlag"
+            :showContextKey="showContextKey"
             :showErrors="showErrors"
             @contextClick="contextClick"
           />
@@ -54,10 +68,11 @@ export default {
     downNum: Number,
     direction: String,
     curCellValue: String,
+    contextOpt: String,
+    hideClueOpt: String,
+    showContextKey: String,
     curCellFlag: Boolean,
     puzzleIsHoriz: Boolean,
-    showClueContext: Boolean,
-    showFilled: Boolean,
     showErrors: Boolean
   },
   data() {

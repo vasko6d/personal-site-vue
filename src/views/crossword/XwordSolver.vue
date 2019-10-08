@@ -44,6 +44,7 @@
         :c="xword.c"
         :curCellValue="xword.getCell().entry"
         :curCellFlag="xword.getCell().flag"
+        :showContextKey="showContextKey"
         :acrossNum="acrossNum"
         :downNum="downNum"
         :puzzleIsHoriz="xword.isHoriz"
@@ -115,7 +116,9 @@ export default {
         2: Xword2.data().xword,
         3: Xword3.data().xword
       },
-      xword: new Xword("", "", "", "", [], {}, {})
+      xword: new Xword("", "", "", "", [], {}, {}),
+      clickedClue: {}, // hacky to make clue context togglable....
+      contextEnabled: false
     };
   },
   computed: {
@@ -130,6 +133,15 @@ export default {
         txt: txt,
         isAcross: isAcross
       };
+    },
+    showContextKey() {
+      return (
+        this.clickedClue.prev +
+        "|" +
+        this.clickedClue.next +
+        "|" +
+        this.contextEnabled
+      );
     },
     acrossNum() {
       return this.xword.getCell().acrossNum;
@@ -258,6 +270,11 @@ export default {
           break;
         case "$SPECIALEDIT":
           this.xword.enableSpecialEdit();
+          break;
+        case "$TOGGLESHOWCONTEXT":
+          this.clickedClue = this.xword[opts.direction][opts.number];
+          this.contextEnabled = !this.clickedClue.showContext;
+          this.clickedClue.showContext = this.contextEnabled;
           break;
         case "$BACKSPACE":
           this.backSpaceLogic();

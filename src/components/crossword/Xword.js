@@ -372,6 +372,7 @@ export default class Xword {
         clueList[k].prev = prev;
         clueList[k].next = next;
         clueList[k].filled = false;
+        clueList[k].showContext = false;
         prev = k;
         i++;
         next = cKeys[i % cKeys.length];

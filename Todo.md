@@ -29,7 +29,8 @@ Graphics
 
 Crossword
 
-- [ ] Tool Actions: clear all flags, submit for grading, solve-clue,cell,puzzle, clear all wrong answers.
+- [ ] Tool Actions: clear all flags, submit for grading, solve-clue,cell,puzzle, clear all wrong answers, toggle all clue contexts
+- [ ] Navigation options: Move through filled cells on typing? move clue moves to next unfilled clue?
 - [ ] click on author (to search by author)
 - [ ] make dynamic! Fetch data etc. ratings etc
 - [ ] crossword maker!
@@ -41,6 +42,7 @@ Crossword
 - [ ] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
 - [ ] Add option note from author to Xword?
 - [ ] make the ctx objects full blown cells... i need it all
+- [ ] fix terrible use of reactivity for toggling individual clue context
 - [x] write options to localStorage
 - [x] make sure special input dynamic in clue context
 - [x] show only uncompleted clues, or highligh them?

@@ -9,11 +9,12 @@
       :acrossNum="acrossNum"
       :downNum="downNum"
       :curCellValue="curCellValue"
+      :showContextKey="showContextKey"
       :curCellFlag="curCellFlag"
       direction="across"
       :puzzleIsHoriz="puzzleIsHoriz"
-      :showClueContext="showClueContext"
-      :showFilled="showFilled"
+      :contextOpt="opts.clues.contextOpt"
+      :hideClueOpt="opts.clues.hideClueOpt"
       :showErrors="opts.errors.showErrors"
       @executePress="executePress"
     />
@@ -25,11 +26,12 @@
       :acrossNum="acrossNum"
       :downNum="downNum"
       :curCellValue="curCellValue"
+      :showContextKey="showContextKey"
       :curCellFlag="curCellFlag"
       direction="down"
       :puzzleIsHoriz="puzzleIsHoriz"
-      :showClueContext="showClueContext"
-      :showFilled="showFilled"
+      :contextOpt="opts.clues.contextOpt"
+      :hideClueOpt="opts.clues.hideClueOpt"
       :showErrors="opts.errors.showErrors"
       @executePress="executePress"
     />
@@ -52,14 +54,9 @@ export default {
     acrossNum: Number,
     downNum: Number,
     curCellValue: String,
+    showContextKey: String,
     curCellFlag: Boolean,
     puzzleIsHoriz: Boolean
-  },
-  data() {
-    return {
-      showClueContext: true,
-      showFilled: false
-    };
   },
   methods: {
     executePress(ch, opts) {
