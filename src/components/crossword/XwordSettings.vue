@@ -19,7 +19,12 @@
                 <font-awesome-check
                   :enabled="showCluePanel"
                   desc="Show Clue Panel"
-                  @toggle="showCluePanel = !showCluePanel"
+                  @toggle="
+                    $emit('setOption', {
+                      optionPath: ['clues', 'showCluePanel'],
+                      value: !showCluePanel
+                    })
+                  "
                 />
                 <transition name="fade">
                   <div class="clue-panel-opts" v-if="showCluePanel">
@@ -29,7 +34,12 @@
                         <font-awesome-check
                           :enabled="opt.val === currentContextOpt"
                           :desc="opt.name"
-                          @toggle="currentContextOpt = opt.val"
+                          @toggle="
+                            $emit('setOption', {
+                              optionPath: ['clues', 'contextOpt'],
+                              value: opt.val
+                            })
+                          "
                         />
                       </div>
                     </div>
@@ -39,7 +49,12 @@
                         <font-awesome-check
                           :enabled="opt.val === currentHideClueOpt"
                           :desc="opt.name"
-                          @toggle="currentHideClueOpt = opt.val"
+                          @toggle="
+                            $emit('setOption', {
+                              optionPath: ['clues', 'hideClueOpt'],
+                              value: opt.val
+                            })
+                          "
                         />
                       </div>
                     </div>
@@ -49,13 +64,23 @@
                 <font-awesome-check
                   :enabled="showOnPageKeyboard"
                   desc="On-page keyboard"
-                  @toggle="showOnPageKeyboard = !showOnPageKeyboard"
+                  @toggle="
+                    $emit('setOption', {
+                      optionPath: ['keyboard', 'showOnPageKeyboard'],
+                      value: !showOnPageKeyboard
+                    })
+                  "
                 />
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Errors</h4>
                 <font-awesome-check
                   :enabled="showErrors"
                   desc="Show errors"
-                  @toggle="showErrors = !showErrors"
+                  @toggle="
+                    $emit('setOption', {
+                      optionPath: ['errors', 'showErrors'],
+                      value: !showErrors
+                    })
+                  "
                 />
               </slot>
             </div>
@@ -80,25 +105,14 @@ export default {
   components: {
     FontAwesomeCheck
   },
-  data() {
-    return {
-      showOnPageKeyboard: true,
-      showErrors: false,
-      showClues: true,
-      showCluePanel: true,
-      contextOpts: [
-        { name: "Always show clue context", val: "always" },
-        { name: "Click clue to toggle context", val: "toggle" },
-        { name: "Never show clue context", val: "never" }
-      ],
-      currentContextOpt: "always",
-      hideClueOpts: [
-        { name: "Hide clues that are CORRECT and filled", val: "onCorrect" },
-        { name: "Hide clues with that are filled", val: "onFill" },
-        { name: "Never hide clues", val: "never" }
-      ],
-      currentHideClueOpt: "onFill"
-    };
+  props: {
+    showOnPageKeyboard: Boolean,
+    showErrors: Boolean,
+    showCluePanel: Boolean,
+    contextOpts: Array,
+    currentContextOpt: String,
+    hideClueOpts: Array,
+    currentHideClueOpt: String
   }
 };
 </script>

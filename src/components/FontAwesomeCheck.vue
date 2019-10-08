@@ -43,11 +43,5 @@ export default {
   .disabled {
     color: gray;
   }
-  &:hover {
-    color: green;
-    .disabled {
-      color: purple;
-    }
-  }
 }
 </style>

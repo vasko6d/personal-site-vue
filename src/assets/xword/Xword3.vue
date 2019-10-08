@@ -5,7 +5,7 @@ export default {
     return {
       xword: {
         id: 3,
-        title: "Special Order",
+        title: "Ditto",
         author: "David Vasko*",
         editor: "David Vasko*",
         createDate: "20191001",

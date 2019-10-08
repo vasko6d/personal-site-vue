@@ -4,6 +4,14 @@
     <xword-Settings
       v-if="showSettings"
       @close="modalToggle(false, 'showSettings')"
+      @setOption="setOption"
+      :showOnPageKeyboard="opts.keyboard.showOnPageKeyboard"
+      :showErrors="opts.errors.showErrors"
+      :showCluePanel="opts.clues.showCluePanel"
+      :contextOpts="opts.clues.contextOpts"
+      :currentContextOpt="opts.clues.contextOpt"
+      :hideClueOpts="opts.clues.hideClueOpts"
+      :currentHideClueOpt="opts.clues.hideClueOpt"
     />
     <xword-tools v-if="showTools" @close="modalToggle(false, 'showTools')" />
     <div class="info-nav">
@@ -50,6 +58,7 @@ export default {
     title: String,
     author: String,
     publishDate: Date,
+    opts: Object,
     timer: Timer
   },
   components: {
@@ -83,6 +92,9 @@ export default {
     }, 1000);
   },
   methods: {
+    setOption(payload) {
+      this.$emit("setOption", payload);
+    },
     calcTime() {
       // Time calculations for days, hours, minutes and seconds
       let sec = this.timer.getTimeSec(true);

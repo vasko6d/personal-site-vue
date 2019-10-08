@@ -37,6 +37,9 @@ Crossword
 - [ ] verify integrity of clues to puzzle?
 - [ ] clipboard-check good for grading?
 - [ ] moveClue repositions pointer at start
+- [ ] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
+- [ ] write options to localStorage
+- [ ] Add option note from author to Xword?
 - [x] make sure special input dynamic in clue context
 - [x] show only uncompleted clues, or highligh them?
 - [x] show context for clue underneath

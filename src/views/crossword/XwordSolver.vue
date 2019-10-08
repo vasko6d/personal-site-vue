@@ -16,6 +16,8 @@
         :timer="xword.timer"
         @flagCell="flagCell"
         @specialEdit="executePress('$SPECIALEDIT')"
+        @setOption="setOption"
+        :opts="opts"
       />
       <xword-puzzle
         :puzzle="xword.puzzle"
@@ -28,8 +30,12 @@
         @specialKeyboard="specialKeyboard"
       />
       <xword-current-clue :clue="currentClue" @executePress="executePress" />
-      <xword-keyboard @executePress="executePress" />
+      <xword-keyboard
+        v-if="opts.keyboard.showOnPageKeyboard"
+        @executePress="executePress"
+      />
       <xword-clue-panel
+        v-if="opts.clues.showCluePanel"
         :acrossClueObj="xword.across"
         :downClueObj="xword.down"
         :filledObj="xword.filled"
@@ -75,8 +81,22 @@ export default {
     return {
       opts: {
         clues: {
-          showContext: "always", // Valid Types: "always", "toggle", "never"
-          showWhich: "filled" // Valid Types: "unfilled", "incomplete", "all"
+          showCluePanel: true,
+          contextOpt: "always",
+          contextOpts: [
+            { name: "Always show clue context", val: "always" },
+            { name: "Click clue to toggle context", val: "toggle" },
+            { name: "Never show clue context", val: "never" }
+          ],
+          hideClueOpt: "onFill",
+          hideClueOpts: [
+            {
+              name: "Hide clues that are CORRECT and filled",
+              val: "onCorrect"
+            },
+            { name: "Hide clues with that are filled", val: "onFill" },
+            { name: "Never hide clues", val: "never" }
+          ]
         },
         keyboard: {
           showOnPageKeyboard: true
@@ -139,6 +159,13 @@ export default {
     console.log(this.xword);
   },
   methods: {
+    setOption(p) {
+      let opt = this.opts;
+      for (let i = 0; i < p.optionPath.length - 1; i++) {
+        opt = opt[p.optionPath[i]];
+      }
+      opt[p.optionPath[p.optionPath.length - 1]] = p.value;
+    },
     specialKeyboard() {
       if (this.xword.getCell().isSpecialInput) {
         //console.log("...bringing up special edit keyboard");
