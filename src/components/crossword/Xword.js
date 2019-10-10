@@ -272,7 +272,6 @@ export default class Xword {
         }
       }
     }
-    this.updateContexts(acrossToUpdate, downToUpdate);
     this.bulkUpdateFilled();
   }
   clearClue() {
@@ -291,16 +290,6 @@ export default class Xword {
       acrossToUpdate.add(cell.acrossNum);
       downToUpdate.add(cell.downNum);
     }
-    this.updateContexts(acrossToUpdate, downToUpdate);
-    console.log(acrossToUpdate, downToUpdate);
-  }
-  updateContexts(acrossToUpdate, downToUpdate) {
-    for (const aNum of acrossToUpdate) {
-      this.across[aNum].ctx = this.getFullClueContext(this.across, aNum, true);
-    }
-    for (const dNum of downToUpdate) {
-      this.down[dNum].ctx = this.getFullClueContext(this.down, dNum, false);
-    }
   }
 
   getFullClueContext(clueList, num, isHoriz) {
@@ -312,19 +301,7 @@ export default class Xword {
     let fullContext = [];
     for (const ctx of simpleContext) {
       let cell = this.puzzle[ctx[0]][ctx[1]];
-      let el = {
-        color: cell.color,
-        isInput: cell.color !== "black",
-        downNum: cell.downNum,
-        acrossNum: cell.acrossNum,
-        ans: cell.ans,
-        num: cell.cellNum,
-        entry: cell.entry,
-        flag: cell.flag,
-        r: ctx[0],
-        c: ctx[1]
-      };
-      fullContext.push(el);
+      fullContext.push(cell);
     }
     return fullContext;
   }
@@ -391,7 +368,7 @@ export default class Xword {
         }
 
         this.puzzle[r].push(
-          this.createPuzzleElement(ch, aNum, dNum, cellNum, color)
+          this.createPuzzleElement(ch, aNum, dNum, cellNum, color, r, c)
         );
       }
     }
@@ -433,7 +410,7 @@ export default class Xword {
       }
     }
   }
-  createPuzzleElement(ans, acrossNum, downNum, cellNum, color, shape) {
+  createPuzzleElement(ans, acrossNum, downNum, cellNum, color, shape, r, c) {
     var puzzleElement = {
       ans: ans, // The correct answer in this cell
       entry: "", // The user inputted text
@@ -443,7 +420,9 @@ export default class Xword {
       downNum: downNum, // the number of the down clue
       cellNum: cellNum, // If this cell will have a clue number in it
       flag: false, // Has this cell been manually flagged?
-      isSpecialInput: false // Does this cell have special input?
+      isSpecialInput: false, // Does this cell have special input?
+      r: r,
+      c: c
     };
     return puzzleElement;
   }

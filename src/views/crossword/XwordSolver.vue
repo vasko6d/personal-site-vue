@@ -245,21 +245,12 @@ export default {
     executePress(ch, opts) {
       console.log("executePress: ", ch, ", Options: ", opts);
 
-      //The cell before any moving occurs
-      let beforeImage = this.xword.getCell();
-
       // All press/action handler
       if (ch.startsWith("$")) {
         this.executeAction(ch, opts);
       } else {
         this.xword.enterChar(ch);
       }
-
-      // The cell after moving occurs
-      let afterImage = this.xword.getCell();
-
-      // Update relevant contexts
-      this.updateContexts([beforeImage, afterImage]);
 
       // Bring Up keyboard if afterImage is soecial
       this.specialKeyboard();
