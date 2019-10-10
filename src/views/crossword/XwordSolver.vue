@@ -14,9 +14,10 @@
         :author="xword.author"
         :publishDate="xword.publishDate"
         :timer="xword.timer"
-        @flagCell="flagCell"
+        @flagCell="executePress('$FLAGCELL')"
         @specialEdit="executePress('$SPECIALEDIT')"
         @setOption="setOption"
+        @defaultSettings="opts = defaultOpts()"
         :opts="opts"
       />
       <xword-puzzle
@@ -82,36 +83,7 @@ export default {
   },
   data() {
     return {
-      opts: {
-        version: 1,
-        clues: {
-          showCluePanel: true,
-          contextOpt: "always",
-          contextOpts: [
-            { name: "Always show clue context", val: "always" },
-            { name: "Click clue to toggle context", val: "toggle" },
-            { name: "Never show clue context", val: "never" }
-          ],
-          hideClueOpt: "onFill",
-          hideClueOpts: [
-            {
-              name: "Hide clues that are CORRECT and filled",
-              val: "onCorrect"
-            },
-            { name: "Hide clues with that are filled", val: "onFill" },
-            { name: "Never hide clues", val: "never" }
-          ]
-        },
-        keyboard: {
-          showOnPageKeyboard: true
-        },
-        errors: {
-          showErrors: true
-        },
-        navigation: {
-          autoSkipFilledCells: true
-        }
-      },
+      opts: this.defaultOpts(),
       showOptions: false,
       showHelp: false,
       showTools: false,
@@ -176,14 +148,51 @@ export default {
     }
     if (localStorage["xwordOpts"]) {
       let cachedOpts = JSON.parse(localStorage["xwordOpts"]);
-      if (cachedOpts.version === this.opts.version) {
-        this.opts = cachedOpts;
-      }
+      // To prevent stale opts in localStorage assign current opts with falues from cached ones
+      this.opts.clues.showCluePanel = cachedOpts.clues.showCluePanel;
+      this.opts.clues.contextOpt = cachedOpts.clues.contextOpt;
+      this.opts.clues.hideClueOpt = cachedOpts.clues.hideClueOpt;
+
+      this.opts.errors.showErrors = cachedOpts.errors.showErrors;
+      this.opts.keyboard.showOnPageKeyboard =
+        cachedOpts.keyboard.showOnPageKeyboard;
+      this.opts.navigation.autoSkipFilledCells =
+        cachedOpts.navigation.autoSkipFilledCells;
     }
     console.log(this.xword);
-    console.log(this.opts);
   },
   methods: {
+    defaultOpts() {
+      return {
+        clues: {
+          showCluePanel: true,
+          contextOpt: "always",
+          contextOpts: [
+            { name: "Always show clue context", val: "always" },
+            { name: "Click clue to toggle context", val: "toggle" },
+            { name: "Never show clue context", val: "never" }
+          ],
+          hideClueOpt: "onFill",
+          hideClueOpts: [
+            {
+              name: "Hide clues that are CORRECT and filled",
+              val: "onCorrect"
+            },
+            { name: "Hide clues that are filled", val: "onFill" },
+            { name: "Never hide clues", val: "never" }
+          ]
+        },
+        keyboard: {
+          showOnPageKeyboard: true
+        },
+        errors: {
+          showErrors: true
+        },
+        navigation: {
+          autoSkipFilledCells: true
+        }
+      };
+    },
     setOption(p) {
       let opt = this.opts;
       for (let i = 0; i < p.optionPath.length - 1; i++) {
@@ -200,9 +209,6 @@ export default {
         //console.log("...hiding up special edit keyboard");
         this.$refs["psuedo-input"].blur();
       }
-    },
-    flagCell() {
-      this.executePress("$FLAGCELL");
     },
     executePress(ch, opts) {
       console.log("executePress: ", ch, ", Options: ", opts);

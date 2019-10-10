@@ -24,35 +24,38 @@
                     ]"
                   ></i>
                 </h2>
-                <div v-if="showTools">
-                  <h4><i class="fas fa-caret-right"></i>&nbsp;Clear</h4>
-                  <div class="tool-btn danger">
-                    <i class="far fa-trash-alt"></i>&nbsp;Clear all flags
+                <transition name="fade">
+                  <div class="collapse-opts" v-if="showTools">
+                    <h4><i class="fas fa-caret-right"></i>&nbsp;Clear</h4>
+                    <div class="tool-btn danger">
+                      <i class="far fa-trash-alt"></i>&nbsp;Clear all flags
+                    </div>
+                    <div class="tool-btn danger">
+                      <i class="far fa-trash-alt"></i>&nbsp;Clear wrong entries
+                    </div>
+                    <div class="tool-btn danger">
+                      <i class="far fa-trash-alt"></i>&nbsp;Clear current clue
+                    </div>
+                    <div class="tool-btn danger">
+                      <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
+                    </div>
+                    <h4><i class="fas fa-caret-right"></i>&nbsp;Solve</h4>
+                    <div class="tool-btn safe">
+                      <i class="fas fa-clipboard-check"></i>&nbsp;Submit for
+                      grading
+                    </div>
+                    <div class="tool-btn safe">
+                      <i class="far fa-check-square"></i>&nbsp;Solve cell
+                    </div>
+                    <div class="tool-btn safe">
+                      <i class="far fa-check-square"></i>&nbsp;Solve clue
+                    </div>
+                    <div class="tool-btn safe">
+                      <i class="far fa-check-square"></i>&nbsp;Solve entire
+                      puzzle
+                    </div>
                   </div>
-                  <div class="tool-btn danger">
-                    <i class="far fa-trash-alt"></i>&nbsp;Clear wrong entries
-                  </div>
-                  <div class="tool-btn danger">
-                    <i class="far fa-trash-alt"></i>&nbsp;Clear current clue
-                  </div>
-                  <div class="tool-btn danger">
-                    <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
-                  </div>
-                  <h4><i class="fas fa-caret-right"></i>&nbsp;Solve</h4>
-                  <div class="tool-btn safe">
-                    <i class="fas fa-clipboard-check"></i>&nbsp;Submit for
-                    grading
-                  </div>
-                  <div class="tool-btn safe">
-                    <i class="far fa-check-square"></i>&nbsp;Solve cell
-                  </div>
-                  <div class="tool-btn safe">
-                    <i class="far fa-check-square"></i>&nbsp;Solve clue
-                  </div>
-                  <div class="tool-btn safe">
-                    <i class="far fa-check-square"></i>&nbsp;Solve entire puzzle
-                  </div>
-                </div>
+                </transition>
                 <h2 @click="showSettings = !showSettings">
                   Settings&nbsp;
                   <i
@@ -65,86 +68,92 @@
                     ]"
                   ></i>
                 </h2>
-                <div v-if="showSettings">
-                  <h4><i class="fas fa-caret-right"></i>&nbsp;Errors</h4>
-                  <font-awesome-check
-                    :enabled="showErrors"
-                    desc="Show errors"
-                    @toggle="
-                      $emit('setOption', {
-                        optionPath: ['errors', 'showErrors'],
-                        value: !showErrors
-                      })
-                    "
-                  />
-                  <h4><i class="fas fa-caret-right"></i>&nbsp;Navigation</h4>
-                  <font-awesome-check
-                    :enabled="autoSkipFilledCells"
-                    desc="Skip over filled cells when moving/entering"
-                    @toggle="
-                      $emit('setOption', {
-                        optionPath: ['navigation', 'autoSkipFilledCells'],
-                        value: !autoSkipFilledCells
-                      })
-                    "
-                  />
-                  <h4><i class="fas fa-caret-right"></i>&nbsp;Clue Panel</h4>
-                  <font-awesome-check
-                    :enabled="showCluePanel"
-                    desc="Show Clue Panel"
-                    @toggle="
-                      $emit('setOption', {
-                        optionPath: ['clues', 'showCluePanel'],
-                        value: !showCluePanel
-                      })
-                    "
-                  />
-                  <transition name="fade">
-                    <div class="clue-panel-opts" v-if="showCluePanel">
-                      <div class="choice-opt">
-                        <h4>Clue Context</h4>
-                        <div v-for="opt in contextOpts" :key="opt.id">
-                          <font-awesome-check
-                            :enabled="opt.val === currentContextOpt"
-                            :desc="opt.name"
-                            @toggle="
-                              $emit('setOption', {
-                                optionPath: ['clues', 'contextOpt'],
-                                value: opt.val
-                              })
-                            "
-                          />
-                        </div>
-                      </div>
-                      <div class="choice-opt">
-                        <h4>Clue Visibility</h4>
-                        <div v-for="opt in hideClueOpts" :key="opt.id">
-                          <font-awesome-check
-                            :enabled="opt.val === currentHideClueOpt"
-                            :desc="opt.name"
-                            @toggle="
-                              $emit('setOption', {
-                                optionPath: ['clues', 'hideClueOpt'],
-                                value: opt.val
-                              })
-                            "
-                          />
-                        </div>
-                      </div>
+                <transition name="fade">
+                  <div class="collapse-opts" v-if="showSettings">
+                    <h4><i class="fas fa-caret-right"></i>&nbsp;General</h4>
+                    <div
+                      class="tool-btn danger"
+                      @click="$emit('defaultSettings')"
+                    >
+                      <i class="far fa-trash-alt"></i>&nbsp;Reset to default
                     </div>
-                  </transition>
-                  <h4><i class="fas fa-caret-right"></i>&nbsp;Keyboard</h4>
-                  <font-awesome-check
-                    :enabled="showOnPageKeyboard"
-                    desc="On-page keyboard"
-                    @toggle="
-                      $emit('setOption', {
-                        optionPath: ['keyboard', 'showOnPageKeyboard'],
-                        value: !showOnPageKeyboard
-                      })
-                    "
-                  />
-                </div>
+                    <font-awesome-check
+                      :enabled="showErrors"
+                      desc="Show errors"
+                      @toggle="
+                        $emit('setOption', {
+                          optionPath: ['errors', 'showErrors'],
+                          value: !showErrors
+                        })
+                      "
+                    />
+                    <font-awesome-check
+                      :enabled="autoSkipFilledCells"
+                      desc="Skip over filled cells when moving/entering"
+                      @toggle="
+                        $emit('setOption', {
+                          optionPath: ['navigation', 'autoSkipFilledCells'],
+                          value: !autoSkipFilledCells
+                        })
+                      "
+                    />
+                    <font-awesome-check
+                      :enabled="showOnPageKeyboard"
+                      desc="Show on-page keyboard"
+                      @toggle="
+                        $emit('setOption', {
+                          optionPath: ['keyboard', 'showOnPageKeyboard'],
+                          value: !showOnPageKeyboard
+                        })
+                      "
+                    />
+                    <h4><i class="fas fa-caret-right"></i>&nbsp;Clue Panel</h4>
+                    <font-awesome-check
+                      :enabled="showCluePanel"
+                      desc="Show Clue Panel"
+                      @toggle="
+                        $emit('setOption', {
+                          optionPath: ['clues', 'showCluePanel'],
+                          value: !showCluePanel
+                        })
+                      "
+                    />
+                    <transition name="fade">
+                      <div class="collapse-opts" v-if="showCluePanel">
+                        <div class="choice-opt">
+                          <h4>Clue Context</h4>
+                          <div v-for="opt in contextOpts" :key="opt.id">
+                            <font-awesome-check
+                              :enabled="opt.val === currentContextOpt"
+                              :desc="opt.name"
+                              @toggle="
+                                $emit('setOption', {
+                                  optionPath: ['clues', 'contextOpt'],
+                                  value: opt.val
+                                })
+                              "
+                            />
+                          </div>
+                        </div>
+                        <div class="choice-opt">
+                          <h4>Clue Visibility</h4>
+                          <div v-for="opt in hideClueOpts" :key="opt.id">
+                            <font-awesome-check
+                              :enabled="opt.val === currentHideClueOpt"
+                              :desc="opt.name"
+                              @toggle="
+                                $emit('setOption', {
+                                  optionPath: ['clues', 'hideClueOpt'],
+                                  value: opt.val
+                                })
+                              "
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </transition>
+                  </div>
+                </transition>
               </slot>
             </div>
             <div class="modal-footer">
@@ -218,8 +227,8 @@ export default {
       color: green;
     }
   }
-  .clue-panel-opts {
-    max-height: 300px;
+  .collapse-opts {
+    max-height: 400px;
     overflow: hidden;
   }
   .fade-enter-active {

@@ -5,6 +5,7 @@
       v-if="showSettings"
       @close="modalToggle(false, 'showSettings')"
       @setOption="setOption"
+      @defaultSettings="$emit('defaultSettings')"
       :showOnPageKeyboard="opts.keyboard.showOnPageKeyboard"
       :showErrors="opts.errors.showErrors"
       :showCluePanel="opts.clues.showCluePanel"
