@@ -42,6 +42,9 @@ export default {
   }
   .disabled {
     color: gray;
+    &:hover {
+      color: rgb(131, 130, 74);
+    }
   }
 }
 </style>

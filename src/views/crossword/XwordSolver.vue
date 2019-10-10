@@ -83,6 +83,7 @@ export default {
   data() {
     return {
       opts: {
+        version: 1,
         clues: {
           showCluePanel: true,
           contextOpt: "always",
@@ -105,7 +106,10 @@ export default {
           showOnPageKeyboard: true
         },
         errors: {
-          showErrors: false
+          showErrors: true
+        },
+        navigation: {
+          autoSkipFilledCells: true
         }
       },
       showOptions: false,
@@ -171,9 +175,13 @@ export default {
       this.xword.bulkUpdateFilled();
     }
     if (localStorage["xwordOpts"]) {
-      this.opts = JSON.parse(localStorage["xwordOpts"]);
+      let cachedOpts = JSON.parse(localStorage["xwordOpts"]);
+      if (cachedOpts.version === this.opts.version) {
+        this.opts = cachedOpts;
+      }
     }
     console.log(this.xword);
+    console.log(this.opts);
   },
   methods: {
     setOption(p) {

@@ -12,8 +12,8 @@
       :currentContextOpt="opts.clues.contextOpt"
       :hideClueOpts="opts.clues.hideClueOpts"
       :currentHideClueOpt="opts.clues.hideClueOpt"
+      :autoSkipFilledCells="opts.navigation.autoSkipFilledCells"
     />
-    <xword-tools v-if="showTools" @close="modalToggle(false, 'showTools')" />
     <div class="info-nav">
       <div class="info">
         <h2>{{ title }}</h2>
@@ -32,10 +32,8 @@
           @click="$emit('flagCell', { flag: 'orange' })"
         ></i
         >|
-        <i class="icn fas fa-tools" @click="modalToggle(true, 'showTools')"></i>
-        |
         <i
-          class="icn fas fa-cog"
+          class="icn fas fa-tools"
           @click="modalToggle(true, 'showSettings')"
         ></i>
         |
@@ -52,7 +50,6 @@
 import Timer from "@/mixins/webgl/Timer.js";
 import XwordHelp from "@/components/crossword/XwordHelp.vue";
 import XwordSettings from "@/components/crossword/XwordSettings.vue";
-import XwordTools from "@/components/crossword/XwordTools.vue";
 export default {
   props: {
     title: String,
@@ -63,8 +60,7 @@ export default {
   },
   components: {
     XwordHelp,
-    XwordSettings,
-    XwordTools
+    XwordSettings
   },
   data() {
     return {
