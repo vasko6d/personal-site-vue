@@ -111,12 +111,18 @@
         color: darken($nav-txt, 10%);
         &:hover {
           color: $nav-txt;
-          background-color: rgba(lighten($nav-bg, 15%), 0.6);
+          background-color: lighten($nav-bg, 5%);
         }
       }
       .key-a {
         color: $nav-txt;
-        background-color: rgba(lighten($nav-bg, 15%), 0.6);
+        background-color: lighten($nav-bg, 5%);
+      }
+      .key-t {
+        color: $nav-txt;
+        background-color: lighten($nav-bg, 5%);
+        height: 70px;
+        margin-top: -40px;
       }
     }
   }

@@ -3,7 +3,10 @@
     <!--div>Keyboard</div-->
     <div class="key-row" v-for="keyRow in keyLayout" :key="keyRow.id">
       <div
-        :class="['key', { 'key-a': keyBtn.isActive }]"
+        :class="[
+          'key',
+          { 'key-t': keyBtn.isActive === 1, 'key-a': keyBtn.isActive === 2 }
+        ]"
         v-for="keyBtn in keyRow"
         :key="keyBtn.id"
         @click="
@@ -11,9 +14,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
-          {{ keyBtn.isFA ? "" : keyBtn.disp }}
-        </i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
+          keyBtn.isFA ? "" : keyBtn.disp
+        }}</i>
       </div>
     </div>
   </div>
@@ -43,7 +46,8 @@ export default {
         this.executePress(ch);
         if (ch.match(/^[A-Z]$/)) {
           this.flashBtn(
-            this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c]
+            this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c],
+            2
           );
         }
       } else {
@@ -84,7 +88,8 @@ export default {
           case "BACKSPACE":
             this.executePress("$" + ch);
             this.flashBtn(
-              this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c]
+              this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c],
+              2
             );
             break;
         }
@@ -95,10 +100,10 @@ export default {
     executePress(ch, opts) {
       this.$emit("executePress", ch, opts);
     },
-    flashBtn(btn) {
-      btn.isActive = true;
+    flashBtn(btn, activeType = 1) {
+      btn.isActive = activeType;
       setTimeout(() => {
-        btn.isActive = false;
+        btn.isActive = 0;
       }, 200);
     },
     createQwerty(includeBackspace = true) {
@@ -113,7 +118,7 @@ export default {
           retRow.push({
             disp: ch,
             val: ch,
-            isActive: false
+            isActive: 0
           });
           retInv[ch] = { r: i, c: j };
         }
@@ -124,7 +129,7 @@ export default {
           disp: "fas fa-backspace",
           isFA: true,
           val: "$BACKSPACE",
-          isActive: false
+          isActive: 0
         });
         retInv["BACKSPACE"] = { r: 2, c: retArr[2].length - 1 };
       }
@@ -152,13 +157,15 @@ export default {
   .key-row {
     display: flex;
     justify-content: center;
+    height: 40px;
     .key {
       flex-grow: 1;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       flex-direction: column;
       text-align: center;
       margin: 0.25em;
+      padding-top: 3px;
       border-radius: 0.35em;
       height: 30px;
       width: 30px;
