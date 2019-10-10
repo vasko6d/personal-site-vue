@@ -6,6 +6,8 @@
       @close="modalToggle(false, 'showSettings')"
       @setOption="setOption"
       @defaultSettings="$emit('defaultSettings')"
+      @clear="clear"
+      @solve="solve"
       :showOnPageKeyboard="opts.keyboard.showOnPageKeyboard"
       :showErrors="opts.errors.showErrors"
       :showCluePanel="opts.clues.showCluePanel"
@@ -91,6 +93,13 @@ export default {
   methods: {
     setOption(payload) {
       this.$emit("setOption", payload);
+    },
+    clear(payload) {
+      this.modalToggle(false, "showSettings");
+      this.$emit("clear", payload);
+    },
+    solve(payload) {
+      this.$emit("solve", payload);
     },
     calcTime() {
       // Time calculations for days, hours, minutes and seconds

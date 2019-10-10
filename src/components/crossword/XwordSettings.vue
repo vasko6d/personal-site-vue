@@ -27,7 +27,10 @@
                 <transition name="fade">
                   <div class="collapse-opts" v-if="showTools">
                     <h4><i class="fas fa-caret-right"></i>&nbsp;Clear</h4>
-                    <div class="tool-btn danger">
+                    <div
+                      class="tool-btn danger"
+                      @click="$emit('clear', 'flags')"
+                    >
                       <i class="far fa-trash-alt"></i>&nbsp;Clear all flags
                     </div>
                     <div class="tool-btn danger">
@@ -36,7 +39,10 @@
                     <div class="tool-btn danger">
                       <i class="far fa-trash-alt"></i>&nbsp;Clear current clue
                     </div>
-                    <div class="tool-btn danger">
+                    <div
+                      class="tool-btn danger"
+                      @click="$emit('clear', 'puzzle')"
+                    >
                       <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
                     </div>
                     <h4><i class="fas fa-caret-right"></i>&nbsp;Solve</h4>
@@ -89,7 +95,7 @@
                     />
                     <font-awesome-check
                       :enabled="autoSkipFilledCells"
-                      desc="Skip over filled cells when moving/entering"
+                      desc="Skip over filled cells when typing"
                       @toggle="
                         $emit('setOption', {
                           optionPath: ['navigation', 'autoSkipFilledCells'],

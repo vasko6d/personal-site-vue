@@ -18,6 +18,7 @@
         @specialEdit="executePress('$SPECIALEDIT')"
         @setOption="setOption"
         @defaultSettings="opts = defaultOpts()"
+        @clear="clear"
         :opts="opts"
       />
       <xword-puzzle
@@ -162,6 +163,28 @@ export default {
     console.log(this.xword);
   },
   methods: {
+    clear(clearType) {
+      let raw = this.rawXwords[this.xwordId];
+      switch (clearType) {
+        case "puzzle":
+          this.xword = new Xword(
+            raw.title,
+            raw.author,
+            raw.editor,
+            raw.createDate,
+            raw.solution,
+            raw.clues.across,
+            raw.clues.down
+          );
+          break;
+        case "flags":
+          this.xword.clearFlags();
+          this.updateContexts([this.xword.getCell()]);
+          break;
+        case "clue":
+          break;
+      }
+    },
     defaultOpts() {
       return {
         clues: {

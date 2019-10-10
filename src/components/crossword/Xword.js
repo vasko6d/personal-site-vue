@@ -36,6 +36,7 @@ export default class Xword {
       parseInt(date.substring(4, 6)) - 1,
       parseInt(date.substring(6, 8))
     );
+    this.autoSolvedCells = 0;
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;
@@ -84,10 +85,6 @@ export default class Xword {
     }
 
     // If speial numbering is passed
-
-    // Since we have successfully proccessed flag it as such
-    this.initialized = true;
-    this.updateHack = 1;
   }
 
   //
@@ -252,6 +249,16 @@ export default class Xword {
     this.r = newClue.index.r;
     this.c = newClue.index.c;
   }
+  clearFlags() {
+    for (let row of this.puzzle) {
+      for (let cell of row) {
+        if (cell.flag) {
+          cell.flag = false;
+        }
+      }
+    }
+  }
+
   getFullClueContext(clueList, num, isHoriz) {
     let simpleContext = this.getClueContext(
       clueList[num].index.r,
@@ -282,6 +289,7 @@ export default class Xword {
   // Initialization Functions
   //
   buildPuzzle(solnArr) {
+    this.puzzle = [];
     let clueNumber = 1;
 
     // Loop across the provided solution to create relations
