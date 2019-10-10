@@ -118,7 +118,10 @@ export default class Xword {
     return this.isInputColor(r, c);
   }
   isInputColor(r, c) {
-    return colors.black != this.puzzle[r][c].color;
+    return this.isInputColorCell(this.puzzle[r][c]);
+  }
+  isInputColorCell(cell) {
+    return colors.black != cell.color;
   }
   isFilled(r, c, isHoriz) {
     const ctxs = this.getClueContext(r, c, isHoriz);
@@ -137,6 +140,9 @@ export default class Xword {
       }
     }
     return cnt;
+  }
+  isCellCorrect(cell) {
+    return cell.entry === cell.ans;
   }
 
   //
@@ -249,13 +255,51 @@ export default class Xword {
     this.r = newClue.index.r;
     this.c = newClue.index.c;
   }
-  clearFlags() {
+  clear(flags = false, wrongEntry = false, allEntry = false) {
+    let acrossToUpdate = new Set();
+    let downToUpdate = new Set();
     for (let row of this.puzzle) {
       for (let cell of row) {
-        if (cell.flag) {
-          cell.flag = false;
+        if (this.isInputColorCell(cell)) {
+          if (flags) {
+            cell.flag = false;
+          }
+          if (allEntry || (wrongEntry && !this.isCellCorrect(cell))) {
+            cell.entry = "";
+          }
+          acrossToUpdate.add(cell.acrossNum);
+          downToUpdate.add(cell.downNum);
         }
       }
+    }
+    this.updateContexts(acrossToUpdate, downToUpdate);
+    this.bulkUpdateFilled();
+  }
+  clearClue() {
+    let acrossToUpdate = new Set();
+    let downToUpdate = new Set();
+    let curClue = this.isHoriz
+      ? this.across[this.getCell().acrossNum]
+      : this.down[this.getCell().downNum];
+    for (const coord of this.getClueContext(
+      curClue.index.r,
+      curClue.index.c,
+      this.isHoriz
+    )) {
+      let cell = this.puzzle[coord[0]][coord[1]];
+      cell.entry = "";
+      acrossToUpdate.add(cell.acrossNum);
+      downToUpdate.add(cell.downNum);
+    }
+    this.updateContexts(acrossToUpdate, downToUpdate);
+    console.log(acrossToUpdate, downToUpdate);
+  }
+  updateContexts(acrossToUpdate, downToUpdate) {
+    for (const aNum of acrossToUpdate) {
+      this.across[aNum].ctx = this.getFullClueContext(this.across, aNum, true);
+    }
+    for (const dNum of downToUpdate) {
+      this.down[dNum].ctx = this.getFullClueContext(this.down, dNum, false);
     }
   }
 

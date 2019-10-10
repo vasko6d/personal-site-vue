@@ -178,12 +178,21 @@ export default {
           );
           break;
         case "flags":
-          this.xword.clearFlags();
-          this.updateContexts([this.xword.getCell()]);
+          this.xword.clear(true, false);
+          break;
+        case "wrong":
+          this.xword.clear(false, true);
           break;
         case "clue":
+          this.xword.clearClue();
+          this.updateContexts([this.xword.getCell()]);
           break;
       }
+
+      // Save Progress
+      localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
+        this.xword.puzzle
+      );
     },
     defaultOpts() {
       return {
@@ -351,20 +360,7 @@ export default {
       }
 
       // Actually update the contexts
-      for (const aNum of acrossToUpdate) {
-        this.xword.across[aNum].ctx = this.xword.getFullClueContext(
-          this.xword.across,
-          aNum,
-          true
-        );
-      }
-      for (const dNum of downToUpdate) {
-        this.xword.down[dNum].ctx = this.xword.getFullClueContext(
-          this.xword.down,
-          dNum,
-          false
-        );
-      }
+      this.xword.updateContexts(acrossToUpdate, downToUpdate);
     }
   }
 };

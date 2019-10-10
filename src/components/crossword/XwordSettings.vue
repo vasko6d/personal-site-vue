@@ -33,10 +33,16 @@
                     >
                       <i class="far fa-trash-alt"></i>&nbsp;Clear all flags
                     </div>
-                    <div class="tool-btn danger">
+                    <div
+                      class="tool-btn danger"
+                      @click="$emit('clear', 'wrong')"
+                    >
                       <i class="far fa-trash-alt"></i>&nbsp;Clear wrong entries
                     </div>
-                    <div class="tool-btn danger">
+                    <div
+                      class="tool-btn danger"
+                      @click="$emit('clear', 'clue')"
+                    >
                       <i class="far fa-trash-alt"></i>&nbsp;Clear current clue
                     </div>
                     <div
