@@ -8,7 +8,10 @@
       @defaultSettings="$emit('defaultSettings')"
       @clear="clear"
       @solve="solve"
-      @saveProgress="$emit('saveProgress')"
+      @saveProgress="
+        $emit('saveProgress');
+        modalToggle(false, 'showSettings');
+      "
       :showOnPageKeyboard="opts.keyboard.showOnPageKeyboard"
       :showErrors="opts.errors.showErrors"
       :showCluePanel="opts.clues.showCluePanel"

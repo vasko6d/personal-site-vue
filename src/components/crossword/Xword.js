@@ -272,8 +272,6 @@ export default class Xword {
     this.c = newClue.index.c;
   }
   clear(flags = false, wrongEntry = false, allEntry = false) {
-    let acrossToUpdate = new Set();
-    let downToUpdate = new Set();
     for (let row of this.puzzle) {
       for (let cell of row) {
         if (this.isInputColorCell(cell)) {
@@ -282,17 +280,14 @@ export default class Xword {
           }
           if (allEntry || (wrongEntry && !this.isCellCorrect(cell))) {
             cell.entry = "";
+            cell.isSpecialInput = false;
           }
-          acrossToUpdate.add(cell.acrossNum);
-          downToUpdate.add(cell.downNum);
         }
       }
     }
     this.bulkUpdateFilled();
   }
   clearClue() {
-    let acrossToUpdate = new Set();
-    let downToUpdate = new Set();
     let curClue = this.isHoriz
       ? this.across[this.getCell().acrossNum]
       : this.down[this.getCell().downNum];
@@ -303,8 +298,7 @@ export default class Xword {
     )) {
       let cell = this.puzzle[coord[0]][coord[1]];
       cell.entry = "";
-      acrossToUpdate.add(cell.acrossNum);
-      downToUpdate.add(cell.downNum);
+      cell.isSpecialInput = false;
     }
     this.bulkUpdateFilled();
   }
