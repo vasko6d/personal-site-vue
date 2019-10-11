@@ -1,5 +1,8 @@
 import Timer from "@/mixins/webgl/Timer.js";
 
+// Saved Data Version
+var savedDataVersion = 1;
+
 // Supported Colors
 var colors = {
   white: "white",
@@ -303,6 +306,7 @@ export default class Xword {
       acrossToUpdate.add(cell.acrossNum);
       downToUpdate.add(cell.downNum);
     }
+    this.bulkUpdateFilled();
   }
 
   //
@@ -448,6 +452,56 @@ export default class Xword {
       let clue = this.down[k];
       clue.filled = this.isFilled(clue.index.r, clue.index.c, false);
       this.filled.down += clue.filled ? 1 : 0;
+    }
+  }
+
+  //
+  // Saving Functions
+  //
+  saveData() {
+    return {
+      version: savedDataVersion,
+      time: this.timer.getTime(),
+      cellData: this.getCellDataToSave()
+    };
+  }
+  getCellDataToSave() {
+    let cellData = [];
+    for (const row of this.puzzle) {
+      cellData.push([]);
+      for (const cell of row) {
+        cellData[cellData.length - 1].push({
+          entry: cell.entry,
+          flag: cell.flag
+        });
+      }
+    }
+    return cellData;
+  }
+  reloadSavedData(savedData) {
+    console.log("Attempting to load progress...", savedData);
+    if (savedData.version && savedData.version === savedDataVersion) {
+      try {
+        this.timer.addTime(savedData.time);
+        for (const row of this.puzzle) {
+          for (const cell of row) {
+            cell.entry = savedData.cellData[cell.r][cell.c].entry;
+            cell.flag = savedData.cellData[cell.r][cell.c].flag;
+          }
+        }
+        // Make sure clue and filled relations are correct
+        this.processClueList(this.across, true);
+        this.processClueList(this.down, false);
+        this.bulkUpdateFilled();
+        console.log("Progress Sucesfully loaded");
+      } catch {
+        // Oh well...
+        console.warn("Failed to load progress. Sorry 'bout it");
+      }
+    } else {
+      console.log(
+        "...progress was unversioned or had incompatible version. Disregarding progress. Sorry!"
+      );
     }
   }
 }

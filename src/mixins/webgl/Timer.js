@@ -21,7 +21,7 @@ export default class Timer {
   }
 
   /**
-   * pause timer
+   * resume timer
    */
   resume() {
     if (!this.keepTime) {
@@ -85,8 +85,15 @@ export default class Timer {
    * Get current time.
    * @return {number} current time.
    */
-  getTrueTime = function() {
+  getTrueTime() {
     var time = new Date();
     return time.getTime();
-  };
+  }
+
+  /**
+   * Function to add time if you ever need.
+   */
+  addTime(timeToAddInMs) {
+    this.totalTime += timeToAddInMs;
+  }
 }

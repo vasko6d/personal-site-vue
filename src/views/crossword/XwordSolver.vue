@@ -142,18 +142,15 @@ export default {
       let progress = JSON.parse(
         localStorage["xword:" + this.xwordId.toString()]
       );
-      this.xword.puzzle = progress;
-      this.xword.processClueList(this.xword.across, true);
-      this.xword.processClueList(this.xword.down, false);
-      this.xword.bulkUpdateFilled();
+      this.xword.reloadSavedData(progress);
     }
     if (localStorage["xwordOpts"]) {
       let cachedOpts = JSON.parse(localStorage["xwordOpts"]);
+
       // To prevent stale opts in localStorage assign current opts with falues from cached ones
       this.opts.clues.showCluePanel = cachedOpts.clues.showCluePanel;
       this.opts.clues.contextOpt = cachedOpts.clues.contextOpt;
       this.opts.clues.hideClueOpt = cachedOpts.clues.hideClueOpt;
-
       this.opts.errors.showErrors = cachedOpts.errors.showErrors;
       this.opts.keyboard.showOnPageKeyboard =
         cachedOpts.keyboard.showOnPageKeyboard;
@@ -164,18 +161,9 @@ export default {
   },
   methods: {
     clear(clearType) {
-      let raw = this.rawXwords[this.xwordId];
       switch (clearType) {
         case "puzzle":
-          this.xword = new Xword(
-            raw.title,
-            raw.author,
-            raw.editor,
-            raw.createDate,
-            raw.solution,
-            raw.clues.across,
-            raw.clues.down
-          );
+          this.xword.clear(true, true, true);
           break;
         case "flags":
           this.xword.clear(true, false);
@@ -190,7 +178,7 @@ export default {
 
       // Save Progress
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
-        this.xword.puzzle
+        this.xword.saveData()
       );
     },
     defaultOpts() {
@@ -256,7 +244,7 @@ export default {
 
       // Save Progress
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
-        this.xword.puzzle
+        this.xword.saveData()
       );
     },
     executeAction(actn, opts) {
