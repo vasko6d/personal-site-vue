@@ -144,6 +144,19 @@ export default class Xword {
   isCellCorrect(cell) {
     return cell.entry === cell.ans;
   }
+  getFullClueContext(clueList, num, isHoriz) {
+    let simpleContext = this.getClueContext(
+      clueList[num].index.r,
+      clueList[num].index.c,
+      isHoriz
+    );
+    let fullContext = [];
+    for (const ctx of simpleContext) {
+      let cell = this.puzzle[ctx[0]][ctx[1]];
+      fullContext.push(cell);
+    }
+    return fullContext;
+  }
 
   //
   // Mutators
@@ -290,20 +303,6 @@ export default class Xword {
       acrossToUpdate.add(cell.acrossNum);
       downToUpdate.add(cell.downNum);
     }
-  }
-
-  getFullClueContext(clueList, num, isHoriz) {
-    let simpleContext = this.getClueContext(
-      clueList[num].index.r,
-      clueList[num].index.c,
-      isHoriz
-    );
-    let fullContext = [];
-    for (const ctx of simpleContext) {
-      let cell = this.puzzle[ctx[0]][ctx[1]];
-      fullContext.push(cell);
-    }
-    return fullContext;
   }
 
   //

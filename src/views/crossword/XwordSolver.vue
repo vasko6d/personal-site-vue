@@ -185,7 +185,6 @@ export default {
           break;
         case "clue":
           this.xword.clearClue();
-          this.updateContexts([this.xword.getCell()]);
           break;
       }
 
@@ -338,20 +337,6 @@ export default {
         this.xword.getCell().entry = "";
       }
       this.xword.updateFilled();
-    },
-    updateContexts(xCells) {
-      // figure out how many clues need updated contexts
-      let acrossToUpdate = new Set();
-      let downToUpdate = new Set();
-      for (const xcell of xCells) {
-        for (const el of this.xword.across[xcell.acrossNum].ctx) {
-          acrossToUpdate.add(el.acrossNum);
-          downToUpdate.add(el.downNum);
-        }
-      }
-
-      // Actually update the contexts
-      this.xword.updateContexts(acrossToUpdate, downToUpdate);
     }
   }
 };
