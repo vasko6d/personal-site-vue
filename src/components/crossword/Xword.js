@@ -367,7 +367,16 @@ export default class Xword {
         }
 
         this.puzzle[r].push(
-          this.createPuzzleElement(ch, aNum, dNum, cellNum, color, r, c)
+          this.createPuzzleElement(
+            ch,
+            aNum,
+            dNum,
+            cellNum,
+            color,
+            undefined,
+            r,
+            c
+          )
         );
       }
     }
