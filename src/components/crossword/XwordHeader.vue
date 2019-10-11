@@ -103,6 +103,7 @@ export default {
       this.$emit("clear", payload);
     },
     solve(payload) {
+      this.modalToggle(false, "showSettings");
       this.$emit("solve", payload);
     },
     calcTime() {

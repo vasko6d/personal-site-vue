@@ -39,7 +39,6 @@ export default class Xword {
       parseInt(date.substring(4, 6)) - 1,
       parseInt(date.substring(6, 8))
     );
-    this.autoSolvedCells = 0;
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;
@@ -201,9 +200,11 @@ export default class Xword {
   }
   specialInputIntegrity() {
     // Remove speical input if not special
-    if (this.getCell().entry.match(/^[A-Z]$/) || !this.getCell().entry) {
-      this.getCell().isSpecialInput = false;
-    }
+    let cell = this.getCell();
+    cell.isSpecialInput = this.isSpecialInput(cell);
+  }
+  isSpecialInput(cell) {
+    return !(cell.entry === "" || cell.entry.match(/^[A-Z]$/));
   }
   enableSpecialEdit() {
     this.getCell().isSpecialInput = true;
@@ -299,6 +300,42 @@ export default class Xword {
       let cell = this.puzzle[coord[0]][coord[1]];
       cell.entry = "";
       cell.isSpecialInput = false;
+    }
+    this.bulkUpdateFilled();
+  }
+  solveCurrentCell() {
+    let cell = this.getCell();
+    this.solveCell(cell);
+    this.bulkUpdateFilled();
+  }
+  solveCell(cell) {
+    if (!this.isCellCorrect(cell)) {
+      cell.entry = cell.ans;
+      cell.isSpecialInput = this.isSpecialInput(cell);
+      cell.wasAutoSolved = true;
+    }
+  }
+  solveClue() {
+    let curClue = this.isHoriz
+      ? this.across[this.getCell().acrossNum]
+      : this.down[this.getCell().downNum];
+    for (const coord of this.getClueContext(
+      curClue.index.r,
+      curClue.index.c,
+      this.isHoriz
+    )) {
+      let cell = this.puzzle[coord[0]][coord[1]];
+      this.solveCell(cell);
+    }
+    this.bulkUpdateFilled();
+  }
+  solvePuzzle() {
+    for (let row of this.puzzle) {
+      for (let cell of row) {
+        if (this.isInputColorCell(cell)) {
+          this.solveCell(cell);
+        }
+      }
     }
     this.bulkUpdateFilled();
   }
@@ -427,6 +464,7 @@ export default class Xword {
       cellNum: cellNum, // If this cell will have a clue number in it
       flag: false, // Has this cell been manually flagged?
       isSpecialInput: false, // Does this cell have special input?
+      wasAutoSolved: false,
       r: r,
       c: c
     };
@@ -466,7 +504,8 @@ export default class Xword {
       for (const cell of row) {
         cellData[cellData.length - 1].push({
           entry: cell.entry,
-          flag: cell.flag
+          flag: cell.flag,
+          wasAutoSolved: cell.wasAutoSolved
         });
       }
     }
@@ -480,7 +519,10 @@ export default class Xword {
         for (const row of this.puzzle) {
           for (const cell of row) {
             cell.entry = savedData.cellData[cell.r][cell.c].entry;
+            cell.entry = cell.entry ? cell.entry : "";
             cell.flag = savedData.cellData[cell.r][cell.c].flag;
+            cell.wasAutoSolved =
+              savedData.cellData[cell.r][cell.c].wasAutoSolved;
           }
         }
         // Make sure clue and filled relations are correct

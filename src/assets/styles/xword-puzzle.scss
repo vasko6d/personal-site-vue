@@ -27,6 +27,9 @@
     .flagged {
       border: 2px solid rgb(255, 166, 2);
     }
+    //.autosolved {
+    //  border: 2px solid rgb(81, 212, 5);
+    //}
     .black,
     .white {
       text-align: center;
@@ -49,6 +52,7 @@
           position: absolute; // need better zindex and centering
           bottom: 0;
           font-size: calc(35% + 0.15vw + 3px);
+          font-weight: 1000;
           width: 100%;
         }
       }

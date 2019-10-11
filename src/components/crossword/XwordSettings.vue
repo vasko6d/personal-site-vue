@@ -27,9 +27,7 @@
                 <transition name="fade">
                   <div class="collapse-opts" v-if="showTools">
                     <h4><i class="fas fa-caret-right"></i>&nbsp;Save</h4>
-                    <div class="note">
-                      Automatically saved when you leave page.
-                    </div>
+                    <div class="note">Automatically Saves periodically</div>
                     <div class="tool-btn safe" @click="$emit('saveProgress')">
                       <i class="fas fa-save"></i>&nbsp;Save Progress
                     </div>
@@ -63,13 +61,16 @@
                       <i class="fas fa-clipboard-check"></i>&nbsp;Submit for
                       grading
                     </div>
-                    <div class="tool-btn safe">
+                    <div class="tool-btn safe" @click="$emit('solve', 'cell')">
                       <i class="far fa-check-square"></i>&nbsp;Solve cell
                     </div>
-                    <div class="tool-btn safe">
+                    <div class="tool-btn safe" @click="$emit('solve', 'clue')">
                       <i class="far fa-check-square"></i>&nbsp;Solve clue
                     </div>
-                    <div class="tool-btn safe">
+                    <div
+                      class="tool-btn safe"
+                      @click="$emit('solve', 'puzzle')"
+                    >
                       <i class="far fa-check-square"></i>&nbsp;Solve entire
                       puzzle
                     </div>

@@ -14,14 +14,17 @@
               input: isInput(cell.color),
               active: isActive(cell),
               exact: isExact(r, c),
-              flagged: cell.flag
+              flagged: cell.flag,
+              autosolved: cell.wasAutoSolved
             }
           ]"
         >
           <div
             :class="[
               'cell-wrapper',
-              { wrong: showErrors && cell.entry && cell.entry != cell.ans }
+              {
+                wrong: showErrors && cell.entry && cell.entry != cell.ans
+              }
             ]"
             v-tooltip="{
               content: cell.entry + flashDash,

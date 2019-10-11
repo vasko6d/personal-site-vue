@@ -19,6 +19,7 @@
         @setOption="setOption"
         @defaultSettings="opts = defaultOpts()"
         @clear="clear"
+        @solve="solve"
         @saveProgress="saveProgress"
         :opts="opts"
       />
@@ -122,7 +123,9 @@ export default {
         "|" +
         this.clickedClue.next +
         "|" +
-        this.contextEnabled
+        this.contextEnabled +
+        "|" +
+        this.clickedClue.wasAutoSolved
       );
     },
     acrossNum() {
@@ -180,6 +183,24 @@ export default {
           this.xword.clearClue();
           break;
       }
+      this.saveProgress();
+    },
+    solve(solveType) {
+      switch (solveType) {
+        case "puzzle":
+          console.log("[SOLVE] Puzzle");
+          this.xword.solvePuzzle();
+          break;
+        case "clue":
+          console.log("[SOLVE] Clue");
+          this.xword.solveClue();
+          break;
+        case "cell":
+          console.log("[SOLVE] Cell");
+          this.xword.solveCurrentCell();
+          break;
+      }
+      this.saveProgress();
     },
     saveProgress() {
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
@@ -248,10 +269,7 @@ export default {
       // Bring Up keyboard if afterImage is soecial
       this.specialKeyboard();
 
-      // Save Progress
-      localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
-        this.xword.saveData()
-      );
+      this.saveProgress();
     },
     executeAction(actn, opts) {
       switch (actn) {
