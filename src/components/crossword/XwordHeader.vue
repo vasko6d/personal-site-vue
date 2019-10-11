@@ -8,6 +8,7 @@
       @defaultSettings="$emit('defaultSettings')"
       @clear="clear"
       @solve="solve"
+      @saveProgress="$emit('saveProgress')"
       :showOnPageKeyboard="opts.keyboard.showOnPageKeyboard"
       :showErrors="opts.errors.showErrors"
       :showCluePanel="opts.clues.showCluePanel"

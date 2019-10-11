@@ -19,6 +19,7 @@
         @setOption="setOption"
         @defaultSettings="opts = defaultOpts()"
         @clear="clear"
+        @saveProgress="saveProgress"
         :opts="opts"
       />
       <xword-puzzle
@@ -72,6 +73,10 @@ import Xword3 from "@/assets/xword/Xword3.vue";
 
 export default {
   name: "crossword",
+  beforeRouteLeave(to, from, next) {
+    this.saveProgress();
+    next();
+  },
   components: {
     XwordCluePanel,
     XwordPuzzle,
@@ -175,11 +180,12 @@ export default {
           this.xword.clearClue();
           break;
       }
-
-      // Save Progress
+    },
+    saveProgress() {
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
         this.xword.saveData()
       );
+      console.log("Progress saved for [" + this.xword.title + "]");
     },
     defaultOpts() {
       return {
@@ -230,7 +236,7 @@ export default {
       }
     },
     executePress(ch, opts) {
-      console.log("executePress: ", ch, ", Options: ", opts);
+      //console.log("executePress: ", ch, ", Options: ", opts);
 
       // All press/action handler
       if (ch.startsWith("$")) {

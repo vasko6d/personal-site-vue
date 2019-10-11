@@ -26,6 +26,13 @@
                 </h2>
                 <transition name="fade">
                   <div class="collapse-opts" v-if="showTools">
+                    <h4><i class="fas fa-caret-right"></i>&nbsp;Save</h4>
+                    <div class="note">
+                      Automatically saved when you leave page.
+                    </div>
+                    <div class="tool-btn safe" @click="$emit('saveProgress')">
+                      <i class="fas fa-save"></i>&nbsp;Save Progress
+                    </div>
                     <h4><i class="fas fa-caret-right"></i>&nbsp;Clear</h4>
                     <div
                       class="tool-btn danger"
@@ -228,6 +235,10 @@ export default {
     margin-left: 5%;
     display: inline-block;
     width: 51%;
+  }
+  .note {
+    margin-left: 5%;
+    font-size: 14px;
   }
   .danger {
     &:hover {
