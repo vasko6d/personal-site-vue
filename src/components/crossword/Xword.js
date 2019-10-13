@@ -42,10 +42,6 @@ export default class Xword {
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;
-    this.filled = {
-      across: 0,
-      down: 0
-    };
 
     // Process the solition array into a usable puzzle
     this.puzzle = [];
@@ -98,18 +94,6 @@ export default class Xword {
     }
     return {};
   }
-  getClueContext(r, c, isHoriz) {
-    let d = isHoriz ? { r: 0, c: 1 } : { r: 1, c: 0 };
-    var ctx = [[r, c]];
-    r += d.r;
-    c += d.c;
-    while (this.isInputCell(r, c)) {
-      ctx.push([r, c]);
-      r += d.r;
-      c += d.c;
-    }
-    return ctx;
-  }
   isInputCell(r, c) {
     if (r >= this.puzzle.length || r < 0) {
       return false;
@@ -125,14 +109,24 @@ export default class Xword {
   isInputColorCell(cell) {
     return colors.black != cell.color;
   }
-  isFilled(r, c, isHoriz) {
-    const ctxs = this.getClueContext(r, c, isHoriz);
-    for (const ctx of ctxs) {
-      if (!this.puzzle[ctx[0]][ctx[1]].entry) {
+  isFilled(clue) {
+    for (const cell of clue.ctx) {
+      if (!cell.entry) {
         return false;
       }
     }
     return true;
+  }
+  isCorrect(clue) {
+    for (const cell of clue.ctx) {
+      if (!this.isCellCorrect(cell)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  isCellCorrect(cell) {
+    return cell.entry === cell.ans;
   }
   filledCount(direction) {
     let cnt = 0;
@@ -143,14 +137,23 @@ export default class Xword {
     }
     return cnt;
   }
-  isCellCorrect(cell) {
-    return cell.entry === cell.ans;
+  getClueContext(r, c, isHoriz) {
+    let d = isHoriz ? { r: 0, c: 1 } : { r: 1, c: 0 };
+    var ctx = [[r, c]];
+    r += d.r;
+    c += d.c;
+    while (this.isInputCell(r, c)) {
+      ctx.push([r, c]);
+      r += d.r;
+      c += d.c;
+    }
+    return ctx;
   }
-  getFullClueContext(clueList, num, isHoriz) {
+  getFullClueContext(clue) {
     let simpleContext = this.getClueContext(
-      clueList[num].index.r,
-      clueList[num].index.c,
-      isHoriz
+      clue.index.r,
+      clue.index.c,
+      clue.isHoriz
     );
     let fullContext = [];
     for (const ctx of simpleContext) {
@@ -164,39 +167,24 @@ export default class Xword {
   // Mutators
   //
   incrementPosition() {
-    if (this.updateFilled()) {
+    let isClueFilled = this.updateClueFlags(this.getCell());
+    if (isClueFilled) {
       this.moveClue(true);
     } else {
       let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
       this.move(d);
     }
   }
-  updateFilled() {
-    let ret = false;
-    let cell = this.getCell();
-    let b = this.isFilled(
-      this.across[cell.acrossNum].index.r,
-      this.across[cell.acrossNum].index.c,
-      true
-    );
-    this.filled.across += this.across[cell.acrossNum].filled ? -1 : 0;
-    this.filled.across += b ? 1 : 0;
-    this.across[cell.acrossNum].filled = b;
-    if (this.isHoriz) {
-      ret = b;
-    }
-    b = this.isFilled(
-      this.down[cell.downNum].index.r,
-      this.down[cell.downNum].index.c,
-      false
-    );
-    this.filled.down += this.down[cell.downNum].filled ? -1 : 0;
-    this.filled.down += b ? 1 : 0;
-    this.down[cell.downNum].filled = b;
-    if (!this.isHoriz) {
-      ret = b;
-    }
-    return ret;
+  updateClueFlags(cell) {
+    let acrossClue = this.across[cell.acrossNum];
+    acrossClue.correct = this.isCorrect(acrossClue);
+    acrossClue.filled = this.isFilled(acrossClue);
+
+    let downClue = this.down[cell.downNum];
+    downClue.correct = this.isCorrect(downClue);
+    downClue.filled = this.isFilled(downClue);
+
+    return this.isHoriz ? acrossClue.filled : downClue.filled;
   }
   specialInputIntegrity() {
     // Remove speical input if not special
@@ -286,27 +274,22 @@ export default class Xword {
         }
       }
     }
-    this.bulkUpdateFilled();
+    this.bulkUpdateClueFlags();
   }
   clearClue() {
-    let curClue = this.isHoriz
+    let clue = this.isHoriz
       ? this.across[this.getCell().acrossNum]
       : this.down[this.getCell().downNum];
-    for (const coord of this.getClueContext(
-      curClue.index.r,
-      curClue.index.c,
-      this.isHoriz
-    )) {
-      let cell = this.puzzle[coord[0]][coord[1]];
+    for (let cell of clue.ctx) {
       cell.entry = "";
       cell.isSpecialInput = false;
     }
-    this.bulkUpdateFilled();
+    this.bulkUpdateClueFlags();
   }
   solveCurrentCell() {
     let cell = this.getCell();
     this.solveCell(cell);
-    this.bulkUpdateFilled();
+    this.bulkUpdateClueFlags();
   }
   solveCell(cell) {
     if (!this.isCellCorrect(cell)) {
@@ -316,18 +299,13 @@ export default class Xword {
     }
   }
   solveClue() {
-    let curClue = this.isHoriz
+    let clue = this.isHoriz
       ? this.across[this.getCell().acrossNum]
       : this.down[this.getCell().downNum];
-    for (const coord of this.getClueContext(
-      curClue.index.r,
-      curClue.index.c,
-      this.isHoriz
-    )) {
-      let cell = this.puzzle[coord[0]][coord[1]];
+    for (let cell of clue) {
       this.solveCell(cell);
     }
-    this.bulkUpdateFilled();
+    this.bulkUpdateClueFlags();
   }
   solvePuzzle() {
     for (let row of this.puzzle) {
@@ -337,7 +315,7 @@ export default class Xword {
         }
       }
     }
-    this.bulkUpdateFilled();
+    this.bulkUpdateClueFlags();
   }
 
   //
@@ -441,15 +419,18 @@ export default class Xword {
       let prev = cKeys[cKeys.length - 1];
       let next = cKeys[1 % cKeys.length];
       for (let k of cKeys) {
-        clueList[k].prev = prev;
-        clueList[k].next = next;
-        clueList[k].filled = false;
-        clueList[k].showContext = false;
+        let clue = clueList[k];
+        clue.prev = prev;
+        clue.next = next;
+        clue.filled = false;
+        clue.correct = false;
+        clue.isHoriz = isHoriz;
+        clue.showContext = false;
         prev = k;
         i++;
         next = cKeys[i % cKeys.length];
         // Contexts
-        clueList[k].ctx = this.getFullClueContext(clueList, k, isHoriz);
+        clue.ctx = this.getFullClueContext(clue, isHoriz);
       }
     }
   }
@@ -470,20 +451,16 @@ export default class Xword {
     };
     return puzzleElement;
   }
-  bulkUpdateFilled() {
-    this.filled = {
-      across: 0,
-      down: 0
-    };
+  bulkUpdateClueFlags() {
     for (let k of Object.keys(this.across)) {
       let clue = this.across[k];
-      clue.filled = this.isFilled(clue.index.r, clue.index.c, true);
-      this.filled.across += clue.filled ? 1 : 0;
+      clue.filled = this.isFilled(clue);
+      clue.correct = this.isCorrect(clue);
     }
     for (let k of Object.keys(this.down)) {
       let clue = this.down[k];
-      clue.filled = this.isFilled(clue.index.r, clue.index.c, false);
-      this.filled.down += clue.filled ? 1 : 0;
+      clue.filled = this.isFilled(clue);
+      clue.correct = this.isCorrect(clue);
     }
   }
 
@@ -526,9 +503,7 @@ export default class Xword {
           }
         }
         // Make sure clue and filled relations are correct
-        this.processClueList(this.across, true);
-        this.processClueList(this.down, false);
-        this.bulkUpdateFilled();
+        this.bulkUpdateClueFlags();
         console.log("Progress Sucesfully loaded");
       } catch {
         // Oh well...

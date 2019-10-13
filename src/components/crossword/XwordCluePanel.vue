@@ -3,7 +3,6 @@
     <div id="clue-head">Clue Panel</div>
     <xword-clues
       :clueObj="acrossClueObj"
-      :filledCount="filledObj.across"
       :r="r"
       :c="c"
       :acrossNum="acrossNum"
@@ -20,7 +19,6 @@
     />
     <xword-clues
       :clueObj="downClueObj"
-      :filledCount="filledObj.down"
       :r="r"
       :c="c"
       :acrossNum="acrossNum"
@@ -47,7 +45,6 @@ export default {
   props: {
     acrossClueObj: Object,
     downClueObj: Object,
-    filledObj: Object,
     opts: Object,
     r: Number,
     c: Number,

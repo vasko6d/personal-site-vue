@@ -1,7 +1,7 @@
 <template>
   <div class="clues">
     <div class="clue-h" @click="showClues = !showClues">
-      {{ clueHead }}&nbsp;({{ filledCount }}/{{ Object.keys(clueObj).length }})
+      {{ clueHead }}&nbsp;({{ relevantClueCount() }})
       <i
         :class="{
           fas: true,
@@ -17,7 +17,7 @@
           :value="num"
           :class="['clue', { active: isActive(num) }]"
           :key="clue.id"
-          v-show="!clue.filled"
+          v-show="showClue(clue)"
         >
           <span
             class="clue-txt"
@@ -61,7 +61,6 @@ export default {
   },
   props: {
     clueObj: Object,
-    filledCount: Number,
     r: Number,
     c: Number,
     acrossNum: Number,
@@ -96,6 +95,31 @@ export default {
       this.$emit("executePress", "$SETDIRECTION", {
         direction: this.direction === "across"
       });
+    },
+    showClue(clue) {
+      let ret = this.hideClueOpt === "never";
+      ret = ret || (this.hideClueOpt === "onFill" && !clue.filled);
+      ret = ret || (this.hideClueOpt === "onCorrect" && !clue.correct);
+      return ret;
+    },
+    relevantClueCount() {
+      let numClues = Object.keys(this.clueObj).length;
+      let ret = numClues.toString() + " total";
+      if (this.hideClueOpt != "never") {
+        let cnt = 0;
+        if (this.hideClueOpt === "onFill") {
+          for (let k of Object.keys(this.clueObj)) {
+            cnt += this.clueObj[k].filled ? 1 : 0;
+          }
+          ret = (numClues - cnt).toString() + " unfilled";
+        } else if (this.hideClueOpt == "onCorrect") {
+          for (let k of Object.keys(this.clueObj)) {
+            cnt += this.clueObj[k].correct ? 1 : 0;
+          }
+          ret = (numClues - cnt).toString() + " incorrect";
+        }
+      }
+      return ret;
     }
   }
 };

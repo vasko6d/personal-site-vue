@@ -43,7 +43,6 @@
         v-if="opts.clues.showCluePanel"
         :acrossClueObj="xword.across"
         :downClueObj="xword.down"
-        :filledObj="xword.filled"
         :r="xword.r"
         :c="xword.c"
         :curCellValue="xword.getCell().entry"
@@ -206,7 +205,7 @@ export default {
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
         this.xword.saveData()
       );
-      console.log("Progress saved for [" + this.xword.title + "]");
+      //console.log("Progress saved for [" + this.xword.title + "]");
     },
     defaultOpts() {
       return {
