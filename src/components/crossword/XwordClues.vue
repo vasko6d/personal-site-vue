@@ -107,17 +107,18 @@ export default {
       let ret = numClues.toString() + " total";
       if (this.hideClueOpt != "never") {
         let cnt = 0;
+        let suffix = " filled";
         if (this.hideClueOpt === "onFill") {
           for (let k of Object.keys(this.clueObj)) {
             cnt += this.clueObj[k].filled ? 1 : 0;
           }
-          ret = (numClues - cnt).toString() + " unfilled";
         } else if (this.hideClueOpt == "onCorrect") {
           for (let k of Object.keys(this.clueObj)) {
             cnt += this.clueObj[k].correct ? 1 : 0;
           }
-          ret = (numClues - cnt).toString() + " incorrect";
+          suffix = " correct";
         }
+        ret = cnt.toString() + "/" + numClues.toString() + suffix;
       }
       return ret;
     }
