@@ -29,20 +29,28 @@ Graphics
 
 Crossword
 
-- [ ] Tool Actions: clear all flags, submit for grading, solve-clue,cell,puzzle, clear all wrong answers, toggle all clue contexts
 - [ ] Navigation options: Move through filled cells on typing? move clue moves to next unfilled clue?
+- [ ] Make settings look liek google maps settings. Switch on boolean, and btns for triple option.
 - [ ] click on author (to search by author)
 - [ ] make dynamic! Fetch data etc. ratings etc
 - [ ] crossword maker!
-- [ ] 2 columns for Crossword?
 - [ ] Support for types of cells: ~~white~~, ~~black~~, grey input, circle input
 - [ ] verify integrity of clues to puzzle?
-- [ ] clipboard-check good for grading?
 - [ ] moveClue repositions pointer at start
 - [ ] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
 - [ ] Add option note from author to Xword?
-- [ ] make the ctx objects full blown cells... i need it all
 - [ ] fix terrible use of reactivity for toggling individual clue context
+- [ ] add visual indicator for "auto solved cells" (low alpha layer on entry?)
+- [ ] flash banner for notification? e.g. tool sucesses?
+- [ ] solved banner for shwoing stats?
+- [ ] the following boxes will be solved/cleared confirmation?
+- [ ] a one click onption to get back to xword/search? x in top right?
+- [ ] i think prevent wrap on arrow navigation. bool option for move? as well as move to unsolved?
+- [ ] intercept 'done' action on ios keyboard? turn into an enter?
+- [ ] does mobile have an "onintialpress" mcuh better tactile response
+- [ ] fun stats for long term [order of cells solved], [how many times a cell changed]
+- [x] Tool Actions: clear all flags, submit for grading, solve-clue,cell,puzzle, clear all wrong answers, ~~toggle all clue contexts~~
+- [x] make the ctx objects full blown cells... i need it all
 - [x] write options to localStorage
 - [x] make sure special input dynamic in clue context
 - [x] show only uncompleted clues, or highligh them?
@@ -62,6 +70,7 @@ Crossword
 - [x] when more than 1 character enterd create a specail fa icon that opens up to show/edit
 - [ ] ~~maybe add across clues on left, down clues right on big screens?~~
 - [ ] ~~dont let backspace go through black or walls~~
+- [ ] ~~2 columns for Crossword?~~
 
 Climbing
 
