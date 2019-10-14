@@ -266,7 +266,11 @@ export default {
       // All press/action handler
       if (ch.startsWith("$")) {
         this.forceSpecialKeyboard =
-          opts && opts.forceSpecialKeyboard ? true : false;
+          opts && opts.forceSpecialKeyboard
+            ? true
+            : ch === "$BACKSPACE"
+            ? this.forceSpecialKeyboard
+            : false;
         this.executeAction(ch, opts);
       } else {
         this.xword.enterChar(ch, this.opts.navigation.autoSkipFilledCells);
