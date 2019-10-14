@@ -14,9 +14,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>
@@ -27,19 +27,18 @@ export default {
   data() {
     return {
       keyLayout: [],
-      invKeyLayout: {},
-      shift: false
+      invKeyLayout: {}
     };
   },
   mounted() {
     [this.keyLayout, this.invKeyLayout] = this.createQwerty();
-    window.addEventListener("keyup", e => {
-      let ch = e.key.toUpperCase();
-      if (ch === "SHIFT") {
-        this.shift = false;
-      }
-    });
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", this.keydownFxn);
+  },
+  beforeDestroy() {
+    window.removeEventListener("keydown", this.keydownFxn);
+  },
+  methods: {
+    keydownFxn(e) {
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
       if (ch.match(/^[^\s]$/)) {
@@ -60,9 +59,6 @@ export default {
       } else {
         e.preventDefault();
         switch (ch) {
-          case "SHIFT":
-            this.shift = true;
-            break;
           case "ARROWLEFT":
           // Falls through
           case "ARROWRIGHT":
@@ -73,7 +69,7 @@ export default {
             this.executePress("$" + ch);
             break;
           case "TAB":
-            if (this.shift) {
+            if (e.shiftKey) {
               this.executePress("$!" + ch);
             } else {
               this.executePress("$" + ch);
@@ -97,9 +93,7 @@ export default {
             break;
         }
       }
-    });
-  },
-  methods: {
+    },
     executePress(ch, opts) {
       this.$emit("executePress", ch, opts);
     },

@@ -261,7 +261,7 @@ export default {
       }
     },
     executePress(ch, opts) {
-      console.log("executePress: ", ch, ", Options: ", opts);
+      //console.log("executePress: ", ch, ", Options: ", opts);
 
       // All press/action handler
       if (ch.startsWith("$")) {
