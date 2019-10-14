@@ -57,7 +57,9 @@
               }"
             ></i>
           </strong>
-          <span v-show="showTheme">{{ themeExp }}</span>
+          <span v-show="showTheme" @click="showTheme = !showTheme">{{
+            themeExp
+          }}</span>
         </div>
       </div>
     </div>
