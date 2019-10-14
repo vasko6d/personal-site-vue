@@ -108,7 +108,8 @@ export default {
     getStatus(id) {
       const lsKey = "xword:" + id;
       if (localStorage[lsKey]) {
-        if (localStorage[lsKey] === "completed") {
+        let xword = JSON.parse(localStorage[lsKey]);
+        if (xword.completed) {
           return "Completed";
         }
         return "Started";

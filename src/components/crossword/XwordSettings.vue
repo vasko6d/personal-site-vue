@@ -57,10 +57,6 @@
                       <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
                     </div>
                     <h4><i class="fas fa-caret-right"></i>&nbsp;Solve</h4>
-                    <div class="tool-btn safe">
-                      <i class="fas fa-clipboard-check"></i>&nbsp;Submit for
-                      grading
-                    </div>
                     <div class="tool-btn safe" @click="$emit('solve', 'cell')">
                       <i class="far fa-check-square"></i>&nbsp;Solve cell
                     </div>
@@ -71,8 +67,7 @@
                       class="tool-btn safe"
                       @click="$emit('solve', 'puzzle')"
                     >
-                      <i class="far fa-check-square"></i>&nbsp;Solve entire
-                      puzzle
+                      <i class="far fa-check-square"></i>&nbsp;Complete puzzle
                     </div>
                   </div>
                 </transition>

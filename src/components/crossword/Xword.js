@@ -94,6 +94,9 @@ export default class Xword {
     }
 
     // If speial numbering is passed
+
+    // flag to tell if the puzzle has been completed
+    this.completed = false;
   }
 
   //
@@ -310,17 +313,25 @@ export default class Xword {
             cell.flag = false;
           }
           if (allEntry || (wrongEntry && !this.isCellCorrect(cell))) {
-            this.clearCell(cell);
+            this.clearCell(cell, allEntry);
+            if (this.completed) {
+              this.timer.reset();
+              this.timer.resume();
+            }
+            this.completed = false;
           }
         }
       }
     }
     this.bulkUpdateClueFlags();
   }
-  clearCell(cell) {
-    if (!cell.wasAutoSolved) {
+  clearCell(cell, fullClear = false) {
+    if (!cell.wasAutoSolved || fullClear) {
       cell.entry = "";
       cell.isSpecialInput = false;
+      if (fullClear) {
+        cell.wasAutoSolved = false;
+      }
     }
   }
   clearClue() {
@@ -362,6 +373,8 @@ export default class Xword {
       }
     }
     this.bulkUpdateClueFlags();
+    this.completed = true;
+    this.timer.pause();
   }
 
   //
@@ -517,6 +530,7 @@ export default class Xword {
     return {
       version: savedDataVersion,
       time: this.timer.getTime(),
+      completed: this.completed,
       cellData: this.getCellDataToSave()
     };
   }
@@ -538,7 +552,11 @@ export default class Xword {
     console.log("Attempting to load progress...", savedData);
     if (savedData.version && savedData.version === savedDataVersion) {
       try {
+        this.completed = savedData.completed;
         this.timer.addTime(savedData.time);
+        if (this.completed) {
+          this.timer.pause();
+        }
         for (const row of this.puzzle) {
           for (const cell of row) {
             cell.entry = savedData.cellData[cell.r][cell.c].entry;
@@ -547,9 +565,9 @@ export default class Xword {
             cell.wasAutoSolved =
               savedData.cellData[cell.r][cell.c].wasAutoSolved;
           }
+          // Make sure clue and filled relations are correct
+          this.bulkUpdateClueFlags();
         }
-        // Make sure clue and filled relations are correct
-        this.bulkUpdateClueFlags();
         console.log("Progress Sucesfully loaded");
       } catch {
         // Oh well...
