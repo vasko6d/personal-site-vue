@@ -148,7 +148,8 @@ export default {
       raw.solution,
       raw.clues.across,
       raw.clues.down,
-      raw.note
+      raw.note,
+      { shapeCells: raw.shapeCells, colorCells: raw.colorCells }
     );
     if (localStorage["xword:" + this.xwordId.toString()]) {
       let progress = JSON.parse(

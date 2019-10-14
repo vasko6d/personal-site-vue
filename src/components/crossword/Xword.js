@@ -11,7 +11,9 @@ var colors = {
 };
 
 // Supported Shapes
-var shapes = {};
+var shapes = {
+  circle: "circle"
+};
 
 // [s]pecial [Char]acters
 var sChars = {
@@ -70,12 +72,11 @@ export default class Xword {
       this.r = idx.r;
       this.c = idx.c;
     }
-
     // list of (r,c, color) of coloring other than black or white
-    if (opts.coloredCells) {
-      for (let c of opts.coloredCells) {
+    if (opts.colorCells) {
+      for (let c of opts.colorCells) {
         if (c[2] in colors) {
-          this.puzzle[(c[0], c[1])].color = colors[c[2]];
+          this.puzzle[c[0]][c[1]].color = colors[c[2]];
         } else {
           throw "Color [" + c[2] + "] not supported";
         }
@@ -83,10 +84,10 @@ export default class Xword {
     }
 
     // list of (r, c, shape) of special supported shapes
-    if (opts.shapedCells) {
-      for (let s of opts.coloredCells) {
+    if (opts.shapeCells) {
+      for (let s of opts.shapeCells) {
         if (s[2] in shapes) {
-          this.puzzle[(s[0], s[1])].shape = shapes[s[2]];
+          this.puzzle[s[0]][s[1]].shape = shapes[s[2]];
         } else {
           throw "Shape [" + s[2] + "] not supported";
         }

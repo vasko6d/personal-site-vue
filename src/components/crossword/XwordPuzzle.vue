@@ -39,6 +39,7 @@
               <i v-else class="fas fa-comment-dots"></i>
             </div>
           </div>
+          <div class="circle" v-show="cell.shape === 'circle'"></div>
         </div>
       </div>
     </div>
