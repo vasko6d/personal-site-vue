@@ -26,7 +26,17 @@ export default class Xword {
    * Xword is a helper class for all the important Xword Functions
    * @constructor
    */
-  constructor(title, author, editor, date, solnArr, across, down, opts = {}) {
+  constructor(
+    title,
+    author,
+    editor,
+    date,
+    solnArr,
+    across,
+    down,
+    note = "",
+    opts = {}
+  ) {
     if (opts.debug) {
       console.log("Initializing crossword '" + title + "' by: " + author);
     }
@@ -42,6 +52,7 @@ export default class Xword {
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;
+    this.note = note;
 
     // Process the solition array into a usable puzzle
     this.puzzle = [];

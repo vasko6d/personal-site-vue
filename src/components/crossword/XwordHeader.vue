@@ -29,8 +29,24 @@
         ></i>
       </div>
       <div class="info">
-        <h2>{{ title }}</h2>
-        by {{ author }}, {{ publishDate.toDateString() }}
+        <h2>
+          {{ title }}&nbsp;
+          <i
+            v-show="note"
+            @click="showNote = !showNote"
+            :class="{
+              icn: true,
+              fas: true,
+              'fa-angle-down': !showNote,
+              'fa-angle-up': showNote
+            }"
+          ></i>
+        </h2>
+        <div v-show="showNote" class="note">
+          <strong>Note from author -</strong>
+          {{ note }}
+        </div>
+        <div>by {{ author }}, {{ publishDate.toDateString() }}</div>
       </div>
     </div>
     <div class="tool-bar">
@@ -67,6 +83,7 @@ export default {
   props: {
     title: String,
     author: String,
+    note: String,
     publishDate: Date,
     opts: Object,
     timer: Timer
@@ -81,6 +98,7 @@ export default {
       minutes: 0,
       seconds: 0,
       interval: "",
+      showNote: false,
       // Help Modals
       showHelp: false,
       showSettings: false,
@@ -139,6 +157,12 @@ export default {
     position: relative;
     .info {
       flex-grow: 1;
+      .note {
+        text-align: left;
+        margin-left: 7%;
+        margin-right: 7%;
+        font-size: 0.85em;
+      }
     }
   }
   .right-close {

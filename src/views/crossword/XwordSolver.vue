@@ -14,6 +14,7 @@
         :author="xword.author"
         :publishDate="xword.publishDate"
         :timer="xword.timer"
+        :note="xword.note"
         @flagCell="executePress('$FLAGCELL')"
         @specialEdit="executePress('$SPECIALEDIT')"
         @setOption="setOption"
@@ -143,7 +144,8 @@ export default {
       raw.createDate,
       raw.solution,
       raw.clues.across,
-      raw.clues.down
+      raw.clues.down,
+      raw.note
     );
     if (localStorage["xword:" + this.xwordId.toString()]) {
       let progress = JSON.parse(

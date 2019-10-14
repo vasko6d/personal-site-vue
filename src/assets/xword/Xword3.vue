@@ -6,12 +6,14 @@ export default {
       xword: {
         id: 3,
         title: "Ditto",
-        author: "David Vasko*",
-        editor: "David Vasko*",
+        author: "David Vasko",
+        editor: "David Vasko",
         createDate: "20191001",
         difficulty: 3,
         dimension: "5x5",
-        theme: "The nth column is the same as the nth row, ",
+        theme: "The nth column is the same as the nth row",
+        note:
+          "I saw this seqence of words in the San Diego Union Tribune, credit listed as 'Ken Egger, Lincoln, Neb'. I made it into a crossword and made the clues.",
         colorCells: [],
         shapeCells: [],
         numbering: [],
