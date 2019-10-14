@@ -258,7 +258,8 @@ export default {
       localStorage["xwordOpts"] = JSON.stringify(this.opts);
     },
     specialKeyboard(force = false) {
-      if (this.xword.getCell().isSpecialInput || force) {
+      let cell = this.xword.getCell();
+      if (!cell.wasAutoSolved && (cell.isSpecialInput || force)) {
         //console.log("...bringing up special edit keyboard");
         this.$refs["psuedo-input"].focus({ preventScroll: true });
       } else {
