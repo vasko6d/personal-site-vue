@@ -30,7 +30,6 @@ Graphics
 Crossword
 
 - [ ] Support for types of cells: ~~white~~, ~~black~~, grey input, circle input
-- [ ] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
 - [ ] fix terrible use of reactivity for toggling individual clue context
 - [ ] flash banner for notification? e.g. tool sucesses?
 - [ ] solved banner for shwoing stats?
@@ -42,6 +41,7 @@ Crossword
 - [ ] Postpone: make dynamic! Fetch data etc. ratings etc
 - [ ] Postpone: crossword maker!
 - [ ] Postpone: fun stats for long term [order of cells solved], [how many times a cell changed]
+- [x] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
 - [x] add visual indicator for "auto solved cells" (low alpha layer on entry?)
 - [x] Add option note from author to Xword?
 - [x] a one click onption to get back to xword/search? x in top right?

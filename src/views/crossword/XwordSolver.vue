@@ -251,7 +251,7 @@ export default {
     specialKeyboard() {
       if (this.xword.getCell().isSpecialInput) {
         //console.log("...bringing up special edit keyboard");
-        this.$refs["psuedo-input"].focus();
+        this.$refs["psuedo-input"].focus({ preventScroll: true });
       } else {
         //console.log("...hiding up special edit keyboard");
         this.$refs["psuedo-input"].blur();

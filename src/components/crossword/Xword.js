@@ -540,9 +540,10 @@ export default class Xword {
       cellData.push([]);
       for (const cell of row) {
         cellData[cellData.length - 1].push({
-          entry: cell.entry,
-          flag: cell.flag,
-          wasAutoSolved: cell.wasAutoSolved
+          e: cell.entry,
+          f: cell.flag,
+          was: cell.wasAutoSolved,
+          si: cell.isSpecialInput
         });
       }
     }
@@ -559,11 +560,11 @@ export default class Xword {
         }
         for (const row of this.puzzle) {
           for (const cell of row) {
-            cell.entry = savedData.cellData[cell.r][cell.c].entry;
+            cell.entry = savedData.cellData[cell.r][cell.c].e;
             cell.entry = cell.entry ? cell.entry : "";
-            cell.flag = savedData.cellData[cell.r][cell.c].flag;
-            cell.wasAutoSolved =
-              savedData.cellData[cell.r][cell.c].wasAutoSolved;
+            cell.flag = savedData.cellData[cell.r][cell.c].f;
+            cell.wasAutoSolved = savedData.cellData[cell.r][cell.c].was;
+            cell.isSpecialInput = savedData.cellData[cell.r][cell.c].si;
           }
           // Make sure clue and filled relations are correct
           this.bulkUpdateClueFlags();

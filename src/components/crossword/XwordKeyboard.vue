@@ -40,6 +40,7 @@ export default {
       }
     });
     window.addEventListener("keydown", e => {
+      e.preventDefault();
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
       if (ch.match(/^[^\s]$/)) {
@@ -62,11 +63,9 @@ export default {
           case "ARROWDOWN":
           // Falls through
           case "ARROWUP":
-            e.preventDefault();
             this.executePress("$" + ch);
             break;
           case "TAB":
-            e.preventDefault();
             if (this.shift) {
               this.executePress("$!" + ch);
             } else {
@@ -74,15 +73,12 @@ export default {
             }
             break;
           case "ENTER":
-            e.preventDefault();
             this.executePress("$LEAVESPECIALINPUT");
             break;
           case "ESCAPE":
-            e.preventDefault();
             this.executePress("$REMOVESPECIALINPUT");
             break;
           case " ":
-            e.preventDefault();
             this.executePress("$SWITCHDIRECTION");
             break;
           case "BACKSPACE":
