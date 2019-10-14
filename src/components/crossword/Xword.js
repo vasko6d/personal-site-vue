@@ -20,7 +20,8 @@ var sChars = {
   black: "#",
   null: "_",
   seq: "|",
-  eq: "="
+  eq: "=",
+  diffAcrossVsDown: ":"
 };
 
 export default class Xword {
@@ -393,11 +394,13 @@ export default class Xword {
       this.puzzle.push([]);
 
       // Loop across each column
+      let adj = 0;
       for (let c = 0; c < row.length; c++) {
         let ch = row[c];
 
         // Special Logic is more than a single character is in a cell
         if (sequenceStarted) {
+          adj++;
           if (ch === sChars.seq) {
             sequenceStarted = false;
             ch = seq.join(""); // Multiple character entry
@@ -408,7 +411,6 @@ export default class Xword {
         } else {
           if (ch === sChars.seq) {
             sequenceStarted = true;
-            seq.push(ch);
             continue;
           }
         }
@@ -421,16 +423,16 @@ export default class Xword {
         let cellNum = null; // THe actual number that belongs if the cell (if it )
 
         if (color != colors.black) {
-          aNum = this.getAcrossNumber(r, c - 1);
+          aNum = this.getAcrossNumber(r, c - 1 - adj);
           aNum = aNum ? aNum : clueNumber;
-          dNum = this.getDownNumber(r - 1, c);
+          dNum = this.getDownNumber(r - 1, c - adj);
           dNum = dNum ? dNum : clueNumber;
 
           // if this cell will have a number on the final crossword
           if (dNum == clueNumber || aNum == clueNumber) {
             if (dNum == clueNumber) {
               try {
-                this.down[clueNumber].index = { r: r, c: c };
+                this.down[clueNumber].index = { r: r, c: c - adj };
               } catch {
                 console.error(
                   "Ill-formatted puzzle no clue for: [" + clueNumber + "-Down]"
@@ -439,7 +441,7 @@ export default class Xword {
             }
             if (aNum == clueNumber) {
               try {
-                this.across[clueNumber].index = { r: r, c: c };
+                this.across[clueNumber].index = { r: r, c: c - adj };
               } catch {
                 console.error(
                   "Ill-formatted puzzle no clue for: [" +
@@ -462,7 +464,7 @@ export default class Xword {
             color,
             undefined,
             r,
-            c
+            c - adj
           )
         );
       }

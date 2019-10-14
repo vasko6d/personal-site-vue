@@ -29,18 +29,20 @@ Graphics
 
 Crossword
 
-- [ ] Carry though the context click "\$force special keyboard"
-- [ ] Support for types of cells: ~~white~~, ~~black~~, grey input, circle input
 - [ ] fix terrible use of reactivity for toggling individual clue context
+- [ ] some crosswrods have "multi input one way" and single or no input otherwat... maybe another special parsing character?
 - [ ] flash banner for notification? e.g. tool sucesses?
 - [ ] solved banner for shwoing stats?
 - [ ] the following boxes will be solved/cleared confirmation?
 - [ ] does mobile have an "onintialpress" mcuh better tactile response
+- [ ] multiple answer boxes(ie '8' vs 'eight')?
 - [ ] Low Priority: Make settings look liek google maps settings. Switch on boolean, and btns for triple option.
 - [ ] Low Priority:moveClue repositions pointer at start
 - [ ] Postpone: make dynamic! Fetch data etc. ratings etc
 - [ ] Postpone: crossword maker!
 - [ ] Postpone: fun stats for long term [order of cells solved], [how many times a cell changed]
+- [x] Carry though the context click "\$force special keyboard"
+- [x] Support for types of cells: ~~white~~, ~~black~~, ~~grey input~~, ~~circle input~~
 - [x] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
 - [x] add visual indicator for "auto solved cells" (low alpha layer on entry?)
 - [x] Add option note from author to Xword?
