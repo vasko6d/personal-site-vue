@@ -57,10 +57,12 @@ export default {
         filterable: ["title", "author", "difficulty", "dimension", "status"],
         sortIcon: {
           base: "fas",
-          is: "fa-arrows-alt-v",
+          is: "",
           up: "fa-caret-up",
           down: "fa-caret-down"
         },
+        orderBy: { column: "createDate", ascending: false },
+
         customSorting: {
           status: ascending => {
             return (a, b) => {
