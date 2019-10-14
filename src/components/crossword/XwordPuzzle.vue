@@ -11,11 +11,11 @@
           :class="[
             cell.color,
             {
-              input: isInput(cell.color),
               active: isActive(cell),
               exact: isExact(r, c),
               flagged: cell.flag,
-              autosolved: cell.wasAutoSolved
+              'autosolved-border': cell.wasAutoSolved,
+              'wrong-border': showErrors && cell.entry && cell.entry != cell.ans
             }
           ]"
         >
@@ -23,7 +23,8 @@
             :class="[
               'cell-wrapper',
               {
-                wrong: showErrors && cell.entry && cell.entry != cell.ans
+                wrong: showErrors && cell.entry && cell.entry != cell.ans,
+                autosolved: cell.wasAutoSolved
               }
             ]"
             v-tooltip="{

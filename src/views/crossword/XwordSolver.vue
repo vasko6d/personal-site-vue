@@ -330,24 +330,27 @@ export default {
     },
     backSpaceLogic() {
       // if the original cell was empty move then do it again
-      const moved = !this.xword.getCell().entry;
-      if (moved) {
+      let cell = this.xword.getCell();
+      const move = !cell.entry || cell.wasAutoSolved;
+      if (move) {
         if (this.xword.isHoriz) {
           this.xword.move({ r: 0, c: -1 });
         } else {
           this.xword.move({ r: -1, c: 0 });
         }
       }
-      let cell = this.xword.getCell();
-      if (cell.isSpecialInput) {
-        // If its special input simply elete end character
-        if (cell.entry && !moved) {
-          cell.entry = cell.entry.slice(0, -1);
+      cell = this.xword.getCell();
+      if (!cell.wasAutoSolved) {
+        if (cell.isSpecialInput) {
+          // If its special input simply elete end character
+          if (cell.entry && !move) {
+            cell.entry = cell.entry.slice(0, -1);
+          }
+        } else {
+          this.xword.getCell().entry = "";
         }
-      } else {
-        this.xword.getCell().entry = "";
+        this.xword.bulkUpdateClueFlags();
       }
-      this.xword.updateFilled();
     }
   }
 };

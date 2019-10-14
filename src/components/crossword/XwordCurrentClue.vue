@@ -49,7 +49,7 @@ export default {
     i {
       user-select: none;
       display: flex;
-      min-width: 40px;
+      min-width: 50px;
       flex-direction: column;
       justify-content: center;
       border-radius: 0.35em;

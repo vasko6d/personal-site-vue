@@ -4,28 +4,34 @@
       <div class="p-row">
         <div
           class="p-cell"
-          v-for="ctx in context"
-          :key="ctx.id"
-          @click="clickFxn(ctx.r, ctx.c)"
+          v-for="cell in context"
+          :key="cell.id"
+          @click="clickFxn(cell.r, cell.c)"
         >
           <div
             :class="[
-              ctx.color,
+              cell.color,
               {
-                input: ctx.isInput,
-                active: isActive(ctx.acrossNum, ctx.downNum),
-                exact: isExact(ctx.r, ctx.c),
-                flagged: ctx.flag
+                input: cell.isInput,
+                active: isActive(cell.acrossNum, cell.downNum),
+                exact: isExact(cell.r, cell.c),
+                flagged: cell.flag,
+                'autosolved-border': cell.wasAutoSolved,
+                'wrong-border':
+                  showErrors && cell.entry && cell.entry != cell.ans
               }
             ]"
           >
             <div
               :class="[
                 'cell-wrapper',
-                { wrong: showErrors && ctx.entry && ctx.entry != ctx.ans }
+                {
+                  wrong: showErrors && cell.entry && cell.entry != cell.ans,
+                  autosolved: cell.wasAutoSolved
+                }
               ]"
             >
-              <span class="entry">{{ ctx.entry }}</span>
+              <span class="entry">{{ cell.entry }}</span>
             </div>
           </div>
         </div>

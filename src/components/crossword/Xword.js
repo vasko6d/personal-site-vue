@@ -199,13 +199,15 @@ export default class Xword {
   }
   enterChar(ch) {
     let cell = this.getCell();
-    if (cell.isSpecialInput) {
-      // If we are in a sepcial input cell all characters are valid
-      cell.entry += ch;
-    } else if (ch.match(/^[A-Z]$/)) {
-      // Normally only A-Z are allowed
-      cell.entry = ch;
-      this.incrementPosition();
+    if (!cell.wasAutoSolved) {
+      if (cell.isSpecialInput) {
+        // If we are in a sepcial input cell all characters are valid
+        cell.entry += ch;
+      } else if (ch.match(/^[A-Z]$/)) {
+        // Normally only A-Z are allowed
+        cell.entry = ch;
+        this.incrementPosition();
+      }
     }
   }
   toggleCellFlag() {
@@ -268,21 +270,25 @@ export default class Xword {
             cell.flag = false;
           }
           if (allEntry || (wrongEntry && !this.isCellCorrect(cell))) {
-            cell.entry = "";
-            cell.isSpecialInput = false;
+            this.clearCell(cell);
           }
         }
       }
     }
     this.bulkUpdateClueFlags();
   }
+  clearCell(cell) {
+    if (!cell.wasAutoSolved) {
+      cell.entry = "";
+      cell.isSpecialInput = false;
+    }
+  }
   clearClue() {
     let clue = this.isHoriz
       ? this.across[this.getCell().acrossNum]
       : this.down[this.getCell().downNum];
     for (let cell of clue.ctx) {
-      cell.entry = "";
-      cell.isSpecialInput = false;
+      this.clearCell(cell);
     }
     this.bulkUpdateClueFlags();
   }
@@ -302,7 +308,7 @@ export default class Xword {
     let clue = this.isHoriz
       ? this.across[this.getCell().acrossNum]
       : this.down[this.getCell().downNum];
-    for (let cell of clue) {
+    for (let cell of clue.ctx) {
       this.solveCell(cell);
     }
     this.bulkUpdateClueFlags();
