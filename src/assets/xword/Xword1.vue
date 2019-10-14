@@ -8,7 +8,7 @@ export default {
         title: "We are at a Railroad Crossing",
         author: "David Vasko",
         editor: "David Vasko",
-        createDate: "20140101",
+        createDate: "20150601",
         difficulty: 5,
         dimension: "15x15",
         theme:

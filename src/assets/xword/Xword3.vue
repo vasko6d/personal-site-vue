@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "Xword2",
+  name: "Xword3",
   data() {
     return {
       xword: {

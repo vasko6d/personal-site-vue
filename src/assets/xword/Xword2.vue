@@ -53,7 +53,7 @@ export default {
             23: { txt: "Regardless (of)" },
             24: { txt: "**What an angry mob might do" },
             27: { txt: "Where some presidents got stoned?: abbr." },
-            28: { txt: "A 1-, say" },
+            28: { txt: "A 10, say" },
             29: { txt: "Amassed, as a tab" },
             30: { txt: "Chia __" },
             33: { txt: "Discharge" },

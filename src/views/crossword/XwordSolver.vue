@@ -71,6 +71,7 @@ import Xword from "@/components/crossword//Xword.js";
 import Xword1 from "@/assets/xword/Xword1.vue";
 import Xword2 from "@/assets/xword/Xword2.vue";
 import Xword3 from "@/assets/xword/Xword3.vue";
+import Xword4 from "@/assets/xword/Xword4.vue";
 
 export default {
   name: "crossword",
@@ -97,7 +98,8 @@ export default {
       rawXwords: {
         1: Xword1.data().xword,
         2: Xword2.data().xword,
-        3: Xword3.data().xword
+        3: Xword3.data().xword,
+        4: Xword4.data().xword
       },
       xword: new Xword("", "", "", "", [], {}, {}),
       clickedClue: {}, // hacky to make clue context togglable....

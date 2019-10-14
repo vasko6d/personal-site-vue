@@ -428,10 +428,24 @@ export default class Xword {
           // if this cell will have a number on the final crossword
           if (dNum == clueNumber || aNum == clueNumber) {
             if (dNum == clueNumber) {
-              this.down[clueNumber].index = { r: r, c: c };
+              try {
+                this.down[clueNumber].index = { r: r, c: c };
+              } catch {
+                console.error(
+                  "Ill-formatted puzzle no clue for: [" + clueNumber + "-Down]"
+                );
+              }
             }
             if (aNum == clueNumber) {
-              this.across[clueNumber].index = { r: r, c: c };
+              try {
+                this.across[clueNumber].index = { r: r, c: c };
+              } catch {
+                console.error(
+                  "Ill-formatted puzzle no clue for: [" +
+                    clueNumber +
+                    "-Across]"
+                );
+              }
             }
             cellNum = clueNumber;
             clueNumber++;

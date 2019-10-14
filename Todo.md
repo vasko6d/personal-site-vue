@@ -34,7 +34,6 @@ Crossword
 - [ ] flash banner for notification? e.g. tool sucesses?
 - [ ] solved banner for shwoing stats?
 - [ ] the following boxes will be solved/cleared confirmation?
-- [ ] intercept 'done' action on ios keyboard? turn into an enter?
 - [ ] does mobile have an "onintialpress" mcuh better tactile response
 - [ ] Low Priority: Make settings look liek google maps settings. Switch on boolean, and btns for triple option.
 - [ ] Low Priority:moveClue repositions pointer at start
@@ -71,6 +70,7 @@ Crossword
 - [ ] ~~click on author (to search by author)~~
 - [ ] ~~verify integrity of clues to puzzle?~~
 - [ ] ~~prevent wrap on arrow navigation. bool option for move? as well as move to unsolved?~~
+- [ ] ~~intercept 'done' action on ios keyboard? turn into an enter?~~
 
 Climbing
 
