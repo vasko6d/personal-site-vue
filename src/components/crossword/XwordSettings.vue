@@ -3,7 +3,7 @@
     <transition name="modal">
       <div class="modal-mask">
         <div class="modal-wrapper">
-          <div class="modal-container">
+          <div class="modal-container" ref="settingsModal">
             <div class="modal-header">
               <slot name="header">
                 <h2>
@@ -71,7 +71,7 @@
                     </div>
                   </div>
                 </transition>
-                <h2 @click="showSettings = !showSettings">
+                <h2 @click="settingsClick()">
                   Settings&nbsp;
                   <i
                     :class="[
@@ -207,6 +207,21 @@ export default {
       showSettings: false,
       showTools: true
     };
+  },
+  methods: {
+    settingsClick() {
+      this.showSettings = !this.showSettings;
+      if (this.showSettings) {
+        let settingsModal = this.$refs.settingsModal;
+        setTimeout(function() {
+          settingsModal.scrollBy({
+            top: 500,
+            left: 0,
+            behavior: "smooth"
+          });
+        }, 401);
+      }
+    }
   }
 };
 </script>

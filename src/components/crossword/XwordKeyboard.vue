@@ -40,10 +40,12 @@ export default {
       }
     });
     window.addEventListener("keydown", e => {
-      e.preventDefault();
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
       if (ch.match(/^[^\s]$/)) {
+        if (!e.altKey && !e.shiftKey && !e.ctrlKey) {
+          e.preventDefault();
+        }
         this.executePress(ch);
         if (ch.match(/^[A-Z]$/)) {
           this.flashBtn(
@@ -52,6 +54,7 @@ export default {
           );
         }
       } else {
+        e.preventDefault();
         switch (ch) {
           case "SHIFT":
             this.shift = true;
