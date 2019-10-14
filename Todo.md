@@ -29,6 +29,7 @@ Graphics
 
 Crossword
 
+- [ ] Carry though the context click "\$force special keyboard"
 - [ ] Support for types of cells: ~~white~~, ~~black~~, grey input, circle input
 - [ ] fix terrible use of reactivity for toggling individual clue context
 - [ ] flash banner for notification? e.g. tool sucesses?

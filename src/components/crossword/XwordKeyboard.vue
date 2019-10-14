@@ -43,9 +43,13 @@ export default {
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
       if (ch.match(/^[^\s]$/)) {
-        if (!e.altKey && !e.shiftKey && !e.ctrlKey) {
+        // Because of my 'psuedo-input" i need to disable most defautls
+        // I manually exclude "Ctrl-Shift-J" which brings up browser console
+        // but there is probably a more accepted way to do this.
+        if (!(e.shiftKey && e.ctrlKey && ch === "J")) {
           e.preventDefault();
         }
+
         this.executePress(ch);
         if (ch.match(/^[A-Z]$/)) {
           this.flashBtn(

@@ -91,11 +91,15 @@ export default {
         : this.direction === "down" && this.downNum == num;
     },
     contextClick(r, c) {
-      this.$emit("executePress", "$SETPOSITION", { r: r, c: c });
-      this.$emit("executePress", "$SETDIRECTION", {
-        direction: this.direction === "across"
+      this.$emit("executePress", "$SETPOSITION", {
+        r: r,
+        c: c,
+        forceSpecialKeyboard: true
       });
-      this.$emit("executePress", "$FORCESPECIALKEYBOARD");
+      this.$emit("executePress", "$SETDIRECTION", {
+        direction: this.direction === "across",
+        forceSpecialKeyboard: true
+      });
     },
     showClue(clue) {
       let ret = this.hideClueOpt === "never";

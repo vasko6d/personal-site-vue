@@ -103,7 +103,8 @@ export default {
       },
       xword: new Xword("", "", "", "", [], {}, {}),
       clickedClue: {}, // hacky to make clue context togglable....
-      contextEnabled: false
+      contextEnabled: false,
+      forceSpecialKeyboard: false
     };
   },
   computed: {
@@ -256,7 +257,7 @@ export default {
         this.$refs["psuedo-input"].focus({ preventScroll: true });
       } else {
         //console.log("...hiding up special edit keyboard");
-        this.$refs["psuedo-input"].blur();
+        this.$refs["psuedo-input"].blur({ preventScroll: true });
       }
     },
     executePress(ch, opts) {
@@ -264,13 +265,15 @@ export default {
 
       // All press/action handler
       if (ch.startsWith("$")) {
+        this.forceSpecialKeyboard =
+          opts && opts.forceSpecialKeyboard ? true : false;
         this.executeAction(ch, opts);
       } else {
         this.xword.enterChar(ch, this.opts.navigation.autoSkipFilledCells);
       }
 
       // Bring Up keyboard if afterImage is soecial
-      this.specialKeyboard(ch === "$FORCESPECIALKEYBOARD");
+      this.specialKeyboard(this.forceSpecialKeyboard);
 
       this.saveProgress();
     },
