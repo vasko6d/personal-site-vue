@@ -22,6 +22,12 @@
       :autoSkipFilledCells="opts.navigation.autoSkipFilledCells"
     />
     <div class="info-nav">
+      <div class="right-close">
+        <i
+          class="fas fa-times icn"
+          @click="$router.push('/crossword/search')"
+        ></i>
+      </div>
       <div class="info">
         <h2>{{ title }}</h2>
         by {{ author }}, {{ publishDate.toDateString() }}
@@ -130,9 +136,16 @@ export default {
   .info-nav {
     display: flex;
     justify-content: space-between;
+    position: relative;
     .info {
       flex-grow: 1;
     }
+  }
+  .right-close {
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    cursor: pointer;
   }
   .tool-bar {
     display: flex;

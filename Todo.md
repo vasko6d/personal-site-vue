@@ -44,7 +44,7 @@ Crossword
 - [ ] flash banner for notification? e.g. tool sucesses?
 - [ ] solved banner for shwoing stats?
 - [ ] the following boxes will be solved/cleared confirmation?
-- [ ] a one click onption to get back to xword/search? x in top right?
+- [x] a one click onption to get back to xword/search? x in top right?
 - [ ] i think prevent wrap on arrow navigation. bool option for move? as well as move to unsolved?
 - [ ] intercept 'done' action on ios keyboard? turn into an enter?
 - [ ] does mobile have an "onintialpress" mcuh better tactile response
