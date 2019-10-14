@@ -248,8 +248,8 @@ export default {
       opt[p.optionPath[p.optionPath.length - 1]] = p.value;
       localStorage["xwordOpts"] = JSON.stringify(this.opts);
     },
-    specialKeyboard() {
-      if (this.xword.getCell().isSpecialInput) {
+    specialKeyboard(force = false) {
+      if (this.xword.getCell().isSpecialInput || force) {
         //console.log("...bringing up special edit keyboard");
         this.$refs["psuedo-input"].focus({ preventScroll: true });
       } else {
@@ -258,7 +258,7 @@ export default {
       }
     },
     executePress(ch, opts) {
-      //console.log("executePress: ", ch, ", Options: ", opts);
+      console.log("executePress: ", ch, ", Options: ", opts);
 
       // All press/action handler
       if (ch.startsWith("$")) {
@@ -268,7 +268,7 @@ export default {
       }
 
       // Bring Up keyboard if afterImage is soecial
-      this.specialKeyboard();
+      this.specialKeyboard(ch === "$FORCESPECIALKEYBOARD");
 
       this.saveProgress();
     },

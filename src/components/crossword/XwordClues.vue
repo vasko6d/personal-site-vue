@@ -95,6 +95,7 @@ export default {
       this.$emit("executePress", "$SETDIRECTION", {
         direction: this.direction === "across"
       });
+      this.$emit("executePress", "$FORCESPECIALKEYBOARD");
     },
     showClue(clue) {
       let ret = this.hideClueOpt === "never";
