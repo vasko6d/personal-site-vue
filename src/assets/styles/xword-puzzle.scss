@@ -15,6 +15,11 @@
       border: 2px solid white;
       color: black;
     }
+    .gray {
+      background-color: lighten(gray, 15%);
+      border: 2px solid lighten(gray, 15%);
+      color: black;
+    }
     .active {
       background-color: rgb(255, 255, 152);
       border: 2px solid rgb(255, 255, 152);
@@ -39,7 +44,8 @@
       color: green;
     }
     .black,
-    .white {
+    .white,
+    .gray {
       text-align: center;
       position: relative;
       min-width: 1ch;
