@@ -14,7 +14,9 @@
         :author="xword.author"
         :publishDate="xword.publishDate"
         :timer="xword.timer"
+        :themeExp="xword.theme"
         :note="xword.note"
+        :completed="xword.completed"
         @flagCell="executePress('$FLAGCELL')"
         @specialEdit="executePress('$SPECIALEDIT')"
         @setOption="setOption"
@@ -150,6 +152,7 @@ export default {
       raw.solution,
       raw.clues.across,
       raw.clues.down,
+      raw.theme,
       raw.note,
       { shapeCells: raw.shapeCells, colorCells: raw.colorCells }
     );

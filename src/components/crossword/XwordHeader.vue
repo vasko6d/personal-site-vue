@@ -43,10 +43,22 @@
           ></i>
         </h2>
         <div v-show="showNote" class="note">
-          <strong>Note from author -</strong>
+          <strong>Note from author :</strong>
           {{ note }}
         </div>
         <div>by {{ author }}, {{ publishDate.toDateString() }}</div>
+        <div v-show="completed && themeExp" class="note">
+          <strong>
+            Theme Explanation :&nbsp;
+            <i
+              @click="showTheme = !showTheme"
+              :class="{
+                'icn fas fa-ellipsis-h': !showTheme
+              }"
+            ></i>
+          </strong>
+          <span v-show="showTheme">{{ themeExp }}</span>
+        </div>
       </div>
     </div>
     <div class="tool-bar">
@@ -84,6 +96,8 @@ export default {
     title: String,
     author: String,
     note: String,
+    themeExp: String,
+    completed: Boolean,
     publishDate: Date,
     opts: Object,
     timer: Timer
@@ -99,6 +113,7 @@ export default {
       seconds: 0,
       interval: "",
       showNote: false,
+      showTheme: false,
       // Help Modals
       showHelp: false,
       showSettings: false,

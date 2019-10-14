@@ -31,6 +31,7 @@ Crossword
 
 - [ ] fix terrible use of reactivity for toggling individual clue context
 - [ ] some crosswrods have "multi input one way" and single or no input otherwat... maybe another special parsing character?
+- [ ] shoudl probably switch to make 'active' and 'exact' me alpha layers... not the other way around
 - [ ] flash banner for notification? e.g. tool sucesses?
 - [ ] solved banner for shwoing stats?
 - [ ] the following boxes will be solved/cleared confirmation?
@@ -41,6 +42,7 @@ Crossword
 - [ ] Postpone: make dynamic! Fetch data etc. ratings etc
 - [ ] Postpone: crossword maker!
 - [ ] Postpone: fun stats for long term [order of cells solved], [how many times a cell changed]
+- [x] show theme explanation on solve...
 - [x] Carry though the context click "\$force special keyboard"
 - [x] Support for types of cells: ~~white~~, ~~black~~, ~~grey input~~, ~~circle input~~
 - [x] keyboard input jumpoing to top of xword... may have to prevent focus unless mobile?
@@ -74,6 +76,7 @@ Crossword
 - [ ] ~~verify integrity of clues to puzzle?~~
 - [ ] ~~prevent wrap on arrow navigation. bool option for move? as well as move to unsolved?~~
 - [ ] ~~intercept 'done' action on ios keyboard? turn into an enter?~~
+- [ ] ~~for special input wait for leave to check for error?~~
 
 Climbing
 

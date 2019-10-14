@@ -37,6 +37,7 @@ export default class Xword {
     solnArr,
     across,
     down,
+    theme = "",
     note = "",
     opts = {}
   ) {
@@ -55,6 +56,7 @@ export default class Xword {
     this.timer = new Timer(true);
     this.across = across;
     this.down = down;
+    this.theme = theme;
     this.note = note;
 
     // Process the solition array into a usable puzzle
