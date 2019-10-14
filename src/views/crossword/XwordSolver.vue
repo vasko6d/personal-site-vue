@@ -264,7 +264,7 @@ export default {
       if (ch.startsWith("$")) {
         this.executeAction(ch, opts);
       } else {
-        this.xword.enterChar(ch);
+        this.xword.enterChar(ch, this.opts.navigation.autoSkipFilledCells);
       }
 
       // Bring Up keyboard if afterImage is soecial
@@ -312,7 +312,7 @@ export default {
           break;
         case "$LEAVESPECIALINPUT":
           if (this.xword.getCell().isSpecialInput) {
-            this.xword.incrementPosition();
+            this.xword.incrementPosition(false);
           } else {
             this.executePress("$TAB");
           }

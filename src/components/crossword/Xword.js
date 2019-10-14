@@ -112,9 +112,6 @@ export default class Xword {
     if (c >= this.puzzle[r].length || c < 0) {
       return false;
     }
-    return this.isInputColor(r, c);
-  }
-  isInputColor(r, c) {
     return this.isInputColorCell(this.puzzle[r][c]);
   }
   isInputColorCell(cell) {
@@ -177,13 +174,13 @@ export default class Xword {
   //
   // Mutators
   //
-  incrementPosition() {
+  incrementPosition(skipFilled) {
     let isClueFilled = this.updateClueFlags(this.getCell());
     if (isClueFilled) {
-      this.moveClue(true);
+      this.moveClue(true, skipFilled);
     } else {
       let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
-      this.move(d);
+      this.move(d, skipFilled);
     }
   }
   updateClueFlags(cell) {
@@ -208,7 +205,7 @@ export default class Xword {
   enableSpecialEdit() {
     this.getCell().isSpecialInput = true;
   }
-  enterChar(ch) {
+  enterChar(ch, skipFilled = false) {
     let cell = this.getCell();
     if (!cell.wasAutoSolved) {
       if (cell.isSpecialInput) {
@@ -217,7 +214,7 @@ export default class Xword {
       } else if (ch.match(/^[A-Z]$/)) {
         // Normally only A-Z are allowed
         cell.entry = ch;
-        this.incrementPosition();
+        this.incrementPosition(skipFilled);
       }
     }
   }
@@ -229,10 +226,18 @@ export default class Xword {
     this.r = r;
     this.c = c;
   }
-  move(d) {
+  move(d, skipFilled = false, origCell = {}) {
     // early return incase empty puzzle
-    if (!this.puzzle) {
+    if (
+      !this.puzzle ||
+      (origCell && origCell.r === this.r && origCell.c === this.c)
+    ) {
       return;
+    }
+
+    // Infinite recursive check
+    if (!origCell) {
+      origCell = { r: this.r, c: this.c };
     }
 
     this.specialInputIntegrity();
@@ -256,22 +261,46 @@ export default class Xword {
     }
 
     // recurse if not inputable cell
-    if (!this.isInputColor(this.r, this.c)) {
-      this.move(d);
+    let cell = this.getCell();
+    if (!this.isInputColorCell(cell) || (skipFilled && cell.entry)) {
+      this.move(d, skipFilled, origCell);
     }
   }
-  moveClue(forward = true) {
+  moveClue(forward = true, skipFilled = false, origClueNum = false) {
     this.specialInputIntegrity();
     const cell = this.getCell();
+    const curClueNum = this.isHoriz ? cell.acrossNum : cell.downNum;
+
+    // Recursive protection
+    if (curClueNum === origClueNum) {
+      return;
+    }
+
+    // Get the next clue
     const curClue = this.isHoriz
-      ? this.across[cell.acrossNum]
-      : this.down[cell.downNum];
+      ? this.across[curClueNum]
+      : this.down[curClueNum];
     const newClueNum = forward ? curClue.next : curClue.prev;
     const newClue = this.isHoriz
       ? this.across[newClueNum]
       : this.down[newClueNum];
     this.r = newClue.index.r;
     this.c = newClue.index.c;
+
+    // Recurse this funciton if skip filled is true and the new clue is filled.
+    if (skipFilled) {
+      if (!origClueNum) {
+        origClueNum = curClueNum;
+      }
+      if (newClue.filled) {
+        this.moveClue(forward, skipFilled, origClueNum);
+      } else {
+        let cell = this.getCell();
+        if (cell.entry) {
+          this.incrementPosition(skipFilled);
+        }
+      }
+    }
   }
   clear(flags = false, wrongEntry = false, allEntry = false) {
     for (let row of this.puzzle) {
