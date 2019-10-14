@@ -157,6 +157,8 @@ export default {
     position: relative;
     .info {
       flex-grow: 1;
+      margin-left: 4%;
+      margin-right: 4%;
       .note {
         text-align: left;
         margin-left: 7%;
