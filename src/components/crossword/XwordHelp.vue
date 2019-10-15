@@ -41,6 +41,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -88,6 +89,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -125,6 +127,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -155,6 +158,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -192,6 +196,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -211,6 +216,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -246,6 +252,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
@@ -275,6 +282,7 @@
                       (
                       <a class="help-ref" href="#help-top">top</a> )
                     </span>
+                    <hr />
                   </h3>
                   <ul>
                     <li>
