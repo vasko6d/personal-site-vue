@@ -165,15 +165,19 @@ export default class Xword {
     return ctx;
   }
   getFullClueContext(clue) {
-    let simpleContext = this.getClueContext(
-      clue.index.r,
-      clue.index.c,
-      clue.isHoriz
-    );
     let fullContext = [];
-    for (const ctx of simpleContext) {
-      let cell = this.puzzle[ctx[0]][ctx[1]];
-      fullContext.push(cell);
+    try {
+      let simpleContext = this.getClueContext(
+        clue.index.r,
+        clue.index.c,
+        clue.isHoriz
+      );
+      for (const ctx of simpleContext) {
+        let cell = this.puzzle[ctx[0]][ctx[1]];
+        fullContext.push(cell);
+      }
+    } catch {
+      console.warn("Ill formed clue: ", clue);
     }
     return fullContext;
   }

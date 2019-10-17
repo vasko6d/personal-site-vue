@@ -37,6 +37,7 @@ Crossword
 - [ ] the following boxes will be solved/cleared confirmation?
 - [ ] does mobile have an "onintialpress" mcuh better tactile response
 - [ ] multiple answer boxes(ie '8' vs 'eight')?
+- [ ] switch font aweseom check to switch buttons
 - [ ] Low Priority: Make settings look liek google maps settings. Switch on boolean, and btns for triple option.
 - [ ] Low Priority:moveClue repositions pointer at start
 - [ ] Postpone: make dynamic! Fetch data etc. ratings etc
