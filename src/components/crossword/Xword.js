@@ -155,7 +155,6 @@ export default class Xword {
   isLastCell(cell) {
     let clue = this.getClue(cell);
     let lastCell = clue.ctx[clue.ctx.length - 1];
-    console.log(cell, lastCell);
     return cell.r === lastCell.r && cell.c === lastCell.c;
   }
   getClue(cell) {
