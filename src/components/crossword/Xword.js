@@ -152,6 +152,15 @@ export default class Xword {
     }
     return cnt;
   }
+  isLastCell(cell) {
+    let clue = this.getClue(cell);
+    let lastCell = clue.ctx[clue.ctx.length - 1];
+    console.log(cell, lastCell);
+    return cell.r === lastCell.r && cell.c === lastCell.c;
+  }
+  getClue(cell) {
+    return this.isHoriz ? this.across[cell.acrossNum] : this.down[cell.downNum];
+  }
   getClueContext(r, c, isHoriz) {
     let d = isHoriz ? { r: 0, c: 1 } : { r: 1, c: 0 };
     var ctx = [[r, c]];
@@ -187,7 +196,7 @@ export default class Xword {
   //
   incrementPosition(skipFilled) {
     let isClueFilled = this.updateClueFlags(this.getCell());
-    if (isClueFilled) {
+    if (isClueFilled || this.isLastCell(this.getCell())) {
       this.moveClue(true, skipFilled);
     } else {
       let d = { r: this.isHoriz ? 0 : 1, c: this.isHoriz ? 1 : 0 };
