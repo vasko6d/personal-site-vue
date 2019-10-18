@@ -35,6 +35,7 @@
         :nativeKeyboardEnabled="keyboardMasterOverride"
         :opts="opts"
       />
+      <xword-current-clue :clue="currentClue" @executePress="executePress" />
       <xword-puzzle
         :puzzle="xword.puzzle"
         :r="xword.r"
@@ -46,7 +47,6 @@
         @executePress="executePress"
         @specialKeyboard="specialKeyboard"
       />
-      <xword-current-clue :clue="currentClue" @executePress="executePress" />
       <xword-keyboard
         v-show="opts.keyboard.showOnPageKeyboard"
         @executePress="executePress"

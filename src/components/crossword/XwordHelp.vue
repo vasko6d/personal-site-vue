@@ -274,8 +274,8 @@
                       clue, and easily switch input direction.
                     </li>
                     <li>
-                      <strong>[Where is it?]</strong> - It is directly beaneath
-                      the crossword grid.
+                      <strong>[Where is it?]</strong> - It is directly above the
+                      crossword grid.
                     </li>
                     <li>
                       <strong>[What can it do?]</strong> - See
