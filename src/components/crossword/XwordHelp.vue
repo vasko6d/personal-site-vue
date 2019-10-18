@@ -148,6 +148,16 @@
                       - Flag the current cell. Puts a orange border around the
                       current cell. Purely aesthitic.
                     </li>
+                    <li>
+                      <strong>
+                        <i class="fas fa-keyboard"></i>
+                      </strong>
+                      - If the setting "Enable toggle for the native keyboard"
+                      is enabled, this icon will show up as a quick tool icon.
+                      What it does is let you toggle whether or not the native
+                      keyboard will come up on main crossword clicks. Clicking
+                      this will do NOTHING if on a computer.
+                    </li>
                   </ul>
                 </div>
 
@@ -162,14 +172,17 @@
                   </h3>
                   <ul>
                     <li>
-                      <strong>[Mobile Keyboard]</strong> - If you are on mobile
+                      <strong>[Mobile Keyboard]</strong> - If you are on mobile,
                       using a
                       <a class="help-ref" href="#multi-input"
                         >Multi&#8209;Input Cell</a
                       >
                       will bring up the default mobile keyboard. Inputting in
                       <a class="help-ref" href="#clue-context">Clue Context</a>
-                      will also bring up the default mobile keyboard.
+                      will also bring up the default mobile keyboard. You can
+                      also try the setting "Enable toggle for the native
+                      keyboard" which will give you more control of when the
+                      native keyboard appears.
                     </li>
                     <li>
                       <strong>[Auto Solved Cells]</strong> - any cell solved

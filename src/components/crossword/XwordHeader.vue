@@ -5,6 +5,7 @@
       v-if="showSettings"
       @close="modalToggle(false, 'showSettings')"
       @setOption="setOption"
+      @setNativeKeyboardOption="setNativeKeyboardOption"
       @defaultSettings="$emit('defaultSettings')"
       @clear="clear"
       @solve="solve"
@@ -20,6 +21,7 @@
       :hideClueOpts="opts.clues.hideClueOpts"
       :currentHideClueOpt="opts.clues.hideClueOpt"
       :autoSkipFilledCells="opts.navigation.autoSkipFilledCells"
+      :enableNativeKeyboardToggle="opts.keyboard.enableNativeKeyboardToggle"
     />
     <div class="info-nav">
       <div class="right-close">
@@ -57,9 +59,9 @@
               }"
             ></i>
           </strong>
-          <span v-show="showTheme" @click="showTheme = !showTheme">{{
-            themeExp
-          }}</span>
+          <span v-show="showTheme" @click="showTheme = !showTheme">
+            {{ themeExp }}
+          </span>
         </div>
       </div>
     </div>
@@ -69,6 +71,18 @@
       </div>
       <div class="middle"></div>
       <div class="right">
+        <span v-show="opts.keyboard.enableNativeKeyboardToggle">
+          <i
+            :class="[
+              'icn',
+              'fas',
+              'fa-keyboard',
+              { enab: nativeKeyboardEnabled }
+            ]"
+            @click="$emit('toggleNativeKeyboard')"
+          ></i
+          >|
+        </span>
         <i class="icn fas fa-pen-square" @click="$emit('specialEdit')"></i>|
         <i
           class="icn fas fa-flag"
@@ -100,6 +114,7 @@ export default {
     note: String,
     themeExp: String,
     completed: Boolean,
+    nativeKeyboardEnabled: Boolean,
     publishDate: Date,
     opts: Object,
     timer: Timer
@@ -138,6 +153,10 @@ export default {
   methods: {
     setOption(payload) {
       this.$emit("setOption", payload);
+    },
+    setNativeKeyboardOption(payload) {
+      this.$emit("setOption", payload);
+      this.$emit("disableNativeKeyboard");
     },
     clear(payload) {
       this.modalToggle(false, "showSettings");

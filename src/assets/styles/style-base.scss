@@ -12,9 +12,9 @@
 
   #footer-links {
     a {
-      color: darken($nav-txt, 25%);
+      color: darken($nav-txt, 20%);
       :hover {
-        color: $nav-txt;
+        color: lighten($nav-txt, 20%);
       }
     }
   }
@@ -139,8 +139,11 @@
       cursor: pointer;
       color: darken($nav-txt, 10%);
       &:hover {
-        color: $nav-txt;
+        color: lighten($nav-txt, 20%);
       }
+    }
+    .enab {
+      color: lighten($nav-txt, 20%);
     }
   }
 

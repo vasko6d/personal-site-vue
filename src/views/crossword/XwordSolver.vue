@@ -19,11 +19,20 @@
         :completed="xword.completed"
         @flagCell="executePress('$FLAGCELL')"
         @specialEdit="executePress('$SPECIALEDIT')"
+        @toggleNativeKeyboard="
+          keyboardMasterOverride = !keyboardMasterOverride;
+          specialKeyboard();
+        "
         @setOption="setOption"
+        @disableNativeKeyboard="
+          keyboardMasterOverride = false;
+          specialKeyboard();
+        "
         @defaultSettings="opts = defaultOpts()"
         @clear="clear"
         @solve="solve"
         @saveProgress="saveProgress"
+        :nativeKeyboardEnabled="keyboardMasterOverride"
         :opts="opts"
       />
       <xword-puzzle
@@ -110,7 +119,8 @@ export default {
       xword: new Xword("", "", "", "", [], {}, {}),
       clickedClue: {}, // hacky to make clue context togglable....
       contextEnabled: false,
-      forceSpecialKeyboard: false
+      forceSpecialKeyboard: false,
+      keyboardMasterOverride: false
     };
   },
   computed: {
@@ -174,6 +184,8 @@ export default {
       this.opts.errors.showErrors = cachedOpts.errors.showErrors;
       this.opts.keyboard.showOnPageKeyboard =
         cachedOpts.keyboard.showOnPageKeyboard;
+      this.opts.keyboard.enableNativeKeyboardToggle =
+        cachedOpts.keyboard.enableNativeKeyboardToggle;
       this.opts.navigation.autoSkipFilledCells =
         cachedOpts.navigation.autoSkipFilledCells;
     }
@@ -241,7 +253,8 @@ export default {
           ]
         },
         keyboard: {
-          showOnPageKeyboard: true
+          showOnPageKeyboard: true,
+          enableNativeKeyboardToggle: false
         },
         errors: {
           showErrors: true
@@ -261,7 +274,10 @@ export default {
     },
     specialKeyboard(force = false) {
       let cell = this.xword.getCell();
-      if (!cell.wasAutoSolved && (cell.isSpecialInput || force)) {
+      if (
+        !cell.wasAutoSolved &&
+        (this.keyboardMasterOverride || cell.isSpecialInput || force)
+      ) {
         //console.log("...bringing up special edit keyboard");
         this.$refs["psuedo-input"].focus({ preventScroll: true });
       } else {

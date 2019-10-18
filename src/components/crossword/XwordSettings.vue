@@ -122,6 +122,19 @@
                         })
                       "
                     />
+                    <font-awesome-check
+                      :enabled="enableNativeKeyboardToggle"
+                      desc="Enable toggle for the native keyboard"
+                      @toggle="
+                        $emit('setNativeKeyboardOption', {
+                          optionPath: [
+                            'keyboard',
+                            'enableNativeKeyboardToggle'
+                          ],
+                          value: !enableNativeKeyboardToggle
+                        })
+                      "
+                    />
                     <h4><i class="fas fa-caret-right"></i>&nbsp;Clue Panel</h4>
                     <font-awesome-check
                       :enabled="showCluePanel"
@@ -197,6 +210,7 @@ export default {
     showErrors: Boolean,
     showCluePanel: Boolean,
     autoSkipFilledCells: Boolean,
+    enableNativeKeyboardToggle: Boolean,
     contextOpts: Array,
     currentContextOpt: String,
     hideClueOpts: Array,
@@ -262,7 +276,7 @@ export default {
     }
   }
   .collapse-opts {
-    max-height: 400px;
+    max-height: 450px;
     overflow: hidden;
   }
   .fade-enter-active {
