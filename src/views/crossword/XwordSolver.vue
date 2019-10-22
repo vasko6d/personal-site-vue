@@ -242,7 +242,7 @@ export default {
             { name: "Click clue to toggle context", val: "toggle" },
             { name: "Never show clue context", val: "never" }
           ],
-          hideClueOpt: "onFill",
+          hideClueOpt: "never",
           hideClueOpts: [
             {
               name: "Hide clues that are CORRECT and filled",
@@ -257,7 +257,7 @@ export default {
           enableNativeKeyboardToggle: false
         },
         errors: {
-          showErrors: true
+          showErrors: false
         },
         navigation: {
           autoSkipFilledCells: true

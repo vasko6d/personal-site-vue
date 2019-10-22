@@ -14,9 +14,9 @@
           flashBtn(keyBtn);
         "
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
-          {{ keyBtn.isFA ? "" : keyBtn.disp }}
-        </i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
+          keyBtn.isFA ? "" : keyBtn.disp
+        }}</i>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ export default {
       btn.isActive = activeType;
       setTimeout(() => {
         btn.isActive = 0;
-      }, 200);
+      }, 150);
     },
     createQwerty(includeBackspace = true) {
       let retArr = [];
@@ -154,19 +154,26 @@ export default {
   .key-row {
     display: flex;
     justify-content: center;
-    height: 40px;
+    height: 45px;
+    margin-left: 3px;
+    margin-right: 3px;
     .key {
       flex-grow: 1;
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
+      flex-basis: 30px;
       text-align: center;
-      margin: 0.25em;
-      padding-top: 3px;
+      margin: 3px;
+      padding-top: 5px;
       border-radius: 0.35em;
-      height: 30px;
-      width: 30px;
+      height: 40px;
       cursor: pointer;
+    }
+    .key-t {
+      z-index: 9000;
+      height: 70px;
+      margin-top: -27px;
     }
   }
 }

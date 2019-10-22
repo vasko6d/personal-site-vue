@@ -57,8 +57,10 @@ export default {
     .clue-body {
       flex-grow: 1;
       text-align: left;
-      min-height: 10px;
+      height: 5em;
+      overflow-y: auto;
       padding-left: 0.5em;
+      padding-right: 0.1em;
       border-radius: 0.35em;
       .indent {
         margin-left: 1em;

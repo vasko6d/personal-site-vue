@@ -59,9 +59,9 @@
               }"
             ></i>
           </strong>
-          <span v-show="showTheme" @click="showTheme = !showTheme">
-            {{ themeExp }}
-          </span>
+          <span v-show="showTheme" @click="showTheme = !showTheme">{{
+            themeExp
+          }}</span>
         </div>
       </div>
     </div>
@@ -206,18 +206,20 @@ export default {
   .right-close {
     position: absolute;
     right: 0;
-    margin-right: 5px;
+    margin-right: 10px;
     cursor: pointer;
   }
   .tool-bar {
     display: flex;
     justify-content: space-between;
+    margin-top: 3px;
     padding-left: 10px;
     padding-right: 10px;
     .middle {
       flex-grow: 1;
     }
     .icn {
+      font-size: 20px;
       margin-left: 4px;
       margin-right: 4px;
     }
