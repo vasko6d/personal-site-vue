@@ -12,10 +12,6 @@
 <script>
 export default {
   name: "switch-button",
-  model: {
-    prop: "isEnabled",
-    event: "toggle"
-  },
   props: {
     isEnabled: Boolean
   },
@@ -86,7 +82,7 @@ export default {
 
   .switch-button-label {
     grid-area: sbl;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 }
 </style>

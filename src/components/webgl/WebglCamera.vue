@@ -14,7 +14,10 @@
           <i class="fas fa-question-circle" @click="modalToggle(true)"></i>
         </div>
       </div>
-      <switch-button v-model="kbToggle" class="main-tr"
+      <switch-button
+        :isEnabled="kbToggle"
+        class="main-tr"
+        @toggle="kbToggle = !kbToggle"
         >Show Keyboard Binds</switch-button
       >
       <template v-for="cType in Object.keys(gridLayout)">
@@ -394,6 +397,7 @@ export default {
       grid-area: kt;
       font-size: 10px;
       font-weight: 300;
+      padding-right: 5px;
       text-align: right;
     }
     grid-gap: 2px;

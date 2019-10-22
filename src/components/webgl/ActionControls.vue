@@ -13,7 +13,10 @@
           Action Controls&nbsp;
           <i class="fas fa-question-circle" @click="modalToggle(true)"></i>
         </div>
-        <switch-button v-model="kbToggle" class="main-tr"
+        <switch-button
+          :isEnabled="kbToggle"
+          class="main-tr"
+          @toggle="kbToggle = !kbToggle"
           >Show Keyboard Binds</switch-button
         >
       </div>
@@ -104,6 +107,7 @@ export default {
       }
       .main-tr {
         grid-area: kt;
+        padding-right: 5px;
         font-size: 10px;
         font-weight: 300;
         text-align: right;
