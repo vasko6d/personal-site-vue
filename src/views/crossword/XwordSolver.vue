@@ -28,7 +28,7 @@
           keyboardMasterOverride = false;
           specialKeyboard();
         "
-        @defaultSettings="opts = defaultOpts()"
+        @defaultSettings="opts = defaultOpts(true)"
         @clear="clear"
         @solve="solve"
         @saveProgress="saveProgress"
@@ -232,8 +232,8 @@ export default {
       );
       //console.log("Progress saved for [" + this.xword.title + "]");
     },
-    defaultOpts() {
-      return {
+    defaultOpts(save = false) {
+      let ret = {
         clues: {
           showCluePanel: true,
           contextOpt: "always",
@@ -263,6 +263,10 @@ export default {
           autoSkipFilledCells: true
         }
       };
+      if (save) {
+        localStorage["xwordOpts"] = JSON.stringify(ret);
+      }
+      return ret;
     },
     setOption(p) {
       let opt = this.opts;

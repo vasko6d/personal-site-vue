@@ -59,9 +59,12 @@
               }"
             ></i>
           </strong>
-          <span v-show="showTheme" @click="showTheme = !showTheme">{{
-            themeExp
-          }}</span>
+          <span
+            v-show="showTheme"
+            @click="showTheme = !showTheme"
+            style="cursor: pointer;"
+            >{{ themeExp }}</span
+          >
         </div>
       </div>
     </div>
