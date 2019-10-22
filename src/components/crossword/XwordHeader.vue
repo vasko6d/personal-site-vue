@@ -1,7 +1,7 @@
 <template>
   <div id="x-head">
     <xword-help v-if="showHelp" @close="modalToggle(false, 'showHelp')" />
-    <xword-Settings
+    <xword-settings
       v-if="showSettings"
       @close="modalToggle(false, 'showSettings')"
       @setOption="setOption"
@@ -22,6 +22,16 @@
       :currentHideClueOpt="opts.clues.hideClueOpt"
       :autoSkipFilledCells="opts.navigation.autoSkipFilledCells"
       :enableNativeKeyboardToggle="opts.keyboard.enableNativeKeyboardToggle"
+    />
+    <xword-tools
+      v-if="showTools"
+      @close="modalToggle(false, 'showTools')"
+      @clear="clear"
+      @solve="solve"
+      @saveProgress="
+        $emit('saveProgress');
+        modalToggle(false, 'showTools');
+      "
     />
     <div class="info-nav">
       <div class="right-close">
@@ -92,8 +102,10 @@
           @click="$emit('flagCell', { flag: 'orange' })"
         ></i
         >|
+        <i class="icn fas fa-tools" @click="modalToggle(true, 'showTools')"></i>
+        |
         <i
-          class="icn fas fa-tools"
+          class="icn fas fa-cogs"
           @click="modalToggle(true, 'showSettings')"
         ></i>
         |
@@ -110,6 +122,7 @@
 import Timer from "@/mixins/webgl/Timer.js";
 import XwordHelp from "@/components/crossword/XwordHelp.vue";
 import XwordSettings from "@/components/crossword/XwordSettings.vue";
+import XwordTools from "@/components/crossword/XwordTools.vue";
 export default {
   props: {
     title: String,
@@ -124,7 +137,8 @@ export default {
   },
   components: {
     XwordHelp,
-    XwordSettings
+    XwordSettings,
+    XwordTools
   },
   data() {
     return {
@@ -162,11 +176,11 @@ export default {
       this.$emit("disableNativeKeyboard");
     },
     clear(payload) {
-      this.modalToggle(false, "showSettings");
+      this.modalToggle(false, "showTools");
       this.$emit("clear", payload);
     },
     solve(payload) {
-      this.modalToggle(false, "showSettings");
+      this.modalToggle(false, "showTools");
       this.$emit("solve", payload);
     },
     calcTime() {
