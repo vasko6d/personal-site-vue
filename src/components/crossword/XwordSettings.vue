@@ -20,63 +20,63 @@
                   <i class="far fa-trash-alt"></i>&nbsp;Reset to default
                 </div>
                 <font-awesome-check
-                  :enabled="showErrors"
+                  :enabled="opts.errors.showErrors"
                   desc="Show errors"
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['errors', 'showErrors'],
-                      value: !showErrors
+                      value: !opts.errors.showErrors
                     })
                   "
                 />
                 <font-awesome-check
-                  :enabled="autoSkipFilledCells"
+                  :enabled="opts.navigation.autoSkipFilledCells"
                   desc="Skip over filled cells when typing"
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['navigation', 'autoSkipFilledCells'],
-                      value: !autoSkipFilledCells
+                      value: !opts.navigation.autoSkipFilledCells
                     })
                   "
                 />
                 <font-awesome-check
-                  :enabled="showOnPageKeyboard"
+                  :enabled="opts.keyboard.showOnPageKeyboard"
                   desc="Show on-page keyboard"
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['keyboard', 'showOnPageKeyboard'],
-                      value: !showOnPageKeyboard
+                      value: !opts.keyboard.showOnPageKeyboard
                     })
                   "
                 />
                 <font-awesome-check
-                  :enabled="enableNativeKeyboardToggle"
+                  :enabled="opts.keyboard.enableNativeKeyboardToggle"
                   desc="Enable toggle for the native keyboard"
                   @toggle="
                     $emit('setNativeKeyboardOption', {
                       optionPath: ['keyboard', 'enableNativeKeyboardToggle'],
-                      value: !enableNativeKeyboardToggle
+                      value: !opts.keyboard.enableNativeKeyboardToggle
                     })
                   "
                 />
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Clue Panel</h4>
                 <font-awesome-check
-                  :enabled="showCluePanel"
+                  :enabled="opts.clues.showCluePanel"
                   desc="Show Clue Panel"
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['clues', 'showCluePanel'],
-                      value: !showCluePanel
+                      value: !opts.clues.showCluePanel
                     })
                   "
                 />
                 <transition name="fade">
-                  <div class="collapse-opts" v-if="showCluePanel">
+                  <div class="collapse-opts" v-if="opts.clues.showCluePanel">
                     <div class="choice-opt">
                       <h4>Clue Context</h4>
-                      <div v-for="opt in contextOpts" :key="opt.id">
+                      <div v-for="opt in opts.clues.contextOpts" :key="opt.id">
                         <font-awesome-check
-                          :enabled="opt.val === currentContextOpt"
+                          :enabled="opt.val === opts.clues.contextOpt"
                           :desc="opt.name"
                           @toggle="
                             $emit('setOption', {
@@ -89,9 +89,9 @@
                     </div>
                     <div class="choice-opt">
                       <h4>Clue Visibility</h4>
-                      <div v-for="opt in hideClueOpts" :key="opt.id">
+                      <div v-for="opt in opts.clues.hideClueOpts" :key="opt.id">
                         <font-awesome-check
-                          :enabled="opt.val === currentHideClueOpt"
+                          :enabled="opt.val === opts.clues.hideClueOpt"
                           :desc="opt.name"
                           @toggle="
                             $emit('setOption', {
@@ -104,6 +104,22 @@
                     </div>
                   </div>
                 </transition>
+                <h4><i class="fas fa-caret-right"></i>&nbsp;Current Clue</h4>
+                <div class="choice-opt">
+                  <h4>Location</h4>
+                  <div v-for="opt in opts.currentClue.locOpts" :key="opt.id">
+                    <font-awesome-check
+                      :enabled="opt.val === opts.currentClue.loc"
+                      :desc="opt.name"
+                      @toggle="
+                        $emit('setOption', {
+                          optionPath: ['currentClue', 'loc'],
+                          value: opt.val
+                        })
+                      "
+                    />
+                  </div>
+                </div>
               </slot>
             </div>
             <div class="modal-footer">
@@ -128,15 +144,7 @@ export default {
     FontAwesomeCheck
   },
   props: {
-    showOnPageKeyboard: Boolean,
-    showErrors: Boolean,
-    showCluePanel: Boolean,
-    autoSkipFilledCells: Boolean,
-    enableNativeKeyboardToggle: Boolean,
-    contextOpts: Array,
-    currentContextOpt: String,
-    hideClueOpts: Array,
-    currentHideClueOpt: String
+    opts: Object
   }
 };
 </script>
@@ -175,6 +183,21 @@ export default {
     &:hover {
       color: green;
     }
+  }
+  .collapse-opts {
+    max-height: 450px;
+    overflow: hidden;
+  }
+  .fade-enter-active {
+    transition: max-height 0.4s ease-in;
+  }
+  .fade-leave-active {
+    transition: max-height 0.4s ease-out;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+    max-height: 0;
   }
 }
 </style>

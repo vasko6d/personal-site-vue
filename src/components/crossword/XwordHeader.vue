@@ -13,15 +13,7 @@
         $emit('saveProgress');
         modalToggle(false, 'showSettings');
       "
-      :showOnPageKeyboard="opts.keyboard.showOnPageKeyboard"
-      :showErrors="opts.errors.showErrors"
-      :showCluePanel="opts.clues.showCluePanel"
-      :contextOpts="opts.clues.contextOpts"
-      :currentContextOpt="opts.clues.contextOpt"
-      :hideClueOpts="opts.clues.hideClueOpts"
-      :currentHideClueOpt="opts.clues.hideClueOpt"
-      :autoSkipFilledCells="opts.navigation.autoSkipFilledCells"
-      :enableNativeKeyboardToggle="opts.keyboard.enableNativeKeyboardToggle"
+      :opts="opts"
     />
     <xword-tools
       v-if="showTools"

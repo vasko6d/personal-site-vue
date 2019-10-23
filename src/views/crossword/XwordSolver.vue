@@ -35,7 +35,11 @@
         :nativeKeyboardEnabled="keyboardMasterOverride"
         :opts="opts"
       />
-      <xword-current-clue :clue="currentClue" @executePress="executePress" />
+      <xword-current-clue
+        v-show="opts.currentClue.loc === 'top'"
+        :clue="currentClue"
+        @executePress="executePress"
+      />
       <xword-puzzle
         :puzzle="xword.puzzle"
         :r="xword.r"
@@ -46,6 +50,11 @@
         :showErrors="opts.errors.showErrors"
         @executePress="executePress"
         @specialKeyboard="specialKeyboard"
+      />
+      <xword-current-clue
+        v-show="opts.currentClue.loc === 'bottom'"
+        :clue="currentClue"
+        @executePress="executePress"
       />
       <xword-keyboard
         v-show="opts.keyboard.showOnPageKeyboard"
@@ -255,6 +264,13 @@ export default {
         keyboard: {
           showOnPageKeyboard: true,
           enableNativeKeyboardToggle: false
+        },
+        currentClue: {
+          loc: "top",
+          locOpts: [
+            { name: "Show curernt clue ABOVE grid", val: "top" },
+            { name: "Show current clue BELOW grid", val: "bottom" }
+          ]
         },
         errors: {
           showErrors: false
