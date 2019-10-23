@@ -17,7 +17,7 @@ export default {
         colorCells: [],
         shapeCells: [],
         numbering: [],
-        solution: ["CARTS", "ALARM", "RADIO", "TRICK", "SMOKE"],
+        solution: ["KARTS", "ALARM", "RADIO", "TRICK", "SMOKE"],
         clues: {
           across: {
             1: { txt: "Mario racing vehicles" },
