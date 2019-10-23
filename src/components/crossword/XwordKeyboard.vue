@@ -1,18 +1,19 @@
 <template>
   <div class="keyboard-container">
     <!--div>Keyboard</div-->
-    <div class="key-row" v-for="keyRow in keyLayout" :key="keyRow.id">
+    <div class="key-row" ref="row" v-for="keyRow in keyLayout" :key="keyRow.id">
       <div
+        ref="key"
         :class="[
           'key',
-          { 'key-t': keyBtn.isActive === 1, 'key-a': keyBtn.isActive === 2 }
+          {
+            'key-t': keyBtn.isActive === 1,
+            'key-a': keyBtn.isActive === 2,
+            'key-wide': keyBtn.val === '$BACKSPACE'
+          }
         ]"
         v-for="keyBtn in keyRow"
         :key="keyBtn.id"
-        @click="
-          executePress(keyBtn.val);
-          flashBtn(keyBtn);
-        "
       >
         <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
           keyBtn.isFA ? "" : keyBtn.disp
@@ -33,11 +34,50 @@ export default {
   mounted() {
     [this.keyLayout, this.invKeyLayout] = this.createQwerty();
     window.addEventListener("keydown", this.keydownFxn);
+    this.$nextTick(() => {
+      let rows = document.getElementsByClassName("key-row");
+      for (let r = 0; r < rows.length; r++) {
+        let row = rows[r];
+        let keys = row.getElementsByClassName("key");
+        for (let keynum = 0; keynum < keys.length; keynum++) {
+          let keyel = keys[keynum];
+          let keybtn = this.keyLayout[r][keynum];
+          keyel.addEventListener("mousedown", this.startHandler(keybtn));
+          keyel.addEventListener("touchstart", this.startHandler(keybtn));
+          keyel.addEventListener("mouseup", this.endHandler(keybtn));
+          keyel.addEventListener("touchend", this.endHandler(keybtn));
+          keyel.addEventListener("mouseleave", this.abortHandler(keybtn));
+          keyel.addEventListener("touchmove", this.abortHandler(keybtn));
+          keyel.addEventListener("touchcancel", this.abortHandler(keybtn));
+        }
+      }
+    });
   },
   beforeDestroy() {
     window.removeEventListener("keydown", this.keydownFxn);
   },
   methods: {
+    startHandler(key) {
+      return e => {
+        e.preventDefault();
+        key.isActive = 1;
+      };
+    },
+    abortHandler(key) {
+      return e => {
+        e.preventDefault();
+        key.isActive = 0;
+      };
+    },
+    endHandler(key) {
+      return e => {
+        if (key.isActive === 1) {
+          e.preventDefault();
+          this.flashBtn(key);
+          this.executePress(key.val);
+        }
+      };
+    },
     keydownFxn(e) {
       let ch = e.key.toUpperCase();
       //console.log("|" + ch + "|");
@@ -98,10 +138,14 @@ export default {
       this.$emit("executePress", ch, opts);
     },
     flashBtn(btn, activeType = 1) {
-      btn.isActive = activeType;
-      setTimeout(() => {
+      if (activeType === 2) {
+        btn.isActive = activeType;
+        setTimeout(() => {
+          btn.isActive = 0;
+        }, 200);
+      } else {
         btn.isActive = 0;
-      }, 150);
+      }
     },
     createQwerty(includeBackspace = true) {
       let retArr = [];
@@ -148,6 +192,7 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 .keyboard-container {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   user-select: none;
   border-radius: 0.35em;
   margin-bottom: 0.5em;
@@ -170,9 +215,13 @@ export default {
       height: 40px;
       cursor: pointer;
     }
+    .key-wide {
+      flex-basis: 60px;
+    }
     .key-t {
       z-index: 9000;
       height: 70px;
+      box-shadow: 0px 0px 1px 0px #000000; /* Standard */
       margin-top: -27px;
     }
   }

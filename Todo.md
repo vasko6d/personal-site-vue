@@ -32,7 +32,7 @@ Crossword
 - [ ] fix terrible use of reactivity for toggling individual clue context
 - [ ] make current clue float when scrolling down?
 - [ ] use touch events?
-- [ ] split current settings adn tools
+- [x] split current settings adn tools
 - [ ] some crosswrods have "multi input one way" and single or no input otherwat... maybe another special parsing character?
 - [ ] shoudl probably switch to make 'active' and 'exact' me alpha layers... not the other way around
 - [ ] flash banner for notification? e.g. tool sucesses?
