@@ -25,6 +25,7 @@ import Xword2 from "@/assets/xword/Xword2.vue";
 import Xword3 from "@/assets/xword/Xword3.vue";
 import Xword4 from "@/assets/xword/Xword4.vue";
 import Xword5 from "@/assets/xword/Xword5.vue";
+import Xword6 from "@/assets/xword/Xword6.vue";
 
 export default {
   name: "XwordSearch",
@@ -43,7 +44,8 @@ export default {
         Xword2.data().xword,
         Xword3.data().xword,
         Xword4.data().xword,
-        Xword5.data().xword
+        Xword5.data().xword,
+        Xword6.data().xword
       ],
       options: {
         headings: {
