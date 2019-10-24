@@ -55,7 +55,7 @@
         <div class="stat-head">Statistics</div>
         <div class="stat-row">
           <div class="stat-type">Solve Time :</div>
-          <div class="stat-val">{{ stats.time }} seconds</div>
+          <div class="stat-val">{{ formattedTime }}</div>
         </div>
         <div class="stat-row">
           <div class="stat-type">Score :</div>
@@ -108,6 +108,25 @@ export default {
       showHelp: false
     };
   },
+  computed: {
+    formattedTime() {
+      let hours = Math.floor((this.stats.time / (60 * 24)) % 100);
+      let minutes = Math.floor(this.stats.time / 60) % 60;
+      let seconds = this.stats.time % 60;
+      let ret = "";
+      if (hours > 0) {
+        ret += hours + " hour";
+        ret += hours > 1 ? "s, " : ", ";
+      }
+      if (hours > 0 || minutes > 0) {
+        ret += minutes + " minute";
+        ret += minutes > 1 ? "s, " : ", ";
+      }
+      ret += seconds + " second";
+      ret += seconds > 1 ? "s" : "";
+      return ret;
+    }
+  },
   methods: {
     statWithPercent(stat, total) {
       let perc = Math.round((stat / total) * 100);
@@ -140,6 +159,10 @@ export default {
       text-align: right;
       margin-right: 1em;
       font-weight: bold;
+    }
+    .stat-val {
+      max-width: 45%;
+      text-align: left;
     }
   }
   .btn-wrap {
