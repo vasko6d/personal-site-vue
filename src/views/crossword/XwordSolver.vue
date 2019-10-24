@@ -187,16 +187,14 @@ export default {
       let cachedOpts = JSON.parse(localStorage["xwordOpts"]);
 
       // To prevent stale opts in localStorage assign current opts with falues from cached ones
-      this.opts.clues.showCluePanel = cachedOpts.clues.showCluePanel;
-      this.opts.clues.contextOpt = cachedOpts.clues.contextOpt;
-      this.opts.clues.hideClueOpt = cachedOpts.clues.hideClueOpt;
-      this.opts.errors.showErrors = cachedOpts.errors.showErrors;
-      this.opts.keyboard.showOnPageKeyboard =
-        cachedOpts.keyboard.showOnPageKeyboard;
-      this.opts.keyboard.enableNativeKeyboardToggle =
-        cachedOpts.keyboard.enableNativeKeyboardToggle;
-      this.opts.navigation.autoSkipFilledCells =
-        cachedOpts.navigation.autoSkipFilledCells;
+      this.useCachedOpt(cachedOpts, ["clues", "showCluePanel"]);
+      this.useCachedOpt(cachedOpts, ["clues", "contextOpt"]);
+      this.useCachedOpt(cachedOpts, ["clues", "hideClueOpt"]);
+      this.useCachedOpt(cachedOpts, ["errors", "showErrors"]);
+      this.useCachedOpt(cachedOpts, ["keyboard", "showOnPageKeyboard"]);
+      this.useCachedOpt(cachedOpts, ["keyboard", "enableNativeKeyboardToggle"]);
+      this.useCachedOpt(cachedOpts, ["navigation", "autoSkipFilledCells"]);
+      this.useCachedOpt(cachedOpts, ["currentClue", "loc"]);
     }
     console.log(this.xword);
   },
@@ -240,6 +238,21 @@ export default {
         this.xword.saveData()
       );
       //console.log("Progress saved for [" + this.xword.title + "]");
+    },
+    useCachedOpt(cachedOpts, path) {
+      let cachedOpt = cachedOpts;
+      let trueOpt = this.opts;
+      for (let i = 0; i < path.length; i++) {
+        if (!cachedOpt) {
+          return;
+        }
+        cachedOpt = cachedOpt[path[i]];
+        if (i < path.length - 1) {
+          trueOpt = trueOpt[path[i]];
+        }
+      }
+      console.log("Setting: " + path + " to [" + cachedOpt + "]");
+      trueOpt[path[path.length - 1]] = cachedOpt;
     },
     defaultOpts(save = false) {
       let ret = {

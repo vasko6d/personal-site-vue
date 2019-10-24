@@ -31,16 +31,18 @@ Crossword
 
 - [ ] fix terrible use of reactivity for toggling individual clue context
 - [ ] make current clue float when scrolling down?
-- [ ] use touch events?
+- [ ] make enable native keyboard booleans more intuitive and make it close native keyboard when not in clue. Space cna stay
+- [x] use touch events?
 - [x] split current settings adn tools
 - [ ] some crosswrods have "multi input one way" and single or no input otherwat... maybe another special parsing character?
 - [ ] shoudl probably switch to make 'active' and 'exact' me alpha layers... not the other way around
 - [ ] flash banner for notification? e.g. tool sucesses?
+- [ ] add new banner when filled, adn show statistics when competed
 - [ ] solved banner for shwoing stats?
 - [ ] the following boxes will be solved/cleared confirmation?
-- [ ] does mobile have an "onintialpress" mcuh better tactile response
+- [x] does mobile have an "onintialpress" mcuh better tactile response
 - [ ] multiple answer boxes(ie '8' vs 'eight')?
-- [ ] switch font aweseom check to switch buttons
+- [ ] ~~switch font aweseom check to switch buttons~~
 - [ ] Low Priority: Make settings look liek google maps settings. Switch on boolean, and btns for triple option.
 - [ ] Low Priority:moveClue repositions pointer at start
 - [ ] Postpone: make dynamic! Fetch data etc. ratings etc
