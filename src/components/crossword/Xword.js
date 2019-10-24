@@ -640,8 +640,7 @@ export default class Xword {
           was: cell.wasAutoSolved,
           wse: cell.wasShownError,
           wwc: cell.wasWrongCleared,
-          si: cell.isSpecialInput,
-          w: cell.wrong
+          si: cell.isSpecialInput
         });
       }
     }
@@ -666,7 +665,7 @@ export default class Xword {
             cell.wasShownError = savedData.cellData[cell.r][cell.c].wse;
             cell.wasWrongCleared = savedData.cellData[cell.r][cell.c].wwc;
             cell.isSpecialInput = savedData.cellData[cell.r][cell.c].si;
-            cell.wrong = savedData.cellData[cell.r][cell.c].w;
+            this.updateCellWrongFlag(cell);
           }
           // Make sure clue and filled relations are correct
           this.bulkUpdateClueFlags();
