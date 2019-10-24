@@ -7,12 +7,6 @@
       @setOption="setOption"
       @setNativeKeyboardOption="setNativeKeyboardOption"
       @defaultSettings="$emit('defaultSettings')"
-      @clear="clear"
-      @solve="solve"
-      @saveProgress="
-        $emit('saveProgress');
-        modalToggle(false, 'showSettings');
-      "
       :opts="opts"
     />
     <xword-tools

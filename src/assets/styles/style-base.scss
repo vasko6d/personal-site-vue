@@ -130,6 +130,7 @@
     background-color: rgba(lighten($nav-bg, 5%), 0.7);
   }
 
+  #x-stat,
   #x-head {
     background-color: rgba(lighten($nav-bg, 5%), 0.6);
     border-radius: 0.35em;
@@ -143,6 +144,16 @@
     }
     .enab {
       color: lighten($nav-txt, 20%);
+    }
+    .stat-btn {
+      box-shadow: 0px 0px 2px 0px darken($nav-txt, 20%); /* Standard */
+      background-color: rgba(darken($nav-bg, 20%), 0.4);
+      color: darken($nav-txt, 10%);
+      &:hover {
+        color: $nav-txt;
+        background-color: lighten($nav-bg, 5%);
+        box-shadow: 0px 0px 2px 0px lighten($nav-txt, 10%); /* Standard */
+      }
     }
   }
 

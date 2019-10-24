@@ -17,8 +17,7 @@
                 exact: isExact(cell.r, cell.c),
                 flagged: cell.flag,
                 'autosolved-border': cell.wasAutoSolved,
-                'wrong-border':
-                  showErrors && cell.entry && cell.entry != cell.ans
+                'wrong-border': showErrors && cell.wrong
               }
             ]"
           >
@@ -26,7 +25,7 @@
               :class="[
                 'cell-wrapper',
                 {
-                  wrong: showErrors && cell.entry && cell.entry != cell.ans,
+                  wrong: showErrors && cell.wrong,
                   autosolved: cell.wasAutoSolved
                 }
               ]"

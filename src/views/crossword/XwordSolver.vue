@@ -35,6 +35,15 @@
         :nativeKeyboardEnabled="keyboardMasterOverride"
         :opts="opts"
       />
+      <xword-stat-banner
+        v-show="xword.filled"
+        :isCompleted="xword.completed"
+        :showErrors="opts.errors.showErrors"
+        :stats="xword.stats"
+        @setOption="setOption"
+        @clear="clear"
+        @solve="solve"
+      />
       <xword-current-clue
         v-show="opts.currentClue.loc === 'top'"
         :clue="currentClue"
@@ -50,6 +59,7 @@
         :showErrors="opts.errors.showErrors"
         @executePress="executePress"
         @specialKeyboard="specialKeyboard"
+        @updateShownWrong="updateShownWrong"
       />
       <xword-current-clue
         v-show="opts.currentClue.loc === 'bottom'"
@@ -85,6 +95,7 @@ import XwordCluePanel from "@/components/crossword/XwordCluePanel.vue";
 import XwordCurrentClue from "@/components/crossword/XwordCurrentClue.vue";
 import XwordKeyboard from "@/components/crossword/XwordKeyboard.vue";
 import XwordHeader from "@/components/crossword/XwordHeader.vue";
+import XwordStatBanner from "@/components/crossword/XwordStatBanner.vue";
 import Xword from "@/components/crossword//Xword.js";
 
 // Xword Data Source Imports
@@ -106,7 +117,8 @@ export default {
     XwordPuzzle,
     XwordCurrentClue,
     XwordKeyboard,
-    XwordHeader
+    XwordHeader,
+    XwordStatBanner
   },
   props: {
     xwordId: String
@@ -233,6 +245,9 @@ export default {
       }
       this.saveProgress();
     },
+    updateShownWrong(cell) {
+      this.xword.updateShownErrorFlag(cell.r, cell.c);
+    },
     saveProgress() {
       localStorage["xword:" + this.xwordId.toString()] = JSON.stringify(
         this.xword.saveData()
@@ -251,7 +266,7 @@ export default {
           trueOpt = trueOpt[path[i]];
         }
       }
-      console.log("Setting: " + path + " to [" + cachedOpt + "]");
+      //console.log("Setting: " + path + " to [" + cachedOpt + "]");
       trueOpt[path[path.length - 1]] = cachedOpt;
     },
     defaultOpts(save = false) {
@@ -303,7 +318,9 @@ export default {
         opt = opt[p.optionPath[i]];
       }
       opt[p.optionPath[p.optionPath.length - 1]] = p.value;
-      localStorage["xwordOpts"] = JSON.stringify(this.opts);
+      if (!p.dontSave) {
+        localStorage["xwordOpts"] = JSON.stringify(this.opts);
+      }
     },
     specialKeyboard(force = false) {
       let cell = this.xword.getCell();
@@ -416,9 +433,11 @@ export default {
             cell.entry = cell.entry.slice(0, -1);
           }
         } else {
-          this.xword.getCell().entry = "";
+          cell.entry = "";
         }
+        this.xword.updateCellWrongFlag(cell);
         this.xword.bulkUpdateClueFlags();
+        this.xword.filled = this.xword.isAllFilled();
       }
     }
   }

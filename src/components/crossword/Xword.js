@@ -101,6 +101,8 @@ export default class Xword {
 
     // flag to tell if the puzzle has been completed
     this.completed = false;
+    this.filled = false;
+    this.stats = {};
   }
 
   //
@@ -151,6 +153,12 @@ export default class Xword {
       }
     }
     return cnt;
+  }
+  isAllFilled() {
+    return (
+      this.filledCount("across") === Object.keys(this.across).length &&
+      this.filledCount("down") === Object.keys(this.down).length
+    );
   }
   isLastCell(cell) {
     let clue = this.getClue(cell);
@@ -211,6 +219,9 @@ export default class Xword {
     downClue.correct = this.isCorrect(downClue);
     downClue.filled = this.isFilled(downClue);
 
+    // Update filled
+    this.filled = this.isAllFilled();
+
     return this.isHoriz ? acrossClue.filled : downClue.filled;
   }
   specialInputIntegrity() {
@@ -230,9 +241,11 @@ export default class Xword {
       if (cell.isSpecialInput) {
         // If we are in a sepcial input cell all characters are valid
         cell.entry += ch;
+        this.updateCellWrongFlag(cell);
       } else if (ch.match(/^[A-Z]$/)) {
         // Normally only A-Z are allowed
         cell.entry = ch;
+        this.updateCellWrongFlag(cell);
         this.incrementPosition(skipFilled);
       }
     }
@@ -335,11 +348,15 @@ export default class Xword {
               this.timer.resume();
             }
             this.completed = false;
+            if (!allEntry) {
+              cell.wasWrongCleared = true;
+            }
           }
         }
       }
     }
     this.bulkUpdateClueFlags();
+    this.filled = this.isAllFilled();
   }
   clearCell(cell, fullClear = false) {
     if (!cell.wasAutoSolved || fullClear) {
@@ -347,6 +364,9 @@ export default class Xword {
       cell.isSpecialInput = false;
       if (fullClear) {
         cell.wasAutoSolved = false;
+        cell.wasShownError = false;
+        cell.wasWrongCleared = false;
+        cell.wrong = false;
       }
     }
   }
@@ -358,17 +378,20 @@ export default class Xword {
       this.clearCell(cell);
     }
     this.bulkUpdateClueFlags();
+    this.filled = this.isAllFilled();
   }
   solveCurrentCell() {
     let cell = this.getCell();
     this.solveCell(cell);
     this.bulkUpdateClueFlags();
+    this.filled = this.isAllFilled();
   }
   solveCell(cell) {
     if (!this.isCellCorrect(cell)) {
       cell.entry = cell.ans;
       cell.isSpecialInput = this.isSpecialInput(cell);
       cell.wasAutoSolved = true;
+      cell.wrong = false;
     }
   }
   solveClue() {
@@ -379,6 +402,7 @@ export default class Xword {
       this.solveCell(cell);
     }
     this.bulkUpdateClueFlags();
+    this.filled = this.isAllFilled();
   }
   solvePuzzle() {
     for (let row of this.puzzle) {
@@ -389,8 +413,37 @@ export default class Xword {
       }
     }
     this.bulkUpdateClueFlags();
-    this.completed = true;
+    this.generateStats();
     this.timer.pause();
+    this.filled = true;
+    this.completed = true;
+  }
+  generateStats() {
+    this.stats = {
+      totalCells: 0,
+      inputCells: 0,
+      numAutoSolved: 0,
+      numShownError: 0,
+      numCleared: 0,
+      numTrulySolved: 0,
+      time: this.timer.getTimeSec(true)
+    };
+    for (let row of this.puzzle) {
+      for (let cell of row) {
+        this.stats.totalCells++;
+        this.stats.inputCells += this.isInputColorCell(cell) ? 1 : 0;
+        this.stats.numAutoSolved += cell.wasAutoSolved ? 1 : 0;
+        this.stats.numShownError += cell.wasShownError ? 1 : 0;
+        this.stats.numCleared += cell.wasWrongCleared ? 1 : 0;
+        this.stats.numTrulySolved +=
+          !this.isInputColorCell(cell) ||
+          cell.wasAutoSolved ||
+          cell.wasShownError ||
+          cell.wasWrongCleared
+            ? 0
+            : 1;
+      }
+    }
   }
 
   //
@@ -536,6 +589,9 @@ export default class Xword {
       flag: false, // Has this cell been manually flagged?
       isSpecialInput: false, // Does this cell have special input?
       wasAutoSolved: false,
+      wasShownError: false,
+      wasWrongCleared: false,
+      wrong: false,
       r: r,
       c: c
     };
@@ -553,6 +609,13 @@ export default class Xword {
       clue.correct = this.isCorrect(clue);
     }
   }
+  updateCellWrongFlag(cell) {
+    cell.wrong = cell.entry && cell.entry != cell.ans;
+  }
+  updateShownErrorFlag(r, c) {
+    let cell = this.puzzle[r][c];
+    cell.wasShownError = true;
+  }
 
   //
   // Saving Functions
@@ -562,7 +625,8 @@ export default class Xword {
       version: savedDataVersion,
       time: this.timer.getTime(),
       completed: this.completed,
-      cellData: this.getCellDataToSave()
+      cellData: this.getCellDataToSave(),
+      stats: this.stats
     };
   }
   getCellDataToSave() {
@@ -574,7 +638,10 @@ export default class Xword {
           e: cell.entry,
           f: cell.flag,
           was: cell.wasAutoSolved,
-          si: cell.isSpecialInput
+          wse: cell.wasShownError,
+          wwc: cell.wasWrongCleared,
+          si: cell.isSpecialInput,
+          w: cell.wrong
         });
       }
     }
@@ -586,6 +653,7 @@ export default class Xword {
       try {
         this.completed = savedData.completed;
         this.timer.addTime(savedData.time);
+        this.stats = savedData.stats ? savedData.stats : {};
         if (this.completed) {
           this.timer.pause();
         }
@@ -595,10 +663,14 @@ export default class Xword {
             cell.entry = cell.entry ? cell.entry : "";
             cell.flag = savedData.cellData[cell.r][cell.c].f;
             cell.wasAutoSolved = savedData.cellData[cell.r][cell.c].was;
+            cell.wasShownError = savedData.cellData[cell.r][cell.c].wse;
+            cell.wasWrongCleared = savedData.cellData[cell.r][cell.c].wwc;
             cell.isSpecialInput = savedData.cellData[cell.r][cell.c].si;
+            cell.wrong = savedData.cellData[cell.r][cell.c].w;
           }
           // Make sure clue and filled relations are correct
           this.bulkUpdateClueFlags();
+          this.filled = this.isAllFilled();
         }
         console.log("Progress Sucesfully loaded");
       } catch {

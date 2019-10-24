@@ -15,7 +15,7 @@
               exact: isExact(r, c),
               flagged: cell.flag,
               'autosolved-border': cell.wasAutoSolved,
-              'wrong-border': showErrors && cell.entry && cell.entry != cell.ans
+              'wrong-border': showErrors && cell.wrong
             }
           ]"
         >
@@ -23,7 +23,7 @@
             :class="[
               'cell-wrapper',
               {
-                wrong: showErrors && cell.entry && cell.entry != cell.ans,
+                wrong: calcWrong(cell),
                 autosolved: cell.wasAutoSolved
               }
             ]"
@@ -95,6 +95,14 @@ export default {
           this.$emit("executePress", "$SETPOSITION", { r: r, c: c });
         }
       }
+    },
+    calcWrong(cell) {
+      // this is the ONE place that shown wrong us updated... dangerous
+      let shownWrong = this.showErrors && cell.wrong;
+      if (!cell.wasShownWrong && shownWrong) {
+        this.$emit("updateShownWrong", cell);
+      }
+      return shownWrong;
     }
   }
 };
