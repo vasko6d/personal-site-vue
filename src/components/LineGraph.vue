@@ -1,5 +1,6 @@
 <script>
 import { Line } from "vue-chartjs";
+import zoom from "chartjs-plugin-zoom";
 export default {
   extends: Line,
   props: {
@@ -8,6 +9,7 @@ export default {
     seriesOpts: Array
   },
   mounted() {
+    this.addPlugin(zoom);
     this.renderChart(this.buildChartDataset(), this.options);
   },
   methods: {
@@ -20,7 +22,7 @@ export default {
           borderWidth: seriesOpt.borderWidth,
           label: seriesOpt.label,
           fill: false,
-          pointRadius: 1,
+          pointRadius: 2,
           pointBackgroundColor: seriesOpt.color,
           pointBorderColor: seriesOpt.color,
           data: []

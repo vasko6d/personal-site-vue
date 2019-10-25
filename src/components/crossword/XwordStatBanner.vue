@@ -102,9 +102,18 @@
               <strong>[ Crossword Progress ]</strong> - A chart.js graph that
               shows the above counts over time. Note that you can click the
               individal entries in the legend to show/hide each individual data
-              series and the graph will rescale dynamically.
+              series and the graph will rescale dynamically. You can also pan
+              and zoom the chart.
             </li>
           </ul>
+        </div>
+        <div
+          v-show="showStatHelp"
+          class="closer icn"
+          @click="showStatHelp = false"
+        >
+          ...hide help
+          <i class="fas fa-caret-up"></i>
         </div>
         <div class="stat-row">
           <div class="stat-type">Solve Time :</div>
@@ -185,6 +194,7 @@ export default {
       showStatHelp: false,
       showMore: false,
       options: {
+        responsive: true,
         title: {
           display: true,
           text: "Crossword Progress",
@@ -213,6 +223,20 @@ export default {
               }
             }
           ]
+        },
+        pan: {
+          enabled: true,
+          mode: "xy",
+          speed: 10,
+          threshold: 10
+        },
+        zoom: {
+          enabled: true,
+          drag: false,
+
+          // Zooming directions. Remove the appropriate direction to disable
+          // Eg. 'y' would only allow zooming in the y direction
+          mode: "xy"
         }
       },
       seriesOpts: [
@@ -300,6 +324,10 @@ export default {
       max-width: 45%;
       text-align: left;
     }
+  }
+  .closer {
+    margin-top: -0.25em;
+    margin-bottom: 1em;
   }
   .btn-wrap {
     display: flex;
