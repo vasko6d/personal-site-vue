@@ -462,6 +462,7 @@ export default class Xword {
   // Stat Functions
   //
   generateStats() {
+    // except for numTrulySolved... this is all now duplicated in the statData object... oh well.
     this.stats = {
       totalCells: 0,
       inputCells: 0,

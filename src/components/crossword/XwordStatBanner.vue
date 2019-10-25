@@ -6,10 +6,10 @@
           Finishing Crossword
           <i
             class="fas fa-question-circle icn"
-            @click="showHelp = !showHelp"
+            @click="showFinishHelp = !showFinishHelp"
           ></i>
         </div>
-        <div class="stat-help" v-if="showHelp">
+        <div class="stat-help" v-if="showFinishHelp">
           <ul style="list-style-type:none">
             <li class="help-itm">
               <strong>[ Submit ]</strong> - Sumbit your current puzzle. All
@@ -52,7 +52,60 @@
         </div>
       </div>
       <div v-else>
-        <div class="stat-head">Statistics</div>
+        <div class="stat-head">
+          Statistics
+          <i
+            class="fas fa-question-circle icn"
+            @click="showStatHelp = !showStatHelp"
+          ></i>
+        </div>
+        <div class="stat-help" v-if="showStatHelp">
+          <ul style="list-style-type:none">
+            <li class="help-itm">
+              <strong>[ Solve Time ]</strong> - How long the puzzle took to
+              solve. Note that timer starts once crossword is opened and will
+              continue to run while the page is open.
+            </li>
+            <li class="help-itm">
+              <strong>[ Score ]</strong> - The number represents how many cells
+              you manually entered correctly without the direct usage of tools.
+              The percent is calculated as (score / total input cells) * 100
+            </li>
+            <li class="help-itm">
+              <strong>[ ...more stats ]</strong> - Click this to see more stats
+              including a graph showing your progress over time. Will read as
+              "...less stats" when expanded.
+            </li>
+            <li class="help-itm">
+              <strong>[ Total Cells ]</strong> - Total number of cells including
+              black.
+            </li>
+            <li class="help-itm">
+              <strong>[ Input Cells ]</strong> - Total number of input cells.
+              Percent is calculated as (input cells / total cells) * 100
+            </li>
+            <li class="help-itm">
+              <strong>[ Auto Solved ]</strong> - Total number of cells solved
+              via one of the "solve" tools. The cell in the grid will be
+              highlighted green.
+            </li>
+            <li class="help-itm">
+              <strong>[ Shown Error ]</strong> - Total number of cells that were
+              colored red at some point to indicate an error. This will only be
+              non-zero if the setting "Show Errors" is set to true.
+            </li>
+            <li class="help-itm">
+              <strong>[ Wrong Cleared ]</strong> - Total number of cells that
+              were cleared using the tool "Clear wrong entries".
+            </li>
+            <li class="help-itm">
+              <strong>[ Crossword Progress ]</strong> - A chart.js graph that
+              shows the above counts over time. Note that you can click the
+              individal entries in the legend to show/hide each individual data
+              series and the graph will rescale dynamically.
+            </li>
+          </ul>
+        </div>
         <div class="stat-row">
           <div class="stat-type">Solve Time :</div>
           <div class="stat-val">{{ formattedTime }}</div>
@@ -128,7 +181,8 @@ export default {
   },
   data() {
     return {
-      showHelp: false,
+      showFinishHelp: false,
+      showStatHelp: false,
       showMore: false,
       options: {
         title: {
