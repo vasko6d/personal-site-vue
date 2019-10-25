@@ -63,33 +63,51 @@
             {{ statWithPercent(stats.numTrulySolved, stats.inputCells) }}
           </div>
         </div>
-        <div class="stat-row">
-          <div class="stat-type">Total Cells :</div>
-          <div class="stat-val">{{ stats.totalCells }}</div>
+
+        <div class="stat-more icn" @click="showMore = !showMore">
+          <span v-if="!showMore">
+            ...more stats
+            <i class="fas fa-caret-down"></i>
+          </span>
+          <span v-else>
+            ...less stats
+            <i class="fas fa-caret-up"></i>
+          </span>
         </div>
-        <div class="stat-row">
-          <div class="stat-type">Input Cells :</div>
-          <div class="stat-val">
-            {{ statWithPercent(stats.inputCells, stats.totalCells) }}
+        <div v-show="showMore">
+          <div class="stat-row">
+            <div class="stat-type">Total Cells :</div>
+            <div class="stat-val">{{ stats.totalCells }}</div>
           </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-type">Auto-Solved :</div>
-          <div class="stat-val">
-            {{ statWithPercent(stats.numAutoSolved, stats.inputCells) }}
+          <div class="stat-row">
+            <div class="stat-type">Input Cells :</div>
+            <div class="stat-val">
+              {{ statWithPercent(stats.inputCells, stats.totalCells) }}
+            </div>
           </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-type">Shown Error :</div>
-          <div class="stat-val">
-            {{ statWithPercent(stats.numShownError, stats.inputCells) }}
+          <div class="stat-row">
+            <div class="stat-type">Auto-Solved :</div>
+            <div class="stat-val">
+              {{ statWithPercent(stats.numAutoSolved, stats.inputCells) }}
+            </div>
           </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-type">Wrong Cleared :</div>
-          <div class="stat-val">
-            {{ statWithPercent(stats.numCleared, stats.inputCells) }}
+          <div class="stat-row">
+            <div class="stat-type">Shown Error :</div>
+            <div class="stat-val">
+              {{ statWithPercent(stats.numShownError, stats.inputCells) }}
+            </div>
           </div>
+          <div class="stat-row">
+            <div class="stat-type">Wrong Cleared :</div>
+            <div class="stat-val">
+              {{ statWithPercent(stats.numCleared, stats.inputCells) }}
+            </div>
+          </div>
+          <line-graph
+            :data="statData.timeSeries"
+            :options="options"
+            :seriesOpts="seriesOpts"
+          />
         </div>
       </div>
     </div>
@@ -97,15 +115,79 @@
 </template>
 
 <script>
+import LineGraph from "@/components/LineGraph.vue";
 export default {
+  components: {
+    LineGraph
+  },
   props: {
     isCompleted: Boolean,
     showErrors: Boolean,
-    stats: Object
+    stats: Object,
+    statData: Object
   },
   data() {
     return {
-      showHelp: false
+      showHelp: false,
+      showMore: false,
+      options: {
+        title: {
+          display: true,
+          text: "Crossword Progress",
+          fontSize: 20
+        },
+        legend: {
+          position: "bottom"
+        },
+        scales: {
+          xAxes: [
+            {
+              type: "linear",
+              scaleLabel: {
+                display: true,
+                labelString: "Time (sec)",
+                fontSize: 14
+              }
+            }
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Number Cells",
+                fontSize: 14
+              }
+            }
+          ]
+        }
+      },
+      seriesOpts: [
+        {
+          color: "#6d826c",
+          borderWidth: 2,
+          label: "Filled"
+        },
+        {
+          color: "#32ab2e",
+          borderWidth: 2,
+          label: "Correct"
+        },
+        {
+          color: "#d6b10b",
+          borderWidth: 2,
+          label: "Auto-Solved"
+        },
+        {
+          color: "#cc4027",
+          borderWidth: 2,
+          label: "Shown Wrong"
+        },
+        {
+          color: "#38a0a6",
+          borderWidth: 2,
+          label: "Wrong Cleared"
+        }
+      ]
     };
   },
   computed: {

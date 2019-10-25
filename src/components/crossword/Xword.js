@@ -103,6 +103,7 @@ export default class Xword {
     this.completed = false;
     this.filled = false;
     this.stats = {};
+    this.statData = this.initStatData();
   }
 
   //
@@ -238,6 +239,7 @@ export default class Xword {
   enterChar(ch, skipFilled = false) {
     let cell = this.getCell();
     if (!cell.wasAutoSolved) {
+      let origCell = { ...cell };
       if (cell.isSpecialInput) {
         // If we are in a sepcial input cell all characters are valid
         cell.entry += ch;
@@ -248,6 +250,35 @@ export default class Xword {
         this.updateCellWrongFlag(cell);
         this.incrementPosition(skipFilled);
       }
+      this.updateStatData(origCell, cell);
+    }
+  }
+  backSpaceLogic() {
+    // if the original cell was empty move then do it again
+    let cell = this.getCell();
+    const move = !cell.entry || cell.wasAutoSolved;
+    if (move) {
+      if (this.isHoriz) {
+        this.move({ r: 0, c: -1 });
+      } else {
+        this.move({ r: -1, c: 0 });
+      }
+    }
+    cell = this.getCell();
+    let origCell = { ...cell };
+    if (!cell.wasAutoSolved) {
+      if (cell.isSpecialInput) {
+        // If its special input simply elete end character
+        if (cell.entry && !move) {
+          cell.entry = cell.entry.slice(0, -1);
+        }
+      } else {
+        cell.entry = "";
+      }
+      this.updateCellWrongFlag(cell);
+      this.bulkUpdateClueFlags();
+      this.filled = this.isAllFilled();
+      this.updateStatData(origCell, cell);
     }
   }
   toggleCellFlag() {
@@ -341,19 +372,25 @@ export default class Xword {
           if (flags) {
             cell.flag = false;
           }
-          if (allEntry || (wrongEntry && !this.isCellCorrect(cell))) {
+          let clearWrongFlag = wrongEntry && cell.wrong && cell.entry;
+          if (allEntry || clearWrongFlag) {
+            let origCell = { ...cell };
             this.clearCell(cell, allEntry);
             if (this.completed) {
               this.timer.reset();
               this.timer.resume();
             }
             this.completed = false;
-            if (!allEntry) {
+            if (clearWrongFlag) {
               cell.wasWrongCleared = true;
+              this.updateStatData(origCell, cell);
             }
           }
         }
       }
+    }
+    if (allEntry) {
+      this.statData = this.initStatData();
     }
     this.bulkUpdateClueFlags();
     this.filled = this.isAllFilled();
@@ -366,7 +403,7 @@ export default class Xword {
         cell.wasAutoSolved = false;
         cell.wasShownError = false;
         cell.wasWrongCleared = false;
-        cell.wrong = false;
+        cell.wrong = true;
       }
     }
   }
@@ -387,12 +424,14 @@ export default class Xword {
     this.filled = this.isAllFilled();
   }
   solveCell(cell) {
+    let origCell = { ...cell };
     if (!this.isCellCorrect(cell)) {
       cell.entry = cell.ans;
       cell.isSpecialInput = this.isSpecialInput(cell);
       cell.wasAutoSolved = true;
       cell.wrong = false;
     }
+    this.updateStatData(origCell, cell);
   }
   solveClue() {
     let clue = this.isHoriz
@@ -418,6 +457,10 @@ export default class Xword {
     this.filled = true;
     this.completed = true;
   }
+
+  //
+  // Stat Functions
+  //
   generateStats() {
     this.stats = {
       totalCells: 0,
@@ -445,7 +488,67 @@ export default class Xword {
       }
     }
   }
+  initStatData() {
+    return {
+      filledCount: 0,
+      timeSeries: [[0, 0, 0, 0, 0, 0]],
+      correctCount: 0,
+      autoSolvedCount: 0,
+      shownErrorCount: 0,
+      wrongCleardCount: 0
+    };
+  }
+  updateStatData(origCell, cell) {
+    let newData = false;
 
+    // Update filled counts
+    if (!origCell.entry && cell.entry) {
+      this.statData.filledCount += 1;
+      newData = true;
+    } else if (origCell.entry && !cell.entry) {
+      this.statData.filledCount -= 1;
+      newData = true;
+    }
+
+    // Update correct counts
+    if (origCell.wrong && !cell.wrong) {
+      this.statData.correctCount += 1;
+      newData = true;
+    } else if (!origCell.wrong && cell.wrong) {
+      this.statData.correctCount -= 1;
+      newData = true;
+    }
+
+    // Update was auto solved
+    if (cell.wasAutoSolved && !origCell.wasAutoSolved) {
+      this.statData.autoSolvedCount += 1;
+      newData = true;
+    }
+
+    // Update was wrong cleared
+    if (cell.wasWrongCleared && !origCell.wasWrongCleared) {
+      this.statData.wrongCleardCount += 1;
+      newData = true;
+    }
+
+    // Update the was shown error
+    if (cell.wasShownError && !origCell.wasShownError) {
+      this.statData.shownErrorCount += 1;
+      newData = true;
+    }
+
+    if (newData) {
+      this.statData.timeSeries.push([
+        this.timer.getTimeSec(true),
+        this.statData.filledCount,
+        this.statData.correctCount,
+        this.statData.autoSolvedCount,
+        this.statData.shownErrorCount,
+        this.statData.wrongCleardCount
+      ]);
+    }
+    //console.log(this.statData.timeSeries.join(" | "));
+  }
   //
   // Initialization Functions
   //
@@ -591,7 +694,8 @@ export default class Xword {
       wasAutoSolved: false,
       wasShownError: false,
       wasWrongCleared: false,
-      wrong: false,
+      timeCorrect: -1,
+      wrong: true,
       r: r,
       c: c
     };
@@ -610,11 +714,13 @@ export default class Xword {
     }
   }
   updateCellWrongFlag(cell) {
-    cell.wrong = cell.entry && cell.entry != cell.ans;
+    cell.wrong = cell.entry != cell.ans;
   }
   updateShownErrorFlag(r, c) {
     let cell = this.puzzle[r][c];
+    let origCell = { ...cell };
     cell.wasShownError = true;
+    this.updateStatData(origCell, cell);
   }
 
   //
@@ -626,7 +732,8 @@ export default class Xword {
       time: this.timer.getTime(),
       completed: this.completed,
       cellData: this.getCellDataToSave(),
-      stats: this.stats
+      stats: this.stats,
+      statData: this.statData
     };
   }
   getCellDataToSave() {
@@ -653,6 +760,7 @@ export default class Xword {
         this.completed = savedData.completed;
         this.timer.addTime(savedData.time);
         this.stats = savedData.stats ? savedData.stats : {};
+        this.statData = savedData.statData ? savedData.statData : this.statData;
         if (this.completed) {
           this.timer.pause();
         }

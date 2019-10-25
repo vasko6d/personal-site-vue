@@ -15,7 +15,7 @@
               exact: isExact(r, c),
               flagged: cell.flag,
               'autosolved-border': cell.wasAutoSolved,
-              'wrong-border': showErrors && cell.wrong
+              'wrong-border': showErrors && cell.wrong && cell.entry
             }
           ]"
         >
@@ -98,7 +98,7 @@ export default {
     },
     calcWrong(cell) {
       // this is the ONE place that shown wrong us updated... dangerous
-      let shownWrong = this.showErrors && cell.wrong;
+      let shownWrong = this.showErrors && cell.wrong && cell.entry;
       if (!cell.wasShownWrong && shownWrong) {
         this.$emit("updateShownWrong", cell);
       }

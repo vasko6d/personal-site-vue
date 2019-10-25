@@ -40,6 +40,7 @@
         :isCompleted="xword.completed"
         :showErrors="opts.errors.showErrors"
         :stats="xword.stats"
+        :statData="xword.statData"
         @setOption="setOption"
         @clear="clear"
         @solve="solve"
@@ -410,34 +411,8 @@ export default {
           this.clickedClue.showContext = this.contextEnabled;
           break;
         case "$BACKSPACE":
-          this.backSpaceLogic();
+          this.xword.backSpaceLogic();
           break;
-      }
-    },
-    backSpaceLogic() {
-      // if the original cell was empty move then do it again
-      let cell = this.xword.getCell();
-      const move = !cell.entry || cell.wasAutoSolved;
-      if (move) {
-        if (this.xword.isHoriz) {
-          this.xword.move({ r: 0, c: -1 });
-        } else {
-          this.xword.move({ r: -1, c: 0 });
-        }
-      }
-      cell = this.xword.getCell();
-      if (!cell.wasAutoSolved) {
-        if (cell.isSpecialInput) {
-          // If its special input simply elete end character
-          if (cell.entry && !move) {
-            cell.entry = cell.entry.slice(0, -1);
-          }
-        } else {
-          cell.entry = "";
-        }
-        this.xword.updateCellWrongFlag(cell);
-        this.xword.bulkUpdateClueFlags();
-        this.xword.filled = this.xword.isAllFilled();
       }
     }
   }
