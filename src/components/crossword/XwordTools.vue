@@ -17,31 +17,50 @@
               <slot name="body">
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Save</h4>
                 <div class="note">Automatically Saves periodically</div>
-                <div class="tool-btn safe" @click="$emit('saveProgress')">
-                  <i class="fas fa-save"></i>&nbsp;Save Progress
+                <div>
+                  <div class="tool-btn safe" @click="$emit('saveProgress')">
+                    <i class="fas fa-save"></i>&nbsp;Save Progress
+                  </div>
                 </div>
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Clear</h4>
-                <div class="tool-btn danger" @click="$emit('clear', 'flags')">
-                  <i class="far fa-trash-alt"></i>&nbsp;Clear all flags
+                <div>
+                  <div class="tool-btn danger" @click="$emit('clear', 'flags')">
+                    <i class="far fa-trash-alt"></i>&nbsp;Clear all flags
+                  </div>
                 </div>
-                <div class="tool-btn danger" @click="$emit('clear', 'wrong')">
-                  <i class="far fa-trash-alt"></i>&nbsp;Clear wrong entries
+                <div>
+                  <div class="tool-btn danger" @click="$emit('clear', 'wrong')">
+                    <i class="far fa-trash-alt"></i>&nbsp;Clear wrong entries
+                  </div>
                 </div>
-                <div class="tool-btn danger" @click="$emit('clear', 'clue')">
-                  <i class="far fa-trash-alt"></i>&nbsp;Clear current clue
+                <div>
+                  <div class="tool-btn danger" @click="$emit('clear', 'clue')">
+                    <i class="far fa-trash-alt"></i>&nbsp;Clear current clue
+                  </div>
                 </div>
-                <div class="tool-btn danger" @click="$emit('clear', 'puzzle')">
-                  <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
+                <div>
+                  <div
+                    class="tool-btn danger"
+                    @click="$emit('clear', 'puzzle')"
+                  >
+                    <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
+                  </div>
                 </div>
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Solve</h4>
-                <div class="tool-btn safe" @click="$emit('solve', 'cell')">
-                  <i class="far fa-check-square"></i>&nbsp;Solve cell
+                <div>
+                  <div class="tool-btn safe" @click="$emit('solve', 'cell')">
+                    <i class="far fa-check-square"></i>&nbsp;Solve cell
+                  </div>
                 </div>
-                <div class="tool-btn safe" @click="$emit('solve', 'clue')">
-                  <i class="far fa-check-square"></i>&nbsp;Solve clue
+                <div>
+                  <div class="tool-btn safe" @click="$emit('solve', 'clue')">
+                    <i class="far fa-check-square"></i>&nbsp;Solve clue
+                  </div>
                 </div>
-                <div class="tool-btn safe" @click="$emit('solve', 'puzzle')">
-                  <i class="far fa-check-square"></i>&nbsp;Complete puzzle
+                <div>
+                  <div class="tool-btn safe" @click="$emit('solve', 'puzzle')">
+                    <i class="far fa-check-square"></i>&nbsp;Complete puzzle
+                  </div>
                 </div>
               </slot>
             </div>
@@ -84,7 +103,6 @@ export default {
     margin: 2px;
     margin-left: 5%;
     display: inline-block;
-    width: 51%;
   }
   .note {
     margin-left: 5%;
