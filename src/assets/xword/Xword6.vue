@@ -172,7 +172,7 @@ export default {
             62: { txt: 'Texters: "The most amazing experience"' },
             63: { txt: "Envelope letters" },
             64: { txt: "Prepare for a spike" },
-            65: { txt: "Drew Brees or Mother Theresa" },
+            65: { txt: "Drew Brees or Mother Teresa" },
             67: { txt: "Vancouver airport code" },
             68: { txt: "Small coffee order, across the pond, perhaps" },
             69: { txt: "Maraud" },
