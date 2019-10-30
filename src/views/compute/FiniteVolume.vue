@@ -1,7 +1,7 @@
 <template>
   <div id="finite-volume">
     <div class="blk-container">
-      <p>
+      <p class="ind-p">
         I developed a two dimensional finite volume solver for a supersonic jet
         inlet. MacCormacks Method with artificial dissipation was utilized.
         Please view the

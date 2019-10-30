@@ -21,6 +21,11 @@ export default new Router({
       component: () => import("./views/Climbing.vue")
     },
     {
+      path: "/climbingdata",
+      name: "ClimbingData",
+      component: () => import("./views/ClimbingScorecard.vue")
+    },
+    {
       // This is a dummy route that just is a grouping for other routes
       path: "#",
       name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",

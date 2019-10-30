@@ -145,7 +145,7 @@ export default {
     input[type="text"],
     select {
       padding: 5px;
-      margin: 8px 0;
+      margin: 8px 5px;
       display: inline-block;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -238,7 +238,7 @@ export default {
       margin-bottom: 1em;
       margin-top: 1em;
     }
-    p {
+    .ind-p {
       text-align: left;
       margin-left: 4%;
     }

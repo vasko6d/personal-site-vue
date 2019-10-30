@@ -1,7 +1,7 @@
 <template>
   <div id="finite-element">
     <div class="blk-container">
-      <p>
+      <p class="ind-p">
         A computational solver was developed for non-linear membranes
         (neo-hookean) under plane stress conditions. Membrane theory, plane
         stress condition, and the neohookean constitutive laws represent the

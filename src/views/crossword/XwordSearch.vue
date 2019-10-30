@@ -1,5 +1,5 @@
 <template>
-  <div class="xword-search">
+  <div class="table-container">
     <div class="blk-container">
       <v-client-table
         :columns="columns"
@@ -149,43 +149,5 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
-.xword-search {
-  @media only screen and (max-width: 850px) {
-    font-size: 10px;
-  }
-  @media only screen and (max-width: 700px) {
-    font-size: 7px;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  td,
-  th {
-    padding: 8px;
-  }
-
-  tr:last-child {
-    td:first-child {
-      border-bottom-left-radius: 0.5em;
-    }
-    td:last-child {
-      border-bottom-right-radius: 0.5em;
-    }
-  }
-
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    cursor: pointer;
-    &:first-child {
-      border-top-left-radius: 0.5em;
-    }
-    &:last-child {
-      border-top-right-radius: 0.5em;
-    }
-  }
-}
+@import "@/assets/styles/table-container.scss";
 </style>
