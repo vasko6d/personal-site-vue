@@ -211,6 +211,7 @@
     td,
     th {
       padding: 8px;
+      max-width: 400px;
     }
 
     tr:last-child {
@@ -244,7 +245,7 @@
       justify-content: center;
       list-style-type: none;
       margin: 0.25em;
-      line-height: 20px;
+      line-height: 25px;
       li {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         position: relative;
@@ -252,33 +253,27 @@
         text-align: center;
         min-width: 30px;
         &:first-child {
-          border-top-left-radius: 0.25em;
-          border-bottom-left-radius: 0.25em;
+          border-top-left-radius: 0.5em;
+          border-bottom-left-radius: 0.5em;
           min-width: 40px;
         }
         &:last-child {
-          border-top-right-radius: 0.25em;
-          border-bottom-right-radius: 0.25em;
+          border-top-right-radius: 0.5em;
+          border-bottom-right-radius: 0.5em;
           min-width: 40px;
         }
         cursor: pointer;
         background-color: darken($nav-bg, 10%);
-        border: solid black 1px;
+        margin: 1px;
         a {
           text-decoration: none;
           color: darken($nav-txt, 10%);
         }
-        &:hover {
-          color: lighten($nav-txt, 20%);
-          background-color: darken($nav-bg, 20%);
-          a {
-            color: lighten($nav-txt, 20%);
-          }
-        }
       }
+      li:hover,
       li.active {
         color: lighten($nav-txt, 20%);
-        background-color: darken($nav-bg, 20%);
+        background-color: lighten($nav-bg, 10%);
         a {
           color: lighten($nav-txt, 20%);
         }
