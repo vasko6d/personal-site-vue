@@ -145,7 +145,15 @@ export default {
   },
   methods: {
     rowClick(e) {
-      console.log(e.row);
+      let url = new URL(
+        "https://www.8a.nu/scorecard/Search.aspx?SearchType=ASCENTS"
+      );
+
+      url.searchParams.append("CragName", e.row.area);
+      url.searchParams.append("AscentName", e.row.name);
+      url.searchParams.append("AscentType", 1);
+      console.log("Opening external 8a.nu url: ", url.toString());
+      window.open(url, "_blank");
     }
   },
   mounted() {
