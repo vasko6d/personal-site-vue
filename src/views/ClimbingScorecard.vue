@@ -1,8 +1,17 @@
 <template>
   <div class="table-container" id="boulder-scorecard">
     <div>
-      <div class="VuePagination col-opts">
-        <span class="opt-header">Columns:</span>
+      <div class="opt-header icn" @click="showColumnFlags = !showColumnFlags">
+        Column Select
+        <i
+          :class="{
+            fas: true,
+            'fa-angle-down': !showColumnFlags,
+            'fa-angle-up': showColumnFlags
+          }"
+        ></i>
+      </div>
+      <div v-show="showColumnFlags" class="VuePagination col-opts">
         <div>
           <ul class="col-opt">
             <li
@@ -52,6 +61,7 @@
 export default {
   data() {
     return {
+      showColumnFlags: false,
       ascents: require("@/assets/json/8a-scorecard.json")["ascents"],
       columns: [
         { name: "date", active: true },
@@ -185,12 +195,6 @@ export default {
   .col-opts {
     display: flex;
     justify-content: center;
-    .opt-header {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      font-weight: bold;
-    }
     .col-opt {
       display: flex;
       li {
@@ -198,6 +202,11 @@ export default {
         flex-shrink: 1;
       }
     }
+  }
+  .opt-header {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
   }
 }
 </style>

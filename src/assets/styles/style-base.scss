@@ -130,18 +130,18 @@
     background-color: rgba(lighten($nav-bg, 5%), 0.7);
   }
 
+  .icn {
+    cursor: pointer;
+    color: darken($nav-txt, 10%);
+    &:hover {
+      color: lighten($nav-txt, 20%);
+    }
+  }
   #x-stat,
   #x-head {
     background-color: rgba(lighten($nav-bg, 5%), 0.6);
     border-radius: 0.35em;
     margin-bottom: 0.5em;
-    .icn {
-      cursor: pointer;
-      color: darken($nav-txt, 10%);
-      &:hover {
-        color: lighten($nav-txt, 20%);
-      }
-    }
     .enab {
       color: lighten($nav-txt, 20%);
     }
@@ -252,19 +252,16 @@
         padding: 0.25em;
         text-align: center;
         min-width: 30px;
+        border-radius: 0.35em;
         &:first-child {
-          border-top-left-radius: 0.5em;
-          border-bottom-left-radius: 0.5em;
           min-width: 40px;
         }
         &:last-child {
-          border-top-right-radius: 0.5em;
-          border-bottom-right-radius: 0.5em;
           min-width: 40px;
         }
         cursor: pointer;
         background-color: darken($nav-bg, 10%);
-        margin: 1px;
+        margin: 2px;
         a {
           text-decoration: none;
           color: darken($nav-txt, 10%);
