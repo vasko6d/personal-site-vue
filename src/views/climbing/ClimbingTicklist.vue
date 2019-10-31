@@ -91,6 +91,7 @@ export default {
         pagination: {
           chunk: 5
         },
+        perPageValues: [10, 25, 50, 100, 500, 2000],
         sortable: [
           "date",
           "type",

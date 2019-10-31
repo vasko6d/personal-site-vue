@@ -43,7 +43,9 @@
                 </div>
               </template>
               <template v-else>
-                <router-link :to="item.path">{{ item.name }}</router-link>
+                <router-link :to="item.mainNavPath">
+                  {{ item.name }}
+                </router-link>
               </template>
             </li>
           </ul>
@@ -91,7 +93,7 @@ export default {
   },
   mounted() {
     for (let route of this.$router.options.routes) {
-      if (route.isMainNav) {
+      if (route.mainNavPath) {
         this.navList.push(route);
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div id="climbing">
+  <div id="climbing-videos">
     <!-- this is a hardcoded list, woudl be better to do something like:
         https://www.raymondcamden.com/2018/08/01/adding-your-youtube-videos-to-your-static-site-with-vuejs
     -->
@@ -18,7 +18,7 @@
 import ClimbingVideoItem from "@/components/ClimbingVideoItem.vue";
 
 export default {
-  name: "climbing",
+  name: "climbingvideos",
   components: {
     ClimbingVideoItem
   },
@@ -55,7 +55,7 @@ export default {
           // https://github.com/vuejs-templates/pwa/issues/42, therefore I moved to static folder for now
           videoUrl:
             "https://drive.google.com/file/d/0B903aI0TyENqYVpzWEVVTlk1ZkE/preview",
-          imgUrl: "img/peabody-highline.jpg",
+          imgUrl: "../img/peabody-highline.jpg",
           desc: "Peabody Highline"
         }
       ]
@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style lang="scss">
-#climbing {
+#climbing-videos {
   display: inline-block;
   max-width: 1200px;
 }

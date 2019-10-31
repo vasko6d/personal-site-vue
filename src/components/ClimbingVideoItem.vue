@@ -59,7 +59,7 @@ export default {
     display: inline 5px;
     margin: 5px;
     max-width: 320px;
-    max-height: 180px;
+    max-height: 170px;
   }
 }
 </style>

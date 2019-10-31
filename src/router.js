@@ -11,25 +11,33 @@ export default new Router({
     {
       path: "/",
       name: "Home",
-      isMainNav: true,
+      mainNavPath: "/",
       component: () => import("./views/Home.vue")
     },
     {
       path: "/climbing",
       name: "Climbing",
-      isMainNav: true,
-      component: () => import("./views/Climbing.vue")
-    },
-    {
-      path: "/climbingdata",
-      name: "ClimbingData",
-      component: () => import("./views/ClimbingScorecard.vue")
+      mainNavPath: "/climbing/videos",
+      component: NestedViewer,
+      props: { path: "climbing" },
+      children: [
+        {
+          path: "videos",
+          name: "My Bouldering Videos",
+          component: () => import("./views/climbing/ClimbingVideos.vue")
+        },
+        {
+          path: "ticklist",
+          name: "My Bouldering Ticklist",
+          component: () => import("./views/climbing/ClimbingTicklist.vue")
+        }
+      ]
     },
     {
       // This is a dummy route that just is a grouping for other routes
       path: "#",
       name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
-      isMainNav: true,
+      mainNavPath: "#",
       nestedLinks: [
         { path: "/billiard-ball-robot", name: "Robotics" },
         { path: "/webgl/galaxy", name: "Graphics" },

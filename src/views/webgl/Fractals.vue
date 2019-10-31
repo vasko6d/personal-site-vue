@@ -17,10 +17,14 @@
       	gl_FragColor = Color;
       }
     </script>
-    <canvas id="gl-canvas" width="650px" height="650px"
-      >Oops ... your browser doesn't support the HTML5 canvas element</canvas
-    >
-    <action-controls :actionCtrls="actionCtrls" />
+    <div>
+      <canvas id="gl-canvas" width="650px" height="650px"
+        >Oops ... your browser doesn't support the HTML5 canvas element</canvas
+      >
+    </div>
+    <div class="blk-container">
+      <action-controls :actionCtrls="actionCtrls" />
+    </div>
   </div>
 </template>
 <script>

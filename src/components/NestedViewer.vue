@@ -27,6 +27,8 @@
           </ul>
         </div>
       </div>
+    </div>
+    <div>
       <router-view />
     </div>
   </div>

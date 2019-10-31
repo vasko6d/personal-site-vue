@@ -18,11 +18,15 @@
           gl_FragColor = color;
       }
     </script>
-    <canvas id="gl-canvas" width="650px" height="650px"
-      >Oops ... your browser doesn't support the HTML5 canvas element</canvas
-    >
-    <webgl-camera :camera="av.camera" :ctrls="cameraCtrls" />
-    <action-controls :actionCtrls="actionCtrls" />
+    <div>
+      <canvas id="gl-canvas" width="650px" height="650px"
+        >Oops ... your browser doesn't support the HTML5 canvas element</canvas
+      >
+    </div>
+    <div class="blk-container">
+      <webgl-camera :camera="av.camera" :ctrls="cameraCtrls" />
+      <action-controls :actionCtrls="actionCtrls" />
+    </div>
   </div>
 </template>
 <script>
