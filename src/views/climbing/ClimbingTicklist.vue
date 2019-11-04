@@ -52,6 +52,9 @@
         <div slot="recommend" slot-scope="props">
           <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
         </div>
+        <div slot="comment" slot-scope="props">
+          <div class="left" v-html="props.row.comment"></div>
+        </div>
       </v-client-table>
     </div>
   </div>
@@ -166,10 +169,6 @@ export default {
       console.log("Opening external 8a.nu url: ", url.toString());
       window.open(url, "_blank");
     }
-  },
-  mounted() {
-    let json = require("@/assets/json/8a-scorecard.json");
-    this.ascents = json["ascents"];
   }
 };
 </script>
@@ -191,6 +190,9 @@ export default {
   max-width: 1400px;
   @media only screen and (max-width: 1400px) {
     max-width: 100%;
+  }
+  .left {
+    text-align: left;
   }
   overflow-x: auto;
   .col-opts {
