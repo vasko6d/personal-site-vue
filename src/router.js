@@ -23,13 +23,18 @@ export default new Router({
       children: [
         {
           path: "videos",
-          name: "My Bouldering Videos",
+          name: "Bouldering Videos",
           component: () => import("./views/climbing/ClimbingVideos.vue")
         },
         {
           path: "ticklist",
-          name: "My Bouldering Ticklist",
+          name: "Bouldering Ticklist",
           component: () => import("./views/climbing/ClimbingTicklist.vue")
+        },
+        {
+          path: "analytics",
+          name: "Bouldering Analysis",
+          component: () => import("./views/climbing/ClimbingAnalysis.vue")
         }
       ]
     },

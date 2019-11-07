@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import LineGraph from "@/components/LineGraph.vue";
+import LineGraph from "@/components/charts/LineGraph.vue";
 export default {
   components: {
     LineGraph
