@@ -61,7 +61,9 @@
 </template>
 
 <script>
+import Utils from "@/mixins/Utils.js";
 export default {
+  mixins: [Utils],
   data() {
     return {
       showColumnFlags: false,
@@ -104,7 +106,8 @@ export default {
           "rating",
           "area",
           "subArea",
-          "flags"
+          "flags",
+          "comment"
         ],
         filterable: [
           "date",
@@ -124,7 +127,24 @@ export default {
           down: "fa-caret-down"
         },
         orderBy: { column: "date", ascending: false },
-        customSorting: {}
+        customSorting: {
+          grade: ascending => {
+            return (a, b) => {
+              if (ascending) {
+                return this.mapGrade(a.grade) - this.mapGrade(b.grade);
+              }
+              return this.mapGrade(b.grade) - this.mapGrade(a.grade);
+            };
+          },
+          comment: ascending => {
+            return (a, b) => {
+              if (ascending) {
+                return a.commentLength - b.commentLength;
+              }
+              return b.commentLength - a.commentLength;
+            };
+          }
+        }
       }
     };
   },
