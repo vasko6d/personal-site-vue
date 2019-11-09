@@ -31,7 +31,9 @@ export default {
   mixins: [Utils],
   data() {
     return {
-      ascents: require("@/assets/json/8a-scorecard.json")["ascents"],
+      ascents: require("@/assets/json/8a-scorecards/david-vasko.json")[
+        "ascents"
+      ],
       chartData: {
         gradeCounts: {},
         areaCounts: {}

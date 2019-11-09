@@ -67,7 +67,9 @@ export default {
   data() {
     return {
       showColumnFlags: false,
-      ascents: require("@/assets/json/8a-scorecard.json")["ascents"],
+      ascents: require("@/assets/json/8a-scorecards/david-vasko.json")[
+        "ascents"
+      ],
       columns: [
         { name: "date", active: true },
         { name: "type", active: false },
