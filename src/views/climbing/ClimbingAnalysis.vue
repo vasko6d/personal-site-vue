@@ -1,16 +1,20 @@
 <template>
   <div id="ticklist-analysis">
-    <h1>Overall</h1>
-    <doughnut-chart
-      :chartData="chartData.areaCounts"
-      :options="opts.areaCounts"
-      class="chart"
-    />
-    <bar-graph
-      :chartData="chartData.gradeCounts"
-      :options="opts.gradeCounts"
-      class="chart"
-    />
+    <div class="chart">
+      <h2>{{ opts.areaCounts.title.text }}</h2>
+      <doughnut-chart
+        :chartData="chartData.areaCounts"
+        :options="opts.areaCounts"
+        style="cursor: pointer;"
+      />
+    </div>
+    <div class="chart">
+      <h2>{{ opts.gradeCounts.title.text }}</h2>
+      <bar-graph
+        :chartData="chartData.gradeCounts"
+        :options="opts.gradeCounts"
+      />
+    </div>
   </div>
 </template>
 
@@ -32,14 +36,14 @@ export default {
         gradeCounts: {},
         areaCounts: {}
       },
-      statData: new Stat("ascents"),
+      stats: new Stat("ascents"),
       opts: {
         gradeCounts: {
           responsive: true,
           title: {
-            display: true,
-            text: "Ascents per Grade",
-            fontSize: 20
+            display: false,
+            text: "",
+            format: "Ascents per Grade: {0}"
           },
           scales: {
             xAxes: [{ stacked: true }],
@@ -49,97 +53,63 @@ export default {
         areaCounts: {
           responsive: true,
           title: {
-            display: true,
-            text: "Ascents per Area",
-            fontSize: 20
+            display: false,
+            text: "",
+            format: "Ascents per Area ({0} ascents, {1} areas)"
           },
           legend: {
             display: false
-          }
+          },
+          onClick: this.clickHandler
         }
       }
     };
   },
   methods: {
-    runAnalysis() {
-      let stats = new Stat("ascents");
-      // Create nested stats object
-      let catagories = Object.keys(this.ascents[0]);
-      for (let k of catagories) {
-        stats.addSubStat(k);
-      }
-
-      for (let ascent of this.ascents) {
-        // Nested Stats Object!
-        stats.increment(ascent);
-        for (let k of catagories) {
-          stats.get(k).increment(ascent);
-          stats.get(k).incrementSubStat(ascent[k], ascent);
-          for (let k2 of catagories) {
-            if (k != k2) {
-              stats
-                .get(k)
-                .get(ascent[k])
-                .addSubStat(k2, ascent);
-              stats
-                .get(k)
-                .get(ascent[k])
-                .get(k2)
-                .increment(ascent);
-              stats
-                .get(k)
-                .get(ascent[k])
-                .get(k2)
-                .incrementSubStat(ascent[k2], ascent);
-            }
-          }
-        }
-      }
-      console.log(stats);
+    initializeStats() {
+      this.stats = new Stat("ascents", ["comment"]);
+      this.stats.goDeeper(this.ascents);
+      console.log(this.stats);
       this.chartData.areaCounts = this.getPieChartData(
-        stats.get("area"),
+        this.stats.get("area"),
         (a, b) => b.count - a.count
       );
-      this.opts.areaCounts.title.text =
-        this.opts.areaCounts.title.text +
-        " (" +
-        stats.count +
-        " ascents, " +
-        stats.get("area").subStatCount() +
-        " areas)";
-      this.chartData.gradeCounts = this.getGradeChartData(stats.get("grade"));
+      this.opts.areaCounts.title.text = this.formatString(
+        this.opts.areaCounts.title.format,
+        this.stats.count,
+        this.stats.get("area").subStatCount()
+      );
+      this.chartData.gradeCounts = this.getGradeChartData(
+        this.stats.get("grade")
+      );
+      this.opts.gradeCounts.title.text = this.formatString(
+        this.opts.gradeCounts.title.format,
+        "All Areas"
+      );
     },
-    incrCountObj(countObject, key) {
-      if (countObject[key]) {
-        countObject[key]++;
+    clickHandler(point, event) {
+      let areaName = "All Areas";
+      if (event.length === 0) {
+        this.chartData.gradeCounts = this.getGradeChartData(
+          this.stats.get("grade")
+        );
       } else {
-        countObject[key] = 1;
+        areaName = event[0]._model.label;
+        this.chartData.gradeCounts = this.getGradeChartData(
+          this.stats
+            .get("area")
+            .get(areaName)
+            .get("grade")
+        );
       }
-    },
-    gradeChartData(gradeCounts) {
-      let labs = Object.keys(gradeCounts);
-      labs.sort((a, b) => a - b);
-      let colors = [];
-      for (let i = 0; i < labs.length; i++) {
-        colors.push(this.getRandomColor());
-      }
-      return {
-        datasets: [
-          {
-            data: labs.map(k => {
-              return gradeCounts[k];
-            }),
-            backgroundColor: colors
-          }
-        ],
-        labels: labs.map(k => {
-          return "V" + k;
-        })
-      };
+      this.opts.gradeCounts.title.text = this.formatString(
+        this.opts.gradeCounts.title.format,
+        areaName
+      );
     }
   },
   mounted() {
-    this.runAnalysis();
+    this.initializeStats();
     console.log("Analytis Mounted");
   }
 };

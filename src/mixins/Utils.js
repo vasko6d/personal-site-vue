@@ -25,6 +25,12 @@ export default {
       }
       return color;
     },
+    formatString(format) {
+      var args = Array.prototype.slice.call(arguments, 1);
+      return format.replace(/{(\d+)}/g, function(match, number) {
+        return typeof args[number] != "undefined" ? args[number] : match;
+      });
+    },
     mapGrade(grade, sys = "V") {
       // V or font will eventually be supported
       if (sys === "V") {
@@ -63,7 +69,7 @@ export default {
         })
       };
     },
-    getGradeChartData(stat) {
+    getGradeChartData(stat, allowExpansion = true) {
       let gradeList = Object.values(stat.subStats);
       gradeList.sort((a, b) => {
         return gradeMap[a.name] - gradeMap[b.name];
@@ -85,23 +91,23 @@ export default {
           backgroundColor: "#3C0707" // Black-Red
         }
       ];
-      for (const grade of gradeList) {
-        const types = grade.get("type");
+      for (let grade of gradeList) {
+        const types = grade.get("type", allowExpansion);
         let cnt = 0;
-        if (types.get("redpoint")) {
-          cnt = types.get("redpoint").count;
+        if (types.get("redpoint", allowExpansion)) {
+          cnt = types.get("redpoint", allowExpansion).count;
         }
         datasets[0].data.push(cnt);
 
         cnt = 0;
-        if (types.get("flash")) {
-          cnt = types.get("flash").count;
+        if (types.get("flash", allowExpansion)) {
+          cnt = types.get("flash", allowExpansion).count;
         }
         datasets[1].data.push(cnt);
 
         cnt = 0;
-        if (types.get("onsite")) {
-          cnt = types.get("onsite").count;
+        if (types.get("onsite", allowExpansion)) {
+          cnt = types.get("onsite", allowExpansion).count;
         }
         datasets[2].data.push(cnt);
       }

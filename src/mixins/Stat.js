@@ -4,17 +4,46 @@ export default class Stat {
    * counts in a standard way
    * @constructor
    */
-  constructor(name) {
+  constructor(name, parents = []) {
     this.name = name;
     this.count = 0;
+    this.ready = false;
     this.values = [];
     this.subStats = {};
+    this.parents = new Set(parents); // basicly an ignore list
   }
 
   addSubStat(name) {
     if (!this.subStats[name]) {
-      this.subStats[name] = new Stat(name);
+      this.subStats[name] = new Stat(name, this.parents);
+      this.subStats[name].addParent(this.name);
     }
+  }
+
+  addParent(name) {
+    this.parents.add(name);
+  }
+
+  goDeeper(rawValues = false) {
+    if (rawValues) {
+      this.values = rawValues;
+      this.count = rawValues.length;
+    }
+    const catagories = Object.keys(this.values[0]);
+    for (const val of this.values) {
+      for (const k of catagories) {
+        if (!this.parents.has(k)) {
+          this.get(k, false).increment(val);
+          if (!this.parents.has(val[k])) {
+            this.get(k, false)
+              .get(val[k], false)
+              .increment(val);
+          }
+          this.get(k, false).ready = true;
+        }
+      }
+    }
+    this.ready = true;
   }
 
   subStatCount() {
@@ -26,14 +55,11 @@ export default class Stat {
     this.values.push(value);
   }
 
-  get(name) {
-    return this.subStats[name];
-  }
-
-  incrementSubStat(name, value) {
-    if (!this.subStats[name]) {
-      this.addSubStat(name);
+  get(name, allowExpansion = true) {
+    this.addSubStat(name);
+    if (allowExpansion && !this.ready) {
+      this.goDeeper();
     }
-    this.subStats[name].increment(value);
+    return this.subStats[name];
   }
 }
