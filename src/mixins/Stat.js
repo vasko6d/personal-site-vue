@@ -4,24 +4,23 @@ export default class Stat {
    * counts in a standard way
    * @constructor
    */
-  constructor(name, parents = []) {
+  constructor(name, ignore = []) {
     this.name = name;
     this.count = 0;
     this.ready = false;
     this.values = [];
     this.subStats = {};
-    this.parents = new Set(parents); // basicly an ignore list
+    this.ignore = new Set(ignore); // basicly an ignore list
   }
 
   addSubStat(name) {
     if (!this.subStats[name]) {
-      this.subStats[name] = new Stat(name, this.parents);
-      this.subStats[name].addParent(this.name);
+      this.subStats[name] = new Stat(name, this.ignore);
     }
   }
 
-  addParent(name) {
-    this.parents.add(name);
+  addIgnore(name) {
+    this.ignore.add(name);
   }
 
   goDeeper(rawValues = false) {
@@ -32,15 +31,13 @@ export default class Stat {
     const catagories = Object.keys(this.values[0]);
     for (const val of this.values) {
       for (const k of catagories) {
-        if (!this.parents.has(k)) {
+        if (!this.ignore.has(k)) {
           this.get(k, false).increment(val);
-          if (!this.parents.has(val[k])) {
-            this.get(k, false)
-              .get(val[k], false)
-              .increment(val);
-          }
-          this.get(k, false).ready = true;
+          let newStat = this.get(k, false).get(val[k], false);
+          newStat.increment(val);
+          newStat.addIgnore(k);
         }
+        this.get(k, false).ready = true;
       }
     }
     this.ready = true;
