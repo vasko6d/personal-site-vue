@@ -29,6 +29,9 @@ export default {
     BarGraph
   },
   mixins: [Utils],
+  props: {
+    sandboxId: String
+  },
   data() {
     return {
       ascents: require("@/assets/json/8a-scorecards/david-vasko.json")[

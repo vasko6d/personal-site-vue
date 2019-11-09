@@ -64,6 +64,9 @@
 import Utils from "@/mixins/Utils.js";
 export default {
   mixins: [Utils],
+  props: {
+    sandboxId: String
+  },
   data() {
     return {
       showColumnFlags: false,

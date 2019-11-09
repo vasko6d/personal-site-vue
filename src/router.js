@@ -27,14 +27,18 @@ export default new Router({
           component: () => import("./views/climbing/ClimbingVideos.vue")
         },
         {
-          path: "ticklist",
+          path: "ticklist/:sandboxId",
+          defaultPath: "ticklist/david-vasko",
           name: "Bouldering Ticklist",
-          component: () => import("./views/climbing/ClimbingTicklist.vue")
+          component: () => import("./views/climbing/ClimbingTicklist.vue"),
+          props: true
         },
         {
-          path: "analytics",
+          path: "analytics/:sandboxId",
+          defaultPath: "analytics/david-vasko",
           name: "Bouldering Analysis",
-          component: () => import("./views/climbing/ClimbingAnalysis.vue")
+          component: () => import("./views/climbing/ClimbingAnalysis.vue"),
+          props: true
         }
       ]
     },

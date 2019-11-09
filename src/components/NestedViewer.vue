@@ -20,9 +20,7 @@
         >
           <ul>
             <li v-for="child in children" :key="child.index" @click="onClose()">
-              <router-link :to="correctedUrl(child.path)">{{
-                child.name
-              }}</router-link>
+              <router-link :to="child.truePath">{{ child.name }}</router-link>
             </li>
           </ul>
         </div>
@@ -52,16 +50,17 @@ export default {
     this.children = this.$router.options.routes.find(r => {
       return r.path === "/" + this.path;
     }).children;
+    for (let child of this.children) {
+      child.truePath =
+        "/" +
+        this.path +
+        "/" +
+        (child.defaultPath ? child.defaultPath : child.path);
+    }
   },
   methods: {
     onClose() {
       this.isOpen = false;
-    },
-    correctedUrl(url) {
-      if (this.$router.currentRoute.path === "/" + this.path) {
-        return this.path + "/" + url;
-      }
-      return url;
     }
   }
 };
