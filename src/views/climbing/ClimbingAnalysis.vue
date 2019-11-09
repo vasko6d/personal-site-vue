@@ -34,9 +34,7 @@ export default {
   },
   data() {
     return {
-      ascents: require("@/assets/json/8a-scorecards/david-vasko.json")[
-        "ascents"
-      ],
+      ascents: {},
       chartData: {
         gradeCounts: {},
         areaCounts: {}
@@ -111,10 +109,62 @@ export default {
         this.opts.gradeCounts.title.format,
         areaName
       );
+    },
+    fetchData() {
+      // Pretend fetching...
+      let go = true;
+      switch (this.sandboxId) {
+        case "david-vasko":
+          this.ascents = require("@/assets/json/8a-scorecards/david-vasko.json")[
+            "ascents"
+          ];
+          break;
+        case "chase-yamashiro":
+          this.ascents = require("@/assets/json/8a-scorecards/chase-yamashiro.json")[
+            "ascents"
+          ];
+          break;
+        case "scott-baron":
+          this.ascents = require("@/assets/json/8a-scorecards/scott-baron.json")[
+            "ascents"
+          ];
+          break;
+        case "nathaniel-cushing-murray":
+          this.ascents = require("@/assets/json/8a-scorecards/nathaniel-cushing-murray.json")[
+            "ascents"
+          ];
+          break;
+        case "drew-gomberg":
+          this.ascents = require("@/assets/json/8a-scorecards/drew-gomberg.json")[
+            "ascents"
+          ];
+          break;
+        case "daniel-fong":
+          this.ascents = require("@/assets/json/8a-scorecards/daniel-fong.json")[
+            "ascents"
+          ];
+          break;
+        case "daniel-fineman":
+          this.ascents = require("@/assets/json/8a-scorecards/daniel-fineman.json")[
+            "ascents"
+          ];
+          break;
+        default:
+          go = false;
+          window.alert(
+            this.formatString(
+              "Sandbox member data for [{0}] not avaliable",
+              this.sandboxId
+            )
+          );
+      }
+      return go;
     }
   },
   mounted() {
-    this.initializeStats();
+    if (this.fetchData()) {
+      this.initializeStats();
+    }
     console.log("Analytis Mounted");
   }
 };
