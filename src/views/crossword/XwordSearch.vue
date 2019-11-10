@@ -1,5 +1,6 @@
 <template>
   <div class="table-container">
+    <h1>Choose a Crossword to Begin</h1>
     <div class="blk-container">
       <v-client-table
         :columns="columns"

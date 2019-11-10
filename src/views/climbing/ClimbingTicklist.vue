@@ -1,5 +1,6 @@
 <template>
   <div class="table-container" id="boulder-scorecard">
+    <h1>{{ climberName }}'s Ticklist</h1>
     <div>
       <div class="opt-header icn" @click="showColumnFlags = !showColumnFlags">
         Column Select
@@ -70,9 +71,7 @@ export default {
   data() {
     return {
       showColumnFlags: false,
-      ascents: require("@/assets/json/8a-scorecards/david-vasko.json")[
-        "ascents"
-      ],
+      ascents: [],
       columns: [
         { name: "date", active: true },
         { name: "type", active: false },
@@ -180,7 +179,19 @@ export default {
         ret.push(this.columns[i]);
       }
       return ret;
+    },
+    climberName() {
+      return this.kebabToCap(this.sandboxId);
     }
+  },
+  mounted() {
+    this.fetchData(this.sandboxId)
+      .then(result => {
+        this.ascents = result.data;
+      })
+      .catch(error => {
+        window.alert(error.msg);
+      });
   },
   methods: {
     rowClick(e) {

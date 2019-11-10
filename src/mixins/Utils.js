@@ -45,12 +45,77 @@ export default {
         return gradeMap[grade];
       }
     },
+    kebabToCap(str) {
+      return str
+        .split("-")
+        .map(w => w[0].toUpperCase() + w.substr(1))
+        .join(" ");
+    },
     standardizeAreaName(area) {
       let standArea = area
         .toUpperCase()
         .trim()
         .replace(/\s+/g, "_");
       return standArea;
+    },
+    fetchData(sandboxId) {
+      // Pretend fetching...
+      let ascents = [];
+      switch (sandboxId) {
+        case "david-vasko":
+          ascents = require("@/assets/json/8a-scorecards/david-vasko.json")[
+            "ascents"
+          ];
+          break;
+        case "chase-yamashiro":
+          ascents = require("@/assets/json/8a-scorecards/chase-yamashiro.json")[
+            "ascents"
+          ];
+          break;
+        case "scott-baron":
+          ascents = require("@/assets/json/8a-scorecards/scott-baron.json")[
+            "ascents"
+          ];
+          break;
+        case "nathaniel-cushing-murray":
+          ascents = require("@/assets/json/8a-scorecards/nathaniel-cushing-murray.json")[
+            "ascents"
+          ];
+          break;
+        case "drew-gomberg":
+          ascents = require("@/assets/json/8a-scorecards/drew-gomberg.json")[
+            "ascents"
+          ];
+          break;
+        case "daniel-fong":
+          ascents = require("@/assets/json/8a-scorecards/daniel-fong.json")[
+            "ascents"
+          ];
+          break;
+        case "daniel-fineman":
+          ascents = require("@/assets/json/8a-scorecards/daniel-fineman.json")[
+            "ascents"
+          ];
+          break;
+      }
+      // return as promise
+      return new Promise((resolve, reject) => {
+        if (ascents.length > 0) {
+          const ret = {
+            msg: "Success",
+            data: ascents
+          };
+          resolve(ret);
+        } else {
+          const ret = {
+            msg: this.formatString(
+              "Sandbox member data for [{0}] not avaliable",
+              sandboxId
+            )
+          };
+          reject(ret);
+        }
+      });
     },
     getPieChartData(stat, sortFxn = false) {
       let statList = Object.values(stat.subStats);
