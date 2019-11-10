@@ -32,14 +32,15 @@ export default class Stat {
     for (const val of this.values) {
       for (const k of catagories) {
         if (!this.ignore.has(k)) {
-          this.get(k, false).increment(val);
-          let newStat = this.get(k, false).get(val[k], false);
+          this.get(k, false, true).increment(val);
+          let newStat = this.get(k, false, true).get(val[k], false, true);
           newStat.increment(val);
           newStat.addIgnore(k);
         }
-        this.get(k, false).ready = true;
+        this.get(k, false, true).ready = true;
       }
     }
+    //console.log("Deeper Stat: ", this);
     this.ready = true;
   }
 
@@ -52,11 +53,13 @@ export default class Stat {
     this.values.push(value);
   }
 
-  get(name, allowExpansion = true) {
-    this.addSubStat(name);
+  get(name, allowExpansion = true, createOnEmpty = false) {
+    if (createOnEmpty) {
+      this.addSubStat(name);
+    }
     if (allowExpansion && !this.ready) {
       this.goDeeper();
     }
-    return this.subStats[name];
+    return this.subStats[name] || new Stat("empty");
   }
 }

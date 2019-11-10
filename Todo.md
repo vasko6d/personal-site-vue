@@ -100,6 +100,11 @@ Ticklist
 - [ ] Ascents over time with average of last 10?
 - [ ] compare users liek ven-diagram. show which areas?
 - [ ] object veiwer? could be tied with filtering?
+- [ ] ignored being created but empty....
+- [ ] adhoc chart object with x in corner as well as edit for going deeper ets... better than object searcher? with an option for show ascents? modal?
+- [ ] flags hard... maybe change to never can be ignored... and nest that shit? seems better.. because its a list maybe- flags-soft in ignore list?
+- [ ] show percentage on chart?
+- [ ] climbing frequency simply numner of climbs on that day/month/year?
 
 Lofty
 
