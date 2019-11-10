@@ -93,6 +93,14 @@ Climbing
 - [ ] custom layer for GPS data? My own top that is gps correct?
 - [ ] climbing heat map, use 8a data
 
+Ticklist
+
+- [ ] User scoregcrds of general analytics
+- [ ] Link analysis with ticklist for easy sorting/filering
+- [ ] Ascents over time with average of last 10?
+- [ ] compare users liek ven-diagram. show which areas?
+- [ ] object veiwer? could be tied with filtering?
+
 Lofty
 
 - [ ] vaskos.com landing page that you walk through

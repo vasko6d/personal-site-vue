@@ -66,7 +66,8 @@ export default {
           },
           onClick: this.clickHandler
         }
-      }
+      },
+      prevArea: "All Areas"
     };
   },
   methods: {
@@ -93,17 +94,32 @@ export default {
     },
     clickHandler(point, event) {
       let areaName = "All Areas";
-      if (event.length === 0) {
+      //if (event.length === 0) {
+      // this.chartData.gradeCounts = this.getGradeChartData(
+      //   this.stats.get("grade")
+      // );
+      //} else {
+      if (event.length > 0) {
+        areaName = event[0]._model.label;
+        if (areaName == this.prevArea) {
+          // If click same area twice, revert to all areas too.
+          areaName = "All Areas";
+          this.prevArea = "All Areas";
+        } else {
+          this.prevArea = areaName;
+          this.chartData.gradeCounts = this.getGradeChartData(
+            this.stats
+              .get("area")
+              .get(areaName)
+              .get("grade")
+          );
+        }
+      }
+
+      // use "All Areas" as our boolean switch to do all climbs
+      if (areaName === "All Areas") {
         this.chartData.gradeCounts = this.getGradeChartData(
           this.stats.get("grade")
-        );
-      } else {
-        areaName = event[0]._model.label;
-        this.chartData.gradeCounts = this.getGradeChartData(
-          this.stats
-            .get("area")
-            .get(areaName)
-            .get("grade")
         );
       }
       this.opts.gradeCounts.title.text = this.formatString(
