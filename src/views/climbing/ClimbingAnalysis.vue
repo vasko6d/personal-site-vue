@@ -94,11 +94,6 @@ export default {
     },
     clickHandler(point, event) {
       let areaName = "All Areas";
-      //if (event.length === 0) {
-      // this.chartData.gradeCounts = this.getGradeChartData(
-      //   this.stats.get("grade")
-      // );
-      //} else {
       if (event.length > 0) {
         areaName = event[0]._model.label;
         if (areaName == this.prevArea) {
