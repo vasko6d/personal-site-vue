@@ -58,6 +58,24 @@ export default {
         .replace(/\s+/g, "_");
       return standArea;
     },
+    preprocessAscents(ascents) {
+      for (let ascent of ascents) {
+        //ascent["commentLength"] = ascent["comment"].length; // doing this in scraper... should move to here
+        //new property for Soft, Hard, Neither
+        let reldif = "Neutral";
+        for (const flag of ascent["flags"]) {
+          switch (flag) {
+            case "Soft":
+              reldif = "Soft";
+              break;
+            case "Hard":
+              reldif = "Hard";
+              break;
+          }
+        }
+        ascent["softness"] = reldif;
+      }
+    },
     fetchData(sandboxId) {
       // Pretend fetching...
       let ascents = [];
@@ -101,6 +119,7 @@ export default {
       // return as promise
       return new Promise((resolve, reject) => {
         if (ascents.length > 0) {
+          this.preprocessAscents(ascents);
           const ret = {
             msg: "Success",
             data: ascents
@@ -117,27 +136,34 @@ export default {
         }
       });
     },
-    getPieChartData(stat, sortFxn = false) {
+    getPieChartData(stat, opts) {
       let statList = Object.values(stat.subStats);
-      if (sortFxn) {
-        statList.sort(sortFxn);
+      if (opts.sortFxn) {
+        statList.sort(opts.sortFxn);
       } else {
         statList.sort();
       }
+      let filteredList = [...statList];
+      if (opts.filterFxn) {
+        filteredList = filteredList.filter(opts.filterFxn);
+      }
       let colors = [];
-      for (let i = 0; i < statList.length; i++) {
+      for (let i = 0; i < filteredList.length; i++) {
         colors.push(this.getRandomColor());
       }
       return {
         datasets: [
           {
-            data: statList.map(k => {
+            data: filteredList.map(k => {
               return k.count;
             }),
             backgroundColor: colors
           }
         ],
-        labels: statList.map(k => {
+        labels: filteredList.map(k => {
+          if (opts.nameMap) {
+            return opts.nameMap[k.name];
+          }
           return k.name;
         })
       };

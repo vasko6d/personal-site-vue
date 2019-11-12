@@ -28,14 +28,27 @@ export default class Stat {
       this.values = rawValues;
       this.count = rawValues.length;
     }
+    // Every new depth should actually create 2 deeper levels: 1st level is "catagory",
+    // second level is the actual values
     const catagories = Object.keys(this.values[0]);
     for (const val of this.values) {
       for (const k of catagories) {
         if (!this.ignore.has(k)) {
-          this.get(k, false, true).increment(val);
-          let newStat = this.get(k, false, true).get(val[k], false, true);
-          newStat.increment(val);
-          newStat.addIgnore(k);
+          // First lets get and increment the "catagory" stat
+          let catagoryStat = this.get(k, false, true);
+          catagoryStat.increment(val);
+          // now we can add and increment the values
+          if (Array.isArray(val[k])) {
+            for (const arrVal of val[k]) {
+              let valueStat = catagoryStat.get(arrVal, false, true);
+              valueStat.increment(val);
+              valueStat.addIgnore(k + "|" + arrVal);
+            }
+          } else {
+            let valueStat = catagoryStat.get(val[k], false, true);
+            valueStat.increment(val);
+            valueStat.addIgnore(k);
+          }
         }
         this.get(k, false, true).ready = true;
       }
