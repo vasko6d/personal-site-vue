@@ -1,29 +1,63 @@
 <template>
   <div id="ticklist-analysis">
-    <h1>{{ climberName }}</h1>
-    <div class="chart">
-      <h2>{{ opts.areaCounts.title.text }}</h2>
-      <doughnut-chart
-        :chartData="charts.areaCounts"
-        :options="opts.areaCounts"
-        style="cursor: pointer;"
-      />
+    <h1>{{ climberName }}'s Scorecard Analysis</h1>
+    <div>
+      <div class="opt-header icn" @click="showClimbers = !showClimbers">
+        Climber Select
+        <i
+          :class="{
+            fas: true,
+            'fa-angle-down': !showClimbers,
+            'fa-angle-up': showClimbers
+          }"
+        ></i>
+      </div>
     </div>
-    <div class="chart">
-      <h2>{{ opts.gradeCounts.title.text }}</h2>
-      <bar-graph :chartData="charts.gradeCounts" :options="opts.gradeCounts" />
+
+    <div class="flex-row">
+      <div class="chart md bg1">
+        <h2>Climber Stats:</h2>
+        <h3>Area Timerange</h3>
+      </div>
+      <div class="chart md bg1">
+        <h2>{{ opts.areaCounts.title.text }}</h2>
+        <doughnut-chart
+          :chartData="charts.areaCounts"
+          :options="opts.areaCounts"
+          style="cursor: pointer;"
+        />
+      </div>
     </div>
-    <div
-      v-for="adhocChart in charts.adhoc"
-      :key="adhocChart.id"
-      class="chart sm"
-    >
-      <h2>{{ adhocChart.title }}</h2>
-      <doughnut-chart
-        :chartData="adhocChart.chartData"
-        :options="opts.default"
-      />
+    <h2>Dynamic Charts: {{ prevArea }}</h2>
+    <div class="flex-row">
+      <div class="chart md bg1">
+        <h2>{{ opts.gradeCounts.title.text }}</h2>
+        <bar-graph
+          :chartData="charts.gradeCounts"
+          :options="opts.gradeCounts"
+        />
+      </div>
+      <div
+        v-for="adhocChart in charts.adhoc"
+        :key="adhocChart.id"
+        class="chart sm bg1"
+      >
+        <h2>{{ adhocChart.title }}</h2>
+        <doughnut-chart
+          :chartData="adhocChart.chartData"
+          :options="opts.default"
+        />
+      </div>
     </div>
+    <!--
+    <h2>Adhoc Charts:</h2>
+    <div class="flex-row">
+      <div class="chart sm icn bg1">
+        <h2>...add new chart</h2>
+        <i class="fas fa-plus fa-7x"></i>
+      </div>
+    </div>
+    -->
   </div>
 </template>
 
@@ -48,6 +82,7 @@ export default {
       charts: {
         gradeCounts: {},
         areaCounts: {},
+        yearCounts: {},
         adhoc: []
       },
       stats: new Stat("ascents"),
@@ -86,7 +121,8 @@ export default {
           }
         }
       },
-      prevArea: ALLAREAS
+      prevArea: ALLAREAS,
+      showClimbers: false
     };
   },
   methods: {
@@ -264,17 +300,20 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 .chart {
-  width: 600px;
-  display: inline-block;
+  width: 390px;
   @media only screen and (max-width: 700px) {
     width: 90%;
   }
+  //border: 2px solid;
+  //border-radius: 0.5em;
+  margin: 5px;
+  padding: 10px;
+  margin-bottom: 0.5em;
 }
-.sm {
-  width: 400px;
-  @media only screen and (max-width: 700px) {
-    width: 75%;
-  }
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #ticklist-analysis {
   max-width: 1400px;

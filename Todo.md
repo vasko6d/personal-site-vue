@@ -109,6 +109,9 @@ Ticklist
 - [ ] add hoc chart component! with an x, and edit etc.
 - [ ] a wat to add a stat on title? Like average for stars? or percent soft? or percent recommend?
 
+- [ ] maybe change buttons **_definitely_** make the styling standard... the box shadow is a nice touch. commented out currently
+- [ ] show lable even if not there? is that possible?
+
 - [ ] can i do filter function for soft hard neither?
 - [ ] do wildcard for nameMap... or default?
 

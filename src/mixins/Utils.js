@@ -61,6 +61,7 @@ export default {
     preprocessAscents(ascents) {
       for (let ascent of ascents) {
         //ascent["commentLength"] = ascent["comment"].length; // doing this in scraper... should move to here
+
         //new property for Soft, Hard, Neither
         let reldif = "Neutral";
         for (const flag of ascent["flags"]) {
@@ -74,6 +75,9 @@ export default {
           }
         }
         ascent["softness"] = reldif;
+
+        // Year is useful
+        ascent["year"] = ascent["date"].substring(0, 4);
       }
     },
     fetchData(sandboxId) {
@@ -163,6 +167,14 @@ export default {
           colors.push(this.getRandomColor());
         }
       }
+      // The labels can use a name map if desired
+      let labels = filteredList.map(el => {
+        if (opts.nameMap) {
+          return opts.nameMap[el.name];
+        }
+        return el.name;
+      });
+
       // Now construct the desired format for chartjs
       return {
         datasets: [
@@ -173,12 +185,7 @@ export default {
             backgroundColor: colors
           }
         ],
-        labels: filteredList.map(el => {
-          if (opts.nameMap) {
-            return opts.nameMap[el.name];
-          }
-          return el.name;
-        })
+        labels: labels
       };
     },
     getGradeChartData(stat, allowExpansion = true) {

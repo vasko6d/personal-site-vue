@@ -130,13 +130,6 @@
     background-color: rgba(lighten($nav-bg, 5%), 0.7);
   }
 
-  .icn {
-    cursor: pointer;
-    color: darken($nav-txt, 10%);
-    &:hover {
-      color: lighten($nav-txt, 20%);
-    }
-  }
   #x-stat,
   #x-head {
     background-color: rgba(lighten($nav-bg, 5%), 0.6);
@@ -284,6 +277,28 @@
       &:hover {
         color: lighten($nav-txt, 20%);
       }
+    }
+  }
+
+  // More general use of Css
+  .bg1 {
+    border-color: $nav-bg;
+    background-color: rgba($nav-bg, 0.5);
+    //box-shadow: 0px 0px 5px 0px $nav-bg; /* Standard */
+    border-radius: 0.5em;
+  }
+
+  .opt-header {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .icn {
+    cursor: pointer;
+    color: darken($nav-txt, 10%);
+    &:hover {
+      color: lighten($nav-txt, 20%);
     }
   }
 

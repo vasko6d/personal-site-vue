@@ -242,10 +242,5 @@ export default {
       }
     }
   }
-  .opt-header {
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-  }
 }
 </style>
