@@ -138,38 +138,46 @@ export default {
     },
     getPieChartData(stat, opts) {
       let statList = Object.values(stat.subStats);
+      // Sort with optional passed sort function
       if (opts.sortFxn) {
         statList.sort(opts.sortFxn);
       } else {
         statList.sort();
       }
+      // Filter is given a filter function (shallow copy)
       let filteredList = [...statList];
       if (opts.filterFxn) {
         filteredList = filteredList.filter(opts.filterFxn);
       }
+      // To prevent jarring color changes if possible values
+      // dissipear on an update, use an optional color map to preserve old color.
       let colors;
       if (opts.colors) {
-        colors = opts.colors;
+        colors = filteredList.map(el => {
+          let mappedName = opts.nameMap ? opts.nameMap[el.name] : el.name;
+          return opts.colors[mappedName];
+        });
       } else {
         colors = [];
         for (let i = 0; i < filteredList.length; i++) {
           colors.push(this.getRandomColor());
         }
       }
+      // Now construct the desired format for chartjs
       return {
         datasets: [
           {
-            data: filteredList.map(k => {
-              return k.count;
+            data: filteredList.map(el => {
+              return el.count;
             }),
             backgroundColor: colors
           }
         ],
-        labels: filteredList.map(k => {
+        labels: filteredList.map(el => {
           if (opts.nameMap) {
-            return opts.nameMap[k.name];
+            return opts.nameMap[el.name];
           }
-          return k.name;
+          return el.name;
         })
       };
     },

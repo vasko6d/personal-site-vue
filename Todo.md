@@ -105,7 +105,9 @@ Ticklist
 - [ ] flags hard... maybe change to never can be ignored... and nest that shit? seems better.. because its a list maybe- flags-soft in ignore list?
 - [ ] show percentage on chart, or title?
 - [ ] climbing frequency simply numner of climbs on that day/month/year?
-- [ ] FIX color shift if area has less opssibilities thank all. ie no hard or no 3 star
+- [x] FIX color shift if area has less possibilities than all. ie no hard or no 3 star
+- [ ] add hoc chart component! with an x, and edit etc.
+- [ ] a wat to add a stat on title? Like average for stars? or percent soft? or percent recommend?
 
 - [ ] can i do filter function for soft hard neither?
 - [ ] do wildcard for nameMap... or default?

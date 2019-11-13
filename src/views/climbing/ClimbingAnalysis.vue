@@ -191,8 +191,19 @@ export default {
       switch (chartType) {
         case "pie":
           adhocChart.chartData = this.getPieChartData(stat, opts);
+          // Save the original colors in a color map and persist them to prevent new random ones being assigned
           adhocChart.opts["colors"] =
-            adhocChart.chartData.datasets[0].backgroundColor;
+            adhocChart.opts["colors"] ||
+            adhocChart.chartData.datasets[0].backgroundColor.reduce(function(
+              colorMap,
+              field,
+              index
+            ) {
+              colorMap[adhocChart.chartData.labels[index]] = field;
+              return colorMap;
+            },
+            {});
+          //console.log(adhocChart);
           break;
         default:
           console.warn(
