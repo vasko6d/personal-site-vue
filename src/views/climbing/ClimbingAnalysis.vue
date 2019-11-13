@@ -17,36 +17,40 @@
     <div class="flex-row">
       <div class="chart md bg1">
         <h2>Climber Stats:</h2>
-        <h3>Area Timerange</h3>
+        <div>Area Timerange</div>
       </div>
       <div class="chart md bg1">
-        <h2>{{ opts.areaCounts.title.text }}</h2>
+        <h2>{{ charts.areaCounts.title }}</h2>
+        <div>
+          {{ totalAscents }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
+        </div>
         <doughnut-chart
-          :chartData="charts.areaCounts"
-          :options="opts.areaCounts"
+          :chartData="charts.areaCounts.chartData"
+          :options="charts.areaCounts.chartOpts"
           style="cursor: pointer;"
         />
       </div>
     </div>
     <h2>Dynamic Charts: {{ prevArea }}</h2>
     <div class="flex-row">
-      <div class="chart md bg1">
-        <h2>{{ opts.gradeCounts.title.text }}</h2>
-        <bar-graph
-          :chartData="charts.gradeCounts"
-          :options="opts.gradeCounts"
-        />
-      </div>
       <div
         v-for="adhocChart in charts.adhoc"
         :key="adhocChart.id"
         class="chart sm bg1"
       >
         <h2>{{ adhocChart.title }}</h2>
-        <doughnut-chart
-          :chartData="adhocChart.chartData"
-          :options="opts.default"
-        />
+        <div v-if="adhocChart.type === 'pie'">
+          <doughnut-chart
+            :chartData="adhocChart.chartData"
+            :options="adhocChart.chartOpts"
+          />
+        </div>
+        <div v-else-if="adhocChart.type === 'grade'">
+          <bar-graph
+            :chartData="adhocChart.chartData"
+            :options="adhocChart.chartOpts"
+          />
+        </div>
       </div>
     </div>
     <!--
@@ -79,26 +83,14 @@ export default {
   data() {
     return {
       ascents: [],
+      totalAscents: 0,
       charts: {
-        gradeCounts: {},
         areaCounts: {},
         yearCounts: {},
         adhoc: []
       },
       stats: new Stat("ascents"),
       opts: {
-        gradeCounts: {
-          responsive: true,
-          title: {
-            display: false,
-            text: "",
-            format: "Ascents per Grade: {0}"
-          },
-          scales: {
-            xAxes: [{ stacked: true }],
-            yAxes: [{ stacked: true }]
-          }
-        },
         areaCounts: {
           responsive: true,
           title: {
@@ -110,15 +102,6 @@ export default {
             display: false
           },
           onClick: this.clickHandler
-        },
-        default: {
-          responsive: true,
-          title: {
-            display: false
-          },
-          legend: {
-            display: true
-          }
         }
       },
       prevArea: ALLAREAS,
@@ -126,23 +109,21 @@ export default {
     };
   },
   methods: {
+    defaultChartOpts() {
+      return {
+        responsive: true,
+        title: {
+          display: false
+        },
+        legend: {
+          display: true
+        }
+      };
+    },
     initializeStats() {
       this.stats = new Stat("ascents", ["comment"]);
       this.stats.goDeeper(this.ascents);
       console.log(this.stats);
-      this.charts.areaCounts = this.getPieChartData(this.stats.get("area"), {
-        sortFxn: (a, b) => b.count - a.count
-      });
-      this.opts.areaCounts.title.text = this.formatString(
-        this.opts.areaCounts.title.format,
-        this.stats.count,
-        this.stats.get("area").subStatCount()
-      );
-      this.charts.gradeCounts = this.getGradeChartData(this.stats.get("grade"));
-      this.opts.gradeCounts.title.text = this.formatString(
-        this.opts.gradeCounts.title.format,
-        ALLAREAS
-      );
       return new Promise(resolve => {
         resolve();
       });
@@ -156,7 +137,6 @@ export default {
       };
       let updateMode = this.prevArea === ALLAREAS ? UM.ALLTOALL : UM.AREATOALL;
       let areaName = ALLAREAS;
-      let gradePath = ["grade"];
       let prefixPath = [];
       if (event.length > 0) {
         let tmpAreaName = event[0]._model.label;
@@ -169,15 +149,6 @@ export default {
       }
 
       if (updateMode != UM.ALLTOALL) {
-        // Handle Special Grade Chart
-        gradePath = [...prefixPath, ...gradePath];
-        this.charts.gradeCounts = this.getGradeChartData(
-          this.stats.getFromPath(gradePath)
-        );
-        this.opts.gradeCounts.title.text = this.formatString(
-          this.opts.gradeCounts.title.format,
-          areaName
-        );
         // Handle all adhoc charts
         for (let i = 0; i < this.charts.adhoc.length; i++) {
           let achart = this.charts.adhoc[i];
@@ -197,7 +168,7 @@ export default {
                 break;
             }
             //console.log(achart.title + " - [" + newStatPath + "]");
-            let newChart = this.createAdhocChart(
+            let newChart = this.createChart(
               achart.type,
               newStatPath,
               achart.opts
@@ -210,19 +181,20 @@ export default {
       }
     },
     addAddhocChart(chartType, statPath, opts) {
-      let adhocChart = this.createAdhocChart(chartType, statPath, opts);
+      let adhocChart = this.createChart(chartType, statPath, opts);
       if (adhocChart.chartData) {
         this.charts.adhoc.push(adhocChart);
       }
     },
-    createAdhocChart(chartType, statPath, opts) {
+    createChart(chartType, statPath, opts) {
       let stat = this.stats.getFromPath(statPath);
       let adhocChart = {
         type: chartType,
         title: opts.title,
         isAreaDynamic: opts.isAreaDynamic || false,
         statPath: statPath,
-        opts: opts
+        opts: opts,
+        chartOpts: opts.chartOpts || this.defaultChartOpts()
       };
       switch (chartType) {
         case "pie":
@@ -241,6 +213,9 @@ export default {
             {});
           //console.log(adhocChart);
           break;
+        case "grade":
+          adhocChart.chartData = this.getGradeChartData(stat);
+          break;
         default:
           console.warn(
             this.formatString(
@@ -257,6 +232,31 @@ export default {
       .then(result => {
         this.ascents = result.data;
         this.initializeStats().then(() => {
+          // Area Counts
+          let areaOpts = this.defaultChartOpts();
+          areaOpts["onClick"] = this.clickHandler;
+          areaOpts["legend"] = { display: false };
+          this.charts.areaCounts = this.createChart("pie", ["area"], {
+            title: "Ascents per Area",
+            chartOpts: areaOpts,
+            sortFxn: (a, b) => b.count - a.count
+          });
+          this.charts.areaCounts.totalAreas = this.stats
+            .get("area")
+            .subStatCount();
+          this.totalAscents = this.stats.count;
+          // Grade Counts
+          let gradeOpts = this.defaultChartOpts();
+          gradeOpts["scales"] = {
+            xAxes: [{ stacked: true }],
+            yAxes: [{ stacked: true }]
+          };
+          this.addAddhocChart("grade", ["grade"], {
+            title: "Ascents per Grade",
+            isAreaDynamic: true,
+            chartOpts: gradeOpts
+          });
+          // Softness, rating and recommend
           this.addAddhocChart("pie", ["softness"], {
             title: "Soft Meter",
             isAreaDynamic: true,
@@ -277,7 +277,7 @@ export default {
         });
       })
       .catch(error => {
-        window.alert(error.msg);
+        window.alert(error.msg || error);
       });
   },
   computed: {
