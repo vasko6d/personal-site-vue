@@ -75,4 +75,19 @@ export default class Stat {
     }
     return this.subStats[name] || new Stat("empty");
   }
+
+  getFromPath(statPath) {
+    // Validate Stat Path
+    if (statPath.length % 2 != 1) {
+      throw "[Invalid Stat Path] - The provided statPath [" +
+        statPath +
+        "], is not odd in length";
+    }
+    // Get stat from Stat Path
+    let stat = this.get(statPath[0]);
+    for (let i = 1; i < statPath.length; i++) {
+      stat = stat.get(statPath[i]);
+    }
+    return stat;
+  }
 }

@@ -147,9 +147,14 @@ export default {
       if (opts.filterFxn) {
         filteredList = filteredList.filter(opts.filterFxn);
       }
-      let colors = [];
-      for (let i = 0; i < filteredList.length; i++) {
-        colors.push(this.getRandomColor());
+      let colors;
+      if (opts.colors) {
+        colors = opts.colors;
+      } else {
+        colors = [];
+        for (let i = 0; i < filteredList.length; i++) {
+          colors.push(this.getRandomColor());
+        }
       }
       return {
         datasets: [
