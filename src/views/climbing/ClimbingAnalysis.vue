@@ -42,7 +42,7 @@
       <div class="chart bg1">
         <h2>{{ charts.areaCounts.title }}</h2>
         <div>
-          {{ stats.counts }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
+          {{ stats.count }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
         </div>
         <doughnut-chart
           :chartData="charts.areaCounts.chartData"

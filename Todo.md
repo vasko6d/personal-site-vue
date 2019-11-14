@@ -111,7 +111,7 @@ Ticklist
 
 - [ ] maybe change buttons **_definitely_** make the styling standard... the box shadow is a nice touch. commented out currently
 - [ ] show lable even if not there? is that possible?
-- [ ] switch stat path to stat path where each entry is an object
+- [ ] switch stat path to stat path where each entry is an object will make year clicking (and more in future) easier
 
 - [ ] can i do filter function for soft hard neither?
 - [ ] do wildcard for nameMap... or default?
