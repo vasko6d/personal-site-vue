@@ -13,6 +13,18 @@
         ></i>
       </div>
     </div>
+    <div v-show="showClimbers" class="flex-row">
+      <ul style="list-style-type:none ">
+        <li
+          class="icn"
+          @click="navigate(climber.sandboxId)"
+          v-for="climber in importedClimbers"
+          :key="climber.id"
+        >
+          {{ climber.name }}
+        </li>
+      </ul>
+    </div>
 
     <div class="flex-row">
       <div class="chart md bg1">
@@ -100,7 +112,25 @@ export default {
       stats: new Stat("ascents"),
       currentArea: ALLAREAS,
       showClimbers: false,
-      initialized: false
+      initialized: false,
+      importedClimbers: [
+        {
+          name: "Chase Yamashiro",
+          sandboxId: "chase-yamashiro"
+        },
+        { name: "David Vasko", sandboxId: "david-vasko" },
+        { name: "Scott Baron", sandboxId: "scott-baron" },
+        {
+          name: "Nathaniel Cushing-Murray",
+          sandboxId: "nathaniel-cushing-murray"
+        },
+        { name: "Drew Gomberg", sandboxId: "drew-gomberg" },
+        {
+          name: "Daniel Fineman",
+          sandboxId: "daniel-fineman"
+        },
+        { name: "Daniel Fong", sandboxId: "daniel-fong" }
+      ]
     };
   },
   computed: {
@@ -135,6 +165,11 @@ export default {
     }
   },
   methods: {
+    navigate(sandboxId) {
+      if (this.sandboxId != sandboxId) {
+        this.$router.push("/climbing/analytics/" + sandboxId);
+      }
+    },
     dateAnalysis(stat) {
       let dates = Object.keys(stat.get("date").subStats);
       if (dates.length === 0) {
@@ -190,7 +225,7 @@ export default {
       a.grade.avg = Math.round((10 * sum) / ascents.length) / 10;
       a.star.avg = Math.round((10 * starSum) / ascents.length) / 10;
       a.star.recommend = Math.round((100 * numRecommend) / ascents.length);
-      a.grade.score = Math.round((10 * topTotal) / ntop) / 10;
+      a.grade.score = Math.round((10 * topTotal) / topCount) / 10;
       a.softness = (soft - hard) / ascents.length;
       a.softness = 5 + Math.round(50 * a.softness) / 10;
       return a;
