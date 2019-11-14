@@ -280,6 +280,17 @@
     }
   }
 
+  .climber-stats {
+    tr:nth-child(even) {
+      background-color: rgba($bg-clr, 0.4);
+    }
+    td {
+      border: 1px solid $bg-clr;
+      padding: 4px;
+    }
+    box-shadow: 0px 0px 5px 0px $bg-clr; /* Standard */
+  }
+
   // More general use of Css
   .bg1 {
     border-color: $nav-bg;

@@ -17,7 +17,15 @@
     <div class="flex-row">
       <div class="chart md bg1">
         <h2>Climber Stats:</h2>
-        <div>Area Timerange</div>
+        <div>{{ currentArea }}</div>
+        <div class="flex-row">
+          <table class="climber-stats">
+            <tr v-for="cStat in climberStats" :key="cStat.id">
+              <td class="stat-name">{{ cStat.name }}</td>
+              <td>{{ cStat.value }}</td>
+            </tr>
+          </table>
+        </div>
       </div>
       <div class="chart md bg1">
         <h2>{{ charts.areaCounts.title }}</h2>
@@ -31,7 +39,7 @@
         />
       </div>
     </div>
-    <h2>Dynamic Charts: {{ prevArea }}</h2>
+    <h2>Dynamic Charts: {{ currentArea }}</h2>
     <div class="flex-row">
       <div
         v-for="adhocChart in charts.adhoc"
@@ -90,25 +98,103 @@ export default {
         adhoc: []
       },
       stats: new Stat("ascents"),
-      opts: {
-        areaCounts: {
-          responsive: true,
-          title: {
-            display: false,
-            text: "",
-            format: "Ascents per Area ({0} ascents, {1} areas)"
-          },
-          legend: {
-            display: false
-          },
-          onClick: this.clickHandler
-        }
-      },
-      prevArea: ALLAREAS,
-      showClimbers: false
+      currentArea: ALLAREAS,
+      showClimbers: false,
+      initialized: false
     };
   },
+  computed: {
+    climberStats() {
+      let stat =
+        this.currentArea === ALLAREAS
+          ? this.stats
+          : this.stats.get("area").get(this.currentArea);
+      let cStats = [{ name: "Total Ascents", value: stat.count }];
+      if (this.initialized) {
+        const da = this.dateAnalysis(stat);
+        const a = this.ascentAnalysis(stat, 20);
+        cStats.push({
+          name: "Boulderer Score",
+          value: this.vScale(a.grade.score)
+        });
+        cStats.push({ name: "Average Stars", value: a.star.avg });
+        cStats.push({ name: "Recommend %", value: a.star.recommend + "%" });
+        cStats.push({ name: "Softness", value: a.softness + " / 10" });
+        cStats.push({ name: "Earliest", value: da.firstDate });
+        cStats.push({ name: "Most Recent", value: da.mostRecent });
+        cStats.push({ name: "Days climbed", value: da.count });
+        cStats.push({
+          name: "Grade [Max, Avg]",
+          value: [this.vScale(a.grade.max), this.vScale(a.grade.avg)].join(", ")
+        });
+      }
+      return cStats;
+    },
+    climberName() {
+      return this.kebabToCap(this.sandboxId);
+    }
+  },
   methods: {
+    dateAnalysis(stat) {
+      let dates = Object.keys(stat.get("date").subStats);
+      if (dates.length === 0) {
+        return "No date data";
+      }
+      dates.sort();
+      return {
+        firstDate: dates[0],
+        mostRecent: dates[dates.length - 1],
+        count: dates.length
+      };
+    },
+    ascentAnalysis(stat, ntop = 10) {
+      let ascents = stat.values;
+      if (ascents.length === 0) {
+        return {};
+      }
+      ascents.sort((a, b) => {
+        this.mapGrade(a.grade) - this.mapGrade(b.grade);
+      });
+      let a = {
+        grade: {
+          max: ascents[0].grade,
+          min: Math.max(ascents[ascents.length - 1].grade, 0),
+          avg: 0,
+          score: 0
+        },
+        star: {
+          avg: 0,
+          recommend: 0
+        },
+        softness: 0
+      };
+      // Average and Boulder Rating
+      let sum = 0;
+      let starSum = 0;
+      let topCount = 0;
+      let topTotal = 0;
+      let numRecommend = 0;
+      let hard = 0;
+      let soft = 0;
+      for (const ascent of ascents) {
+        sum += this.mapGrade(ascent.grade);
+        starSum += parseInt(ascent.rating);
+        if (topCount < ntop) {
+          topTotal += this.mapGrade(ascent.grade);
+          topCount++;
+        }
+        numRecommend += ascent.recommend ? 1 : 0;
+        soft += ascent.softness === "Soft" ? 1 : 0;
+        hard += ascent.softness === "Hard" ? 1 : 0;
+      }
+      a.grade.avg = Math.round((10 * sum) / ascents.length) / 10;
+      a.star.avg = Math.round((10 * starSum) / ascents.length) / 10;
+      a.star.recommend = Math.round((100 * numRecommend) / ascents.length);
+      a.grade.score = Math.round((10 * topTotal) / ntop) / 10;
+      a.softness = (soft - hard) / ascents.length;
+      a.softness = 5 + Math.round(50 * a.softness) / 10;
+      return a;
+    },
     defaultChartOpts() {
       return {
         responsive: true,
@@ -135,15 +221,16 @@ export default {
         AREATOAREA: 2,
         ALLTOALL: 3
       };
-      let updateMode = this.prevArea === ALLAREAS ? UM.ALLTOALL : UM.AREATOALL;
+      let updateMode =
+        this.currentArea === ALLAREAS ? UM.ALLTOALL : UM.AREATOALL;
       let areaName = ALLAREAS;
       let prefixPath = [];
       if (event.length > 0) {
         let tmpAreaName = event[0]._model.label;
-        if (tmpAreaName != this.prevArea) {
+        if (tmpAreaName != this.currentArea) {
           areaName = tmpAreaName;
           updateMode =
-            this.prevArea === ALLAREAS ? UM.ALLTOAREA : UM.AREATOAREA;
+            this.currentArea === ALLAREAS ? UM.ALLTOAREA : UM.AREATOAREA;
           prefixPath = ["area", areaName];
         }
       }
@@ -177,7 +264,7 @@ export default {
           }
         }
 
-        this.prevArea = areaName;
+        this.currentArea = areaName;
       }
     },
     addAddhocChart(chartType, statPath, opts) {
@@ -232,6 +319,7 @@ export default {
       .then(result => {
         this.ascents = result.data;
         this.initializeStats().then(() => {
+          this.initialized = true;
           // Area Counts
           let areaOpts = this.defaultChartOpts();
           areaOpts["onClick"] = this.clickHandler;
@@ -279,11 +367,6 @@ export default {
       .catch(error => {
         window.alert(error.msg || error);
       });
-  },
-  computed: {
-    climberName() {
-      return this.kebabToCap(this.sandboxId);
-    }
   }
 };
 </script>
@@ -314,6 +397,14 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.stat-name {
+  font-weight: bold;
+}
+.climber-stats {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
 #ticklist-analysis {
   max-width: 1400px;

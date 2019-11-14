@@ -45,6 +45,9 @@ export default {
         return gradeMap[grade];
       }
     },
+    vScale(grade) {
+      return "V" + grade;
+    },
     kebabToCap(str) {
       return str
         .split("-")
