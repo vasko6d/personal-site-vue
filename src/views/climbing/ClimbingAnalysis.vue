@@ -50,13 +50,6 @@
           style="cursor: pointer;"
         />
       </div>
-      <div class="chart bg1">
-        <h2>{{ charts.yearCounts.title }}</h2>
-        <doughnut-chart
-          :chartData="charts.yearCounts.chartData"
-          :options="charts.yearCounts.chartOpts"
-        />
-      </div>
     </div>
     <h2>Dynamic Charts: {{ currentArea }}</h2>
     <div class="flex-row">
@@ -112,7 +105,6 @@ export default {
       ascents: [],
       charts: {
         areaCounts: {},
-        yearCounts: {},
         adhoc: []
       },
       stats: new Stat("ascents"),
@@ -373,11 +365,6 @@ export default {
           this.charts.areaCounts.totalAreas = this.stats
             .get("area")
             .subStatCount();
-          // year counts
-          this.charts.yearCounts = this.createChart("pie", ["year"], {
-            title: "Ascents by year",
-            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
-          });
           // Grade Counts
           let gradeOpts = this.defaultChartOpts();
           gradeOpts["scales"] = {
@@ -388,6 +375,12 @@ export default {
             title: "Ascents per Grade",
             isAreaDynamic: true,
             chartOpts: gradeOpts
+          });
+          // year counts
+          this.addAddhocChart("pie", ["year"], {
+            title: "Ascents by year",
+            isAreaDynamic: true,
+            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
           // Softness, rating and recommend
           this.addAddhocChart("pie", ["softness"], {
