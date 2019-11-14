@@ -27,7 +27,7 @@
     </div>
 
     <div class="flex-row">
-      <div class="chart md bg1">
+      <div class="chart bg1">
         <h2>Climber Stats:</h2>
         <div>{{ currentArea }}</div>
         <div class="flex-row">
@@ -39,15 +39,22 @@
           </table>
         </div>
       </div>
-      <div class="chart md bg1">
+      <div class="chart bg1">
         <h2>{{ charts.areaCounts.title }}</h2>
         <div>
-          {{ totalAscents }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
+          {{ stats.counts }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
         </div>
         <doughnut-chart
           :chartData="charts.areaCounts.chartData"
           :options="charts.areaCounts.chartOpts"
           style="cursor: pointer;"
+        />
+      </div>
+      <div class="chart bg1">
+        <h2>{{ charts.yearCounts.title }}</h2>
+        <doughnut-chart
+          :chartData="charts.yearCounts.chartData"
+          :options="charts.yearCounts.chartOpts"
         />
       </div>
     </div>
@@ -56,7 +63,7 @@
       <div
         v-for="adhocChart in charts.adhoc"
         :key="adhocChart.id"
-        class="chart sm bg1"
+        class="chart bg1"
       >
         <h2>{{ adhocChart.title }}</h2>
         <div v-if="adhocChart.type === 'pie'">
@@ -76,7 +83,7 @@
     <!--
     <h2>Adhoc Charts:</h2>
     <div class="flex-row">
-      <div class="chart sm icn bg1">
+      <div class="chart icn bg1">
         <h2>...add new chart</h2>
         <i class="fas fa-plus fa-7x"></i>
       </div>
@@ -103,7 +110,6 @@ export default {
   data() {
     return {
       ascents: [],
-      totalAscents: 0,
       charts: {
         areaCounts: {},
         yearCounts: {},
@@ -367,7 +373,11 @@ export default {
           this.charts.areaCounts.totalAreas = this.stats
             .get("area")
             .subStatCount();
-          this.totalAscents = this.stats.count;
+          // year counts
+          this.charts.yearCounts = this.createChart("pie", ["year"], {
+            title: "Ascents by year",
+            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
+          });
           // Grade Counts
           let gradeOpts = this.defaultChartOpts();
           gradeOpts["scales"] = {
