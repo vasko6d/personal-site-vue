@@ -114,6 +114,8 @@ Ticklist
 - [ ] switch stat path to stat path where each entry is an object will make year clicking (and more in future) easier
 - [ ] climbs by year should be dynamic... maybe the add a selector fot another top level chart?
 - [ ] why not make all charts dynamic? Even area one woudl benefit from reverse from year?
+- [ ] add an aggregator function?
+- [ ] maybe try squared addition then square root for grade? sounds interesting.
 
 - [ ] can i do filter function for soft hard neither?
 - [ ] do wildcard for nameMap... or default?
