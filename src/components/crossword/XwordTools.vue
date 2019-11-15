@@ -8,7 +8,10 @@
               <slot name="header">
                 <h2>
                   Tools&nbsp;
-                  <i class="fas fa-window-close" @click="$emit('close')"></i>
+                  <i
+                    class="fas fa-window-close icn"
+                    @click="$emit('close')"
+                  ></i>
                 </h2>
               </slot>
             </div>
@@ -67,7 +70,10 @@
             <div class="modal-footer">
               <slot name="footer">
                 <h2>
-                  <i class="fas fa-check-square" @click="$emit('close')"></i>
+                  <i
+                    class="fas fa-check-square icn"
+                    @click="$emit('close')"
+                  ></i>
                 </h2>
               </slot>
             </div>

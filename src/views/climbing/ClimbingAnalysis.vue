@@ -2,7 +2,7 @@
   <div id="ticklist-analysis">
     <h1>{{ climberName }}'s Scorecard Analysis</h1>
     <div>
-      <div class="opt-header icn" @click="showClimbers = !showClimbers">
+      <div class="icn b" @click="showClimbers = !showClimbers">
         Climber Select
         <i
           :class="{
@@ -20,9 +20,7 @@
           @click="navigate(climber.sandboxId)"
           v-for="climber in importedClimbers"
           :key="climber.id"
-        >
-          {{ climber.name }}
-        </li>
+        >{{ climber.name }}</li>
       </ul>
     </div>
 
@@ -41,9 +39,7 @@
       </div>
       <div class="chart bg1">
         <h2>{{ charts.areaCounts.title }}</h2>
-        <div>
-          {{ stats.count }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
-        </div>
+        <div>{{ stats.count }} Ascents, {{ charts.areaCounts.totalAreas }} Areas</div>
         <doughnut-chart
           :chartData="charts.areaCounts.chartData"
           :options="charts.areaCounts.chartOpts"
@@ -53,23 +49,13 @@
     </div>
     <h2>Dynamic Charts: {{ currentArea }}</h2>
     <div class="flex-row">
-      <div
-        v-for="adhocChart in charts.adhoc"
-        :key="adhocChart.id"
-        class="chart bg1"
-      >
+      <div v-for="adhocChart in charts.adhoc" :key="adhocChart.id" class="chart bg1">
         <h2>{{ adhocChart.title }}</h2>
         <div v-if="adhocChart.type === 'pie'">
-          <doughnut-chart
-            :chartData="adhocChart.chartData"
-            :options="adhocChart.chartOpts"
-          />
+          <doughnut-chart :chartData="adhocChart.chartData" :options="adhocChart.chartOpts" />
         </div>
         <div v-else-if="adhocChart.type === 'grade'">
-          <bar-graph
-            :chartData="adhocChart.chartData"
-            :options="adhocChart.chartOpts"
-          />
+          <bar-graph :chartData="adhocChart.chartData" :options="adhocChart.chartOpts" />
         </div>
       </div>
     </div>

@@ -10,15 +10,6 @@
     }
   }
 
-  #footer-links {
-    a {
-      color: darken($nav-txt, 20%);
-      :hover {
-        color: lighten($nav-txt, 20%);
-      }
-    }
-  }
-
   .climbing-video-item {
     border: 3px solid darken($brdr, 50%);
     background-color: rgba(lighten($nav-txt, 10%), 0.6);
@@ -34,14 +25,6 @@
 
   #webgl-camera-ctrls,
   #action-ctrls {
-    .h-item {
-      i {
-        color: darken($nav-txt, 20%);
-        &:hover {
-          color: $nav-txt;
-        }
-      }
-    }
     background-color: rgba($nav-bg, 0.3);
     border-radius: 0.35em;
     .cbtn {
@@ -71,19 +54,8 @@
   .modal-mask {
     background-color: rgba(0, 0, 0, 0.5);
     .modal-wrapper {
-      color: darken($nav-txt, 10%);
       .modal-container {
         background-color: darken($nav-bg, 20%);
-        .modal-header,
-        .modal-footer {
-          h2 {
-            i {
-              &:hover {
-                color: lighten($nav-txt, 10%);
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -299,18 +271,16 @@
     border-radius: 0.5em;
   }
 
-  .opt-header {
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-  }
-
   .icn {
     cursor: pointer;
     color: darken($nav-txt, 10%);
     &:hover {
       color: lighten($nav-txt, 20%);
     }
+  }
+
+  .b {
+    font-weight: bold;
   }
 
   background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);

@@ -1,6 +1,6 @@
 <template>
   <div class="clues">
-    <div class="clue-h" @click="showClues = !showClues">
+    <div class="clue-h icn" @click="showClues = !showClues">
       {{ clueHead }}&nbsp;({{ relevantClueCount() }})
       <i
         :class="{
@@ -148,7 +148,6 @@ export default {
   .clue-h {
     text-align: center;
     font-size: 17px;
-    cursor: pointer;
     margin-bottom: 0px;
   }
   .clue-list {

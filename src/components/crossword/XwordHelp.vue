@@ -8,26 +8,26 @@
               <slot name="header">
                 <h2 id="help-top">
                   Help&nbsp;
-                  <i class="fas fa-window-close" @click="$emit('close')"></i>
+                  <i
+                    class="fas fa-window-close icn"
+                    @click="$emit('close')"
+                  ></i>
                 </h2>
                 <div id="quick-help-links">
-                  <a class="help-ref" href="#touch-controls">Touch Controls</a
+                  <a class="icn" href="#touch-controls">Touch Controls</a
                   >&nbsp;|&nbsp;
-                  <a class="help-ref" href="#keyboard-controls"
-                    >Keyboard Controls</a
+                  <a class="icn" href="#keyboard-controls">Keyboard Controls</a
                   >&nbsp;|&nbsp;
-                  <a class="help-ref" href="#tools">Tools</a>&nbsp;|&nbsp;
-                  <a class="help-ref" href="#other">Other</a>&nbsp;|&nbsp;
-                  <a class="help-ref" href="#on-page-keyboard"
+                  <a class="icn" href="#tools">Tools</a>&nbsp;|&nbsp;
+                  <a class="icn" href="#other">Other</a>&nbsp;|&nbsp;
+                  <a class="icn" href="#on-page-keyboard"
                     >On&#8209;Page Keyboard</a
                   >&nbsp;|&nbsp;
-                  <a class="help-ref" href="#clue-context">Clue Context</a
+                  <a class="icn" href="#clue-context">Clue Context</a
                   >&nbsp;|&nbsp;
-                  <a class="help-ref" href="#current-clue-box">Current Clue</a
+                  <a class="icn" href="#current-clue-box">Current Clue</a
                   >&nbsp;|&nbsp;
-                  <a class="help-ref" href="#multi-input"
-                    >Multi&#8209;Input Cell</a
-                  >
+                  <a class="icn" href="#multi-input">Multi&#8209;Input Cell</a>
                 </div>
               </slot>
             </div>
@@ -39,7 +39,7 @@
                     Touch / Click Controls
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -55,27 +55,23 @@
                     <li>
                       <strong>[Switch Input Direction]</strong> - Touch or click
                       the
-                      <a class="help-ref" href="#current-clue-box"
-                        >Current Clue</a
-                      >
+                      <a class="icn" href="#current-clue-box">Current Clue</a>
                       to switch input direction
                     </li>
                     <li>
                       <strong>[Move Clue]</strong> - Touch or click left and
                       right arrows on either side of the
-                      <a class="help-ref" href="#current-clue-box"
-                        >Current Clue</a
-                      >
+                      <a class="icn" href="#current-clue-box">Current Clue</a>
                       to move to previous and next clues respectively
                     </li>
                     <li>
                       <strong>[Inputting Characters]</strong> - Use the
-                      <a class="help-ref" href="#on-page-keyboard"
+                      <a class="icn" href="#on-page-keyboard"
                         >On&#8209;Page Keyboard</a
                       >. Also see
-                      <a class="help-ref" href="#clue-context">Clue Context</a>
+                      <a class="icn" href="#clue-context">Clue Context</a>
                       and
-                      <a class="help-ref" href="#multi-input"
+                      <a class="icn" href="#multi-input"
                         >Multi&#8209;Input Cell</a
                       >
                     </li>
@@ -87,7 +83,7 @@
                     Keyboard Controls
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -100,7 +96,7 @@
                     </li>
                     <li>
                       <strong>[Enter]</strong> - Move to next clue OR exit a
-                      <a class="help-ref" href="#multi-input"
+                      <a class="icn" href="#multi-input"
                         >Multi&#8209;Input Cell</a
                       >
                     </li>
@@ -125,7 +121,7 @@
                     Tools
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -135,7 +131,7 @@
                         <i class="fas fa-pen-square"></i>
                       </strong>
                       - Make the current cell a
-                      <a class="help-ref" href="#multi-input"
+                      <a class="icn" href="#multi-input"
                         >Multi&#8209;Input Cell</a
                       >. This is required if you wish to input more than a
                       single character into a cell, or if you wish to input a
@@ -166,7 +162,7 @@
                     Other
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -174,11 +170,11 @@
                     <li>
                       <strong>[Mobile Keyboard]</strong> - If you are on mobile,
                       using a
-                      <a class="help-ref" href="#multi-input"
+                      <a class="icn" href="#multi-input"
                         >Multi&#8209;Input Cell</a
                       >
                       will bring up the default mobile keyboard. Inputting in
-                      <a class="help-ref" href="#clue-context">Clue Context</a>
+                      <a class="icn" href="#clue-context">Clue Context</a>
                       will also bring up the default mobile keyboard. You can
                       also try the setting "Enable toggle for the native
                       keyboard" which will give you more control of when the
@@ -207,7 +203,7 @@
                     On-Page Keyboard
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -216,8 +212,8 @@
                       <strong>[What is it?]</strong> - A simple "QWERTY"
                       keyboard conviniently on screen to make cell input
                       simpler. You can disable it in Setting. Also see
-                      <a class="help-ref" href="#other">Mobile Keyboard</a> if
-                      on mobile.
+                      <a class="icn" href="#other">Mobile Keyboard</a> if on
+                      mobile.
                     </li>
                   </ul>
                 </div>
@@ -227,7 +223,7 @@
                     Clue Context
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -252,8 +248,8 @@
                     </li>
                     <li>
                       <strong>[Other notes]</strong> - If on mobile, a
-                      <a class="help-ref" href="#other">Mobile Keyboard</a> will
-                      come up when inputting in the clue context.
+                      <a class="icn" href="#other">Mobile Keyboard</a> will come
+                      up when inputting in the clue context.
                     </li>
                   </ul>
                 </div>
@@ -263,7 +259,7 @@
                     Current Clue Box
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -279,11 +275,10 @@
                     </li>
                     <li>
                       <strong>[What can it do?]</strong> - See
-                      <a class="help-ref" href="#touch-controls"
-                        >Touch Controls</a
-                      >. Touching the Current Clue will switch the input
-                      direction. Touching the arrows on either side will move to
-                      the previous or next clue.
+                      <a class="icn" href="#touch-controls">Touch Controls</a>.
+                      Touching the Current Clue will switch the input direction.
+                      Touching the arrows on either side will move to the
+                      previous or next clue.
                     </li>
                   </ul>
                 </div>
@@ -293,7 +288,7 @@
                     Multi-Input Cell
                     <span style="font-size: 0.65em">
                       (
-                      <a class="help-ref" href="#help-top">top</a> )
+                      <a class="icn" href="#help-top">top</a> )
                     </span>
                     <hr />
                   </h3>
@@ -303,13 +298,13 @@
                       multiple characters into a cell, or non-alphabet
                       characters. On the main crossword this will show up as [
                       <i class="fas fa-comment-dots"></i> ], while in
-                      <a class="help-ref" href="#clue-context">Clue Context</a>
+                      <a class="icn" href="#clue-context">Clue Context</a>
                       it will only show what characters fit in side a cell,
                       truncating overflow.
                     </li>
                     <li>
                       <strong>[How do enable it?]</strong> - See
-                      <a class="help-ref" href="#tools">Tools</a>.
+                      <a class="icn" href="#tools">Tools</a>.
                     </li>
                   </ul>
                 </div>
@@ -318,7 +313,10 @@
             <div class="modal-footer">
               <slot name="footer">
                 <h2>
-                  <i class="fas fa-check-square" @click="$emit('close')"></i>
+                  <i
+                    class="fas fa-check-square icn"
+                    @click="$emit('close')"
+                  ></i>
                 </h2>
               </slot>
             </div>

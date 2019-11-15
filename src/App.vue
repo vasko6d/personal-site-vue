@@ -50,9 +50,9 @@
         </div>
       </div>
       <div>
-        <span class="set-theme" @click="setTheme('light')">light</span>&nbsp;|
-        <span class="set-theme" @click="setTheme('dark')">dark</span>&nbsp;|
-        <span class="set-theme" @click="setTheme('blue')">blue</span>
+        <span class="icn" @click="setTheme('light')">light</span>&nbsp;|
+        <span class="icn" @click="setTheme('dark')">dark</span>&nbsp;|
+        <span class="icn" @click="setTheme('blue')">blue</span>
       </div>
       <router-view :key="$route.path" />
       <footer-links />
@@ -262,9 +262,6 @@ export default {
       margin-top: 0.5em;
       margin-bottom: 1em;
       max-width: 90%;
-    }
-    .set-theme {
-      cursor: pointer;
     }
   }
 }

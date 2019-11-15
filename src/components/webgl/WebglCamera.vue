@@ -11,7 +11,7 @@
       <div class="h-item">
         <div>
           Camera Controls&nbsp;
-          <i class="fas fa-question-circle" @click="modalToggle(true)"></i>
+          <i class="fas fa-question-circle icn" @click="modalToggle(true)"></i>
         </div>
       </div>
       <switch-button
@@ -36,9 +36,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
-              </i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
+                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
+              }}</i>
             </div>
           </template>
         </div>

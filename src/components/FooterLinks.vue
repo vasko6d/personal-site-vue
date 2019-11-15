@@ -1,11 +1,12 @@
 <template>
   <div id="footer-links">
-    <a href="https://github.com/vasko6d" target="_blank">
+    <a href="https://github.com/vasko6d" target="_blank" class="icn">
       <i class="fab fa-github fa-2x"></i>
     </a>
     <a
       href="https://www.linkedin.com/in/david-vasko-968726106/"
       target="_blank"
+      class="icn"
     >
       <i class="fab fa-linkedin fa-2x"></i>
     </a>
@@ -13,19 +14,23 @@
 			<i class="fas fa-stack-overflow fa-2x"></i>
 			</i>
     </a-->
-    <a href="https://www.hackerrank.com/vasko6d" target="_blank">
+    <a href="https://www.hackerrank.com/vasko6d" target="_blank" class="icn">
       <i class="fab fa-hackerrank"></i>
     </a>
-    <a href="https://www.instagram.com/vasko6d/" target="_blank">
+    <a href="https://www.instagram.com/vasko6d/" target="_blank" class="icn">
       <i class="fab fa-instagram"></i>
     </a>
-    <a href="https://www.facebook.com/david.vasko.77" target="_blank">
+    <a
+      href="https://www.facebook.com/david.vasko.77"
+      target="_blank"
+      class="icn"
+    >
       <i class="fab fa-facebook-square"></i>
     </a>
-    <a href="mailto:vasko6d@gmail.com">
+    <a href="mailto:vasko6d@gmail.com" class="icn">
       <i class="fas fa-envelope"></i>
     </a>
-    <a href="/pdf/20190928-resume.pdf" target="_blank">
+    <a href="/pdf/20190928-resume.pdf" target="_blank" class="icn">
       <i class="fas fa-file"></i>
     </a>
   </div>

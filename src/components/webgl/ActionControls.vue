@@ -11,7 +11,7 @@
       <div class="head-container">
         <div class="h-item">
           Action Controls&nbsp;
-          <i class="fas fa-question-circle" @click="modalToggle(true)"></i>
+          <i class="fas fa-question-circle icn" @click="modalToggle(true)"></i>
         </div>
         <switch-button
           :isEnabled="kbToggle"
@@ -34,9 +34,9 @@
             @mouseup="actionCtrls[aKey].updateFlag = false"
             @touchend="actionCtrls[aKey].updateFlag = false"
           >
-            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
-              {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
-            </i>
+            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">{{
+              kbToggle ? actionCtrls[aKey].keybind : ""
+            }}</i>
           </div>
         </template>
       </div>
