@@ -12,29 +12,29 @@
         <div class="navigation">
           <ul>
             <li v-for="item in navList" :key="item.id">
-              <template v-if="item.nestedLinks">
+              <template v-if="item.children">
                 <a
                   :ref="item.name"
                   :href="item.path"
                   :title="item.name"
-                  @click="isOpen = !isOpen"
+                  @click="item.isOpen = !item.isOpen"
                 >
                   {{ item.name }}
-                  <i ref="drop-i" class="fa fa-angle-down"></i>
+                  <i :ref="item.name + '-i'" class="fa fa-angle-down"></i>
                 </a>
                 <div
-                  :class="{ isOpen }"
+                  :class="{ isOpen: item.isOpen }"
                   class="dropdown"
                   v-closable="{
-                    excludeList: [item.name, 'drop-i'],
+                    excludeList: [item.name, item.name + '-i'],
                     handler: 'onClose',
-                    uniqueFxnId: 'drop1'
+                    uniqueFxnId: item.name
                   }"
                 >
                   <ul>
                     <li
-                      v-for="{ path, name, index } in item.nestedLinks"
-                      :key="index"
+                      v-for="{ path, name } in item.children"
+                      :key="name"
                       @click="onClose()"
                     >
                       <router-link :to="path">{{ name }}</router-link>
@@ -43,9 +43,7 @@
                 </div>
               </template>
               <template v-else>
-                <router-link :to="item.mainNavPath">
-                  {{ item.name }}
-                </router-link>
+                <router-link :to="item.path">{{ item.name }}</router-link>
               </template>
             </li>
           </ul>
@@ -74,8 +72,6 @@ export default {
   props: ["item"],
   data() {
     return {
-      isOpen: false,
-      toggle: false,
       navList: []
     };
   },
@@ -92,9 +88,23 @@ export default {
     }
   },
   mounted() {
-    for (let route of this.$router.options.routes) {
-      if (route.mainNavPath) {
-        this.navList.push(route);
+    for (const route of this.$router.options.routes) {
+      if (route.isMainNav) {
+        let mainNavItem = {
+          path: route.defaultPath || route.path,
+          name: route.name
+        };
+        if (route.children) {
+          mainNavItem["children"] = [];
+          mainNavItem["isOpen"] = false;
+          for (const child of route.children) {
+            mainNavItem["children"].push({
+              name: child.name,
+              path: child.defaultPath || child.path
+            });
+          }
+        }
+        this.navList.push(mainNavItem);
       }
     }
     if (localStorage.theme) {
@@ -102,8 +112,12 @@ export default {
     }
   },
   methods: {
-    onClose() {
-      this.isOpen = false;
+    onClose(closeItem = "all") {
+      for (let item of this.navList) {
+        if (item.children && (closeItem === "all" || item.name === closeItem)) {
+          item.isOpen = false;
+        }
+      }
     },
     ...mapActions(["setTheme"])
   }

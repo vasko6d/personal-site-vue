@@ -38,7 +38,7 @@ Vue.directive("closable", {
       });
       if (!el.contains(e.target) && !clickedOnExcludedEl) {
         //console.log("[Close] Clicked off element");
-        vnode.context[handler]();
+        vnode.context[handler](uniqueFxnId);
       }
     };
     //console.log("[bind]: " + uniqueFxnId);

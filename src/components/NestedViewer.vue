@@ -3,7 +3,7 @@
     <div class="blk-container">
       <h2>{{ title }}</h2>
       <div class="navigation">
-        <a ref="ref-a" href="#/" @click="isOpen = !isOpen">
+        <a ref="ref-a" href="#" @click="isOpen = !isOpen">
           <h3 ref="ref-h3">
             {{ $router.currentRoute.name }}
             <i ref="ref-i" class="fa fa-angle-down"></i>
@@ -20,7 +20,10 @@
         >
           <ul>
             <li v-for="child in children" :key="child.index" @click="onClose()">
-              <router-link :to="child.truePath">{{ child.name }}</router-link>
+              <router-link
+                :to="child.defaultPath || routePrefix + '/' + child.path"
+                >{{ child.name }}</router-link
+              >
             </li>
           </ul>
         </div>
@@ -36,27 +39,28 @@
 export default {
   name: "NestedViewer",
   props: {
-    path: String,
+    childrenPath: Array,
     title: String
   },
   data() {
     return {
       // dropdown data
       children: "",
+      routePrefix: "",
       isOpen: false
     };
   },
   mounted() {
-    this.children = this.$router.options.routes.find(r => {
-      return r.path === "/" + this.path;
-    }).children;
-    for (let child of this.children) {
-      child.truePath =
-        "/" +
-        this.path +
-        "/" +
-        (child.defaultPath ? child.defaultPath : child.path);
+    let rs = this.$router.options.routes;
+    for (const path of this.childrenPath) {
+      if (path.startsWith("/")) {
+        this.routePrefix += path;
+      }
+      rs = rs.find(r => {
+        return r.path === path;
+      }).children;
     }
+    this.children = rs;
   },
   methods: {
     onClose() {
