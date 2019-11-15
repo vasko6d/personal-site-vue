@@ -1,5 +1,5 @@
 <template>
-  <div id="clue-panel">
+  <div id="clue-panel" class="bg1">
     <div id="clue-head">Clue Panel</div>
     <xword-clues
       :clueObj="acrossClueObj"
@@ -75,7 +75,6 @@ export default {
   @import "@/assets/styles/light-theme.scss";
 }
 #clue-panel {
-  border-radius: 0.35em;
   #clue-head {
     font-weight: bold;
     font-size: 17px;

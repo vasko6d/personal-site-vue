@@ -38,7 +38,7 @@
       <p class="ind-p">
         And finally to view the presentation we made showcasing the design
         process and what we learned click the following link.
-        <a href="pdf/billiard-ball-robot.pdf">Mo Presentation.</a>
+        <a class="icn b" href="pdf/billiard-ball-robot.pdf">Mo Presentation.</a>
       </p>
     </div>
   </div>

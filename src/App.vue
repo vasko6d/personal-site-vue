@@ -14,6 +14,7 @@
             <li v-for="item in navList" :key="item.id">
               <template v-if="item.children">
                 <a
+                  class="bg1-hvr bg1-txt-hvr"
                   :ref="item.name"
                   :href="item.path"
                   :title="item.name"
@@ -37,13 +38,17 @@
                       :key="name"
                       @click="onClose()"
                     >
-                      <router-link :to="path">{{ name }}</router-link>
+                      <router-link class="bg1-hvr bg1-txt-hvr" :to="path">{{
+                        name
+                      }}</router-link>
                     </li>
                   </ul>
                 </div>
               </template>
               <template v-else>
-                <router-link :to="item.path">{{ item.name }}</router-link>
+                <router-link class="bg1-hvr bg1-txt-hvr" :to="item.path">
+                  {{ item.name }}
+                </router-link>
               </template>
             </li>
           </ul>

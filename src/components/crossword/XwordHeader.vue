@@ -1,5 +1,5 @@
 <template>
-  <div id="x-head">
+  <div id="x-head" class="bg1">
     <xword-help v-if="showHelp" @close="modalToggle(false, 'showHelp')" />
     <xword-settings
       v-if="showSettings"

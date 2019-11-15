@@ -3,7 +3,12 @@
     <div class="blk-container">
       <h2>{{ title }}</h2>
       <div class="navigation">
-        <a ref="ref-a" href="#" @click="isOpen = !isOpen">
+        <a
+          class="bg1-hvr bg1-txt-hvr"
+          ref="ref-a"
+          href="#"
+          @click="isOpen = !isOpen"
+        >
           <h3 ref="ref-h3">
             {{ $router.currentRoute.name }}
             <i ref="ref-i" class="fa fa-angle-down"></i>
@@ -21,6 +26,7 @@
           <ul>
             <li v-for="child in children" :key="child.index" @click="onClose()">
               <router-link
+                class="bg1-hvr bg1-txt-hvr"
                 :to="child.defaultPath || routePrefix + '/' + child.path"
                 >{{ child.name }}</router-link
               >

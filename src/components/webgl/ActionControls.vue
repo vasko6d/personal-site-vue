@@ -1,5 +1,5 @@
 <template>
-  <div id="action-ctrls">
+  <div id="action-ctrls" class="bg1">
     <control-help-modal
       v-if="showModal"
       @close="modalToggle(false)"
@@ -27,6 +27,8 @@
             :class="[
               'cbtn',
               'prm',
+              'bg1-hvr',
+              'bg1-txt-hvr',
               { pactive: actionCtrls[aKey].framesActive > 0 }
             ]"
             @mousedown="actionCtrls[aKey].updateFlag = true"

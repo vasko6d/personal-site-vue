@@ -1,5 +1,5 @@
 <template>
-  <div id="webgl-camera-ctrls">
+  <div id="webgl-camera-ctrls" class="bg1">
     <control-help-modal
       v-if="showModal"
       @close="modalToggle(false)"
@@ -53,7 +53,8 @@ import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
 import SwitchButton from "@/components/SwitchButton.vue";
 import ControlHelpModal from "@/components/webgl/ControlHelpModal.vue";
 var mv = MatrixMath.methods;
-
+const btnClassList1 = ["cbtn", "prm", "bg1-hvr", "bg1-txt-hvr"];
+const btnClassList2 = ["cbtn", "scnd", "bg1-txt-hvr"];
 export default {
   name: "WebglCamera",
   props: {
@@ -74,24 +75,24 @@ export default {
           gClass: "ml",
           gTitle: "Move",
           gKeys: [
-            { cls: ["u-item", "cbtn", "prm"], ctrlName: "forward" },
-            { cls: ["d-item", "cbtn", "prm"], ctrlName: "backward" },
-            { cls: ["l-item", "cbtn", "prm"], ctrlName: "left" },
-            { cls: ["r-item", "cbtn", "prm"], ctrlName: "right" },
-            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "up" },
-            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "down" }
+            { cls: ["u-item"].concat(btnClassList1), ctrlName: "forward" },
+            { cls: ["d-item"].concat(btnClassList1), ctrlName: "backward" },
+            { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
+            { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
+            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "up" },
+            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "down" }
           ]
         },
         look: {
           gClass: "mr",
           gTitle: "Look",
           gKeys: [
-            { cls: ["u-item", "cbtn", "prm"], ctrlName: "up" },
-            { cls: ["d-item", "cbtn", "prm"], ctrlName: "down" },
-            { cls: ["l-item", "cbtn", "prm"], ctrlName: "left" },
-            { cls: ["r-item", "cbtn", "prm"], ctrlName: "right" },
-            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "zoomin" },
-            { cls: ["ul-item", "cbtn", "scnd"], ctrlName: "zoomout" }
+            { cls: ["u-item"].concat(btnClassList1), ctrlName: "up" },
+            { cls: ["d-item"].concat(btnClassList1), ctrlName: "down" },
+            { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
+            { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
+            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomin" },
+            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomout" }
           ]
         }
       }

@@ -1,5 +1,5 @@
 <template>
-  <div class="keyboard-container">
+  <div class="keyboard-container bg1">
     <!--div>Keyboard</div-->
     <div class="key-row" ref="row" v-for="keyRow in keyLayout" :key="keyRow.id">
       <div
@@ -194,7 +194,6 @@ export default {
 .keyboard-container {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   user-select: none;
-  border-radius: 0.35em;
   margin-bottom: 0.5em;
   .key-row {
     display: flex;

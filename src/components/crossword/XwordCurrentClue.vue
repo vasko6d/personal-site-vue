@@ -1,12 +1,18 @@
 <template>
   <div id="current-clue">
     <div class="clue-flex">
-      <i class="fas fa-caret-left" @click="moveClue(false)"></i>
-      <div class="clue-body" @click="switchDirection">
+      <i
+        class="fas fa-caret-left bg1-hvr bg1-txt-hvr"
+        @click="moveClue(false)"
+      ></i>
+      <div class="clue-body bg1-hvr bg1-txt-hvr" @click="switchDirection">
         {{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}&nbsp;
         <div class="indent">{{ clue.txt }}</div>
       </div>
-      <i class="fas fa-caret-right" @click="moveClue(true)"></i>
+      <i
+        class="fas fa-caret-right bg1-hvr bg1-txt-hvr"
+        @click="moveClue(true)"
+      ></i>
     </div>
   </div>
 </template>
