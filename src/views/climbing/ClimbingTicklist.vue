@@ -220,6 +220,9 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 @import "@/assets/styles/table-container.scss";
 #boulder-scorecard {
   display: inline-block;

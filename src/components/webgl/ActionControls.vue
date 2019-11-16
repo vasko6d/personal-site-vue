@@ -87,6 +87,9 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 #action-ctrls {
   user-select: none;
   .crtl-container {

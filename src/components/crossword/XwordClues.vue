@@ -142,6 +142,9 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 .clues {
   text-align: left;
   max-width: 650px;

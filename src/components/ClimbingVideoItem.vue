@@ -44,6 +44,9 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 
 .climbing-video-item {
   margin: 5px;

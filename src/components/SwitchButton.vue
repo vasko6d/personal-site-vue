@@ -34,6 +34,9 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 .switch-button-control {
   display: grid;
   justify-content: right;

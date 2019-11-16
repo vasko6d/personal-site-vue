@@ -4,7 +4,8 @@
     :class="{
       blue: isBlue,
       dark: isDark,
-      light: isLight
+      light: isLight,
+      pink: isPink
     }"
   >
     <div class="wrapper">
@@ -57,7 +58,8 @@
       <div>
         <span class="icn" @click="setTheme('light')">light</span>&nbsp;|
         <span class="icn" @click="setTheme('dark')">dark</span>&nbsp;|
-        <span class="icn" @click="setTheme('blue')">blue</span>
+        <span class="icn" @click="setTheme('blue')">blue</span>&nbsp;|
+        <span class="icn" @click="setTheme('pink')">pink</span>
       </div>
       <router-view :key="$route.path" />
       <footer-links />
@@ -90,6 +92,9 @@ export default {
     },
     isLight() {
       return this.themeMatches("light");
+    },
+    isPink() {
+      return this.themeMatches("pink");
     }
   },
   mounted() {
@@ -141,13 +146,16 @@ export default {
   margin: 0;
 }
 .blue {
-  @import "./assets/styles/blue-theme.scss";
+  @import "@/assets/styles/blue-theme.scss";
 }
 .dark {
-  @import "./assets/styles/dark-theme.scss";
+  @import "@/assets/styles/dark-theme.scss";
 }
 .light {
-  @import "./assets/styles/light-theme.scss";
+  @import "@/assets/styles/light-theme.scss";
+}
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
 }
 
 #app {

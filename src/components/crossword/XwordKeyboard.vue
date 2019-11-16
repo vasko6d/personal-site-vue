@@ -191,6 +191,9 @@ export default {
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 .keyboard-container {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   user-select: none;

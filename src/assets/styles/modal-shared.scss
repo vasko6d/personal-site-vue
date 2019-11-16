@@ -8,6 +8,9 @@
 .light {
   @import "@/assets/styles/light-theme.scss";
 }
+.pink {
+  @import "@/assets/styles/pink-theme.scss";
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;
