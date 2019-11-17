@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ClimbingVideoItem from "@/components/ClimbingVideoItem.vue";
+import ClimbingVideoItem from "@/components/climbing/ClimbingVideoItem.vue";
 
 export default {
   name: "climbingvideos",

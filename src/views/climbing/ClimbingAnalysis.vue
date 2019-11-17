@@ -39,39 +39,15 @@
           </table>
         </div>
       </div>
-      <div class="chart bg1">
-        <h2>{{ charts.areaCounts.title }}</h2>
-        <div>
-          {{ stats.count }} Ascents, {{ charts.areaCounts.totalAreas }} Areas
-        </div>
-        <doughnut-chart
-          :chartData="charts.areaCounts.chartData"
-          :options="charts.areaCounts.chartOpts"
-          style="cursor: pointer;"
-        />
-      </div>
+      <chart-handler :chart="charts.areaCounts" style="cursor: pointer;" />
     </div>
     <h2>Dynamic Charts: {{ currentArea }}</h2>
     <div class="flex-row">
-      <div
+      <chart-handler
         v-for="adhocChart in charts.adhoc"
         :key="adhocChart.id"
-        class="chart bg1"
-      >
-        <h2>{{ adhocChart.title }}</h2>
-        <div v-if="adhocChart.type === 'pie'">
-          <doughnut-chart
-            :chartData="adhocChart.chartData"
-            :options="adhocChart.chartOpts"
-          />
-        </div>
-        <div v-else-if="adhocChart.type === 'grade'">
-          <bar-graph
-            :chartData="adhocChart.chartData"
-            :options="adhocChart.chartOpts"
-          />
-        </div>
-      </div>
+        :chart="adhocChart"
+      ></chart-handler>
     </div>
     <!--
     <h2>Adhoc Charts:</h2>
@@ -89,12 +65,10 @@
 const ALLAREAS = "All Areas";
 import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
-import DoughnutChart from "@/components/charts/DoughnutChart.vue";
-import BarGraph from "@/components/charts/BarGraph.vue";
+import ChartHandler from "@/components/charts/ChartHandler.vue";
 export default {
   components: {
-    DoughnutChart,
-    BarGraph
+    ChartHandler
   },
   mixins: [Utils],
   props: {
@@ -365,6 +339,11 @@ export default {
           this.charts.areaCounts.totalAreas = this.stats
             .get("area")
             .subStatCount();
+          this.charts.areaCounts["subtitle"] =
+            this.stats.count +
+            " Ascents, " +
+            this.charts.areaCounts.totalAreas +
+            " Areas";
           // Grade Counts
           let gradeOpts = this.defaultChartOpts();
           gradeOpts["scales"] = {
