@@ -132,19 +132,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/dark-theme.scss";
-.blue {
-  @import "@/assets/styles/blue-theme.scss";
-}
-.dark {
-  @import "@/assets/styles/dark-theme.scss";
-}
-.light {
-  @import "@/assets/styles/light-theme.scss";
-}
-.pink {
-  @import "@/assets/styles/pink-theme.scss";
-}
+@import "@/assets/styles/wrapper.scss";
 .clues {
   text-align: left;
   max-width: 650px;

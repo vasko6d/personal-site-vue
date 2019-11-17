@@ -36,9 +36,9 @@
             @mouseup="actionCtrls[aKey].updateFlag = false"
             @touchend="actionCtrls[aKey].updateFlag = false"
           >
-            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">{{
-              kbToggle ? actionCtrls[aKey].keybind : ""
-            }}</i>
+            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
+              {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
+            </i>
           </div>
         </template>
       </div>
@@ -77,19 +77,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "@/assets/styles/dark-theme.scss";
-.blue {
-  @import "@/assets/styles/blue-theme.scss";
-}
-.dark {
-  @import "@/assets/styles/dark-theme.scss";
-}
-.light {
-  @import "@/assets/styles/light-theme.scss";
-}
-.pink {
-  @import "@/assets/styles/pink-theme.scss";
-}
+@import "@/assets/styles/wrapper.scss";
 #action-ctrls {
   user-select: none;
   .crtl-container {

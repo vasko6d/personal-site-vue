@@ -136,7 +136,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
-@import "./assets/styles/dark-theme.scss";
+@import "./assets/styles/wrapper.scss";
 
 *,
 ::before,
@@ -144,18 +144,6 @@ export default {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-.blue {
-  @import "@/assets/styles/blue-theme.scss";
-}
-.dark {
-  @import "@/assets/styles/dark-theme.scss";
-}
-.light {
-  @import "@/assets/styles/light-theme.scss";
-}
-.pink {
-  @import "@/assets/styles/pink-theme.scss";
 }
 
 #app {

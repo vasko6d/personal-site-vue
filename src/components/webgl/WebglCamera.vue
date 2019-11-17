@@ -36,9 +36,9 @@
               @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
               @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
             >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">{{
-                kbToggle ? ctrls[cType][btn.ctrlName].keybind : ""
-              }}</i>
+              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+              </i>
             </div>
           </template>
         </div>
@@ -361,19 +361,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "@/assets/styles/dark-theme.scss";
-.blue {
-  @import "@/assets/styles/blue-theme.scss";
-}
-.dark {
-  @import "@/assets/styles/dark-theme.scss";
-}
-.light {
-  @import "@/assets/styles/light-theme.scss";
-}
-.pink {
-  @import "@/assets/styles/pink-theme.scss";
-}
+@import "@/assets/styles/wrapper.scss";
 #webgl-camera-ctrls {
   user-select: none;
   .crtl-container {

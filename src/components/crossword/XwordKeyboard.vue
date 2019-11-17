@@ -15,9 +15,9 @@
         v-for="keyBtn in keyRow"
         :key="keyBtn.id"
       >
-        <i :class="keyBtn.isFA ? keyBtn.disp : ''">{{
-          keyBtn.isFA ? "" : keyBtn.disp
-        }}</i>
+        <i :class="keyBtn.isFA ? keyBtn.disp : ''">
+          {{ keyBtn.isFA ? "" : keyBtn.disp }}
+        </i>
       </div>
     </div>
   </div>
@@ -181,19 +181,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/dark-theme.scss";
-.blue {
-  @import "@/assets/styles/blue-theme.scss";
-}
-.dark {
-  @import "@/assets/styles/dark-theme.scss";
-}
-.light {
-  @import "@/assets/styles/light-theme.scss";
-}
-.pink {
-  @import "@/assets/styles/pink-theme.scss";
-}
+@import "@/assets/styles/wrapper.scss";
 .keyboard-container {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   user-select: none;
