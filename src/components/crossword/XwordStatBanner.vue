@@ -1,5 +1,5 @@
 <template>
-  <div id="x-stat">
+  <div id="x-stat" class="bg1">
     <div class="stat-body">
       <div v-if="!isCompleted">
         <div class="stat-head">
