@@ -30,7 +30,8 @@ export default class Stat {
     }
     // Every new depth should actually create 2 deeper levels: 1st level is "catagory",
     // second level is the actual values
-    const catagories = Object.keys(this.values[0]);
+    const catagories =
+      this.values && this.values.length > 0 ? Object.keys(this.values[0]) : [];
     for (const val of this.values) {
       for (const k of catagories) {
         if (!this.ignore.has(k)) {
@@ -87,6 +88,22 @@ export default class Stat {
     let stat = this.get(statPath[0]);
     for (let i = 1; i < statPath.length; i++) {
       stat = stat.get(statPath[i]);
+    }
+    return stat;
+  }
+
+  getFiltered(base, filters) {
+    let stat = this;
+    if (filters && Object.keys(filters).length > 0) {
+      for (const filter of Object.keys(filters)) {
+        //console.log("> Filter: " + filter);
+        stat = stat.get(filter);
+        //console.log("> Value: " + filters[filter]);
+        stat = stat.get(filters[filter], true, false);
+      }
+    }
+    if (base) {
+      stat = stat.get(base);
     }
     return stat;
   }

@@ -29,7 +29,6 @@
     <div class="flex-row">
       <div class="chart bg1">
         <h2>Climber Stats:</h2>
-        <div>{{ currentArea }}</div>
         <div class="flex-row">
           <table class="climber-stats">
             <tr v-for="cStat in climberStats" :key="cStat.id">
@@ -39,14 +38,65 @@
           </table>
         </div>
       </div>
-      <chart-handler :chart="charts.areaCounts" style="cursor: pointer;" />
+      <div class="chart bg1">
+        <h2>Filters:</h2>
+        <div class="b">
+          Current Filters:&nbsp;
+          <i class="fas fa-eraser icn" @click="clearFilters()"></i>
+        </div>
+        <div v-if="Object.keys(currentFilters).length === 0">none</div>
+        <div v-else>
+          <div
+            v-for="catagory in Object.keys(currentFilters)"
+            :key="catagory.id"
+          >
+            {{ catagory }} = {{ currentFilters[catagory] }}
+          </div>
+        </div>
+        <div class="b">Add New Filter:</div>
+        <div>
+          <span v-if="newFilter.catagory != ''">
+            {{ newFilter.catagory }} >
+            <span v-if="newFilter.value != ''">
+              {{ newFilter.value }}
+              <i class="fas fa-check icn" @click="addFilter(newFilter)"></i
+              >&nbsp;
+            </span>
+            <span v-else>
+              <select v-model="newFilter.value">
+                <option
+                  v-for="val in stats.get(newFilter.catagory).subStats"
+                  :key="val.id"
+                  :value="val.name"
+                  >{{ val.name }}</option
+                >
+              </select>
+            </span>
+            <i
+              class="fas fa-times icn"
+              @click="newFilter = generateFilter()"
+            ></i>
+          </span>
+          <span v-else>
+            <select v-model="newFilter.catagory">
+              <option
+                v-for="filter in filterable"
+                :key="filter.id"
+                :value="filter"
+                >{{ filter }}</option
+              >
+            </select>
+          </span>
+        </div>
+      </div>
     </div>
-    <h2>Dynamic Charts: {{ currentArea }}</h2>
+    <h2>Dynamic Charts</h2>
     <div class="flex-row">
       <chart-handler
-        v-for="adhocChart in charts.adhoc"
-        :key="adhocChart.id"
-        :chart="adhocChart"
+        v-show="!dynamicChart.opts.hideChart"
+        v-for="dynamicChart in charts.dynamic"
+        :key="dynamicChart.id"
+        :chart="dynamicChart"
       ></chart-handler>
     </div>
     <!--
@@ -78,8 +128,39 @@ export default {
     return {
       ascents: [],
       charts: {
-        areaCounts: {},
-        adhoc: []
+        adhoc: [],
+        dynamic: []
+      },
+      filterable: ["area", "year", "recommend", "grade", "rating"],
+      newFilter: this.generateFilter(),
+      currentFilters: {},
+      aggregateFxns: {
+        avg(subName) {
+          return stat => {
+            let sub = stat.get(subName).subStats;
+            let sum = 0;
+            let cnt = 0;
+            for (const subKey of Object.keys(sub)) {
+              cnt += sub[subKey].count;
+              sum += sub[subKey].count * parseInt(subKey);
+            }
+            return Math.round((10 * sum) / cnt) / 10;
+          };
+        },
+        pct(subName, value) {
+          return stat => {
+            let sub = stat.get(subName).subStats;
+            let sum = 0;
+            let cnt = 0;
+            for (const subKey of Object.keys(sub)) {
+              cnt += sub[subKey].count;
+              if (sub[subKey].name == value) {
+                sum += sub[subKey].count * parseInt(subKey);
+              }
+            }
+            return Math.round((1000 * sum) / cnt) / 10;
+          };
+        }
       },
       stats: new Stat("ascents"),
       currentArea: ALLAREAS,
@@ -107,10 +188,7 @@ export default {
   },
   computed: {
     climberStats() {
-      let stat =
-        this.currentArea === ALLAREAS
-          ? this.stats
-          : this.stats.get("area").get(this.currentArea);
+      let stat = this.stats.getFiltered(false, this.currentFilters);
       let cStats = [{ name: "Total Ascents", value: stat.count }];
       if (this.initialized) {
         const da = this.dateAnalysis(stat);
@@ -137,6 +215,57 @@ export default {
     }
   },
   methods: {
+    clearFilters() {
+      // Update Dynamic Charts
+      for (let i = 0; i < this.charts.dynamic.length; i++) {
+        let dChart = this.charts.dynamic[i];
+        let newOpts = dChart.opts;
+        newOpts.filters = {};
+        newOpts.hideChart = false;
+        this.charts.dynamic[i] = this.createChart(
+          dChart.type,
+          dChart.statBase,
+          newOpts
+        );
+      }
+      this.currentFilters = {};
+    },
+    addFilter(filter) {
+      //this.currentFilters[filter.catagory] = filter.value;
+      this.$set(this.currentFilters, filter.catagory, filter.value);
+      // Update Dynamic Charts
+      for (let i = 0; i < this.charts.dynamic.length; i++) {
+        let dChart = this.charts.dynamic[i];
+        if (dChart.statBase != filter.catagory) {
+          let newOpts = dChart.opts;
+          if (newOpts.filters) {
+            newOpts.filters[filter.catagory] = filter.value;
+          } else {
+            newOpts["filters"] = {};
+            newOpts.filters[filter.catagory] = filter.value;
+          }
+          this.charts.dynamic[i] = this.createChart(
+            dChart.type,
+            dChart.statBase,
+            newOpts
+          );
+        } else {
+          this.charts.dynamic[i].opts.hideChart = true;
+        }
+      }
+      // Reset new filter
+      this.newFilter = this.generateFilter();
+    },
+    generateFilter() {
+      return {
+        catagory: "",
+        value: "", // Start with just single value
+        valueList: [],
+        // range, multi, value
+        valueType: "",
+        aggregator: false
+      };
+    },
     navigate(sandboxId) {
       if (this.sandboxId != sandboxId) {
         this.$router.push("/climbing/analytics/" + sandboxId);
@@ -156,16 +285,10 @@ export default {
     },
     ascentAnalysis(stat, ntop = 10) {
       let ascents = stat.values;
-      if (ascents.length === 0) {
-        return {};
-      }
-      ascents.sort((a, b) => {
-        this.mapGrade(a.grade) - this.mapGrade(b.grade);
-      });
       let a = {
         grade: {
-          max: ascents[0].grade,
-          min: Math.max(ascents[ascents.length - 1].grade, 0),
+          max: 0,
+          min: 0,
           avg: 0,
           score: 0
         },
@@ -175,6 +298,14 @@ export default {
         },
         softness: 0
       };
+      if (ascents.length === 0) {
+        return a;
+      }
+      ascents.sort((a, b) => {
+        this.mapGrade(a.grade) - this.mapGrade(b.grade);
+      });
+      a.grade.max = ascents[0].grade;
+      a.grade.min = Math.max(ascents[ascents.length - 1].grade, 0);
       // Average and Boulder Rating
       let sum = 0;
       let starSum = 0;
@@ -221,104 +352,54 @@ export default {
         resolve();
       });
     },
-    clickHandler(point, event) {
-      const UM = {
-        ALLTOAREA: 0,
-        AREATOALL: 1,
-        AREATOAREA: 2,
-        ALLTOALL: 3
-      };
-      let updateMode =
-        this.currentArea === ALLAREAS ? UM.ALLTOALL : UM.AREATOALL;
-      let areaName = ALLAREAS;
-      let prefixPath = [];
-      if (event.length > 0) {
-        let tmpAreaName = event[0]._model.label;
-        if (tmpAreaName != this.currentArea) {
-          areaName = tmpAreaName;
-          updateMode =
-            this.currentArea === ALLAREAS ? UM.ALLTOAREA : UM.AREATOAREA;
-          prefixPath = ["area", areaName];
-        }
-      }
-
-      if (updateMode != UM.ALLTOALL) {
-        // Handle all adhoc charts
-        for (let i = 0; i < this.charts.adhoc.length; i++) {
-          let achart = this.charts.adhoc[i];
-          if (achart.isAreaDynamic) {
-            let newStatPath = achart.statPath;
-            switch (updateMode) {
-              case UM.ALLTOAREA:
-                newStatPath = [...prefixPath, ...newStatPath];
-                newStatPath[1] = areaName;
-                break;
-              case UM.AREATOAREA:
-                newStatPath[1] = areaName;
-                break;
-              case UM.AREATOALL:
-                newStatPath.shift();
-                newStatPath.shift();
-                break;
-            }
-            //console.log(achart.title + " - [" + newStatPath + "]");
-            let newChart = this.createChart(
-              achart.type,
-              newStatPath,
-              achart.opts
-            );
-            this.charts.adhoc[i] = newChart;
-          }
-        }
-
-        this.currentArea = areaName;
+    addDynamicChart(chartType, statBase, opts) {
+      let dynamicChart = this.createChart(chartType, statBase, opts);
+      if (dynamicChart.chartData) {
+        this.charts.dynamic.push(dynamicChart);
       }
     },
-    addAddhocChart(chartType, statPath, opts) {
-      let adhocChart = this.createChart(chartType, statPath, opts);
-      if (adhocChart.chartData) {
-        this.charts.adhoc.push(adhocChart);
-      }
-    },
-    createChart(chartType, statPath, opts) {
-      let stat = this.stats.getFromPath(statPath);
-      let adhocChart = {
+    createChart(chartType, statBase, opts) {
+      let stat = this.stats.getFiltered(statBase, opts.filters);
+      let dynamicChart = {
         type: chartType,
         title: opts.title,
         isAreaDynamic: opts.isAreaDynamic || false,
-        statPath: statPath,
+        statBase: statBase,
         opts: opts,
         chartOpts: opts.chartOpts || this.defaultChartOpts()
       };
+      if (opts.subtitleFxn) {
+        dynamicChart["subtitle"] = opts.subtitleFxn(stat);
+      }
       switch (chartType) {
         case "pie":
-          adhocChart.chartData = this.getPieChartData(stat, opts);
+          dynamicChart.chartData = this.getPieChartData(stat, opts);
           // Save the original colors in a color map and persist them to prevent new random ones being assigned
-          adhocChart.opts["colors"] =
-            adhocChart.opts["colors"] ||
-            adhocChart.chartData.datasets[0].backgroundColor.reduce(function(
+          dynamicChart.opts["colors"] =
+            dynamicChart.opts["colors"] ||
+            dynamicChart.chartData.datasets[0].backgroundColor.reduce(function(
               colorMap,
               field,
               index
             ) {
-              colorMap[adhocChart.chartData.labels[index]] = field;
+              colorMap[dynamicChart.chartData.labels[index]] = field;
               return colorMap;
             },
             {});
-          //console.log(adhocChart);
+          //console.log(dynamicChart);
           break;
         case "grade":
-          adhocChart.chartData = this.getGradeChartData(stat);
+          dynamicChart.chartData = this.getGradeChartData(stat);
           break;
         default:
           console.warn(
             this.formatString(
-              "Chart Type [{}], not supported on adhoc charts",
+              "Chart Type [{}], not supported on dynamic charts",
               chartType
             )
           );
       }
-      return adhocChart;
+      return dynamicChart;
     }
   },
   mounted() {
@@ -327,53 +408,51 @@ export default {
         this.ascents = result.data;
         this.initializeStats().then(() => {
           this.initialized = true;
-          // Area Counts
-          let areaOpts = this.defaultChartOpts();
-          areaOpts["onClick"] = this.clickHandler;
-          areaOpts["legend"] = { display: false };
-          this.charts.areaCounts = this.createChart("pie", ["area"], {
-            title: "Ascents per Area",
-            chartOpts: areaOpts,
-            sortFxn: (a, b) => b.count - a.count
-          });
-          this.charts.areaCounts.totalAreas = this.stats
-            .get("area")
-            .subStatCount();
-          this.charts.areaCounts["subtitle"] =
-            this.stats.count +
-            " Ascents, " +
-            this.charts.areaCounts.totalAreas +
-            " Areas";
           // Grade Counts
           let gradeOpts = this.defaultChartOpts();
           gradeOpts["scales"] = {
             xAxes: [{ stacked: true }],
             yAxes: [{ stacked: true }]
           };
-          this.addAddhocChart("grade", ["grade"], {
+          this.addDynamicChart("grade", "grade", {
             title: "Ascents per Grade",
             isAreaDynamic: true,
             chartOpts: gradeOpts
           });
+          // Area Counts
+          let areaOpts = this.defaultChartOpts();
+          areaOpts["legend"] = { display: false };
+          this.addDynamicChart("pie", "area", {
+            title: "Ascents per Area",
+            chartOpts: areaOpts,
+            subtitleFxn: stat => {
+              return stat.count + " Ascents, " + stat.subStatCount() + " Areas";
+            }
+          });
           // year counts
-          this.addAddhocChart("pie", ["year"], {
+          this.addDynamicChart("pie", "year", {
             title: "Ascents by year",
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
           // Softness, rating and recommend
-          this.addAddhocChart("pie", ["softness"], {
+          this.addDynamicChart("pie", "softness", {
             title: "Soft Meter",
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
-          this.addAddhocChart("pie", ["rating"], {
+          this.addDynamicChart("pie", "rating", {
             title: "Star Meter",
-            nameMap: { 0: "0 Stars", 1: "1 Star", 2: "2 Stars", 3: "3 Stars" },
+            nameMap: {
+              0: "0 Stars",
+              1: "1 Star",
+              2: "2 Stars",
+              3: "3 Stars"
+            },
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
-          this.addAddhocChart("pie", ["recommend"], {
+          this.addDynamicChart("pie", "recommend", {
             title: "Recommend Meter",
             nameMap: { true: "Recommended", false: "Not Recommended" },
             isAreaDynamic: true,

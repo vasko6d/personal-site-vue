@@ -120,6 +120,13 @@ Ticklist
 - [ ] can i do filter function for soft hard neither?
 - [ ] do wildcard for nameMap... or default?
 
+- [ ] want to be able to edit, statpath, aggregator used.. delere, add new, view ascents.
+
+- [ ] filter for year (example) shoudl only show valie years. Im just showing all of root.
+- [ ] need to make filter object more maintainable......
+- [ ] prettier filter navigation
+- [ ] still want time series.. maybe include it as an option?
+
 Lofty
 
 - [ ] vaskos.com landing page that you walk through

@@ -70,10 +70,8 @@ export default {
         for (const flag of ascent["flags"]) {
           switch (flag) {
             case "Soft":
-              reldif = "Soft";
-              break;
             case "Hard":
-              reldif = "Hard";
+              reldif = flag;
               break;
           }
         }
@@ -145,50 +143,55 @@ export default {
     },
     getPieChartData(stat, opts) {
       let statList = Object.values(stat.subStats);
-      // Sort with optional passed sort function
-      if (opts.sortFxn) {
-        statList.sort(opts.sortFxn);
-      } else {
-        statList.sort();
-      }
       // Filter is given a filter function (shallow copy)
       let filteredList = [...statList];
       if (opts.filterFxn) {
         filteredList = filteredList.filter(opts.filterFxn);
       }
-      // To prevent jarring color changes if possible values
-      // dissipear on an update, use an optional color map to preserve old color.
-      let colors;
-      if (opts.colors) {
-        colors = filteredList.map(el => {
-          let mappedName = opts.nameMap ? opts.nameMap[el.name] : el.name;
-          return opts.colors[mappedName];
-        });
-      } else {
-        colors = [];
-        for (let i = 0; i < filteredList.length; i++) {
-          colors.push(this.getRandomColor());
-        }
-      }
-      // The labels can use a name map if desired
-      let labels = filteredList.map(el => {
+      // Add Label
+      filteredList.forEach(el => {
         if (opts.nameMap) {
-          return opts.nameMap[el.name];
+          el["label"] = opts.nameMap[el.name];
+        } else {
+          el["label"] = el.name;
         }
-        return el.name;
       });
-
-      // Now construct the desired format for chartjs
+      // Add actual data for that point
+      filteredList.forEach(el => {
+        if (opts.aggregateFxn) {
+          el["datum"] = opts.aggregateFxn(el);
+        } else {
+          el["datum"] = el.count;
+        }
+      });
+      // Add Color - To allow constant colors on update allow a passed color object
+      filteredList.forEach(el => {
+        if (opts.colors) {
+          el["color"] = opts.colors[el.label];
+        } else {
+          el["color"] = this.getRandomColor();
+        }
+      });
+      // Sort data
+      const defaultSort = (a, b) => {
+        return b.datum - a.datum;
+      };
+      filteredList.sort(opts.sortFxn || defaultSort);
+      // Return it in ChartJS format
       return {
         datasets: [
           {
             data: filteredList.map(el => {
-              return el.count;
+              return el.datum;
             }),
-            backgroundColor: colors
+            backgroundColor: filteredList.map(el => {
+              return el.color;
+            })
           }
         ],
-        labels: labels
+        labels: filteredList.map(el => {
+          return el.label;
+        })
       };
     },
     getGradeChartData(stat, allowExpansion = true) {
