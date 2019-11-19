@@ -65,7 +65,8 @@
             <span v-else>
               <select v-model="newFilter.value">
                 <option
-                  v-for="val in stats.get(newFilter.catagory).subStats"
+                  v-for="val in currentFilteredStat.get(newFilter.catagory)
+                    .subStats"
                   :key="val.id"
                   :value="val.name"
                   >{{ val.name }}</option
@@ -187,8 +188,11 @@ export default {
     };
   },
   computed: {
+    currentFilteredStat() {
+      return this.stats.getFiltered(false, this.currentFilters);
+    },
     climberStats() {
-      let stat = this.stats.getFiltered(false, this.currentFilters);
+      let stat = this.currentFilteredStat;
       let cStats = [{ name: "Total Ascents", value: stat.count }];
       if (this.initialized) {
         const da = this.dateAnalysis(stat);

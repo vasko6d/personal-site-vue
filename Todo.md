@@ -122,10 +122,11 @@ Ticklist
 
 - [ ] want to be able to edit, statpath, aggregator used.. delere, add new, view ascents.
 
-- [ ] filter for year (example) shoudl only show valie years. Im just showing all of root.
+- [x] filter for year (example) shoudl only show valie years. Im just showing all of root.
 - [ ] need to make filter object more maintainable......
 - [ ] prettier filter navigation
 - [ ] still want time series.. maybe include it as an option?
+- [ ] iclude range, value and value list!
 
 Lofty
 
