@@ -50,19 +50,23 @@
             v-for="catagory in Object.keys(currentFilters)"
             :key="catagory.id"
           >
-            {{ catagory }} = {{ currentFilters[catagory] }}
+            {{ catagory }} =
+            <select v-model="currentFilters[catagory]">
+              <option
+                v-for="val in stats.get(catagory).subStats"
+                :key="val.id"
+                :value="val.name"
+                >{{ val.name }}</option
+              > </select
+            >&nbsp;
+            <i class="fas fa-times icn" @click="clearFilters(catagory)"></i>
           </div>
         </div>
         <div class="b">Add New Filter:</div>
         <div>
           <span v-if="newFilter.catagory != ''">
             {{ newFilter.catagory }} >
-            <span v-if="newFilter.value != ''">
-              {{ newFilter.value }}
-              <i class="fas fa-check icn" @click="addFilter(newFilter)"></i
-              >&nbsp;
-            </span>
-            <span v-else>
+            <span>
               <select v-model="newFilter.value">
                 <option
                   v-for="val in currentFilteredStat.get(newFilter.catagory)
@@ -71,7 +75,11 @@
                   :value="val.name"
                   >{{ val.name }}</option
                 >
-              </select>
+              </select> </span
+            >&nbsp;
+            <span v-if="newFilter.value != ''">
+              <i class="fas fa-check icn" @click="addFilter(newFilter)"></i
+              >&nbsp;
             </span>
             <i
               class="fas fa-times icn"
@@ -95,7 +103,7 @@
     <div class="flex-row">
       <chart-handler
         v-show="!dynamicChart.opts.hideChart"
-        v-for="dynamicChart in charts.dynamic"
+        v-for="dynamicChart in computedCharts"
         :key="dynamicChart.id"
         :chart="dynamicChart"
       ></chart-handler>
@@ -132,7 +140,7 @@ export default {
         adhoc: [],
         dynamic: []
       },
-      filterable: ["area", "year", "recommend", "grade", "rating"],
+      filterBase: ["area", "year", "recommend", "grade", "rating"],
       newFilter: this.generateFilter(),
       currentFilters: {},
       aggregateFxns: {
@@ -191,6 +199,37 @@ export default {
     currentFilteredStat() {
       return this.stats.getFiltered(false, this.currentFilters);
     },
+    filterable() {
+      let ret = [];
+      for (const cat of this.filterBase) {
+        if (!this.currentFilters[cat]) {
+          ret.push(cat);
+        }
+      }
+      return ret;
+    },
+    computedCharts() {
+      // The dynamic part of "dynamic charts"
+      let compCharts = [];
+      for (let i = 0; i < this.charts.dynamic.length; i++) {
+        let dChart = this.charts.dynamic[i];
+        let cats = Object.keys(this.currentFilters);
+        let newOpts = dChart.opts;
+        let hideChart = false;
+        newOpts["filters"] = {};
+        if (cats.length > 0) {
+          for (let cat of cats) {
+            newOpts.filters[cat] = this.currentFilters[cat];
+            hideChart = hideChart || cat === dChart.statBase;
+          }
+        }
+        newOpts.hideChart = hideChart;
+        compCharts.push(
+          this.createChart(dChart.type, dChart.statBase, newOpts)
+        );
+      }
+      return compCharts;
+    },
     climberStats() {
       let stat = this.currentFilteredStat;
       let cStats = [{ name: "Total Ascents", value: stat.count }];
@@ -219,45 +258,15 @@ export default {
     }
   },
   methods: {
-    clearFilters() {
-      // Update Dynamic Charts
-      for (let i = 0; i < this.charts.dynamic.length; i++) {
-        let dChart = this.charts.dynamic[i];
-        let newOpts = dChart.opts;
-        newOpts.filters = {};
-        newOpts.hideChart = false;
-        this.charts.dynamic[i] = this.createChart(
-          dChart.type,
-          dChart.statBase,
-          newOpts
-        );
+    clearFilters(filterToClear) {
+      if (filterToClear) {
+        this.$delete(this.currentFilters, filterToClear);
+      } else {
+        this.currentFilters = {};
       }
-      this.currentFilters = {};
     },
     addFilter(filter) {
-      //this.currentFilters[filter.catagory] = filter.value;
       this.$set(this.currentFilters, filter.catagory, filter.value);
-      // Update Dynamic Charts
-      for (let i = 0; i < this.charts.dynamic.length; i++) {
-        let dChart = this.charts.dynamic[i];
-        if (dChart.statBase != filter.catagory) {
-          let newOpts = dChart.opts;
-          if (newOpts.filters) {
-            newOpts.filters[filter.catagory] = filter.value;
-          } else {
-            newOpts["filters"] = {};
-            newOpts.filters[filter.catagory] = filter.value;
-          }
-          this.charts.dynamic[i] = this.createChart(
-            dChart.type,
-            dChart.statBase,
-            newOpts
-          );
-        } else {
-          this.charts.dynamic[i].opts.hideChart = true;
-        }
-      }
-      // Reset new filter
       this.newFilter = this.generateFilter();
     },
     generateFilter() {
@@ -357,10 +366,12 @@ export default {
       });
     },
     addDynamicChart(chartType, statBase, opts) {
-      let dynamicChart = this.createChart(chartType, statBase, opts);
-      if (dynamicChart.chartData) {
-        this.charts.dynamic.push(dynamicChart);
-      }
+      let dynamicChart = {
+        type: chartType,
+        statBase: statBase,
+        opts: opts
+      };
+      this.charts.dynamic.push(dynamicChart);
     },
     createChart(chartType, statBase, opts) {
       let stat = this.stats.getFiltered(statBase, opts.filters);
