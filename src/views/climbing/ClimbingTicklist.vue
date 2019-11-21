@@ -1,64 +1,70 @@
 <template>
   <div class="table-container" id="boulder-scorecard">
     <h1>{{ climberName }}'s Ticklist</h1>
-    <climber-select baseURL="/climbing/ticklist/" />
-    <div>
-      <div class="b icn" @click="showColumnFlags = !showColumnFlags">
-        Column Select
-        <i
-          :class="{
-            fas: true,
-            'fa-angle-down': !showColumnFlags,
-            'fa-angle-up': showColumnFlags
-          }"
-        ></i>
+    <div class="flex-row">
+      <div class="chart bg1">
+        <climber-select baseURL="/climbing/ticklist/" />
       </div>
-      <div v-show="showColumnFlags" class="VuePagination col-opts">
-        <div>
-          <ul class="col-opt">
-            <li
-              :class="{ active: col.active }"
-              v-for="col in firstHalf"
-              :key="col.id"
-              @click="col.active = !col.active"
-            >
-              {{ options.headings[col.name] }}
-            </li>
-          </ul>
-          <ul class="col-opt">
-            <li
-              :class="{ active: col.active }"
-              v-for="col in secondHalf"
-              :key="col.id"
-              @click="col.active = !col.active"
-            >
-              {{ options.headings[col.name] }}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <v-client-table
-        ref="vuetable"
-        :columns="activeColumns"
-        :data="ascents"
-        :options="options"
-        @row-click="rowClick"
-      >
-        <div slot="date" slot-scope="props">
-          {{ props.row.date.replace(/-/g, "&#8209;") }}
-        </div>
-        <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
-        <div slot="flags" slot-scope="props">
-          {{ props.row.flags.join(", ") }}
-        </div>
-        <div slot="recommend" slot-scope="props">
-          <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
-        </div>
-        <div slot="comment" slot-scope="props">
-          <div class="left" v-html="props.row.comment"></div>
-        </div>
-      </v-client-table>
     </div>
+    <div class="flex-row">
+      <div class="chart bg1">
+        <div class="b icn" @click="showColumnFlags = !showColumnFlags">
+          Column Select
+          <i
+            :class="{
+              fas: true,
+              'fa-angle-down': !showColumnFlags,
+              'fa-angle-up': showColumnFlags
+            }"
+          ></i>
+        </div>
+        <div v-show="showColumnFlags" class="VuePagination col-opts">
+          <div>
+            <ul class="col-opt">
+              <li
+                :class="{ active: col.active }"
+                v-for="col in firstHalf"
+                :key="col.id"
+                @click="col.active = !col.active"
+              >
+                {{ options.headings[col.name] }}
+              </li>
+            </ul>
+            <ul class="col-opt">
+              <li
+                :class="{ active: col.active }"
+                v-for="col in secondHalf"
+                :key="col.id"
+                @click="col.active = !col.active"
+              >
+                {{ options.headings[col.name] }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <v-client-table
+      ref="vuetable"
+      :columns="activeColumns"
+      :data="ascents"
+      :options="options"
+      @row-click="rowClick"
+    >
+      <div slot="date" slot-scope="props">
+        {{ props.row.date.replace(/-/g, "&#8209;") }}
+      </div>
+      <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
+      <div slot="flags" slot-scope="props">
+        {{ props.row.flags.join(", ") }}
+      </div>
+      <div slot="recommend" slot-scope="props">
+        <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
+      </div>
+      <div slot="comment" slot-scope="props">
+        <div class="left" v-html="props.row.comment"></div>
+      </div>
+    </v-client-table>
   </div>
 </template>
 

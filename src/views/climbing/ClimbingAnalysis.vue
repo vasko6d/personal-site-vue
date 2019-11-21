@@ -1,7 +1,11 @@
 <template>
   <div id="ticklist-analysis">
     <h1>{{ climberName }}'s Scorecard Analysis</h1>
-    <climber-select baseURL="/climbing/analytics/" />
+    <div class="flex-row">
+      <div class="chart bg1">
+        <climber-select baseURL="/climbing/analytics/" />
+      </div>
+    </div>
     <div class="flex-row">
       <div class="chart bg1">
         <h2>Climber Stats</h2>
@@ -15,31 +19,11 @@
         </div>
       </div>
       <div class="chart bg1">
-        <h2>
-          Filters
-          <i class="fas fa-eraser icn" @click="clearFilters()"></i>
-        </h2>
-        <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
-          <div class="flex-row">
-            <span class="filter-txt">{{ catagory }} =</span>
-            <select class="filter-drop" v-model="currentFilters[catagory]">
-              <option :value="null">All</option>
-              <option
-                v-for="val in (currentFilters[catagory]
-                  ? stats
-                  : currentFilteredStat
-                ).get(catagory).subStats"
-                :key="val.id"
-                :value="val.name"
-                >{{ val.name }}</option
-              > </select
-            >&nbsp;
-            <i
-              class="fas fa-eraser icn filter-txt"
-              @click="clearFilters(catagory)"
-            ></i>
-          </div>
-        </div>
+        <stat-filter
+          :currentFilters="currentFilters"
+          :stats="stats"
+          @clearFilters="clearFilters"
+        />
       </div>
     </div>
     <h2>Dynamic Charts</h2>
@@ -68,10 +52,12 @@ import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import ChartHandler from "@/components/charts/ChartHandler.vue";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
+import StatFilter from "@/components/climbing/StatFilter.vue";
 export default {
   components: {
     ChartHandler,
-    ClimberSelect
+    ClimberSelect,
+    StatFilter
   },
   mixins: [Utils],
   props: {
@@ -392,29 +378,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";
-.chart {
-  width: 390px;
-  @media only screen and (max-width: 700px) {
-    width: 90%;
-  }
-  margin: 5px;
-  padding: 10px;
-  margin-bottom: 0.5em;
-}
-.filter-txt {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.filter-drop {
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-.flex-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 .stat-name {
   font-weight: bold;
 }
