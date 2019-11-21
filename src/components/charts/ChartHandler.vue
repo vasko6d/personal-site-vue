@@ -1,5 +1,5 @@
 <template>
-  <div class="chart bg1">
+  <div class="chart bg1" v-if="showChart">
     <h2>{{ chart.title }}</h2>
     <div v-if="chart.subtitle">{{ chart.subtitle }}</div>
     <div v-if="chart.type === 'pie'">
@@ -21,6 +21,15 @@ export default {
   },
   props: {
     chart: Object
+  },
+  computed: {
+    showChart() {
+      return !(
+        this.chart.opts &&
+        this.chart.opts.filters &&
+        this.chart.opts.filters[this.chart.statBase]
+      );
+    }
   }
 };
 </script>

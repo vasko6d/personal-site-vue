@@ -95,11 +95,13 @@ export default class Stat {
   getFiltered(base, filters) {
     let stat = this;
     if (filters && Object.keys(filters).length > 0) {
-      for (const filter of Object.keys(filters)) {
-        //console.log("> Filter: " + filter);
-        stat = stat.get(filter);
-        //console.log("> Value: " + filters[filter]);
-        stat = stat.get(filters[filter], true, false);
+      for (const cat of Object.keys(filters)) {
+        if (filters[cat]) {
+          //console.log("> Filter: " + filter);
+          stat = stat.get(cat);
+          //console.log("> Value: " + filters[filter]);
+          stat = stat.get(filters[cat], true, false);
+        }
       }
     }
     if (base) {

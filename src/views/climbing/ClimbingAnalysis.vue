@@ -28,7 +28,7 @@
 
     <div class="flex-row">
       <div class="chart bg1">
-        <h2>Climber Stats:</h2>
+        <h2>Climber Stats</h2>
         <div class="flex-row">
           <table class="climber-stats">
             <tr v-for="cStat in climberStats" :key="cStat.id">
@@ -39,63 +39,30 @@
         </div>
       </div>
       <div class="chart bg1">
-        <h2>Filters:</h2>
-        <div class="b">
-          Current Filters:&nbsp;
+        <h2>
+          Filters
           <i class="fas fa-eraser icn" @click="clearFilters()"></i>
-        </div>
-        <div v-if="Object.keys(currentFilters).length === 0">none</div>
-        <div v-else>
-          <div
-            v-for="catagory in Object.keys(currentFilters)"
-            :key="catagory.id"
-          >
-            {{ catagory }} =
-            <select v-model="currentFilters[catagory]">
+        </h2>
+        <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
+          <div class="flex-row">
+            <span class="filter-txt">{{ catagory }} =</span>
+            <select class="filter-drop" v-model="currentFilters[catagory]">
+              <option :value="null">All</option>
               <option
-                v-for="val in stats.get(catagory).subStats"
+                v-for="val in (currentFilters[catagory]
+                  ? stats
+                  : currentFilteredStat
+                ).get(catagory).subStats"
                 :key="val.id"
                 :value="val.name"
                 >{{ val.name }}</option
               > </select
             >&nbsp;
-            <i class="fas fa-times icn" @click="clearFilters(catagory)"></i>
-          </div>
-        </div>
-        <div class="b">Add New Filter:</div>
-        <div>
-          <span v-if="newFilter.catagory != ''">
-            {{ newFilter.catagory }} >
-            <span>
-              <select v-model="newFilter.value">
-                <option
-                  v-for="val in currentFilteredStat.get(newFilter.catagory)
-                    .subStats"
-                  :key="val.id"
-                  :value="val.name"
-                  >{{ val.name }}</option
-                >
-              </select> </span
-            >&nbsp;
-            <span v-if="newFilter.value != ''">
-              <i class="fas fa-check icn" @click="addFilter(newFilter)"></i
-              >&nbsp;
-            </span>
             <i
-              class="fas fa-times icn"
-              @click="newFilter = generateFilter()"
+              class="fas fa-eraser icn filter-txt"
+              @click="clearFilters(catagory)"
             ></i>
-          </span>
-          <span v-else>
-            <select v-model="newFilter.catagory">
-              <option
-                v-for="filter in filterable"
-                :key="filter.id"
-                :value="filter"
-                >{{ filter }}</option
-              >
-            </select>
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -121,7 +88,6 @@
 </template>
 
 <script>
-const ALLAREAS = "All Areas";
 import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import ChartHandler from "@/components/charts/ChartHandler.vue";
@@ -142,7 +108,13 @@ export default {
       },
       filterBase: ["area", "year", "recommend", "grade", "rating"],
       newFilter: this.generateFilter(),
-      currentFilters: {},
+      currentFilters: {
+        area: null,
+        year: null,
+        recommend: null,
+        grade: null,
+        rating: null
+      },
       aggregateFxns: {
         avg(subName) {
           return stat => {
@@ -172,7 +144,6 @@ export default {
         }
       },
       stats: new Stat("ascents"),
-      currentArea: ALLAREAS,
       showClimbers: false,
       initialized: false,
       importedClimbers: [
@@ -213,17 +184,8 @@ export default {
       let compCharts = [];
       for (let i = 0; i < this.charts.dynamic.length; i++) {
         let dChart = this.charts.dynamic[i];
-        let cats = Object.keys(this.currentFilters);
         let newOpts = dChart.opts;
-        let hideChart = false;
-        newOpts["filters"] = {};
-        if (cats.length > 0) {
-          for (let cat of cats) {
-            newOpts.filters[cat] = this.currentFilters[cat];
-            hideChart = hideChart || cat === dChart.statBase;
-          }
-        }
-        newOpts.hideChart = hideChart;
+        newOpts["filters"] = this.currentFilters;
         compCharts.push(
           this.createChart(dChart.type, dChart.statBase, newOpts)
         );
@@ -258,11 +220,13 @@ export default {
     }
   },
   methods: {
-    clearFilters(filterToClear) {
-      if (filterToClear) {
-        this.$delete(this.currentFilters, filterToClear);
+    clearFilters(catToClear) {
+      if (catToClear) {
+        this.$set(this.currentFilters, catToClear, null);
       } else {
-        this.currentFilters = {};
+        for (const cat of Object.keys(this.currentFilters)) {
+          this.$set(this.currentFilters, cat, null);
+        }
       }
     },
     addFilter(filter) {
@@ -489,11 +453,18 @@ export default {
   @media only screen and (max-width: 700px) {
     width: 90%;
   }
-  //border: 2px solid;
-  //border-radius: 0.5em;
   margin: 5px;
   padding: 10px;
   margin-bottom: 0.5em;
+}
+.filter-txt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.filter-drop {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 .flex-row {
   display: flex;
