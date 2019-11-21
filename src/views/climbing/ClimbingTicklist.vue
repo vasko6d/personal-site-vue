@@ -1,8 +1,9 @@
 <template>
   <div class="table-container" id="boulder-scorecard">
     <h1>{{ climberName }}'s Ticklist</h1>
+    <climber-select baseURL="/climbing/ticklist/" />
     <div>
-      <div class="opt-header icn" @click="showColumnFlags = !showColumnFlags">
+      <div class="b icn" @click="showColumnFlags = !showColumnFlags">
         Column Select
         <i
           :class="{
@@ -63,7 +64,11 @@
 
 <script>
 import Utils from "@/mixins/Utils.js";
+import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 export default {
+  components: {
+    ClimberSelect
+  },
   mixins: [Utils],
   props: {
     sandboxId: String

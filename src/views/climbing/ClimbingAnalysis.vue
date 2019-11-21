@@ -1,31 +1,7 @@
 <template>
   <div id="ticklist-analysis">
     <h1>{{ climberName }}'s Scorecard Analysis</h1>
-    <div>
-      <div class="icn b" @click="showClimbers = !showClimbers">
-        Climber Select
-        <i
-          :class="{
-            fas: true,
-            'fa-angle-down': !showClimbers,
-            'fa-angle-up': showClimbers
-          }"
-        ></i>
-      </div>
-    </div>
-    <div v-show="showClimbers" class="flex-row">
-      <ul style="list-style-type:none ">
-        <li
-          class="icn"
-          @click="navigate(climber.sandboxId)"
-          v-for="climber in importedClimbers"
-          :key="climber.id"
-        >
-          {{ climber.name }}
-        </li>
-      </ul>
-    </div>
-
+    <climber-select baseURL="/climbing/analytics/" />
     <div class="flex-row">
       <div class="chart bg1">
         <h2>Climber Stats</h2>
@@ -91,9 +67,11 @@
 import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import ChartHandler from "@/components/charts/ChartHandler.vue";
+import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 export default {
   components: {
-    ChartHandler
+    ChartHandler,
+    ClimberSelect
   },
   mixins: [Utils],
   props: {
@@ -106,8 +84,6 @@ export default {
         adhoc: [],
         dynamic: []
       },
-      filterBase: ["area", "year", "recommend", "grade", "rating"],
-      newFilter: this.generateFilter(),
       currentFilters: {
         area: null,
         year: null,
@@ -145,39 +121,12 @@ export default {
       },
       stats: new Stat("ascents"),
       showClimbers: false,
-      initialized: false,
-      importedClimbers: [
-        {
-          name: "Chase Yamashiro",
-          sandboxId: "chase-yamashiro"
-        },
-        { name: "David Vasko", sandboxId: "david-vasko" },
-        { name: "Scott Baron", sandboxId: "scott-baron" },
-        {
-          name: "Nathaniel Cushing-Murray",
-          sandboxId: "nathaniel-cushing-murray"
-        },
-        { name: "Drew Gomberg", sandboxId: "drew-gomberg" },
-        {
-          name: "Daniel Fineman",
-          sandboxId: "daniel-fineman"
-        },
-        { name: "Daniel Fong", sandboxId: "daniel-fong" }
-      ]
+      initialized: false
     };
   },
   computed: {
     currentFilteredStat() {
       return this.stats.getFiltered(false, this.currentFilters);
-    },
-    filterable() {
-      let ret = [];
-      for (const cat of this.filterBase) {
-        if (!this.currentFilters[cat]) {
-          ret.push(cat);
-        }
-      }
-      return ret;
     },
     computedCharts() {
       // The dynamic part of "dynamic charts"
@@ -242,11 +191,6 @@ export default {
         valueType: "",
         aggregator: false
       };
-    },
-    navigate(sandboxId) {
-      if (this.sandboxId != sandboxId) {
-        this.$router.push("/climbing/analytics/" + sandboxId);
-      }
     },
     dateAnalysis(stat) {
       let dates = Object.keys(stat.get("date").subStats);
