@@ -1,5 +1,5 @@
 <template>
-  <div class="table-container" id="boulder-scorecard">
+  <div id="boulder-scorecard">
     <h1>{{ climberName }}'s Ticklist</h1>
     <div class="flex-row">
       <div class="chart bg1">
@@ -20,20 +20,11 @@
         </div>
         <div v-show="showColumnFlags" class="VuePagination col-opts">
           <div>
-            <ul class="col-opt">
+            <ul class="flex-row">
               <li
                 :class="{ active: col.active }"
-                v-for="col in firstHalf"
-                :key="col.id"
-                @click="col.active = !col.active"
-              >
-                {{ options.headings[col.name] }}
-              </li>
-            </ul>
-            <ul class="col-opt">
-              <li
-                :class="{ active: col.active }"
-                v-for="col in secondHalf"
+                class="col-btn"
+                v-for="col in columns"
                 :key="col.id"
                 @click="col.active = !col.active"
               >
@@ -44,27 +35,29 @@
         </div>
       </div>
     </div>
-    <v-client-table
-      ref="vuetable"
-      :columns="activeColumns"
-      :data="ascents"
-      :options="options"
-      @row-click="rowClick"
-    >
-      <div slot="date" slot-scope="props">
-        {{ props.row.date.replace(/-/g, "&#8209;") }}
-      </div>
-      <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
-      <div slot="flags" slot-scope="props">
-        {{ props.row.flags.join(", ") }}
-      </div>
-      <div slot="recommend" slot-scope="props">
-        <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
-      </div>
-      <div slot="comment" slot-scope="props">
-        <div class="left" v-html="props.row.comment"></div>
-      </div>
-    </v-client-table>
+    <div class="table-container">
+      <v-client-table
+        ref="vuetable"
+        :columns="activeColumns"
+        :data="ascents"
+        :options="options"
+        @row-click="rowClick"
+      >
+        <div slot="date" slot-scope="props">
+          {{ props.row.date.replace(/-/g, "&#8209;") }}
+        </div>
+        <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
+        <div slot="flags" slot-scope="props">
+          {{ props.row.flags.join(", ") }}
+        </div>
+        <div slot="recommend" slot-scope="props">
+          <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
+        </div>
+        <div slot="comment" slot-scope="props">
+          <div class="left" v-html="props.row.comment"></div>
+        </div>
+      </v-client-table>
+    </div>
   </div>
 </template>
 
@@ -173,24 +166,6 @@ export default {
       }
       return ret;
     },
-    firstHalf() {
-      let ret = [];
-      for (let i = 0; i < Math.floor(this.columns.length / 2); i++) {
-        ret.push(this.columns[i]);
-      }
-      return ret;
-    },
-    secondHalf() {
-      let ret = [];
-      for (
-        let i = Math.floor(this.columns.length / 2);
-        i < this.columns.length;
-        i++
-      ) {
-        ret.push(this.columns[i]);
-      }
-      return ret;
-    },
     climberName() {
       return this.kebabToCap(this.sandboxId);
     }
@@ -233,16 +208,5 @@ export default {
     text-align: left;
   }
   overflow-x: auto;
-  .col-opts {
-    display: flex;
-    justify-content: center;
-    .col-opt {
-      display: flex;
-      li {
-        flex-grow: 1;
-        flex-shrink: 1;
-      }
-    }
-  }
 }
 </style>
