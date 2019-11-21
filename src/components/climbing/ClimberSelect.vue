@@ -36,11 +36,12 @@ export default {
     return {
       showClimbers: false,
       importedClimbers: [
+        { name: "David Vasko", sandboxId: "david-vasko" },
         {
           name: "Chase Yamashiro",
           sandboxId: "chase-yamashiro"
         },
-        { name: "David Vasko", sandboxId: "david-vasko" },
+        { name: "Akhil Mauze", sandboxId: "akhil-mauze" },
         { name: "Scott Baron", sandboxId: "scott-baron" },
         {
           name: "Nathaniel Cushing-Murray",
