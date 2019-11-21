@@ -8,6 +8,15 @@
     </div>
     <div class="flex-row">
       <div class="chart bg1">
+        <stat-filter
+          :currentFilters="currentFilters"
+          :stats="stats"
+          @clearFilters="clearFilters"
+        />
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="chart bg1">
         <div class="b icn" @click="showColumnFlags = !showColumnFlags">
           Column Select
           <i
@@ -39,7 +48,7 @@
       <v-client-table
         ref="vuetable"
         :columns="activeColumns"
-        :data="ascents"
+        :data="currentFilteredStat.values"
         :options="options"
         @row-click="rowClick"
       >
@@ -63,10 +72,13 @@
 
 <script>
 import Utils from "@/mixins/Utils.js";
+import Stat from "@/mixins/Stat.js";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
+import StatFilter from "@/components/climbing/StatFilter.vue";
 export default {
   components: {
-    ClimberSelect
+    ClimberSelect,
+    StatFilter
   },
   mixins: [Utils],
   props: {
@@ -75,7 +87,14 @@ export default {
   data() {
     return {
       showColumnFlags: false,
-      ascents: [],
+      stats: new Stat("ascents", ["comment"]),
+      currentFilters: {
+        area: null,
+        year: null,
+        recommend: null,
+        grade: null,
+        rating: null
+      },
       columns: [
         { name: "date", active: true },
         { name: "type", active: false },
@@ -168,18 +187,33 @@ export default {
     },
     climberName() {
       return this.kebabToCap(this.sandboxId);
+    },
+    currentFilteredStat() {
+      return this.stats.getFiltered(false, this.currentFilters);
     }
   },
   mounted() {
     this.fetchData(this.sandboxId)
       .then(result => {
-        this.ascents = result.data;
+        let ascents = result.data;
+        this.stats = new Stat("ascents", ["comment"]);
+        this.stats.goDeeper(ascents);
+        console.log("Ticklist: ", this.stats);
       })
       .catch(error => {
         window.alert(error.msg);
       });
   },
   methods: {
+    clearFilters(catToClear) {
+      if (catToClear) {
+        this.$set(this.currentFilters, catToClear, null);
+      } else {
+        for (const cat of Object.keys(this.currentFilters)) {
+          this.$set(this.currentFilters, cat, null);
+        }
+      }
+    },
     rowClick(e) {
       let url = new URL(
         "https://www.8a.nu/scorecard/Search.aspx?SearchType=ASCENTS"

@@ -105,7 +105,7 @@ export default {
           };
         }
       },
-      stats: new Stat("ascents"),
+      stats: new Stat("ascents", ["comment"]),
       showClimbers: false,
       initialized: false
     };
@@ -254,7 +254,7 @@ export default {
     initializeStats() {
       this.stats = new Stat("ascents", ["comment"]);
       this.stats.goDeeper(this.ascents);
-      console.log(this.stats);
+      console.log("Analytics: ", this.stats);
       return new Promise(resolve => {
         resolve();
       });

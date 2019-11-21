@@ -1,28 +1,44 @@
 <template>
   <div class="stat-filter">
     <h2>
-      Filters
-      <i class="fas fa-eraser icn" @click="$emit('clearFilters')"></i>
+      Filters&nbsp;
+      <i
+        :class="{
+          fas: true,
+          icn: true,
+          'fa-angle-down': !showFilters,
+          'fa-angle-up': showFilters
+        }"
+        @click="showFilters = !showFilters"
+      ></i
+      >&nbsp;
+      <i
+        v-show="showFilters"
+        class="fas fa-eraser icn"
+        @click="$emit('clearFilters')"
+      ></i>
     </h2>
-    <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
-      <div class="flex-row">
-        <span class="filter-txt">{{ catagory }} =</span>
-        <select class="filter-drop" v-model="currentFilters[catagory]">
-          <option :value="null">All</option>
-          <option
-            v-for="val in (currentFilters[catagory]
-              ? stats
-              : currentFilteredStat
-            ).get(catagory).subStats"
-            :key="val.id"
-            :value="val.name"
-            >{{ val.name }}</option
-          > </select
-        >&nbsp;
-        <i
-          class="fas fa-eraser icn filter-txt"
-          @click="$emit('clearFilters', catagory)"
-        ></i>
+    <div v-show="showFilters">
+      <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
+        <div class="flex-row">
+          <span class="filter-txt">{{ catagory }} =</span>
+          <select class="filter-drop" v-model="currentFilters[catagory]">
+            <option :value="null">All</option>
+            <option
+              v-for="val in (currentFilters[catagory]
+                ? stats
+                : currentFilteredStat
+              ).get(catagory).subStats"
+              :key="val.id"
+              :value="val.name"
+              >{{ val.name }}</option
+            > </select
+          >&nbsp;
+          <i
+            class="fas fa-eraser icn filter-txt"
+            @click="$emit('clearFilters', catagory)"
+          ></i>
+        </div>
       </div>
     </div>
   </div>
@@ -31,6 +47,11 @@
 <script>
 import Stat from "@/mixins/Stat.js";
 export default {
+  data() {
+    return {
+      showFilters: true
+    };
+  },
   props: {
     currentFilters: Object,
     stats: Stat
