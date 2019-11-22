@@ -63,7 +63,11 @@
           <tr v-if="chartType != 'grade'">
             <td class="b">Type</td>
             <td>
-              <select v-model="chartType" @change="changeChartType()">
+              <select
+                v-model="chartType"
+                @change="changeChartType()"
+                style="font-size: 16px;"
+              >
                 <option value="pie">Pie</option>
                 <option value="bar">Bar</option>
               </select>
@@ -74,7 +78,7 @@
     </div>
     <div v-else-if="viewType === 'ascents'">
       <div>Ascents</div>
-      <select v-model="subCatagory">
+      <select v-model="subCatagory" style="font-size: 16px;">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option
           v-for="cat in catStats.subStats"
@@ -139,6 +143,7 @@ export default {
   methods: {
     changeChartType() {
       this.$emit("changeChartType", this.chartType);
+      this.viewType = "chart";
     }
   },
   mounted() {

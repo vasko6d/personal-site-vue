@@ -153,24 +153,6 @@ export default {
     },
     changeChartType(type, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex], "type", type);
-
-      this.charts.dynamic[chartIndex].opts["chartOpts"] = this.computedCharts[
-        chartIndex
-      ].chartOpts;
-
-      switch (type) {
-        case "pie":
-          this.$set(this.charts.dynamic[chartIndex].opts.chartOpts, "legend", {
-            display:
-              this.computedCharts[chartIndex].chartData.labels.length < 20
-          }); // Might be better to do this in chart creation?
-          break;
-        case "bar":
-          this.$set(this.charts.dynamic[chartIndex].opts.chartOpts, "legend", {
-            display: false
-          });
-          break;
-      }
     },
     clearFilters(catToClear) {
       if (catToClear) {
@@ -313,6 +295,11 @@ export default {
               return colorMap;
             },
             {});
+          // Disable legend on pie if more than 20 entries
+          dynamicChart.chartOpts.legend = {
+            display:
+              chartType === "pie" && dynamicChart.chartData.labels.length < 20
+          };
           //console.log(dynamicChart);
           break;
         case "grade":
@@ -347,21 +334,15 @@ export default {
             chartOpts: gradeOpts
           });
           // Area Counts
-          let areaOpts = this.defaultChartOpts();
-          areaOpts["legend"] = { display: false };
           this.addDynamicChart("pie", "area", {
             title: "Ascents per Area",
-            chartOpts: areaOpts,
             subtitleFxn: stat => {
               return stat.count + " Ascents, " + stat.subStatCount() + " Areas";
             }
           });
           // year counts
-          let yearOpts = this.defaultChartOpts();
-          yearOpts["legend"] = { display: false };
           this.addDynamicChart("bar", "year", {
             title: "Ascents by year",
-            chartOpts: yearOpts,
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
