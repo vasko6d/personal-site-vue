@@ -1,15 +1,17 @@
 <template>
   <div>
     <div>
-      <div class="icn b" @click="showClimbers = !showClimbers">
-        Climber Select
-        <i
-          :class="{
-            fas: true,
-            'fa-angle-down': !showClimbers,
-            'fa-angle-up': showClimbers
-          }"
-        ></i>
+      <div class="b">
+        <span class="icn" @click="showClimbers = !showClimbers">
+          Climber Select
+          <i
+            :class="{
+              fas: true,
+              'fa-angle-down': !showClimbers,
+              'fa-angle-up': showClimbers
+            }"
+          ></i>
+        </span>
       </div>
     </div>
     <div v-show="showClimbers" class="flex-row">

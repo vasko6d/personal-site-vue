@@ -10,9 +10,9 @@
       <div class="chart bg1">
         <h2>Climber Stats</h2>
         <div class="flex-row">
-          <table class="climber-stats">
+          <table class="basic-table">
             <tr v-for="cStat in climberStats" :key="cStat.id">
-              <td class="stat-name">{{ cStat.name }}</td>
+              <td class="b">{{ cStat.name }}</td>
               <td>{{ cStat.value }}</td>
             </tr>
           </table>
@@ -33,6 +33,8 @@
         v-for="dynamicChart in computedCharts"
         :key="dynamicChart.id"
         :chart="dynamicChart"
+        :stats="currentFilteredStat"
+        @close="closeChart(dynamicChart)"
       ></chart-handler>
     </div>
     <!--
@@ -155,6 +157,9 @@ export default {
     }
   },
   methods: {
+    closeChart(chart) {
+      this.$set(chart.opts, "hideChart", true);
+    },
     clearFilters(catToClear) {
       if (catToClear) {
         this.$set(this.currentFilters, catToClear, null);
@@ -378,14 +383,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";
-.stat-name {
-  font-weight: bold;
-}
-.climber-stats {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 #ticklist-analysis {
   max-width: 1400px;
   display: inline-block;

@@ -2,44 +2,49 @@
   <div id="boulder-scorecard">
     <h1>{{ climberName }}'s Ticklist</h1>
     <div class="flex-row">
-      <div class="chart bg1">
-        <climber-select baseURL="/climbing/ticklist/" />
-      </div>
-    </div>
-    <div class="flex-row">
-      <div class="chart bg1">
-        <stat-filter
-          :currentFilters="currentFilters"
-          :stats="stats"
-          @clearFilters="clearFilters"
-        />
-      </div>
-    </div>
-    <div class="flex-row">
-      <div class="chart bg1">
-        <div class="b icn" @click="showColumnFlags = !showColumnFlags">
-          Column Select
-          <i
-            :class="{
-              fas: true,
-              'fa-angle-down': !showColumnFlags,
-              'fa-angle-up': showColumnFlags
-            }"
-          ></i>
+      <div>
+        <div class="chart bg1">
+          <climber-select baseURL="/climbing/ticklist/" />
         </div>
-        <div v-show="showColumnFlags" class="VuePagination col-opts">
-          <div>
-            <ul class="flex-row">
-              <li
-                :class="{ active: col.active }"
-                class="col-btn"
-                v-for="col in columns"
-                :key="col.id"
-                @click="col.active = !col.active"
-              >
-                {{ options.headings[col.name] }}
-              </li>
-            </ul>
+      </div>
+      <div>
+        <div class="chart bg1">
+          <stat-filter
+            :currentFilters="currentFilters"
+            :stats="stats"
+            :startExpanded="false"
+            @clearFilters="clearFilters"
+          />
+        </div>
+      </div>
+      <div>
+        <div class="chart bg1">
+          <div class="b">
+            <span class="icn" @click="showColumnFlags = !showColumnFlags">
+              Column Select
+              <i
+                :class="{
+                  fas: true,
+                  'fa-angle-down': !showColumnFlags,
+                  'fa-angle-up': showColumnFlags
+                }"
+              ></i>
+            </span>
+          </div>
+          <div v-show="showColumnFlags" class="VuePagination col-opts">
+            <div>
+              <ul class="flex-row">
+                <li
+                  :class="{ active: col.active }"
+                  class="col-btn"
+                  v-for="col in columns"
+                  :key="col.id"
+                  @click="col.active = !col.active"
+                >
+                  {{ options.headings[col.name] }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -1,23 +1,22 @@
 <template>
   <div class="stat-filter">
-    <h2>
-      Filters&nbsp;
-      <i
-        :class="{
-          fas: true,
-          icn: true,
-          'fa-angle-down': !showFilters,
-          'fa-angle-up': showFilters
-        }"
-        @click="showFilters = !showFilters"
-      ></i
+    <div class="b">
+      <span class="icn" @click="showFilters = !showFilters">
+        Filters
+        <i
+          :class="{
+            fas: true,
+            'fa-angle-down': !showFilters,
+            'fa-angle-up': showFilters
+          }"
+        ></i> </span
       >&nbsp;
       <i
         v-show="showFilters"
         class="fas fa-eraser icn"
         @click="$emit('clearFilters')"
       ></i>
-    </h2>
+    </div>
     <div v-show="showFilters">
       <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
         <div class="flex-row">
@@ -54,12 +53,19 @@ export default {
   },
   props: {
     currentFilters: Object,
-    stats: Stat
+    stats: Stat,
+    startExpanded: {
+      type: Boolean,
+      default: true
+    }
   },
   computed: {
     currentFilteredStat() {
       return this.stats.getFiltered(false, this.currentFilters);
     }
+  },
+  mounted() {
+    this.showFilters = this.startExpanded;
   }
 };
 </script>

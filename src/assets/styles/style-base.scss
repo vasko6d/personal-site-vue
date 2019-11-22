@@ -203,7 +203,7 @@
     }
   }
 
-  .climber-stats {
+  .basic-table {
     tr:nth-child(even) {
       background-color: rgba($bg-clr, 0.4);
     }
@@ -247,6 +247,10 @@
     }
   }
 
+  .icn-a {
+    color: lighten($nav-txt, 20%);
+  }
+
   .flex-row {
     display: flex;
     flex-wrap: wrap;
@@ -261,10 +265,23 @@
     margin: 5px;
     padding: 10px;
     margin-bottom: 0.5em;
+    max-height: 500px;
+    overflow-y: auto;
   }
 
   .b {
     font-weight: bold;
+  }
+
+  .td-lim {
+    max-width: 70px;
+    overflow-x: auto;
+  }
+
+  .basic-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
   }
 
   background: radial-gradient($bg-clr-2 6%, transparent 6%), darken($bg-clr, 2%);
