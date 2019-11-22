@@ -21,16 +21,20 @@
       <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
         <div class="flex-row">
           <span class="filter-txt">{{ catagory }} =</span>
-          <select class="filter-drop" v-model="currentFilters[catagory]">
+          <select
+            class="filter-drop"
+            v-model="currentFilters[catagory]"
+            style="font-size: 16px;"
+          >
             <option :value="null">All</option>
             <option
-              v-for="val in (currentFilters[catagory]
+              v-for="val in (currentFilters[catagory] != null
                 ? stats
                 : currentFilteredStat
               ).get(catagory).subStats"
               :key="val.id"
               :value="val.name"
-              >{{ val.name }}</option
+              >{{ truncateString(val.name.toString(), 17) }}</option
             > </select
           >&nbsp;
           <i
@@ -62,6 +66,14 @@ export default {
   computed: {
     currentFilteredStat() {
       return this.stats.getFiltered(false, this.currentFilters);
+    }
+  },
+  methods: {
+    truncateString(str, num) {
+      if (str.length <= num) {
+        return str;
+      }
+      return str.slice(0, num) + "...";
     }
   },
   mounted() {

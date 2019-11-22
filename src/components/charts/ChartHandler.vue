@@ -8,6 +8,7 @@
             'icn-a': viewType === 'ascents'
           }"
           @click="viewType = 'ascents'"
+          v-tooltip="'Show Ascents'"
         ></i
         >&nbsp;|&nbsp;
         <i
@@ -16,6 +17,7 @@
             'icn-a': viewType === 'settings'
           }"
           @click="viewType = 'settings'"
+          v-tooltip="'Settings'"
         ></i
         >&nbsp;|&nbsp;
         <i
@@ -27,9 +29,14 @@
             'icn-a': viewType === 'chart'
           }"
           @click="viewType = 'chart'"
+          v-tooltip="'Show Chart'"
         ></i>
         <span class="middle"></span>
-        <i class="fas fa-window-close icn" @click="$emit('close')"></i>
+        <i
+          class="fas fa-window-close icn"
+          @click="$emit('close')"
+          v-tooltip="'Discard Chart'"
+        ></i>
       </div>
     </div>
     <h2>{{ chart.title }}</h2>
@@ -63,6 +70,7 @@
     <div v-else-if="viewType === 'ascents'">
       <div>Ascents</div>
       <select v-model="subCatagory">
+        <option :value="null">Select {{ chart.statBase }}</option>
         <option
           v-for="cat in catStats.subStats"
           :key="cat.id"

@@ -96,7 +96,7 @@ export default class Stat {
     let stat = this;
     if (filters && Object.keys(filters).length > 0) {
       for (const cat of Object.keys(filters)) {
-        if (filters[cat]) {
+        if (filters[cat] != null) {
           //console.log("> Filter: " + filter);
           stat = stat.get(cat);
           //console.log("> Value: " + filters[filter]);
