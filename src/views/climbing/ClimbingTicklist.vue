@@ -2,13 +2,13 @@
   <div id="boulder-scorecard">
     <h1>{{ climberName }}'s Ticklist</h1>
     <div class="flex-row">
-      <div>
-        <div class="chart bg1">
+      <div class="chart-w">
+        <div class="chart-p bg1">
           <climber-select baseURL="/climbing/ticklist/" />
         </div>
       </div>
-      <div>
-        <div class="chart bg1">
+      <div class="chart-w">
+        <div class="chart-p bg1">
           <stat-filter
             :currentFilters="currentFilters"
             :stats="stats"
@@ -17,8 +17,8 @@
           />
         </div>
       </div>
-      <div>
-        <div class="chart bg1">
+      <div class="chart-w">
+        <div class="chart-p bg1">
           <div class="b">
             <span class="icn" @click="showColumnFlags = !showColumnFlags">
               Column Select

@@ -70,7 +70,7 @@
           >{{ cat.name }}</option
         >
       </select>
-      <div style="margin-left: 5%;" v-if="subCatagory">
+      <div style="margin-left: 5%;" v-if="subCatagory != null">
         <ul style="text-align: left;">
           <li v-for="ascent in ascents" :key="ascent.id">
             <span class="b">{{ ascent.name }}</span>
@@ -116,7 +116,7 @@ export default {
     },
     ascents() {
       let a = [];
-      if (this.subCatagory) {
+      if (this.subCatagory != null) {
         a = this.catStats.get(this.subCatagory).values;
       }
       return a;

@@ -29,7 +29,6 @@
     <h2>Dynamic Charts</h2>
     <div class="flex-row">
       <chart-handler
-        v-show="!dynamicChart.opts.hideChart"
         v-for="dynamicChart in computedCharts"
         :key="dynamicChart.id"
         :chart="dynamicChart"
@@ -37,15 +36,6 @@
         @close="closeChart(dynamicChart)"
       ></chart-handler>
     </div>
-    <!--
-    <h2>Adhoc Charts:</h2>
-    <div class="flex-row">
-      <div class="chart icn bg1">
-        <h2>...add new chart</h2>
-        <i class="fas fa-plus fa-7x"></i>
-      </div>
-    </div>
-    -->
   </div>
 </template>
 
