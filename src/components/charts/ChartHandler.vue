@@ -23,9 +23,9 @@
         <i
           class="fas icn"
           :class="{
-            'fa-chart-line': chart.type === 'line',
-            'fa-chart-pie': chart.type === 'pie',
-            'fa-chart-bar': chart.type === 'grade' || chart.type === 'bar',
+            'fa-chart-line': chartType === 'line',
+            'fa-chart-pie': chartType === 'pie',
+            'fa-chart-bar': chartType === 'bar' || chartType === 'grade',
             'icn-a': viewType === 'chart'
           }"
           @click="viewType = 'chart'"
@@ -48,7 +48,7 @@
           :options="chart.chartOpts"
         />
       </div>
-      <div v-else-if="chart.type === 'grade'">
+      <div v-else-if="chart.type === 'grade' || chart.type === 'bar'">
         <bar-graph :chartData="chart.chartData" :options="chart.chartOpts" />
       </div>
     </div>
@@ -60,9 +60,14 @@
             <td class="b">Title</td>
             <td>{{ chart.opts.title }}</td>
           </tr>
-          <tr>
+          <tr v-if="chartType != 'grade'">
             <td class="b">Type</td>
-            <td>{{ chart.type }}</td>
+            <td>
+              <select v-model="chartType" @change="changeChartType()">
+                <option value="pie">Pie</option>
+                <option value="bar">Bar</option>
+              </select>
+            </td>
           </tr>
         </table>
       </div>
@@ -107,6 +112,7 @@ export default {
     return {
       // chart, settings, ascents
       viewType: "chart",
+      chartType: null,
       subCatagory: null
     };
   },
@@ -129,6 +135,14 @@ export default {
       }
       return a;
     }
+  },
+  methods: {
+    changeChartType() {
+      this.$emit("changeChartType", this.chartType);
+    }
+  },
+  mounted() {
+    this.chartType = this.chart.type;
   }
 };
 </script>

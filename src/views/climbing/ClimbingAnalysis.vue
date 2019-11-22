@@ -29,11 +29,12 @@
     <h2>Dynamic Charts</h2>
     <div class="flex-row">
       <chart-handler
-        v-for="dynamicChart in computedCharts"
+        v-for="(dynamicChart, index) in computedCharts"
         :key="dynamicChart.id"
         :chart="dynamicChart"
         :stats="currentFilteredStat"
         @close="closeChart(dynamicChart)"
+        @changeChartType="changeChartType($event, index)"
       ></chart-handler>
     </div>
   </div>
@@ -149,6 +150,27 @@ export default {
   methods: {
     closeChart(chart) {
       this.$set(chart.opts, "hideChart", true);
+    },
+    changeChartType(type, chartIndex) {
+      this.$set(this.charts.dynamic[chartIndex], "type", type);
+
+      this.charts.dynamic[chartIndex].opts["chartOpts"] = this.computedCharts[
+        chartIndex
+      ].chartOpts;
+
+      switch (type) {
+        case "pie":
+          this.$set(this.charts.dynamic[chartIndex].opts.chartOpts, "legend", {
+            display:
+              this.computedCharts[chartIndex].chartData.labels.length < 20
+          }); // Might be better to do this in chart creation?
+          break;
+        case "bar":
+          this.$set(this.charts.dynamic[chartIndex].opts.chartOpts, "legend", {
+            display: false
+          });
+          break;
+      }
     },
     clearFilters(catToClear) {
       if (catToClear) {
@@ -276,6 +298,7 @@ export default {
         dynamicChart["subtitle"] = opts.subtitleFxn(stat);
       }
       switch (chartType) {
+        case "bar":
         case "pie":
           dynamicChart.chartData = this.getPieChartData(stat, opts);
           // Save the original colors in a color map and persist them to prevent new random ones being assigned
@@ -334,8 +357,11 @@ export default {
             }
           });
           // year counts
-          this.addDynamicChart("pie", "year", {
+          let yearOpts = this.defaultChartOpts();
+          yearOpts["legend"] = { display: false };
+          this.addDynamicChart("bar", "year", {
             title: "Ascents by year",
+            chartOpts: yearOpts,
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
