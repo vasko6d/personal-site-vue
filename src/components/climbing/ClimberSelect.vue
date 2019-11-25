@@ -45,6 +45,7 @@ export default {
         },
         { name: "Akhil Mauze", sandboxId: "akhil-mauze" },
         { name: "Scott Baron", sandboxId: "scott-baron" },
+        { name: "Dustin Goldbarg", sandboxId: "dustin-goldbarg" },
         {
           name: "Nathaniel Cushing-Murray",
           sandboxId: "nathaniel-cushing-murray"

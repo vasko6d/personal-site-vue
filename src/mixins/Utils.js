@@ -130,6 +130,11 @@ export default {
             "ascents"
           ];
           break;
+        case "dustin-goldbarg":
+          ascents = require("@/assets/json/8a-scorecards/dustin-goldbarg.json")[
+            "ascents"
+          ];
+          break;
       }
       // return as promise
       return new Promise((resolve, reject) => {
