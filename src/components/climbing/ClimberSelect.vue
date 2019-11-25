@@ -54,7 +54,8 @@ export default {
           name: "Daniel Fineman",
           sandboxId: "daniel-fineman"
         },
-        { name: "Daniel Fong", sandboxId: "daniel-fong" }
+        { name: "Daniel Fong", sandboxId: "daniel-fong" },
+        { name: "Kody Shutt", sandboxId: "kody-shutt" }
       ]
     };
   },
