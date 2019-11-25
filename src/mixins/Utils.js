@@ -125,6 +125,11 @@ export default {
             "ascents"
           ];
           break;
+        case "kody-shutt":
+          ascents = require("@/assets/json/8a-scorecards/kody-shutt.json")[
+            "ascents"
+          ];
+          break;
       }
       // return as promise
       return new Promise((resolve, reject) => {
