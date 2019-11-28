@@ -85,9 +85,9 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">{{
-                    aggregator === null ? "Select function" : "none"
-                  }}</option>
+                  <option :value="null">
+                    {{ aggregator === null ? "Select function" : "none" }}
+                  </option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
@@ -100,7 +100,7 @@
               <div v-show="aggregator != null">
                 <select
                   v-model="catToAggregate"
-                  @change="changeAggregator()"
+                  @change="changeAggregator(true)"
                   class="setting-select"
                 >
                   <option :value="null">Select stat</option>
@@ -222,8 +222,11 @@ export default {
       this.catToAggregate = null;
       this.valToAggregate = null;
     },
-    changeAggregator() {
+    changeAggregator(emptyValue = false) {
       //console.log(this.aggregator, this.catToAggregate, this.valToAggregate);
+      if (emptyValue) {
+        this.valToAggregate = null;
+      }
       if (
         this.aggregator === null ||
         (this.catToAggregate != null &&

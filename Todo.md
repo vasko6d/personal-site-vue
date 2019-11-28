@@ -128,6 +128,8 @@ Ticklist
 - [ ] still want time series.. maybe include it as an option?
 - [ ] iclude range, value and value list!
 
+- [ ] need to add aggregate "filters" to the ascents choice
+
 Lofty
 
 - [ ] vaskos.com landing page that you walk through

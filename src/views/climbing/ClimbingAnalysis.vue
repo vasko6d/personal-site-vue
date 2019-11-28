@@ -237,6 +237,15 @@ export default {
         },
         legend: {
           display: true
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
         }
       };
     },
