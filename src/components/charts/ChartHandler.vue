@@ -42,6 +42,9 @@
     <h2>{{ chart.title }}</h2>
     <div v-if="viewType === 'chart'">
       <div v-if="chart.subtitle">{{ chart.subtitle }}</div>
+      <div v-if="chart.opts.aggregateFxn != null">
+        {{ chart.opts.aggregateTitle }}
+      </div>
       <div v-if="chart.type === 'pie'">
         <doughnut-chart
           :chartData="chart.chartData"
@@ -220,7 +223,7 @@ export default {
       this.valToAggregate = null;
     },
     changeAggregator() {
-      console.log(this.aggregator, this.catToAggregate, this.valToAggregate);
+      //console.log(this.aggregator, this.catToAggregate, this.valToAggregate);
       if (
         this.aggregator === null ||
         (this.catToAggregate != null &&

@@ -217,7 +217,7 @@ export default {
         })
       };
     },
-    getGradeChartData(stat, allowExpansion = true) {
+    getGradeChartData(stat, allowExpansion = true, opts) {
       let gradeList = Object.values(stat.subStats);
       gradeList.sort((a, b) => {
         return gradeMap[a.name] - gradeMap[b.name];
@@ -242,19 +242,25 @@ export default {
       for (let grade of gradeList) {
         const types = grade.get("type", allowExpansion);
         let cnt = 0;
-        if (types.get("redpoint", allowExpansion)) {
+        if (opts && opts.filters && opts.filters.type === "redpoint") {
+          cnt = grade.count;
+        } else if (types.get("redpoint", allowExpansion)) {
           cnt = types.get("redpoint", allowExpansion).count;
         }
         datasets[0].data.push(cnt);
 
         cnt = 0;
-        if (types.get("flash", allowExpansion)) {
+        if (opts && opts.filters && opts.filters.type === "flash") {
+          cnt = grade.count;
+        } else if (types.get("flash", allowExpansion)) {
           cnt = types.get("flash", allowExpansion).count;
         }
         datasets[1].data.push(cnt);
 
         cnt = 0;
-        if (types.get("onsite", allowExpansion)) {
+        if (opts && opts.filters && opts.filters.type === "onsite") {
+          cnt = grade.count;
+        } else if (types.get("onsite", allowExpansion)) {
           cnt = types.get("onsite", allowExpansion).count;
         }
         datasets[2].data.push(cnt);

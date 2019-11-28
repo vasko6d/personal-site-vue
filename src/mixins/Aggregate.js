@@ -83,5 +83,17 @@ export default {
     max: "Max",
     count: "Count",
     pct: "Percentage"
+  },
+  makeTitle(aggregator, catagory, value) {
+    let ret = "";
+    ret += this.names[aggregator] + " ";
+    if (value != null) {
+      ret += "(";
+    }
+    ret += catagory.charAt(0).toUpperCase() + catagory.substring(1);
+    if (value != null) {
+      ret += " = " + value + ")";
+    }
+    return ret;
   }
 };

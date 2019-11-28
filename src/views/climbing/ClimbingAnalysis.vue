@@ -133,9 +133,15 @@ export default {
     changeAggregator(opts, chartIndex) {
       if (opts.aggregator === null) {
         this.$delete(this.charts.dynamic[chartIndex].opts, "aggregateFxn");
+        this.$delete(this.charts.dynamic[chartIndex].opts, "aggregateTitle");
       } else {
         let agg = Aggregate.fxns[opts.aggregator](opts.catagory, opts.value);
         this.$set(this.charts.dynamic[chartIndex].opts, "aggregateFxn", agg);
+        this.$set(
+          this.charts.dynamic[chartIndex].opts,
+          "aggregateTitle",
+          Aggregate.makeTitle(opts.aggregator, opts.catagory, opts.value)
+        );
       }
     },
     clearFilters(catToClear) {
@@ -287,7 +293,7 @@ export default {
           //console.log(dynamicChart);
           break;
         case "grade":
-          dynamicChart.chartData = this.getGradeChartData(stat);
+          dynamicChart.chartData = this.getGradeChartData(stat, true, opts);
           break;
         default:
           console.warn(
