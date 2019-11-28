@@ -66,11 +66,66 @@
               <select
                 v-model="chartType"
                 @change="changeChartType()"
-                style="font-size: 16px;"
+                class="setting-select"
               >
                 <option value="pie">Pie</option>
                 <option value="bar">Bar</option>
               </select>
+            </td>
+          </tr>
+          <tr v-if="chartType != 'grade'">
+            <td class="b">Aggregate Function</td>
+            <td>
+              <div>
+                <select
+                  v-model="aggregator"
+                  class="setting-select"
+                  @change="emptyCatVal(), changeAggregator()"
+                >
+                  <option :value="null">{{
+                    aggregator === null ? "Select function" : "none"
+                  }}</option>
+                  <option
+                    v-for="aKey in Object.keys(aggregators)"
+                    :value="aKey"
+                    :key="aKey.id"
+                    >{{ aggregators[aKey] }}</option
+                  >
+                  <!--option value="softness">Softness</option-->
+                </select>
+              </div>
+              <div v-show="aggregator != null">
+                <select
+                  v-model="catToAggregate"
+                  @change="changeAggregator()"
+                  class="setting-select"
+                >
+                  <option :value="null">Select stat</option>
+                  <option
+                    v-for="aOpt in aggregateOpts"
+                    :value="aOpt"
+                    :key="aOpt.id"
+                    >{{ aOpt }}</option
+                  >
+                </select>
+              </div>
+              <div v-show="catToAggregate != null && needsSubValue">
+                <select
+                  v-model="valToAggregate"
+                  @change="changeAggregator()"
+                  class="setting-select"
+                >
+                  <option :value="null">Select value</option>
+                  <option
+                    v-for="vName in Object.keys(
+                      stats.get(catToAggregate).subStats
+                    )"
+                    :value="vName"
+                    :key="vName.id"
+                    >{{ vName }}</option
+                  >
+                </select>
+              </div>
             </td>
           </tr>
         </table>
@@ -78,7 +133,7 @@
     </div>
     <div v-else-if="viewType === 'ascents'">
       <div>Ascents</div>
-      <select v-model="subCatagory" style="font-size: 16px;">
+      <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option
           v-for="cat in catStats.subStats"
@@ -101,6 +156,7 @@
 
 <script>
 import Stat from "@/mixins/Stat.js";
+import Aggregate from "@/mixins/Aggregate.js";
 import DoughnutChart from "@/components/charts/DoughnutChart.vue";
 import BarGraph from "@/components/charts/BarGraph.vue";
 export default {
@@ -117,7 +173,12 @@ export default {
       // chart, settings, ascents
       viewType: "chart",
       chartType: null,
-      subCatagory: null
+      // Ascent Variables
+      subCatagory: null,
+      // Aggregator Variables
+      aggregator: null,
+      catToAggregate: null,
+      valToAggregate: null
     };
   },
   computed: {
@@ -138,12 +199,40 @@ export default {
         a = this.catStats.get(this.subCatagory).values;
       }
       return a;
+    },
+    aggregateOpts() {
+      return Aggregate.compatibility[this.aggregator];
+    },
+    needsSubValue() {
+      return Aggregate.needsSubValue[this.aggregator];
+    },
+    aggregators() {
+      return Aggregate.names;
     }
   },
   methods: {
     changeChartType() {
       this.$emit("changeChartType", this.chartType);
       this.viewType = "chart";
+    },
+    emptyCatVal() {
+      this.catToAggregate = null;
+      this.valToAggregate = null;
+    },
+    changeAggregator() {
+      console.log(this.aggregator, this.catToAggregate, this.valToAggregate);
+      if (
+        this.aggregator === null ||
+        (this.catToAggregate != null &&
+          (!this.needsSubValue || this.valToAggregate))
+      ) {
+        this.$emit("changeAggregator", {
+          aggregator: this.aggregator,
+          catagory: this.catToAggregate,
+          value: this.valToAggregate
+        });
+        this.viewType = "chart";
+      }
     }
   },
   mounted() {
@@ -161,5 +250,9 @@ export default {
     flex-grow: 1;
     flex-basis: 10px;
   }
+}
+.setting-select {
+  font-size: 16px;
+  width: 90%;
 }
 </style>

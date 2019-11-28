@@ -45,6 +45,14 @@ export default {
         return gradeMap[grade];
       }
     },
+    makeInt(catagory, value) {
+      let ret =
+        catagory === "grade"
+          ? Math.max(this.mapGrade(value), 0)
+          : parseInt(value);
+      //console.log(catagory + " - " + value + " - " + ret);
+      return ret;
+    },
     vScale(grade) {
       return "V" + grade;
     },

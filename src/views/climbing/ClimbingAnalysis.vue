@@ -35,6 +35,7 @@
         :stats="currentFilteredStat"
         @close="closeChart(dynamicChart)"
         @changeChartType="changeChartType($event, index)"
+        @changeAggregator="changeAggregator($event, index)"
       ></chart-handler>
     </div>
   </div>
@@ -43,6 +44,7 @@
 <script>
 import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
+import Aggregate from "@/mixins/Aggregate.js";
 import ChartHandler from "@/components/charts/ChartHandler.vue";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
@@ -69,34 +71,6 @@ export default {
         recommend: null,
         grade: null,
         rating: null
-      },
-      aggregateFxns: {
-        avg(subName) {
-          return stat => {
-            let sub = stat.get(subName).subStats;
-            let sum = 0;
-            let cnt = 0;
-            for (const subKey of Object.keys(sub)) {
-              cnt += sub[subKey].count;
-              sum += sub[subKey].count * parseInt(subKey);
-            }
-            return Math.round((10 * sum) / cnt) / 10;
-          };
-        },
-        pct(subName, value) {
-          return stat => {
-            let sub = stat.get(subName).subStats;
-            let sum = 0;
-            let cnt = 0;
-            for (const subKey of Object.keys(sub)) {
-              cnt += sub[subKey].count;
-              if (sub[subKey].name == value) {
-                sum += sub[subKey].count * parseInt(subKey);
-              }
-            }
-            return Math.round((1000 * sum) / cnt) / 10;
-          };
-        }
       },
       stats: new Stat("ascents", ["comment"]),
       showClimbers: false,
@@ -153,6 +127,14 @@ export default {
     },
     changeChartType(type, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex], "type", type);
+    },
+    changeAggregator(opts, chartIndex) {
+      if (opts.aggregator === null) {
+        this.$delete(this.charts.dynamic[chartIndex].opts, "aggregateFxn");
+      } else {
+        let agg = Aggregate.fxns[opts.aggregator](opts.catagory, opts.value);
+        this.$set(this.charts.dynamic[chartIndex].opts, "aggregateFxn", agg);
+      }
     },
     clearFilters(catToClear) {
       if (catToClear) {
