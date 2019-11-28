@@ -98,7 +98,9 @@ export default {
         year: null,
         recommend: null,
         grade: null,
-        rating: null
+        rating: null,
+        flags: null,
+        type: null
       },
       columns: [
         { name: "date", active: true },
