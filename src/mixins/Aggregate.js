@@ -1,3 +1,17 @@
+const ALL = [
+  "area",
+  "commentLength",
+  "date",
+  "flags",
+  "grade",
+  "name",
+  "rating",
+  "recommend",
+  "softness",
+  "subArea",
+  "type",
+  "year"
+];
 import Utils from "@/mixins/Utils.js";
 export default {
   name: "Aggregate",
@@ -27,6 +41,11 @@ export default {
         return stat.get(subName).get(subValue).count;
       };
     },
+    distinctCount: subName => {
+      return stat => {
+        return stat.get(subName).subStatCount();
+      };
+    },
     pct: (subName, subValue) => {
       return stat => {
         let sub = stat.get(subName).subStats;
@@ -43,36 +62,11 @@ export default {
     }
   },
   compatibility: {
-    avg: ["grade", "rating", "year"],
-    max: ["grade", "rating", "year"],
-    pct: [
-      "area",
-      "commentLength",
-      "date",
-      "flags",
-      "grade",
-      "name",
-      "rating",
-      "recommend",
-      "softness",
-      "subArea",
-      "type",
-      "year"
-    ],
-    count: [
-      "area",
-      "commentLength",
-      "date",
-      "flags",
-      "grade",
-      "name",
-      "rating",
-      "recommend",
-      "softness",
-      "subArea",
-      "type",
-      "year"
-    ]
+    avg: ["grade", "rating", "year", "commentLength"],
+    max: ["grade", "rating", "year", "commentLength"],
+    pct: ALL,
+    count: ALL,
+    distinctCount: ALL
   },
   needsSubValue: {
     count: true,
@@ -81,8 +75,9 @@ export default {
   names: {
     avg: "Average",
     max: "Max",
-    count: "Count",
-    pct: "Percentage"
+    count: "Count with Value",
+    pct: "Percentage",
+    distinctCount: "Count Distinct"
   },
   makeTitle(aggregator, catagory, value) {
     let ret = "";
