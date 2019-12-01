@@ -22,6 +22,21 @@ var gradeMap = {
   "15": 15
 };
 
+const monthMap = {
+  "01": "January",
+  "02": "February",
+  "03": "March",
+  "04": "April",
+  "05": "May",
+  "06": "June",
+  "07": "July",
+  "08": "August",
+  "09": "September",
+  "10": "October",
+  "11": "November",
+  "12": "December"
+};
+
 export default {
   name: "utils",
   methods: {
@@ -71,8 +86,7 @@ export default {
     },
     preprocessAscents(ascents) {
       for (let ascent of ascents) {
-        //ascent["commentLength"] = ascent["comment"].length; // doing this in scraper... should move to here
-
+        ascent["commentLength"] = ascent["comment"].length;
         //new property for Soft, Hard, Neither
         let reldif = "Neutral";
         for (const flag of ascent["flags"]) {
@@ -85,8 +99,9 @@ export default {
         }
         ascent["softness"] = reldif;
 
-        // Year is useful
+        // Year and Month are useful
         ascent["year"] = ascent["date"].substring(0, 4);
+        ascent["month"] = monthMap[ascent["date"].substring(5, 7)];
       }
     },
     fetchData(sandboxId) {
