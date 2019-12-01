@@ -109,6 +109,10 @@ export default {
         cStats.push({ name: "Average Stars", value: a.star.avg });
         cStats.push({ name: "Recommend %", value: a.star.recommend + "%" });
         cStats.push({ name: "Softness", value: a.softness + " / 10" });
+        cStats.push({
+          name: "Average Comment",
+          value: a.comment.avgLen + " characters"
+        });
         cStats.push({ name: "Earliest", value: da.firstDate });
         cStats.push({ name: "Most Recent", value: da.mostRecent });
         cStats.push({ name: "Days climbed", value: da.count });
@@ -192,6 +196,9 @@ export default {
           avg: 0,
           recommend: 0
         },
+        comment: {
+          avgLen: 0
+        },
         softness: 0
       };
       if (ascents.length === 0) {
@@ -208,6 +215,7 @@ export default {
       let topCount = 0;
       let topTotal = 0;
       let numRecommend = 0;
+      let totalCommentLen = 0;
       let hard = 0;
       let soft = 0;
       for (const ascent of ascents) {
@@ -217,6 +225,7 @@ export default {
           topTotal += this.mapGrade(ascent.grade);
           topCount++;
         }
+        totalCommentLen += ascent.commentLength;
         numRecommend += ascent.recommend ? 1 : 0;
         soft += ascent.softness === "Soft" ? 1 : 0;
         hard += ascent.softness === "Hard" ? 1 : 0;
@@ -227,6 +236,7 @@ export default {
       a.grade.score = Math.round((10 * topTotal) / topCount) / 10;
       a.softness = (soft - hard) / ascents.length;
       a.softness = 5 + Math.round(50 * a.softness) / 10;
+      a.comment.avgLen = Math.round(totalCommentLen / ascents.length);
       return a;
     },
     defaultChartOpts() {
