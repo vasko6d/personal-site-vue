@@ -36,6 +36,7 @@
         @close="closeChart(dynamicChart)"
         @changeChartType="changeChartType($event, index)"
         @changeAggregator="changeAggregator($event, index)"
+        @changeBaseStat="changeBaseStat($event, index)"
       ></chart-handler>
     </div>
   </div>
@@ -133,6 +134,10 @@ export default {
     },
     changeChartType(type, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex], "type", type);
+    },
+    changeBaseStat(newBaseStat, chartIndex) {
+      this.$set(this.charts.dynamic[chartIndex], "statBase", newBaseStat);
+      this.$delete(this.charts.dynamic[chartIndex].opts, "colors");
     },
     changeAggregator(opts, chartIndex) {
       if (opts.aggregator === null) {
@@ -279,7 +284,11 @@ export default {
       let stat = this.stats.getFiltered(statBase, opts.filters);
       let dynamicChart = {
         type: chartType,
-        title: opts.title,
+        title:
+          opts.title ||
+          statBase.replace(/([A-Z])/g, " $1").replace(/^./, function(str) {
+            return str.toUpperCase();
+          }) + " Chart",
         isAreaDynamic: opts.isAreaDynamic || false,
         statBase: statBase,
         opts: opts,
@@ -307,7 +316,7 @@ export default {
           // Disable legend on pie if more than 20 entries
           dynamicChart.chartOpts.legend = {
             display:
-              chartType === "pie" && dynamicChart.chartData.labels.length < 20
+              chartType === "pie" && dynamicChart.chartData.labels.length < 8
           };
           //console.log(dynamicChart);
           break;
@@ -344,25 +353,21 @@ export default {
           });
           // Area Counts
           this.addDynamicChart("pie", "area", {
-            title: "Ascents per Area",
             subtitleFxn: stat => {
               return stat.count + " Ascents, " + stat.subStatCount() + " Areas";
             }
           });
           // year counts
           this.addDynamicChart("bar", "year", {
-            title: "Ascents by year",
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
           // Softness, rating and recommend
           this.addDynamicChart("pie", "softness", {
-            title: "Soft Meter",
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
           this.addDynamicChart("pie", "rating", {
-            title: "Star Meter",
             nameMap: {
               0: "0 Stars",
               1: "1 Star",
@@ -373,7 +378,6 @@ export default {
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
           });
           this.addDynamicChart("pie", "recommend", {
-            title: "Recommend Meter",
             nameMap: { true: "Recommended", false: "Not Recommended" },
             isAreaDynamic: true,
             sortFxn: (a, b) => (a.name > b.name ? 1 : -1)

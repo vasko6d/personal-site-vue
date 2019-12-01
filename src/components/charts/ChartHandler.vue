@@ -11,15 +11,17 @@
           v-tooltip="'Show Ascents'"
         ></i
         >&nbsp;|&nbsp;
-        <i
-          class="fas fa-cogs icn"
-          :class="{
-            'icn-a': viewType === 'settings'
-          }"
-          @click="viewType = 'settings'"
-          v-tooltip="'Settings'"
-        ></i
-        >&nbsp;|&nbsp;
+        <span v-if="chartType != 'grade'">
+          <i
+            class="fas fa-cogs icn"
+            :class="{
+              'icn-a': viewType === 'settings'
+            }"
+            @click="viewType = 'settings'"
+            v-tooltip="'Settings'"
+          ></i
+          >&nbsp;|&nbsp;
+        </span>
         <i
           class="fas icn"
           :class="{
@@ -60,10 +62,23 @@
       <div class="flex-row">
         <table class="basic-table">
           <tr>
-            <td class="b">Title</td>
-            <td>{{ chart.opts.title }}</td>
+            <td class="b">Base Stat</td>
+            <td>
+              <select
+                v-model="chart.statBase"
+                @change="changeBaseStat()"
+                class="setting-select"
+              >
+                <option
+                  v-for="cname in Object.keys(stats.subStats)"
+                  :value="cname"
+                  :key="cname.id"
+                  >{{ cname }}</option
+                >
+              </select>
+            </td>
           </tr>
-          <tr v-if="chartType != 'grade'">
+          <tr>
             <td class="b">Type</td>
             <td>
               <select
@@ -76,7 +91,7 @@
               </select>
             </td>
           </tr>
-          <tr v-if="chartType != 'grade'">
+          <tr>
             <td class="b">Aggregate Function</td>
             <td>
               <div>
@@ -85,9 +100,9 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">
-                    {{ aggregator === null ? "Select function" : "none" }}
-                  </option>
+                  <option :value="null">{{
+                    aggregator === null ? "Select function" : "none"
+                  }}</option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
@@ -221,6 +236,10 @@ export default {
     emptyCatVal() {
       this.catToAggregate = null;
       this.valToAggregate = null;
+    },
+    changeBaseStat() {
+      this.$emit("changeBaseStat", this.chart.statBase);
+      this.viewType = "chart";
     },
     changeAggregator(emptyValue = false) {
       //console.log(this.aggregator, this.catToAggregate, this.valToAggregate);
