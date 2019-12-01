@@ -284,11 +284,7 @@ export default {
       let stat = this.stats.getFiltered(statBase, opts.filters);
       let dynamicChart = {
         type: chartType,
-        title:
-          opts.title ||
-          statBase.replace(/([A-Z])/g, " $1").replace(/^./, function(str) {
-            return str.toUpperCase();
-          }) + " Chart",
+        title: opts.title || this.prettyCapitalize(statBase) + " Chart",
         isAreaDynamic: opts.isAreaDynamic || false,
         statBase: statBase,
         opts: opts,
@@ -296,6 +292,14 @@ export default {
       };
       if (opts.subtitleFxn) {
         dynamicChart["subtitle"] = opts.subtitleFxn(stat);
+      } else if (opts.autoGenerateSubtitle) {
+        dynamicChart["subtitle"] =
+          stat.count +
+          " Ascents, " +
+          stat.subStatCount() +
+          " " +
+          this.prettyCapitalize(statBase) +
+          "s";
       }
       switch (chartType) {
         case "bar":
@@ -353,14 +357,13 @@ export default {
           });
           // Area Counts
           this.addDynamicChart("pie", "area", {
-            subtitleFxn: stat => {
-              return stat.count + " Ascents, " + stat.subStatCount() + " Areas";
-            }
+            autoGenerateSubtitle: true
           });
           // year counts
           this.addDynamicChart("bar", "year", {
             isAreaDynamic: true,
-            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
+            sortFxn: (a, b) => (a.name > b.name ? 1 : -1),
+            autoGenerateSubtitle: true
           });
           // Softness, rating and recommend
           this.addDynamicChart("pie", "softness", {

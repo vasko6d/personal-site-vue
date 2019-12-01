@@ -179,6 +179,11 @@ export default {
         }
       });
     },
+    prettyCapitalize(str) {
+      return str.replace(/([A-Z])/g, " $1").replace(/^./, function(str) {
+        return str.toUpperCase();
+      });
+    },
     getPieChartData(stat, opts) {
       let statList = Object.values(stat.subStats);
       // Filter is given a filter function (shallow copy)
