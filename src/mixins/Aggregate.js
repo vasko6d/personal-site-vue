@@ -85,7 +85,7 @@ export default {
     if (value != null) {
       ret += "(";
     }
-    ret += catagory.charAt(0).toUpperCase() + catagory.substring(1);
+    ret += Utils.methods.prettyCapitalize(catagory);
     if (value != null) {
       ret += " = " + value + ")";
     }
