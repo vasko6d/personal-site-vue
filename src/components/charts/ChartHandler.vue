@@ -2,15 +2,17 @@
   <div class="chart bg1" v-if="showChart">
     <div>
       <div class="chart-header">
-        <i
-          class="fas fa-mountain icn"
-          :class="{
-            'icn-a': viewType === 'ascents'
-          }"
-          @click="viewType = 'ascents'"
-          v-tooltip="'Show Ascents'"
-        ></i
-        >&nbsp;|&nbsp;
+        <span>
+          <i
+            class="fas fa-mountain icn"
+            :class="{
+              'icn-a': viewType === 'ascents'
+            }"
+            @click="viewType = 'ascents'"
+            v-tooltip="'Show Ascents'"
+          ></i
+          >&nbsp;|&nbsp;
+        </span>
         <span v-if="chartType != 'grade'">
           <i
             class="fas fa-cogs icn"
@@ -22,17 +24,19 @@
           ></i
           >&nbsp;|&nbsp;
         </span>
-        <i
-          class="fas icn"
-          :class="{
-            'fa-chart-line': chartType === 'line',
-            'fa-chart-pie': chartType === 'pie',
-            'fa-chart-bar': chartType === 'bar' || chartType === 'grade',
-            'icn-a': viewType === 'chart'
-          }"
-          @click="viewType = 'chart'"
-          v-tooltip="'Show Chart'"
-        ></i>
+        <span>
+          <i
+            class="fas icn"
+            :class="{
+              'fa-chart-line': chartType === 'line',
+              'fa-chart-pie': chartType === 'pie',
+              'fa-chart-bar': chartType === 'bar' || chartType === 'grade',
+              'icn-a': viewType === 'chart'
+            }"
+            @click="viewType = 'chart'"
+            v-tooltip="'Show Chart'"
+          ></i>
+        </span>
         <span class="middle"></span>
         <i
           class="fas fa-window-close icn"
