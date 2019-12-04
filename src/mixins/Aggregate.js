@@ -59,11 +59,22 @@ export default {
         }
         return Math.round((1000 * sum) / cnt) / 10;
       };
+    },
+    sum: subName => {
+      return stat => {
+        let sub = stat.get(subName).subStats;
+        let sum = 0;
+        for (const subKey of Object.keys(sub)) {
+          sum += sub[subKey].count * Utils.methods.makeInt(subName, subKey);
+        }
+        return Math.round(sum);
+      };
     }
   },
   compatibility: {
     avg: ["grade", "rating", "year", "commentLength"],
     max: ["grade", "rating", "year", "commentLength"],
+    sum: ["grade", "commentLength"],
     pct: ALL,
     count: ALL,
     distinctCount: ALL
@@ -77,7 +88,8 @@ export default {
     max: "Max",
     count: "Count with Value",
     pct: "Percentage",
-    distinctCount: "Count Distinct"
+    distinctCount: "Count Distinct",
+    sum: "Sum"
   },
   makeTitle(aggregator, catagory, value) {
     let ret = "";

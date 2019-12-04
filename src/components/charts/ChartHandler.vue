@@ -96,6 +96,19 @@
             </td>
           </tr>
           <tr>
+            <td class="b">Sort order</td>
+            <td>
+              <select
+                v-model="chart.opts.sortByName"
+                @change="changeSortOrder()"
+                class="setting-select"
+              >
+                <option :value="true">Sort by name</option>
+                <option :value="false">Sort by value</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
             <td class="b">Aggregate Function</td>
             <td>
               <div>
@@ -104,9 +117,9 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">{{
-                    aggregator === null ? "Select function" : "none"
-                  }}</option>
+                  <option :value="null">
+                    {{ aggregator === null ? "Select function" : "none" }}
+                  </option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
@@ -157,12 +170,10 @@
       <div>Ascents</div>
       <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
-        <option
-          v-for="cat in catStats.subStats"
-          :key="cat.id"
-          :value="cat.name"
-          >{{ cat.name }}</option
-        >
+        <option value="All">~ALL~</option>
+        <option v-for="cat in ascentChoics" :key="cat.id" :value="cat">
+          {{ cat }}
+        </option>
       </select>
       <div style="margin-left: 5%;" v-if="subCatagory != null">
         <ul style="text-align: left;">
@@ -215,10 +226,23 @@ export default {
     catStats() {
       return this.stats.get(this.chart.statBase);
     },
+    ascentChoics() {
+      let choices = Object.keys(this.catStats.subStats);
+      choices.sort(
+        this.chart.opts.sortByName
+          ? (a, b) => (a > b ? 1 : -1)
+          : (a, b) => this.catStats.get(b).count - this.catStats.get(a).count
+      );
+      return choices;
+    },
     ascents() {
       let a = [];
       if (this.subCatagory != null) {
-        a = this.catStats.get(this.subCatagory).values;
+        if (this.subCatagory === "All") {
+          a = this.catStats.values;
+        } else {
+          a = this.catStats.get(this.subCatagory).values;
+        }
       }
       return a;
     },
@@ -235,6 +259,10 @@ export default {
   methods: {
     changeChartType() {
       this.$emit("changeChartType", this.chartType);
+      this.viewType = "chart";
+    },
+    changeSortOrder() {
+      this.$emit("changeSortOrder", this.chart.opts.sortByName);
       this.viewType = "chart";
     },
     emptyCatVal() {

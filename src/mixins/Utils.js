@@ -22,19 +22,31 @@ var gradeMap = {
   "15": 15
 };
 
-const monthMap = {
-  "01": "January",
-  "02": "February",
-  "03": "March",
-  "04": "April",
-  "05": "May",
-  "06": "June",
-  "07": "July",
-  "08": "August",
-  "09": "September",
-  "10": "October",
-  "11": "November",
-  "12": "December"
+const nameMaps = {
+  month: {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December"
+  },
+  rating: {
+    0: "0 Stars",
+    1: "1 Star",
+    2: "2 Stars",
+    3: "3 Stars"
+  },
+  recommend: {
+    true: "Recommended",
+    false: "Not Recommended"
+  }
 };
 
 export default {
@@ -54,17 +66,15 @@ export default {
         return typeof args[number] != "undefined" ? args[number] : match;
       });
     },
-    mapGrade(grade, sys = "V") {
+    mapGrade(grade, minVal = -10, sys = "V") {
       // V or font will eventually be supported
       if (sys === "V") {
-        return gradeMap[grade];
+        return Math.max(gradeMap[grade], minVal);
       }
     },
     makeInt(catagory, value) {
       let ret =
-        catagory === "grade"
-          ? Math.max(this.mapGrade(value), 0)
-          : parseInt(value);
+        catagory === "grade" ? this.mapGrade(value, 0) : parseInt(value);
       //console.log(catagory + " - " + value + " - " + ret);
       return ret;
     },
@@ -99,9 +109,11 @@ export default {
         }
         ascent["softness"] = reldif;
 
-        // Year and Month are useful
-        ascent["year"] = ascent["date"].substring(0, 4);
-        ascent["month"] = monthMap[ascent["date"].substring(5, 7)];
+        // Year and Month and Year are useful
+        let date = this.decomposeDate(ascent["date"]);
+        ascent["year"] = date.year;
+        ascent["month"] = date.month;
+        ascent["day"] = date.day;
       }
     },
     fetchData(sandboxId) {
@@ -195,6 +207,8 @@ export default {
       filteredList.forEach(el => {
         if (opts.nameMap) {
           el["label"] = opts.nameMap[el.name];
+        } else if (nameMaps[stat.name]) {
+          el["label"] = nameMaps[stat.name][el.name];
         } else {
           el["label"] = el.name;
         }
@@ -210,15 +224,19 @@ export default {
       // Add Color - To allow constant colors on update allow a passed color object
       filteredList.forEach(el => {
         if (opts.colors) {
+          // Add to the color options if we find ourself a elemnt we dont have yet
+          if (!opts.colors[el.label]) {
+            opts.colors[el.label] = this.getRandomColor();
+          }
           el["color"] = opts.colors[el.label];
         } else {
           el["color"] = this.getRandomColor();
         }
       });
       // Sort data
-      const defaultSort = (a, b) => {
-        return b.datum - a.datum;
-      };
+      let defaultSort = opts.sortByName
+        ? (a, b) => (a.name > b.name ? 1 : -1)
+        : (a, b) => b.datum - a.datum;
       filteredList.sort(opts.sortFxn || defaultSort);
       // Return it in ChartJS format
       return {
@@ -291,6 +309,54 @@ export default {
           return "V" + k.name;
         })
       };
+    },
+    decomposeDate(dateStr) {
+      return {
+        day: dateStr.substring(8, 10),
+        month: dateStr.substring(5, 7),
+        year: dateStr.substring(0, 4)
+      };
+    },
+    generateTimeSeries(ascents, nTop = 10) {
+      let ret = [];
+      if (ascents.length > 0) {
+        // Sort ascents with earliest ascent first
+        ascents.sort((a, b) => {
+          return new Date(a.date) - new Date(b.date);
+        });
+        // Continusously updates [Y] variables
+        let gradeMax = 0;
+        let gradeAvg = 0;
+        let topGrades = [];
+        for (let i = 0; i < nTop; i++) {
+          topGrades.push(0);
+        }
+        //let gradeScore = 0;
+        //let starAvg = 0;
+        //let recommentPct = 0;
+        //let commentLenAvg = 0;
+        //let softness = 0;
+        let cnt = 0;
+        //let daysSinceMax = 0;
+        // [X] variables: (day, month or year)
+        //let tracker = this.decomposeDate(ascents[0].date);
+        // Now iterate through and generate any relevant possible times series data
+        for (let ascent of ascents) {
+          cnt += 1;
+          gradeMax = ascent.grade > gradeMax ? ascent.grade : gradeMax;
+          gradeAvg =
+            (this.mapGrade(ascent.grade, 0) + (cnt - 1) * gradeAvg) / cnt;
+          // insert into topGrades
+          //gradeScore =
+          //  topGrades.reduce((a, b) => a + b, 0) / (cnt < nTop ? cnt : nTop);
+          // now track day/month/year changes
+          //let cur = this.decomposeDate(ascent.date);
+          //if (cur.year != tracker.year) {
+          //}
+        }
+      }
+
+      return ret;
     }
   }
 };

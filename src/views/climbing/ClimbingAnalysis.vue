@@ -37,6 +37,7 @@
         @changeChartType="changeChartType($event, index)"
         @changeAggregator="changeAggregator($event, index)"
         @changeBaseStat="changeBaseStat($event, index)"
+        @changeSortOrder="changeSortOrder($event, index)"
       ></chart-handler>
     </div>
   </div>
@@ -135,6 +136,9 @@ export default {
     changeChartType(type, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex], "type", type);
     },
+    changeSortOrder(sortByName, chartIndex) {
+      this.$set(this.charts.dynamic[chartIndex].opts, "sortByName", sortByName);
+    },
     changeBaseStat(newBaseStat, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex], "statBase", newBaseStat);
       this.$delete(this.charts.dynamic[chartIndex].opts, "colors");
@@ -224,10 +228,10 @@ export default {
       let hard = 0;
       let soft = 0;
       for (const ascent of ascents) {
-        sum += this.mapGrade(ascent.grade);
+        sum += this.mapGrade(ascent.grade, 0);
         starSum += parseInt(ascent.rating);
         if (topCount < ntop) {
-          topTotal += this.mapGrade(ascent.grade);
+          topTotal += this.mapGrade(ascent.grade, 0);
           topCount++;
         }
         totalCommentLen += ascent.commentLength;
@@ -272,7 +276,10 @@ export default {
         resolve();
       });
     },
-    addDynamicChart(chartType, statBase, opts) {
+    addDynamicChart(chartType, statBase, opts = {}) {
+      if (!opts.sortByName) {
+        opts.sortByName = false;
+      }
       let dynamicChart = {
         type: chartType,
         statBase: statBase,
@@ -285,7 +292,6 @@ export default {
       let dynamicChart = {
         type: chartType,
         title: opts.title || this.prettyCapitalize(statBase) + " Chart",
-        isAreaDynamic: opts.isAreaDynamic || false,
         statBase: statBase,
         opts: opts,
         chartOpts: opts.chartOpts || this.defaultChartOpts()
@@ -322,7 +328,6 @@ export default {
             display:
               chartType === "pie" && dynamicChart.chartData.labels.length < 8
           };
-          //console.log(dynamicChart);
           break;
         case "grade":
           dynamicChart.chartData = this.getGradeChartData(stat, true, opts);
@@ -352,7 +357,6 @@ export default {
           };
           this.addDynamicChart("grade", "grade", {
             title: "Ascents per Grade",
-            isAreaDynamic: true,
             chartOpts: gradeOpts
           });
           // Area Counts
@@ -361,30 +365,20 @@ export default {
           });
           // year counts
           this.addDynamicChart("bar", "year", {
-            isAreaDynamic: true,
-            sortFxn: (a, b) => (a.name > b.name ? 1 : -1),
+            sortByName: true,
             autoGenerateSubtitle: true
           });
           // Softness, rating and recommend
           this.addDynamicChart("pie", "softness", {
-            isAreaDynamic: true,
-            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
+            sortByName: true
           });
           this.addDynamicChart("pie", "rating", {
-            nameMap: {
-              0: "0 Stars",
-              1: "1 Star",
-              2: "2 Stars",
-              3: "3 Stars"
-            },
-            isAreaDynamic: true,
-            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
+            sortByName: true
           });
           this.addDynamicChart("pie", "recommend", {
-            nameMap: { true: "Recommended", false: "Not Recommended" },
-            isAreaDynamic: true,
-            sortFxn: (a, b) => (a.name > b.name ? 1 : -1)
+            sortByName: true
           });
+          this.generateTimeSeries(this.stats.values);
         });
       })
       .catch(error => {
