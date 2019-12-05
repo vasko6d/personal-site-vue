@@ -214,7 +214,7 @@ export default {
         return a;
       }
       ascents.sort((a, b) => {
-        this.mapGrade(a.grade) - this.mapGrade(b.grade);
+        return this.mapGrade(b.grade) - this.mapGrade(a.grade);
       });
       a.grade.max = ascents[0].grade;
       a.grade.min = Math.max(ascents[ascents.length - 1].grade, 0);
