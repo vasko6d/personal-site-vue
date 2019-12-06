@@ -117,9 +117,9 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">
-                    {{ aggregator === null ? "Select function" : "none" }}
-                  </option>
+                  <option :value="null">{{
+                    aggregator === null ? "Select function" : "none"
+                  }}</option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
@@ -171,9 +171,9 @@
       <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option value="All">~ALL~</option>
-        <option v-for="cat in ascentChoics" :key="cat.id" :value="cat.name">
-          {{ cat.name + " (" + cat.value + ")" }}
-        </option>
+        <option v-for="cat in ascentChoics" :key="cat.id" :value="cat.name">{{
+          cat.label + " (" + cat.datum + ")"
+        }}</option>
       </select>
       <div style="margin-left: 5%;" v-if="subCatagory != null">
         <ul style="text-align: left;">
@@ -230,8 +230,9 @@ export default {
       let choices = [];
       for (let i = 0; i < this.chart.chartData.labels.length; i++) {
         choices.push({
-          name: this.chart.chartData.labels[i],
-          value: this.chart.chartData.datasets[0].data[i]
+          name: this.chart.chartData.names[i],
+          label: this.chart.chartData.labels[i],
+          datum: this.chart.chartData.datasets[0].data[i]
         });
       }
       return choices;

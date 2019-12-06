@@ -252,6 +252,9 @@ export default {
         ],
         labels: filteredList.map(el => {
           return el.label;
+        }),
+        names: filteredList.map(el => {
+          return el.name;
         })
       };
     },
@@ -307,6 +310,9 @@ export default {
         datasets: datasets,
         labels: gradeList.map(k => {
           return "V" + k.name;
+        }),
+        names: gradeList.map(k => {
+          return k.name;
         })
       };
     },
