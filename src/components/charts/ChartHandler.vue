@@ -311,7 +311,6 @@ export default {
   }
 }
 .setting-select {
-  font-size: 16px;
   width: 90%;
 }
 </style>

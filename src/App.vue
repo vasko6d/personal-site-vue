@@ -239,6 +239,11 @@ export default {
     }
     line-height: 1.5;
 
+    input,
+    select {
+      font-size: 16px;
+    }
+
     .blk-container {
       display: inline-block;
       max-width: 850px;

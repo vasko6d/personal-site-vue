@@ -21,11 +21,7 @@
       <div v-for="catagory in Object.keys(currentFilters)" :key="catagory.id">
         <div class="flex-row">
           <span class="filter-txt">{{ catagory }} =</span>
-          <select
-            class="filter-drop"
-            v-model="currentFilters[catagory]"
-            style="font-size: 16px;"
-          >
+          <select class="filter-drop" v-model="currentFilters[catagory]">
             <option :value="null">All</option>
             <option
               v-for="val in (currentFilters[catagory] != null
