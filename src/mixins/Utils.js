@@ -43,6 +43,15 @@ const nameMaps = {
     2: "2 Stars",
     3: "3 Stars"
   },
+  dayOfWeek: {
+    0: "Sunday",
+    1: "Monday",
+    2: "Tuesday",
+    3: "Wednesday",
+    4: "Thursday",
+    5: "Friday",
+    6: "Saturday"
+  },
   recommend: {
     true: "Recommended",
     false: "Not Recommended"
@@ -114,6 +123,10 @@ export default {
         ascent["year"] = date.year;
         ascent["month"] = date.month;
         ascent["day"] = date.day;
+
+        // Day of week
+        let jDate = new Date(ascent["date"]);
+        ascent["dayOfWeek"] = jDate.getDay();
       }
     },
     fetchData(sandboxId) {
