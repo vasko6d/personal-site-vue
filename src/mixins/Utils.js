@@ -125,7 +125,7 @@ export default {
         ascent["day"] = date.day;
 
         // Day of week
-        let jDate = new Date(ascent["date"]);
+        let jDate = new Date(ascent["date"] + "T12:00:00Z");
         ascent["dayOfWeek"] = jDate.getDay();
       }
     },
