@@ -96,13 +96,6 @@ export default {
         .map(w => w[0].toUpperCase() + w.substr(1))
         .join(" ");
     },
-    standardizeAreaName(area) {
-      let standArea = area
-        .toUpperCase()
-        .trim()
-        .replace(/\s+/g, "_");
-      return standArea;
-    },
     preprocessAscents(ascents) {
       for (let ascent of ascents) {
         ascent["commentLength"] = ascent["comment"].length;

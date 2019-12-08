@@ -95,40 +95,28 @@ Climbing
 
 Ticklist
 
-- [ ] User scoregcrds of general analytics
-- [ ] Link analysis with ticklist for easy sorting/filering
-- [ ] Ascents over time with average of last 10?
+- [ ] add more filters with a 'show more' or the like
+- [ ] make range filters
+- [ ] fix empty or junk Country City state
+- [ ] Finish time series
+- [ ] ranking / compare page
 - [ ] compare users liek ven-diagram. show which areas?
-- [ ] object veiwer? could be tied with filtering?
-- [x] ignored being created but empty....
-- [ ] adhoc chart object with x in corner as well as edit for going deeper ets... better than object searcher? with an option for show ascents? modal?
-- [ ] flags hard... maybe change to never can be ignored... and nest that shit? seems better.. because its a list maybe- flags-soft in ignore list?
-- [ ] show percentage on chart, or title?
-- [ ] climbing frequency simply numner of climbs on that day/month/year?
-- [x] FIX color shift if area has less possibilities than all. ie no hard or no 3 star
-- [ ] add hoc chart component! with an x, and edit etc.
-- [ ] a wat to add a stat on title? Like average for stars? or percent soft? or percent recommend?
-
-- [ ] maybe change buttons **_definitely_** make the styling standard... the box shadow is a nice touch. commented out currently
-- [ ] show lable even if not there? is that possible?
-- [ ] switch stat path to stat path where each entry is an object will make year clicking (and more in future) easier
-- [ ] climbs by year should be dynamic... maybe the add a selector fot another top level chart?
-- [ ] why not make all charts dynamic? Even area one woudl benefit from reverse from year?
-- [ ] add an aggregator function?
 - [ ] maybe try squared addition then square root for grade? sounds interesting.
-
-- [ ] can i do filter function for soft hard neither?
 - [ ] do wildcard for nameMap... or default?
-
-- [ ] want to be able to edit, statpath, aggregator used.. delere, add new, view ascents.
-
-- [x] filter for year (example) shoudl only show valie years. Im just showing all of root.
-- [ ] need to make filter object more maintainable......
-- [ ] prettier filter navigation
 - [ ] still want time series.. maybe include it as an option?
 - [ ] iclude range, value and value list!
-
-- [ ] need to add aggregate "filters" to the ascents choice
+- [ ] ~~object veiwer? could be tied with filtering?~~
+- [ ] ~~Link analysis with ticklist for easy sorting/filering~~
+- [x] User scoregcrds of general analytics
+- [x] ignored being created but empty....
+- [x] ~~adhoc~~ dynamic chart object with x in corner as well as edit for going deeper ets... better than object searcher? with an option for show ascents? modal?
+- [x] flags hard... maybe change to never can be ignored... and nest that shit? seems better.. because its a list maybe- flags-soft in ignore list?
+- [x] show percentage on chart, or title?
+- [x] FIX color shift if area has less possibilities than all. ie no hard or no 3 star
+- [x] want to be able to edit, statpath, aggregator used.. delere, add new, view ascents.
+- [x] filter for year (example) shoudl only show valie years. Im just showing all of root.
+- [x] maybe change buttons **_definitely_** make the styling standard... the box shadow is a nice touch. commented out currently
+- [x] show lable even if not there? is that possible? Preserved colors.
 
 Lofty
 
