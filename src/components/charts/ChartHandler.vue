@@ -171,7 +171,7 @@
       <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option value="All">~ALL~</option>
-        <option v-for="cat in ascentChoics" :key="cat.id" :value="cat.name">{{
+        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">{{
           cat.label + " (" + cat.datum + ")"
         }}</option>
       </select>
@@ -226,13 +226,17 @@ export default {
     catStats() {
       return this.stats.get(this.chart.statBase);
     },
-    ascentChoics() {
+    ascentChoices() {
       let choices = [];
       for (let i = 0; i < this.chart.chartData.labels.length; i++) {
+        let datum = 0;
+        for (let dataset of this.chart.chartData.datasets) {
+          datum += dataset.data[i];
+        }
         choices.push({
           name: this.chart.chartData.names[i],
           label: this.chart.chartData.labels[i],
-          datum: this.chart.chartData.datasets[0].data[i]
+          datum: datum
         });
       }
       return choices;
