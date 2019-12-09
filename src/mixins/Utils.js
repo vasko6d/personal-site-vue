@@ -75,6 +75,14 @@ export default {
         return typeof args[number] != "undefined" ? args[number] : match;
       });
     },
+    mapName(statName, nameToMap, nameMap = false) {
+      if (nameMap) {
+        return nameMap[nameToMap];
+      } else if (nameMaps[statName]) {
+        return nameMaps[statName][nameToMap];
+      }
+      return nameToMap;
+    },
     mapGrade(grade, minVal = -10, sys = "V") {
       // V or font will eventually be supported
       if (sys === "V") {
@@ -211,13 +219,7 @@ export default {
       }
       // Add Label
       filteredList.forEach(el => {
-        if (opts.nameMap) {
-          el["label"] = opts.nameMap[el.name];
-        } else if (nameMaps[stat.name]) {
-          el["label"] = nameMaps[stat.name][el.name];
-        } else {
-          el["label"] = el.name;
-        }
+        el["label"] = this.mapName(stat.name, el.name, opts.nameMap);
       });
       // Add actual data for that point
       filteredList.forEach(el => {

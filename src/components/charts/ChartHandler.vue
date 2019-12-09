@@ -219,7 +219,7 @@ export default {
       return !(
         (this.chart.opts &&
           this.chart.opts.filters &&
-          this.chart.opts.filters[this.chart.statBase]) ||
+          this.chart.opts.filters[this.chart.statBase].val) ||
         this.chart.opts.hideChart
       );
     },

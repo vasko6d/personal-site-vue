@@ -95,6 +95,9 @@ Climbing
 
 Ticklist
 
+- [ ] sort filters by name and nameMap relevant ones
+- [ ] filters are showing more than just valid filters? After clicking the blank one it happened? oh yeah that was intentional. should i keep or change?
+- [ ] fix NV, Ojaim Los Angeles as state. Possibly more
 - [ ] add more filters with a 'show more' or the like
 - [ ] make range filters
 - [ ] fix empty or junk Country City state

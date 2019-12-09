@@ -96,11 +96,11 @@ export default class Stat {
     let stat = this;
     if (filters && Object.keys(filters).length > 0) {
       for (const cat of Object.keys(filters)) {
-        if (filters[cat] != null) {
-          //console.log("> Filter: " + filter);
+        if (filters[cat].val != null) {
+          //console.log("> Filter: " + cat);
           stat = stat.get(cat);
-          //console.log("> Value: " + filters[filter]);
-          stat = stat.get(filters[cat], true, false);
+          //console.log("> Value: " + filters[cat].val);
+          stat = stat.get(filters[cat].val, true, false);
         }
       }
     }

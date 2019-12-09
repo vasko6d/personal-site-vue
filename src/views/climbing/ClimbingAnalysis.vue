@@ -68,13 +68,18 @@ export default {
         dynamic: []
       },
       currentFilters: {
-        area: null,
-        year: null,
-        recommend: null,
-        grade: null,
-        rating: null,
-        flags: null,
-        type: null
+        area: { val: null, show: true },
+        year: { val: null, show: true },
+        month: { val: null, show: true },
+        dayOfWeek: { val: null, show: false },
+        recommend: { val: null, show: false },
+        grade: { val: null, show: true },
+        rating: { val: null, show: false },
+        softness: { val: null, show: true },
+        flags: { val: null, show: false },
+        type: { val: null, show: true },
+        country: { val: null, show: false },
+        state: { val: null, show: false }
       },
       stats: new Stat("ascents", ["comment"]),
       showClimbers: false,
@@ -159,10 +164,16 @@ export default {
     },
     clearFilters(catToClear) {
       if (catToClear) {
-        this.$set(this.currentFilters, catToClear, null);
+        this.$set(this.currentFilters, catToClear, {
+          val: null,
+          show: this.currentFilters[catToClear].show
+        });
       } else {
         for (const cat of Object.keys(this.currentFilters)) {
-          this.$set(this.currentFilters, cat, null);
+          this.$set(this.currentFilters, cat, {
+            val: null,
+            show: this.currentFilters[cat].show
+          });
         }
       }
     },

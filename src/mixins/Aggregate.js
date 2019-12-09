@@ -1,16 +1,21 @@
 const ALL = [
   "area",
-  "commentLength",
-  "date",
-  "flags",
-  "grade",
-  "name",
-  "rating",
-  "recommend",
-  "softness",
   "subArea",
+  "year",
+  "month",
+  "day",
+  "dayOfWeek",
+  "date",
+  "commentLength",
+  "recommend",
+  "grade",
+  "rating",
+  "softness",
+  "flags",
+  "country",
+  "state",
   "type",
-  "year"
+  "name"
 ];
 import Utils from "@/mixins/Utils.js";
 export default {
