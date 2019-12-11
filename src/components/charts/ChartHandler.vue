@@ -117,9 +117,9 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">{{
-                    aggregator === null ? "Select function" : "none"
-                  }}</option>
+                  <option :value="null">
+                    {{ aggregator === null ? "Select function" : "none" }}
+                  </option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
@@ -171,9 +171,9 @@
       <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option value="All">~ALL~</option>
-        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">{{
-          cat.label + " (" + cat.datum + ")"
-        }}</option>
+        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">
+          {{ cat.label + " (" + cat.datum + ")" }}
+        </option>
       </select>
       <div style="margin-left: 5%;" v-if="subCatagory != null">
         <ul style="text-align: left;">
@@ -219,6 +219,7 @@ export default {
       return !(
         (this.chart.opts &&
           this.chart.opts.filters &&
+          this.chart.opts.filters[this.chart.statBase] &&
           this.chart.opts.filters[this.chart.statBase].val) ||
         this.chart.opts.hideChart
       );
