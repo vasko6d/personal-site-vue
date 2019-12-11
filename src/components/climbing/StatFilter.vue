@@ -13,44 +13,45 @@
       >&nbsp;
       <i
         v-show="showFilters"
-        :class="{
-          fas: true,
-          icn: true,
-          'fa-plus': !addingFilter,
-          'fa-trash': addingFilter
-        }"
-        @click="addingFilter = !addingFilter"
-        v-tooltip="'Add Filter'"
+        class="fas fa-eraser icn"
+        @click="$emit('clearFilters')"
+        v-tooltip="'Clear All Filters'"
       ></i
       >&nbsp;
       <i
         v-show="showFilters"
-        class="fas fa-eraser icn"
-        @click="$emit('clearFilters')"
-        v-tooltip="'Clear Filters'"
+        :class="{
+          fas: true,
+          icn: true,
+          'fa-plus': !addingFilter
+        }"
+        @click="addingFilter = !addingFilter"
+        v-tooltip="'Add Filter'"
       ></i>
     </div>
     <div
       class="b bg1"
-      style="margin-top: 0.5em; padding-top: 0.5em;"
-      v-show="addingFilter"
+      style="margin-top: 0.5em; padding-top: 0.25em;"
+      v-show="addingFilter && showFilters"
     >
-      <div>
-        Choose Filter to add
+      <div class="flex-row">
+        <span class="fstatic"></span>
+        <span class="fgrow">Choose Filter to add</span>
+        <span class="fstatic topx">
+          <i
+            class="fas fa-window-close icn"
+            @click="(addingFilter = !addingFilter), (filterToAdd = null)"
+            v-tooltip="'Close'"
+          ></i>
+        </span>
       </div>
       <div>
-        <select v-model="filterToAdd">
+        <select v-model="filterToAdd" @change="addFilter()">
           <option :value="null">Select Filter</option>
           <option v-for="fil in addableFilters" :key="fil.id" :value="fil">{{
             prettyCapitalize(fil)
-          }}</option></select
-        >
-      </div>
-      <div>
-        <i class="fas fa-check icn" @click="addFilter()"></i>&nbsp;<i
-          class="fas fa-times icn"
-          @click="addingFilter = !addingFilter"
-        ></i>
+          }}</option>
+        </select>
       </div>
     </div>
     <div v-show="showFilters">
@@ -155,7 +156,6 @@ export default {
     addFilter() {
       if (this.filterToAdd != null) {
         this.currentFilters[this.filterToAdd].show = true;
-        this.addingFilter = false;
       }
     },
     deleteFitler(catToDelete) {
@@ -178,5 +178,20 @@ export default {
 .filter-drop {
   flex-grow: 1;
   flex-shrink: 1;
+}
+.flex-row {
+  .fstatic {
+    flex-basis: 20px;
+  }
+  .fgrow {
+    flex-grow: 1;
+  }
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+.topx {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>
