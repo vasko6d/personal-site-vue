@@ -246,6 +246,10 @@ export default {
         ? (a, b) => (a.name > b.name ? 1 : -1)
         : (a, b) => b.datum - a.datum;
       filteredList.sort(opts.sortFxn || defaultSort);
+      // Apply limit if passed
+      if (opts.limit) {
+        filteredList = filteredList.slice(0, opts.limit);
+      }
       // Return it in ChartJS format
       return {
         datasets: [

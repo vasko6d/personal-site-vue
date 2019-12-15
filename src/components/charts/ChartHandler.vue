@@ -63,7 +63,7 @@
     </div>
     <div v-else-if="viewType === 'settings'">
       <div>Settings</div>
-      <div class="flex-row">
+      <div>
         <table class="basic-table">
           <tr>
             <td class="b">Base Stat</td>
@@ -117,16 +117,15 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">{{
-                    aggregator === null ? "Select function" : "none"
-                  }}</option>
+                  <option :value="null">
+                    {{ aggregator === null ? "Select function" : "none" }}
+                  </option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
                     :key="aKey.id"
                     >{{ aggregators[aKey] }}</option
                   >
-                  <!--option value="softness">Softness</option-->
                 </select>
               </div>
               <div v-show="aggregator != null">
@@ -163,6 +162,33 @@
               </div>
             </td>
           </tr>
+          <tr>
+            <td class="b">Limit</td>
+            <td align="center">
+              <div class="flex-row-nw setting-select">
+                <span class="flex-gs" style="flex-basis: 10px;">
+                  <input
+                    v-model.number="chart.opts.limit"
+                    type="number"
+                    style="width: 100%;"
+                  /> </span
+                >&nbsp;
+                <span>
+                  <i
+                    class="fas fa-check icn filter-txt"
+                    v-tooltip="'Apply Limit'"
+                    @click="changeLimit()"
+                  ></i
+                  >&nbsp;
+                  <i
+                    class="fas fa-trash icn filter-txt"
+                    v-tooltip="'Remove Limit'"
+                    @click="changeLimit(0)"
+                  ></i>
+                </span>
+              </div>
+            </td>
+          </tr>
         </table>
       </div>
     </div>
@@ -171,9 +197,9 @@
       <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option value="All">~ALL~</option>
-        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">{{
-          cat.label + " (" + cat.datum + ")"
-        }}</option>
+        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">
+          {{ cat.label + " (" + cat.datum + ")" }}
+        </option>
       </select>
       <div style="margin-left: 5%;" v-if="subCatagory != null">
         <ul style="text-align: left;">
@@ -272,6 +298,10 @@ export default {
     },
     changeSortOrder() {
       this.$emit("changeSortOrder", this.chart.opts.sortByName);
+      this.viewType = "chart";
+    },
+    changeLimit(limit) {
+      this.$emit("changeLimit", limit != null ? limit : this.chart.opts.limit);
       this.viewType = "chart";
     },
     emptyCatVal() {

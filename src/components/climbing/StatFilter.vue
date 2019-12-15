@@ -48,9 +48,9 @@
       <div>
         <select v-model="filterToAdd" @change="addFilter()">
           <option :value="null">Select Filter</option>
-          <option v-for="fil in addableFilters" :key="fil.id" :value="fil">{{
-            prettyCapitalize(fil)
-          }}</option>
+          <option v-for="fil in addableFilters" :key="fil.id" :value="fil">
+            {{ prettyCapitalize(fil) }}
+          </option>
         </select>
       </div>
     </div>
@@ -62,7 +62,7 @@
       >
         <div class="flex-row">
           <span class="filter-txt">{{ prettyCapitalize(catagory) }} =</span>
-          <select class="filter-drop" v-model="currentFilters[catagory].val">
+          <select class="flex-gs" v-model="currentFilters[catagory].val">
             <option :value="null">All</option>
             <option
               v-for="opt in filterOpts[catagory]"
@@ -174,10 +174,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.filter-drop {
-  flex-grow: 1;
-  flex-shrink: 1;
 }
 .flex-row {
   .fstatic {

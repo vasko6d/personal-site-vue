@@ -38,6 +38,7 @@
         @changeAggregator="changeAggregator($event, index)"
         @changeBaseStat="changeBaseStat($event, index)"
         @changeSortOrder="changeSortOrder($event, index)"
+        @changeLimit="changeLimit($event, index)"
       ></chart-handler>
     </div>
   </div>
@@ -143,6 +144,9 @@ export default {
     },
     changeSortOrder(sortByName, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex].opts, "sortByName", sortByName);
+    },
+    changeLimit(limit, chartIndex) {
+      this.$set(this.charts.dynamic[chartIndex].opts, "limit", limit);
     },
     changeBaseStat(newBaseStat, chartIndex) {
       this.$set(this.charts.dynamic[chartIndex], "statBase", newBaseStat);
@@ -288,9 +292,14 @@ export default {
       });
     },
     addDynamicChart(chartType, statBase, opts = {}) {
+      // Default opts with must be defined.
       if (!opts.sortByName) {
         opts.sortByName = false;
       }
+      if (!opts.limit) {
+        opts.limit = 0;
+      }
+      // Create chart
       let dynamicChart = {
         type: chartType,
         statBase: statBase,
@@ -316,7 +325,8 @@ export default {
           stat.subStatCount() +
           " " +
           this.prettyCapitalize(statBase) +
-          "s";
+          "s" +
+          (opts.limit ? ", Top " + opts.limit : "");
       }
       switch (chartType) {
         case "bar":

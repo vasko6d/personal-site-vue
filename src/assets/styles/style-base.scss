@@ -257,6 +257,16 @@
     justify-content: center;
   }
 
+  .flex-row-nw {
+    display: flex;
+    justify-content: center;
+  }
+
+  .flex-gs {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
   .chart-w {
     width: 390px;
     @media only screen and (max-width: 450px) {
