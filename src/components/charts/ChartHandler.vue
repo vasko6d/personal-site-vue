@@ -77,7 +77,7 @@
                   v-for="cname in Object.keys(stats.subStats)"
                   :value="cname"
                   :key="cname.id"
-                  >{{ cname }}</option
+                  >{{ prettyCapitalize(cname) }}</option
                 >
               </select>
             </td>
@@ -117,9 +117,9 @@
                   class="setting-select"
                   @change="emptyCatVal(), changeAggregator()"
                 >
-                  <option :value="null">
-                    {{ aggregator === null ? "Select function" : "none" }}
-                  </option>
+                  <option :value="null">{{
+                    aggregator === null ? "Select function" : "none"
+                  }}</option>
                   <option
                     v-for="aKey in Object.keys(aggregators)"
                     :value="aKey"
@@ -140,7 +140,7 @@
                     v-for="aOpt in aggregateOpts"
                     :value="aOpt"
                     :key="aOpt.id"
-                    >{{ aOpt }}</option
+                    >{{ prettyCapitalize(aOpt) }}</option
                   >
                 </select>
               </div>
@@ -171,9 +171,9 @@
       <select v-model="subCatagory" class="setting-select">
         <option :value="null">Select {{ chart.statBase }}</option>
         <option value="All">~ALL~</option>
-        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">
-          {{ cat.label + " (" + cat.datum + ")" }}
-        </option>
+        <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">{{
+          cat.label + " (" + cat.datum + ")"
+        }}</option>
       </select>
       <div style="margin-left: 5%;" v-if="subCatagory != null">
         <ul style="text-align: left;">
@@ -192,7 +192,9 @@ import Stat from "@/mixins/Stat.js";
 import Aggregate from "@/mixins/Aggregate.js";
 import DoughnutChart from "@/components/charts/DoughnutChart.vue";
 import BarGraph from "@/components/charts/BarGraph.vue";
+import Utils from "@/mixins/Utils.js";
 export default {
+  mixins: [Utils],
   components: {
     DoughnutChart,
     BarGraph

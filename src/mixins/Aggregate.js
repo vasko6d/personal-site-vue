@@ -91,10 +91,10 @@ export default {
   names: {
     avg: "Average",
     max: "Max",
-    count: "Count with Value",
+    sum: "Sum",
     pct: "Percentage",
-    distinctCount: "Count Distinct",
-    sum: "Sum"
+    count: "Count with Value",
+    distinctCount: "Count Distinct"
   },
   makeTitle(aggregator, catagory, value) {
     let ret = "";
