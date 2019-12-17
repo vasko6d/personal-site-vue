@@ -71,6 +71,7 @@
               >{{ opt.label }}</option
             > </select
           >&nbsp;
+          <!--<i class="fas fa-cogs icn filter-txt"></i>&nbsp;&nbsp;-->
           <i
             class="fas fa-eraser icn filter-txt"
             @click="$emit('clearFilters', catagory)"

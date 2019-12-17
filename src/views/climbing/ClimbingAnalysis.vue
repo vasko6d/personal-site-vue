@@ -48,7 +48,7 @@
 import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import Aggregate from "@/mixins/Aggregate.js";
-import ChartHandler from "@/components/charts/ChartHandler.vue";
+import ChartHandler from "@/components/climbing/charts/ChartHandler.vue";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
 export default {
@@ -156,9 +156,11 @@ export default {
       if (opts.aggregator === null) {
         this.$delete(this.charts.dynamic[chartIndex].opts, "aggregateFxn");
         this.$delete(this.charts.dynamic[chartIndex].opts, "aggregateTitle");
+        this.$delete(this.charts.dynamic[chartIndex].opts, "aggOpts");
       } else {
         let agg = Aggregate.fxns[opts.aggregator](opts.catagory, opts.value);
         this.$set(this.charts.dynamic[chartIndex].opts, "aggregateFxn", agg);
+        this.$set(this.charts.dynamic[chartIndex].opts, "aggOpts", opts);
         this.$set(
           this.charts.dynamic[chartIndex].opts,
           "aggregateTitle",
