@@ -165,7 +165,10 @@
           <tr>
             <td class="b">Limit</td>
             <td align="center">
-              <div class="flex-row-nw setting-select">
+              <div
+                class="flex-row-nw setting-select bg1"
+                style="padding: 3px 8px 3px 8px;"
+              >
                 <span class="flex-gs" style="flex-basis: 10px;">
                   <input
                     v-model.number="chart.opts.limit"
