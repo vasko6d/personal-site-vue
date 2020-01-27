@@ -6,40 +6,48 @@
         <climber-select baseURL="/climbing/analytics/" />
       </div>
     </div>
-    <div class="flex-row">
-      <div class="chart bg1">
-        <h2>Climber Stats</h2>
-        <div class="flex-row">
-          <table class="basic-table">
-            <tr v-for="cStat in climberStats" :key="cStat.id">
-              <td class="b">{{ cStat.name }}</td>
-              <td>{{ cStat.value }}</td>
-            </tr>
-          </table>
+    <spinner
+      v-show="loading"
+      size="huge"
+      message="Loading ..."
+      :line-size="24"
+    ></spinner>
+    <div v-show="!loading">
+      <div class="flex-row">
+        <div class="chart bg1">
+          <h2>Climber Stats</h2>
+          <div class="flex-row">
+            <table class="basic-table">
+              <tr v-for="cStat in climberStats" :key="cStat.id">
+                <td class="b">{{ cStat.name }}</td>
+                <td>{{ cStat.value }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="chart bg1">
+          <stat-filter
+            :currentFilters="currentFilters"
+            :stats="stats"
+            @clearFilters="clearFilters"
+          />
         </div>
       </div>
-      <div class="chart bg1">
-        <stat-filter
-          :currentFilters="currentFilters"
-          :stats="stats"
-          @clearFilters="clearFilters"
-        />
+      <h2>Dynamic Charts</h2>
+      <div class="flex-row">
+        <chart-handler
+          v-for="(dynamicChart, index) in computedCharts"
+          :key="dynamicChart.id"
+          :chart="dynamicChart"
+          :stats="currentFilteredStat"
+          @close="closeChart(dynamicChart)"
+          @changeChartType="changeChartType($event, index)"
+          @changeAggregator="changeAggregator($event, index)"
+          @changeBaseStat="changeBaseStat($event, index)"
+          @changeSortOrder="changeSortOrder($event, index)"
+          @changeLimit="changeLimit($event, index)"
+        ></chart-handler>
       </div>
-    </div>
-    <h2>Dynamic Charts</h2>
-    <div class="flex-row">
-      <chart-handler
-        v-for="(dynamicChart, index) in computedCharts"
-        :key="dynamicChart.id"
-        :chart="dynamicChart"
-        :stats="currentFilteredStat"
-        @close="closeChart(dynamicChart)"
-        @changeChartType="changeChartType($event, index)"
-        @changeAggregator="changeAggregator($event, index)"
-        @changeBaseStat="changeBaseStat($event, index)"
-        @changeSortOrder="changeSortOrder($event, index)"
-        @changeLimit="changeLimit($event, index)"
-      ></chart-handler>
     </div>
   </div>
 </template>
@@ -51,11 +59,13 @@ import Aggregate from "@/mixins/Aggregate.js";
 import ChartHandler from "@/components/climbing/charts/ChartHandler.vue";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
+import Spinner from "vue-simple-spinner";
 export default {
   components: {
     ChartHandler,
     ClimberSelect,
-    StatFilter
+    StatFilter,
+    Spinner
   },
   mixins: [Utils],
   props: {
@@ -84,7 +94,8 @@ export default {
       },
       stats: new Stat("ascents", ["comment"]),
       showClimbers: false,
-      initialized: false
+      initialized: false,
+      loading: true
     };
   },
   computed: {
@@ -366,47 +377,53 @@ export default {
       return dynamicChart;
     }
   },
-  mounted() {
-    this.fetchData(this.sandboxId)
-      .then(result => {
-        this.ascents = result.data;
-        this.initializeStats().then(() => {
-          this.initialized = true;
-          // Grade Counts
-          let gradeOpts = this.defaultChartOpts();
-          gradeOpts["scales"] = {
-            xAxes: [{ stacked: true }],
-            yAxes: [{ stacked: true }]
-          };
-          this.addDynamicChart("grade", "grade", {
-            title: "Ascents per Grade",
-            chartOpts: gradeOpts
+  created() {
+    this.loading = true;
+    setTimeout(() => {
+      this.fetchData(this.sandboxId)
+        .then(result => {
+          this.ascents = result.data;
+          this.initializeStats().then(() => {
+            this.initialized = true;
+            // Grade Counts
+            let gradeOpts = this.defaultChartOpts();
+            gradeOpts["scales"] = {
+              xAxes: [{ stacked: true }],
+              yAxes: [{ stacked: true }]
+            };
+            this.addDynamicChart("grade", "grade", {
+              title: "Ascents per Grade",
+              chartOpts: gradeOpts
+            });
+            // Area Counts
+            this.addDynamicChart("pie", "area", {
+              autoGenerateSubtitle: true
+            });
+            // year counts
+            this.addDynamicChart("bar", "year", {
+              sortByName: true,
+              autoGenerateSubtitle: true
+            });
+            // Softness, rating and recommend
+            this.addDynamicChart("pie", "softness", {
+              sortByName: true
+            });
+            this.addDynamicChart("pie", "rating", {
+              sortByName: true
+            });
+            this.addDynamicChart("pie", "recommend", {
+              sortByName: true
+            });
+            this.generateTimeSeries(this.stats.values);
           });
-          // Area Counts
-          this.addDynamicChart("pie", "area", {
-            autoGenerateSubtitle: true
-          });
-          // year counts
-          this.addDynamicChart("bar", "year", {
-            sortByName: true,
-            autoGenerateSubtitle: true
-          });
-          // Softness, rating and recommend
-          this.addDynamicChart("pie", "softness", {
-            sortByName: true
-          });
-          this.addDynamicChart("pie", "rating", {
-            sortByName: true
-          });
-          this.addDynamicChart("pie", "recommend", {
-            sortByName: true
-          });
-          this.generateTimeSeries(this.stats.values);
+        })
+        .catch(error => {
+          window.alert(error.msg || error);
         });
-      })
-      .catch(error => {
-        window.alert(error.msg || error);
-      });
+    }, 250);
+  },
+  updated() {
+    this.loading = false;
   }
 };
 </script>

@@ -104,7 +104,7 @@ export default {
         .map(w => w[0].toUpperCase() + w.substr(1))
         .join(" ");
     },
-    preprocessAscents(ascents) {
+    preprocessAscents(ascents, climber) {
       for (let ascent of ascents) {
         ascent["commentLength"] = ascent["comment"].length;
         //new property for Soft, Hard, Neither
@@ -128,6 +128,9 @@ export default {
         // Day of week
         let jDate = new Date(ascent["date"] + "T12:00:00Z");
         ascent["dayOfWeek"] = jDate.getDay();
+
+        // Climber Name
+        ascent["climber"] = climber;
       }
     },
     fetchData(sandboxId) {
@@ -188,7 +191,7 @@ export default {
       // return as promise
       return new Promise((resolve, reject) => {
         if (ascents.length > 0) {
-          this.preprocessAscents(ascents);
+          this.preprocessAscents(ascents, this.kebabToCap(sandboxId));
           const ret = {
             msg: "Success",
             data: ascents

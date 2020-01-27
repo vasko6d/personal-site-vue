@@ -32,11 +32,9 @@ export default new Router({
           component: () => import("./views/climbing/ClimbingVideos.vue")
         },
         {
-          path: "/climbing/ticklist/:sandboxId",
-          defaultPath: "/climbing/ticklist/david-vasko",
+          path: "/climbing/ticklist",
           name: "Ticklist",
-          component: () => import("./views/climbing/ClimbingTicklist.vue"),
-          props: true
+          component: () => import("./views/climbing/ClimbingTicklist.vue")
         },
         {
           path: "/climbing/analytics/:sandboxId",

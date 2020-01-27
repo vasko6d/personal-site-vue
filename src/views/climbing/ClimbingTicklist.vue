@@ -1,12 +1,18 @@
 <template>
   <div id="boulder-scorecard">
-    <h1>{{ climberName }}'s Ticklist</h1>
-    <div class="flex-row">
-      <div class="chart-w">
+    <h1>The Sandbox's Ticklist</h1>
+    <spinner
+      v-show="loading"
+      size="huge"
+      message="Loading ..."
+      :line-size="24"
+    ></spinner>
+    <div v-show="!loading" class="flex-row">
+      <!--div class="chart-w">
         <div class="chart-p bg1">
           <climber-select baseURL="/climbing/ticklist/" />
         </div>
-      </div>
+      </div-->
       <div class="chart-w">
         <div class="chart-p bg1">
           <stat-filter
@@ -49,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="table-container">
+    <div v-show="!loading" class="table-container">
       <v-client-table
         ref="vuetable"
         :columns="activeColumns"
@@ -80,20 +86,21 @@ import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
+import Timer from "@/mixins/webgl/Timer.js";
+import Spinner from "vue-simple-spinner";
 export default {
   components: {
-    ClimberSelect,
-    StatFilter
+    StatFilter,
+    Spinner
   },
   mixins: [Utils],
-  props: {
-    sandboxId: String
-  },
   data() {
     return {
+      loading: true,
       showColumnFlags: false,
       stats: new Stat("ascents", ["comment"]),
       currentFilters: {
+        climber: { val: null, show: true },
         area: { val: null, show: true },
         year: { val: null, show: true },
         month: { val: null, show: true },
@@ -108,6 +115,7 @@ export default {
         state: { val: null, show: false }
       },
       columns: [
+        { name: "climber", active: true },
         { name: "date", active: true },
         { name: "type", active: false },
         { name: "grade", active: true },
@@ -121,6 +129,7 @@ export default {
       ],
       options: {
         headings: {
+          climber: "Climber",
           date: "Date",
           type: "Type",
           grade: "Grade",
@@ -137,6 +146,7 @@ export default {
         },
         perPageValues: [10, 25, 50, 100, 500, 2000],
         sortable: [
+          "climber",
           "date",
           "type",
           "grade",
@@ -149,6 +159,7 @@ export default {
           "comment"
         ],
         filterable: [
+          "climber",
           "date",
           "type",
           "grade",
@@ -204,19 +215,38 @@ export default {
       return this.stats.getFiltered(false, this.currentFilters);
     }
   },
-  mounted() {
-    this.fetchData(this.sandboxId)
-      .then(result => {
-        let ascents = result.data;
-        this.stats = new Stat("ascents", ["comment"]);
-        this.stats.goDeeper(ascents);
-        console.log("Ticklist: ", this.stats);
-      })
-      .catch(error => {
-        window.alert(error.msg);
-      });
+  created() {
+    this.loading = true;
+    this.fetchAllData();
+  },
+  updated() {
+    this.loading = false;
   },
   methods: {
+    fetchAllData() {
+      setTimeout(() => {
+        var promises = [];
+        let timer = new Timer(true);
+        ClimberSelect.data().importedClimbers.forEach(climber => {
+          promises.push(
+            this.fetchData(climber.sandboxId).then(result => {
+              let ascents = result.data;
+              return Promise.resolve(ascents);
+            })
+          );
+        });
+        Promise.all(promises)
+          .then(allAscents => {
+            let allAscentsFlat = [].concat.apply([], allAscents);
+            this.stats.goDeeper(allAscentsFlat);
+            return Promise.resolve();
+          })
+          .then(() => {
+            console.log(`[${timer.getTimeSec()}] All Ascents porcessed`);
+            console.log("Ticklist: ", this.stats);
+          });
+      }, 250);
+    },
     clearFilters(catToClear) {
       if (catToClear) {
         this.$set(this.currentFilters, catToClear, {
