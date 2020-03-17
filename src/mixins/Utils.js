@@ -147,6 +147,11 @@ export default {
             "ascents"
           ];
           break;
+        case "jacquie-nguyen":
+          ascents = require("@/assets/json/8a-scorecards/jacquie-nguyen.json")[
+            "ascents"
+          ];
+          break;
         case "scott-baron":
           ascents = require("@/assets/json/8a-scorecards/scott-baron.json")[
             "ascents"

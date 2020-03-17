@@ -21,9 +21,7 @@
           @click="navigate(climber.sandboxId)"
           v-for="climber in importedClimbers"
           :key="climber.id"
-        >
-          {{ climber.name }}
-        </li>
+        >{{ climber.name }}</li>
       </ul>
     </div>
   </div>
@@ -45,6 +43,7 @@ export default {
         },
         { name: "Akhil Mauze", sandboxId: "akhil-mauze" },
         { name: "Scott Baron", sandboxId: "scott-baron" },
+        { name: "Jacquie Nguyen", sandboxId: "jacquie-nguyen" },
         { name: "Dustin Goldbarg", sandboxId: "dustin-goldbarg" },
         {
           name: "Nathaniel Cushing-Murray",
