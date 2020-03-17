@@ -21,7 +21,9 @@
           @click="navigate(climber.sandboxId)"
           v-for="climber in importedClimbers"
           :key="climber.id"
-        >{{ climber.name }}</li>
+        >
+          {{ climber.name }}
+        </li>
       </ul>
     </div>
   </div>
