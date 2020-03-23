@@ -3,7 +3,7 @@
     <div
       :class="{
         enabled: enabled,
-        disabled: !enabled
+        disabled: !enabled,
       }"
     >
       <i
@@ -11,8 +11,8 @@
           'far',
           {
             'fa-check-square': enabled,
-            'fa-window-close': !enabled
-          }
+            'fa-window-close': !enabled,
+          },
         ]"
       ></i>
       {{ desc }}
@@ -25,8 +25,8 @@ export default {
   name: "FontAwesomeCheck",
   props: {
     enabled: Boolean,
-    desc: String
-  }
+    desc: String,
+  },
 };
 </script>
 

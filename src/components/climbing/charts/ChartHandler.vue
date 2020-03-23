@@ -6,7 +6,7 @@
           <i
             class="fas fa-mountain icn"
             :class="{
-              'icn-a': viewType === 'ascents'
+              'icn-a': viewType === 'ascents',
             }"
             @click="viewType = 'ascents'"
             v-tooltip="'Show Ascents'"
@@ -17,7 +17,7 @@
           <i
             class="fas fa-cogs icn"
             :class="{
-              'icn-a': viewType === 'settings'
+              'icn-a': viewType === 'settings',
             }"
             @click="viewType = 'settings'"
             v-tooltip="'Settings'"
@@ -31,7 +31,7 @@
               'fa-chart-line': chart.type === 'line',
               'fa-chart-pie': chart.type === 'pie',
               'fa-chart-bar': chart.type === 'bar' || chart.type === 'grade',
-              'icn-a': viewType === 'chart'
+              'icn-a': viewType === 'chart',
             }"
             @click="viewType = 'chart'"
             v-tooltip="'Show Chart'"
@@ -76,16 +76,16 @@ export default {
   components: {
     ChartView,
     SettingView,
-    AscentView
+    AscentView,
   },
   props: {
     chart: Object,
-    stats: Stat
+    stats: Stat,
   },
   data() {
     return {
       // chart, settings, ascents
-      viewType: "chart"
+      viewType: "chart",
     };
   },
   computed: {
@@ -97,13 +97,13 @@ export default {
           this.chart.opts.filters[this.chart.statBase].val) ||
         this.chart.opts.hideChart
       );
-    }
+    },
   },
   methods: {
     chartView() {
       this.viewType = "chart";
-    }
-  }
+    },
+  },
 };
 </script>
 

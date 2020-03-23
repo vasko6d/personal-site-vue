@@ -119,10 +119,10 @@ export default {
     XwordCurrentClue,
     XwordKeyboard,
     XwordHeader,
-    XwordStatBanner
+    XwordStatBanner,
   },
   props: {
-    xwordId: String
+    xwordId: String,
   },
   data() {
     return {
@@ -136,13 +136,13 @@ export default {
         3: Xword3.data().xword,
         4: Xword4.data().xword,
         5: Xword5.data().xword,
-        6: Xword6.data().xword
+        6: Xword6.data().xword,
       },
       xword: new Xword("", "", "", "", [], {}, {}),
       clickedClue: {}, // hacky to make clue context togglable....
       contextEnabled: false,
       forceSpecialKeyboard: false,
-      keyboardMasterOverride: false
+      keyboardMasterOverride: false,
     };
   },
   computed: {
@@ -155,7 +155,7 @@ export default {
       return {
         num: num,
         txt: txt,
-        isAcross: isAcross
+        isAcross: isAcross,
       };
     },
     showContextKey() {
@@ -174,7 +174,7 @@ export default {
     },
     downNum() {
       return this.xword.getCell().downNum;
-    }
+    },
   },
   mounted() {
     let raw = this.rawXwords[this.xwordId];
@@ -278,35 +278,35 @@ export default {
           contextOpts: [
             { name: "Always show clue context", val: "always" },
             { name: "Click clue to toggle context", val: "toggle" },
-            { name: "Never show clue context", val: "never" }
+            { name: "Never show clue context", val: "never" },
           ],
           hideClueOpt: "never",
           hideClueOpts: [
             {
               name: "Hide clues that are CORRECT and filled",
-              val: "onCorrect"
+              val: "onCorrect",
             },
             { name: "Hide clues that are filled", val: "onFill" },
-            { name: "Never hide clues", val: "never" }
-          ]
+            { name: "Never hide clues", val: "never" },
+          ],
         },
         keyboard: {
           showOnPageKeyboard: true,
-          enableNativeKeyboardToggle: false
+          enableNativeKeyboardToggle: false,
         },
         currentClue: {
           loc: "top",
           locOpts: [
             { name: "Show curernt clue ABOVE grid", val: "top" },
-            { name: "Show current clue BELOW grid", val: "bottom" }
-          ]
+            { name: "Show current clue BELOW grid", val: "bottom" },
+          ],
         },
         errors: {
-          showErrors: false
+          showErrors: false,
         },
         navigation: {
-          autoSkipFilledCells: true
-        }
+          autoSkipFilledCells: true,
+        },
       };
       if (save) {
         localStorage["xwordOpts"] = JSON.stringify(ret);
@@ -414,8 +414,8 @@ export default {
           this.xword.backSpaceLogic();
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

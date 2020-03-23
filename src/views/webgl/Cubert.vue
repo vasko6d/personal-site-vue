@@ -46,7 +46,7 @@ export default {
   name: "Cubert",
   components: {
     WebglCamera,
-    ActionControls
+    ActionControls,
   },
   data() {
     return {
@@ -61,26 +61,26 @@ export default {
           pMat: "", // projection matrix
           vMat: "", // view matrix
           mMat: "", // model matrix
-          color: "" // RGBA color for the shape
+          color: "", // RGBA color for the shape
         },
         // Attributes
         a: {
-          pos: "" // Position
-        }
+          pos: "", // Position
+        },
       },
 
       // Buffer Data
       buf: {
-        pos: ""
+        pos: "",
       },
       dat: {
-        pos: []
+        pos: [],
       },
       bufIdx: {
         lastEnd: 0,
         cube: "",
         circle: "",
-        plus: ""
+        plus: "",
       },
 
       // Data Variables
@@ -93,7 +93,7 @@ export default {
         mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
         mv.vec4(0.0, 1.0, 1.0, 1.0), // cyan
         mv.vec4(1.0, 1.0, 1.0, 1.0), // white
-        mv.vec4(0.803, 0.592, 0.278) // brown
+        mv.vec4(0.803, 0.592, 0.278), // brown
       ],
       crosshair: {
         near: -15,
@@ -101,7 +101,7 @@ export default {
         left: -15.0,
         right: 15.0,
         top: 15.0,
-        bottom: -15.0
+        bottom: -15.0,
       },
 
       // [A]ction affected [V]ariables
@@ -111,7 +111,7 @@ export default {
         showCrosshair: false,
         camera: wglc.initCamera({
           position: mv.vec3(-30, 0, 0),
-          far: 1000
+          far: 1000,
         }),
         cubes: [
           this.cube([10, -10, -10], [1, 0.5, 5, 0.855], false),
@@ -139,9 +139,9 @@ export default {
           this.cube([-100, 10, 100], false, false),
           this.cube([100, 10, -100], false, false),
           this.cube([-100, 10, -100], false, false),
-          this.cube([500, 60, 0], [10, 1, 1, 4.3], [2, [-1, -1, -1]])
+          this.cube([500, 60, 0], [10, 1, 1, 4.3], [2, [-1, -1, -1]]),
         ],
-        numInitialCubes: ""
+        numInitialCubes: "",
       },
 
       // Camera Keybind variables
@@ -157,9 +157,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.showCrosshair = !av.showCrosshair;
-          }
+          },
         },
         goToStart: {
           keybind: "t",
@@ -168,9 +168,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.camera = wglc.initCamera(av.camera.initialProps);
-          }
+          },
         },
         toggleTime: {
           keybind: "p",
@@ -179,9 +179,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.timer.toggleTimer();
-          }
+          },
         },
         changeColor: {
           keybind: "f",
@@ -190,9 +190,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.cIndex = (av.cIndex + 1) % 8;
-          }
+          },
         },
         addCube: {
           keybind: "g",
@@ -201,13 +201,13 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: av => {
+          updateFxn: (av) => {
             var newCubePos = mv.add(
               av.camera.position,
               mv.scale(10, wglc.atVector(av.camera))
             );
             av.cubes.push(this.cube(newCubePos, false, false));
-          }
+          },
         },
         revert: {
           keybind: "z",
@@ -216,17 +216,17 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.camera = wglc.initCamera(av.camera.initialProps);
             av.cIndex = 0;
             av.showCrosshair = false;
             av.timer.reset();
             av.timer.resume();
             av.cubes = av.cubes.slice(0, av.numInitialCubes);
-          }
-        }
+          },
+        },
       },
-      invActionCtrls: "" // initialize during mount
+      invActionCtrls: "", // initialize during mount
     };
   },
 
@@ -240,10 +240,10 @@ export default {
     // Set up the inverted controls adn window events
     this.invCameraCtrls = {
       ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
-      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
+      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look"),
     };
     this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
@@ -253,7 +253,7 @@ export default {
         this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = true;
       }
     });
-    window.addEventListener("keyup", e => {
+    window.addEventListener("keyup", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = false;
@@ -284,7 +284,7 @@ export default {
         mv.vec3(sz, sz, sz), //4
         mv.vec3(-sz, sz, sz), //5
         mv.vec3(-sz, sz, -sz), //6
-        mv.vec3(sz, sz, -sz) //7
+        mv.vec3(sz, sz, -sz), //7
       ];
 
       //stripArray has all the vertices of a cube in the correct order to use just 1 triangle strip
@@ -308,7 +308,7 @@ export default {
       Array.prototype.push.apply(this.dat.pos, stripArray);
       this.bufIdx.cube = {
         start: this.bufIdx.lastEnd,
-        len: stripArray.length
+        len: stripArray.length,
       };
       wglu.updateBufferIndex(this.bufIdx, "cube", stripArray.length);
     },
@@ -341,8 +341,8 @@ export default {
           mag: 1,
           sinMag: 0,
           omega: 0,
-          phase: 0
-        }
+          phase: 0,
+        },
       };
 
       // Set up Scalar Object if values were passed
@@ -371,7 +371,7 @@ export default {
       if (rotationValues) {
         c.rotation = {
           omega: rotationValues[0],
-          axis: rotationValues[1]
+          axis: rotationValues[1],
         };
       }
       return c;
@@ -499,8 +499,8 @@ export default {
       this.renderCrosshair(); // Crosshair has no view or model transofrmations
 
       wglu.requestAnimFrame()(this.render);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss"></style>

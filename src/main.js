@@ -21,14 +21,14 @@ Vue.directive("closable", {
     // uniqueFxnId: a hack to make sure that the registered "click/touch" event
     //              has a unique way to be identified, otherwise the
     //              removeEventListener may remove the wrong event.
-    handleOutsideClick[uniqueFxnId] = e => {
+    handleOutsideClick[uniqueFxnId] = (e) => {
       e.stopPropagation();
       let clickedOnExcludedEl = false;
-      excludeList.forEach(exclude => {
+      excludeList.forEach((exclude) => {
         if (!clickedOnExcludedEl) {
           const excludedEls = vnode.context.$refs[exclude];
           if (Array.isArray(excludedEls)) {
-            excludedEls.forEach(excludedEl => {
+            excludedEls.forEach((excludedEl) => {
               clickedOnExcludedEl = excludedEl === e.target;
             });
           } else {
@@ -50,12 +50,12 @@ Vue.directive("closable", {
     //console.log("[unbind]: " + uniqueFxnId);
     document.removeEventListener("click", handleOutsideClick[uniqueFxnId]);
     document.removeEventListener("touchstart", handleOutsideClick[uniqueFxnId]);
-  }
+  },
 });
 
 // eslint-disable-next-line
 var vm = new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

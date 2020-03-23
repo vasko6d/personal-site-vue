@@ -6,7 +6,7 @@ export default {
   props: {
     data: Array,
     options: Object,
-    seriesOpts: Array
+    seriesOpts: Array,
   },
   mounted() {
     this.addPlugin(zoom);
@@ -25,7 +25,7 @@ export default {
           pointRadius: 2,
           pointBackgroundColor: seriesOpt.color,
           pointBorderColor: seriesOpt.color,
-          data: []
+          data: [],
         });
       }
       for (let datum of this.data) {
@@ -45,13 +45,13 @@ export default {
       for (let j = 0; j < this.seriesOpts.length; j++) {
         datasets[j].data.push({
           x: tf,
-          y: datasets[j].data[datasets[j].data.length - 1].y
+          y: datasets[j].data[datasets[j].data.length - 1].y,
         });
       }
       return {
-        datasets: datasets
+        datasets: datasets,
       };
-    }
-  }
+    },
+  },
 };
 </script>

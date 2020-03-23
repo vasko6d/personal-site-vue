@@ -65,18 +65,18 @@ export default {
     ChartHandler,
     ClimberSelect,
     StatFilter,
-    Spinner
+    Spinner,
   },
   mixins: [Utils],
   props: {
-    sandboxId: String
+    sandboxId: String,
   },
   data() {
     return {
       ascents: [],
       charts: {
         adhoc: [],
-        dynamic: []
+        dynamic: [],
       },
       currentFilters: {
         area: { val: null, show: true },
@@ -90,12 +90,12 @@ export default {
         flags: { val: null, show: false },
         type: { val: null, show: true },
         country: { val: null, show: false },
-        state: { val: null, show: false }
+        state: { val: null, show: false },
       },
       stats: new Stat("ascents", ["comment"]),
       showClimbers: false,
       initialized: false,
-      loading: true
+      loading: true,
     };
   },
   computed: {
@@ -123,28 +123,30 @@ export default {
         const a = this.ascentAnalysis(stat, 20);
         cStats.push({
           name: "Boulderer Score",
-          value: this.vScale(a.grade.score)
+          value: this.vScale(a.grade.score),
         });
         cStats.push({ name: "Average Stars", value: a.star.avg });
         cStats.push({ name: "Recommend %", value: a.star.recommend + "%" });
         cStats.push({ name: "Softness", value: a.softness + " / 10" });
         cStats.push({
           name: "Average Comment",
-          value: a.comment.avgLen + " characters"
+          value: a.comment.avgLen + " characters",
         });
         cStats.push({ name: "Earliest", value: da.firstDate });
         cStats.push({ name: "Most Recent", value: da.mostRecent });
         cStats.push({ name: "Days climbed", value: da.count });
         cStats.push({
           name: "Grade [Max, Avg]",
-          value: [this.vScale(a.grade.max), this.vScale(a.grade.avg)].join(", ")
+          value: [this.vScale(a.grade.max), this.vScale(a.grade.avg)].join(
+            ", "
+          ),
         });
       }
       return cStats;
     },
     climberName() {
       return this.kebabToCap(this.sandboxId);
-    }
+    },
   },
   methods: {
     closeChart(chart) {
@@ -183,13 +185,13 @@ export default {
       if (catToClear) {
         this.$set(this.currentFilters, catToClear, {
           val: null,
-          show: this.currentFilters[catToClear].show
+          show: this.currentFilters[catToClear].show,
         });
       } else {
         for (const cat of Object.keys(this.currentFilters)) {
           this.$set(this.currentFilters, cat, {
             val: null,
-            show: this.currentFilters[cat].show
+            show: this.currentFilters[cat].show,
           });
         }
       }
@@ -205,7 +207,7 @@ export default {
         valueList: [],
         // range, multi, value
         valueType: "",
-        aggregator: false
+        aggregator: false,
       };
     },
     dateAnalysis(stat) {
@@ -217,7 +219,7 @@ export default {
       return {
         firstDate: dates[0],
         mostRecent: dates[dates.length - 1],
-        count: dates.length
+        count: dates.length,
       };
     },
     ascentAnalysis(stat, ntop = 10) {
@@ -227,16 +229,16 @@ export default {
           max: 0,
           min: 0,
           avg: 0,
-          score: 0
+          score: 0,
         },
         star: {
           avg: 0,
-          recommend: 0
+          recommend: 0,
         },
         comment: {
-          avgLen: 0
+          avgLen: 0,
         },
-        softness: 0
+        softness: 0,
       };
       if (ascents.length === 0) {
         return a;
@@ -280,27 +282,27 @@ export default {
       return {
         responsive: true,
         title: {
-          display: false
+          display: false,
         },
         legend: {
-          display: true
+          display: true,
         },
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
       };
     },
     initializeStats() {
       this.stats = new Stat("ascents", ["comment"]);
       this.stats.goDeeper(this.ascents);
       console.log("Analytics: ", this.stats);
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         resolve();
       });
     },
@@ -316,7 +318,7 @@ export default {
       let dynamicChart = {
         type: chartType,
         statBase: statBase,
-        opts: opts
+        opts: opts,
       };
       this.charts.dynamic.push(dynamicChart);
     },
@@ -327,7 +329,7 @@ export default {
         title: opts.title || this.prettyCapitalize(statBase) + " Chart",
         statBase: statBase,
         opts: opts,
-        chartOpts: opts.chartOpts || this.defaultChartOpts()
+        chartOpts: opts.chartOpts || this.defaultChartOpts(),
       };
       if (opts.subtitleFxn) {
         dynamicChart["subtitle"] = opts.subtitleFxn(stat);
@@ -348,7 +350,7 @@ export default {
           // Save the original colors in a color map and persist them to prevent new random ones being assigned
           dynamicChart.opts["colors"] =
             dynamicChart.opts["colors"] ||
-            dynamicChart.chartData.datasets[0].backgroundColor.reduce(function(
+            dynamicChart.chartData.datasets[0].backgroundColor.reduce(function (
               colorMap,
               field,
               index
@@ -360,7 +362,7 @@ export default {
           // Disable legend on pie if more than 20 entries
           dynamicChart.chartOpts.legend = {
             display:
-              chartType === "pie" && dynamicChart.chartData.labels.length < 8
+              chartType === "pie" && dynamicChart.chartData.labels.length < 8,
           };
           break;
         case "grade":
@@ -375,13 +377,13 @@ export default {
           );
       }
       return dynamicChart;
-    }
+    },
   },
   created() {
     this.loading = true;
     setTimeout(() => {
       this.fetchData(this.sandboxId)
-        .then(result => {
+        .then((result) => {
           this.ascents = result.data;
           this.initializeStats().then(() => {
             this.initialized = true;
@@ -389,42 +391,42 @@ export default {
             let gradeOpts = this.defaultChartOpts();
             gradeOpts["scales"] = {
               xAxes: [{ stacked: true }],
-              yAxes: [{ stacked: true }]
+              yAxes: [{ stacked: true }],
             };
             this.addDynamicChart("grade", "grade", {
               title: "Ascents per Grade",
-              chartOpts: gradeOpts
+              chartOpts: gradeOpts,
             });
             // Area Counts
             this.addDynamicChart("pie", "area", {
-              autoGenerateSubtitle: true
+              autoGenerateSubtitle: true,
             });
             // year counts
             this.addDynamicChart("bar", "year", {
               sortByName: true,
-              autoGenerateSubtitle: true
+              autoGenerateSubtitle: true,
             });
             // Softness, rating and recommend
             this.addDynamicChart("pie", "softness", {
-              sortByName: true
+              sortByName: true,
             });
             this.addDynamicChart("pie", "rating", {
-              sortByName: true
+              sortByName: true,
             });
             this.addDynamicChart("pie", "recommend", {
-              sortByName: true
+              sortByName: true,
             });
             this.generateTimeSeries(this.stats.values);
           });
         })
-        .catch(error => {
+        .catch((error) => {
           window.alert(error.msg || error);
         });
     }, 250);
   },
   updated() {
     this.loading = false;
-  }
+  },
 };
 </script>
 

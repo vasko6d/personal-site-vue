@@ -20,7 +20,7 @@ export default {
           [2, 4, "circle"],
           [4, 12, "circle"],
           [10, 2, "circle"],
-          [12, 10, "circle"]
+          [12, 10, "circle"],
         ],
         numbering: [],
         solution: [
@@ -38,7 +38,7 @@ export default {
           "##EES#ELM#AORTA",
           "EFLAT#CLIM|BRO|UTES",
           "MATRE#ATSEA#ERS",
-          "STAIR#NOEND#SOY"
+          "STAIR#NOEND#SOY",
         ],
         clues: {
           across: {
@@ -82,7 +82,7 @@ export default {
             62: { txt: "Body shops, briefly?" },
             63: { txt: "Flight attendant?" },
             64: { txt: "To _ (ongoing)" },
-            65: { txt: "Kind of sauce or bean" }
+            65: { txt: "Kind of sauce or bean" },
           },
           down: {
             1: { txt: "Tabloid topics" },
@@ -121,11 +121,11 @@ export default {
             55: { txt: "One way to study" },
             56: { txt: "Middle of summer?" },
             57: { txt: "It can be burned" },
-            59: { txt: "United States presidents, e.g." }
-          }
-        }
-      }
+            59: { txt: "United States presidents, e.g." },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>

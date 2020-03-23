@@ -37,7 +37,7 @@ export default {
           "#POISONTHECRANBERRIES",
           "RETAILS#ARIADNE#EATIT",
           "TOOLATE##CACHET#ADINS",
-          "ENE#NSC##YOED###MESS#"
+          "ENE#NSC##YOED###MESS#",
         ],
         clues: {
           across: {
@@ -69,7 +69,7 @@ export default {
             54: { txt: "Snap or fly accompanier" },
             57: {
               txt:
-                "With 83-Down, compilation...or what you might find the answer to each starred clue written on"
+                "With 83-Down, compilation...or what you might find the answer to each starred clue written on",
             },
             58: { txt: "Fletcher, friend of Phineas Flynn" },
             60: { txt: "Zoolander tribesman race" },
@@ -106,7 +106,7 @@ export default {
             122: { txt: "Suffix with ethyl or propyl" },
             123: { txt: "CIA overseers" },
             124: { txt: "Walked the dog, say, collioquially" },
-            125: { txt: "Screw (up)" }
+            125: { txt: "Screw (up)" },
           },
           down: {
             1: { txt: 'Longfellow\'s "The Bell of __"' },
@@ -118,7 +118,7 @@ export default {
             7: { txt: "Caboose" },
             8: {
               txt:
-                "Marsupial with a speech impediment that always formss a right angle"
+                "Marsupial with a speech impediment that always formss a right angle",
             },
             9: { txt: "Snake eye" },
             10: { txt: "Word with league or scale" },
@@ -188,11 +188,11 @@ export default {
             113: { txt: "It's it's?" },
             114: { txt: "Drei zwei _" },
             115: { txt: "Pat and Nick, for two" },
-            116: { txt: "66, e.g." }
-          }
-        }
-      }
+            116: { txt: "66, e.g." },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>

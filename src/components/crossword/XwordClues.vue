@@ -6,7 +6,7 @@
         :class="{
           fas: true,
           'fa-angle-down': !showClues,
-          'fa-angle-up': showClues
+          'fa-angle-up': showClues,
         }"
       ></i>
     </div>
@@ -24,7 +24,7 @@
             @click="
               $emit('executePress', '$TOGGLESHOWCONTEXT', {
                 direction: direction,
-                number: num
+                number: num,
               })
             "
             >{{ clue.txt }}</span
@@ -32,7 +32,7 @@
           <xword-clue-context
             v-show="
               contextOpt === 'always' ||
-                (contextOpt === 'toggle' && clue.showContext)
+              (contextOpt === 'toggle' && clue.showContext)
             "
             :context="clue.ctx"
             :xr="r"
@@ -57,7 +57,7 @@ import XwordClueContext from "@/components/crossword/XwordClueContext.vue";
 export default {
   name: "XwordClues",
   components: {
-    XwordClueContext
+    XwordClueContext,
   },
   props: {
     clueObj: Object,
@@ -72,17 +72,17 @@ export default {
     showContextKey: String,
     curCellFlag: Boolean,
     puzzleIsHoriz: Boolean,
-    showErrors: Boolean
+    showErrors: Boolean,
   },
   data() {
     return {
-      showClues: false
+      showClues: false,
     };
   },
   computed: {
     clueHead() {
       return this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
-    }
+    },
   },
   methods: {
     isActive(num) {
@@ -94,11 +94,11 @@ export default {
       this.$emit("executePress", "$SETPOSITION", {
         r: r,
         c: c,
-        forceSpecialKeyboard: true
+        forceSpecialKeyboard: true,
       });
       this.$emit("executePress", "$SETDIRECTION", {
         direction: this.direction === "across",
-        forceSpecialKeyboard: true
+        forceSpecialKeyboard: true,
       });
     },
     showClue(clue) {
@@ -126,8 +126,8 @@ export default {
         ret = cnt.toString() + "/" + numClues.toString() + suffix;
       }
       return ret;
-    }
-  }
+    },
+  },
 };
 </script>
 

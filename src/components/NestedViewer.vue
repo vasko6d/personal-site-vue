@@ -20,7 +20,7 @@
           v-closable="{
             excludeList: ['ref-a', 'ref-h3', 'ref-i'],
             handler: 'onClose',
-            uniqueFxnId: $router.currentRoute.path
+            uniqueFxnId: $router.currentRoute.path,
           }"
         >
           <ul>
@@ -46,14 +46,14 @@ export default {
   name: "NestedViewer",
   props: {
     childrenPath: Array,
-    title: String
+    title: String,
   },
   data() {
     return {
       // dropdown data
       children: "",
       routePrefix: "",
-      isOpen: false
+      isOpen: false,
     };
   },
   mounted() {
@@ -62,7 +62,7 @@ export default {
       if (path.startsWith("/")) {
         this.routePrefix += path;
       }
-      rs = rs.find(r => {
+      rs = rs.find((r) => {
         return r.path === path;
       }).children;
     }
@@ -71,8 +71,8 @@ export default {
   methods: {
     onClose() {
       this.isOpen = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -28,7 +28,7 @@
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['errors', 'showErrors'],
-                      value: !opts.errors.showErrors
+                      value: !opts.errors.showErrors,
                     })
                   "
                 />
@@ -38,7 +38,7 @@
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['navigation', 'autoSkipFilledCells'],
-                      value: !opts.navigation.autoSkipFilledCells
+                      value: !opts.navigation.autoSkipFilledCells,
                     })
                   "
                 />
@@ -48,7 +48,7 @@
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['keyboard', 'showOnPageKeyboard'],
-                      value: !opts.keyboard.showOnPageKeyboard
+                      value: !opts.keyboard.showOnPageKeyboard,
                     })
                   "
                 />
@@ -58,7 +58,7 @@
                   @toggle="
                     $emit('setNativeKeyboardOption', {
                       optionPath: ['keyboard', 'enableNativeKeyboardToggle'],
-                      value: !opts.keyboard.enableNativeKeyboardToggle
+                      value: !opts.keyboard.enableNativeKeyboardToggle,
                     })
                   "
                 />
@@ -69,7 +69,7 @@
                   @toggle="
                     $emit('setOption', {
                       optionPath: ['clues', 'showCluePanel'],
-                      value: !opts.clues.showCluePanel
+                      value: !opts.clues.showCluePanel,
                     })
                   "
                 />
@@ -84,7 +84,7 @@
                           @toggle="
                             $emit('setOption', {
                               optionPath: ['clues', 'contextOpt'],
-                              value: opt.val
+                              value: opt.val,
                             })
                           "
                         />
@@ -99,7 +99,7 @@
                           @toggle="
                             $emit('setOption', {
                               optionPath: ['clues', 'hideClueOpt'],
-                              value: opt.val
+                              value: opt.val,
                             })
                           "
                         />
@@ -117,7 +117,7 @@
                       @toggle="
                         $emit('setOption', {
                           optionPath: ['currentClue', 'loc'],
-                          value: opt.val
+                          value: opt.val,
                         })
                       "
                     />
@@ -147,11 +147,11 @@ import FontAwesomeCheck from "@/components/FontAwesomeCheck.vue";
 export default {
   name: "XwordSettingsModal",
   components: {
-    FontAwesomeCheck
+    FontAwesomeCheck,
   },
   props: {
-    opts: Object
-  }
+    opts: Object,
+  },
 };
 </script>
 

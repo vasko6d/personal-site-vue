@@ -7,7 +7,7 @@
           :class="{
             fas: true,
             'fa-angle-down': !showFilters,
-            'fa-angle-up': showFilters
+            'fa-angle-up': showFilters,
           }"
         ></i> </span
       >&nbsp;
@@ -23,7 +23,7 @@
         :class="{
           fas: true,
           icn: true,
-          'fa-plus': !addingFilter
+          'fa-plus': !addingFilter,
         }"
         @click="addingFilter = !addingFilter"
         v-tooltip="'Add Filter'"
@@ -96,7 +96,7 @@ export default {
     return {
       showFilters: true,
       addingFilter: false,
-      filterToAdd: null
+      filterToAdd: null,
     };
   },
   props: {
@@ -104,8 +104,8 @@ export default {
     stats: Stat,
     startExpanded: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
     currentFilteredStat() {
@@ -139,13 +139,13 @@ export default {
         for (let rawName of rawNames) {
           choices.push({
             raw: rawName,
-            label: this.truncateString(this.mapName(cat, rawName), 15)
+            label: this.truncateString(this.mapName(cat, rawName), 15),
           });
         }
         ret[cat] = choices;
       }
       return ret;
-    }
+    },
   },
   methods: {
     truncateString(str, num) {
@@ -162,11 +162,11 @@ export default {
     deleteFitler(catToDelete) {
       this.currentFilters[catToDelete].show = false;
       this.currentFilters[catToDelete].val = null;
-    }
+    },
   },
   mounted() {
     this.showFilters = this.startExpanded;
-  }
+  },
 };
 </script>
 

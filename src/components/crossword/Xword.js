@@ -7,12 +7,12 @@ var savedDataVersion = 1;
 var colors = {
   white: "white",
   black: "black",
-  gray: "gray"
+  gray: "gray",
 };
 
 // Supported Shapes
 var shapes = {
-  circle: "circle"
+  circle: "circle",
 };
 
 // [s]pecial [Char]acters
@@ -21,7 +21,7 @@ var sChars = {
   null: "_",
   seq: "|",
   eq: "=",
-  diffAcrossVsDown: ":"
+  diffAcrossVsDown: ":",
 };
 
 export default class Xword {
@@ -67,7 +67,7 @@ export default class Xword {
 
     this.r = 0;
     this.c = 0;
-    let aKeys = Object.keys(this.across).sort(function(a, b) {
+    let aKeys = Object.keys(this.across).sort(function (a, b) {
       parseInt(a) - parseInt(b);
     });
     if (aKeys.length > 0) {
@@ -470,7 +470,7 @@ export default class Xword {
       numShownError: 0,
       numCleared: 0,
       numTrulySolved: 0,
-      time: this.timer.getTimeSec(true)
+      time: this.timer.getTimeSec(true),
     };
     for (let row of this.puzzle) {
       for (let cell of row) {
@@ -496,7 +496,7 @@ export default class Xword {
       correctCount: 0,
       autoSolvedCount: 0,
       shownErrorCount: 0,
-      wrongCleardCount: 0
+      wrongCleardCount: 0,
     };
   }
   updateStatData(origCell, cell) {
@@ -545,7 +545,7 @@ export default class Xword {
         this.statData.correctCount,
         this.statData.autoSolvedCount,
         this.statData.shownErrorCount,
-        this.statData.wrongCleardCount
+        this.statData.wrongCleardCount,
       ]);
     }
     //console.log(this.statData.timeSeries.join(" | "));
@@ -658,7 +658,7 @@ export default class Xword {
     return curCell;
   }
   processClueList(clueList, isHoriz) {
-    let cKeys = Object.keys(clueList).sort(function(a, b) {
+    let cKeys = Object.keys(clueList).sort(function (a, b) {
       parseInt(a) - parseInt(b);
     });
     if (cKeys.length > 0) {
@@ -698,7 +698,7 @@ export default class Xword {
       timeCorrect: -1,
       wrong: true,
       r: r,
-      c: c
+      c: c,
     };
     return puzzleElement;
   }
@@ -734,7 +734,7 @@ export default class Xword {
       completed: this.completed,
       cellData: this.getCellDataToSave(),
       stats: this.stats,
-      statData: this.statData
+      statData: this.statData,
     };
   }
   getCellDataToSave() {
@@ -748,7 +748,7 @@ export default class Xword {
           was: cell.wasAutoSolved,
           wse: cell.wasShownError,
           wwc: cell.wasWrongCleared,
-          si: cell.isSpecialInput
+          si: cell.isSpecialInput,
         });
       }
     }

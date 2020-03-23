@@ -143,14 +143,14 @@ export default {
   mixins: [Utils],
   props: {
     chart: Object,
-    stats: Stat
+    stats: Stat,
   },
   data() {
     return {
       // Aggregator Variables
       aggregator: null,
       catToAggregate: null,
-      valToAggregate: null
+      valToAggregate: null,
     };
   },
   computed: {
@@ -162,7 +162,7 @@ export default {
     },
     aggregators() {
       return Aggregate.names;
-    }
+    },
   },
   methods: {
     // EMIT actions
@@ -191,7 +191,7 @@ export default {
         this.$emit("changeAggregator", {
           aggregator: this.aggregator,
           catagory: this.catToAggregate,
-          value: this.valToAggregate
+          value: this.valToAggregate,
         });
       }
     },
@@ -199,7 +199,7 @@ export default {
     emptyCatVal() {
       this.catToAggregate = null;
       this.valToAggregate = null;
-    }
+    },
   },
   mounted() {
     if (this.chart.opts.aggOpts) {
@@ -207,7 +207,7 @@ export default {
       this.catToAggregate = this.chart.opts.aggOpts.catagory;
       this.valToAggregate = this.chart.opts.aggOpts.value;
     }
-  }
+  },
 };
 </script>
 

@@ -56,7 +56,7 @@ export default class Galaxy {
       let len = this.vertices.length - offset;
       this.complexityVertexMap[c] = {
         offset: offset,
-        len: len
+        len: len,
       };
     }
   }
@@ -92,7 +92,7 @@ export default class Galaxy {
     // NOTE: this assumes that the buffer data has already been bound
     var ls = this.lightSource;
     var time = this.timer.getTimeSec();
-    this.planets.forEach(function(planet) {
+    this.planets.forEach(function (planet) {
       planet.animate(gl, loc, ls, time);
     });
   }

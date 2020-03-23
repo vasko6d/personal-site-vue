@@ -5,10 +5,10 @@ export default {
   mixins: [mixins.reactiveProp],
   props: {
     chartData: Object,
-    options: Object
+    options: Object,
   },
   mounted() {
     this.renderChart(this.chartData, this.options);
-  }
+  },
 };
 </script>

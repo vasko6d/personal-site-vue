@@ -41,7 +41,7 @@ var wglu = WebGLUtils.methods;
 export default {
   name: "Fractals",
   components: {
-    ActionControls
+    ActionControls,
   },
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
       loc: {
         color: "",
         mvm: "",
-        vPos: ""
+        vPos: "",
       },
       val: {
         color: [
@@ -61,13 +61,13 @@ export default {
           mv.vec4(0.0, 1.0, 0.0, 1.0), // green
           mv.vec4(0.0, 0.0, 1.0, 1.0), // blue
           mv.vec4(1.0, 0.0, 1.0, 1.0), // magenta
-          mv.vec4(0.0, 1.0, 1.0, 1.0) // cyan
+          mv.vec4(0.0, 1.0, 1.0, 1.0), // cyan
         ],
         mvm: mv.mat4(),
-        vPos: ""
+        vPos: "",
       },
       buf: {
-        points: ""
+        points: "",
       },
 
       // Data Variables
@@ -78,7 +78,7 @@ export default {
       vav: {
         inGasket: true,
         beginRotation: false,
-        cIndex: 6 //index to decide which color is used by the fragment shader
+        cIndex: 6, //index to decide which color is used by the fragment shader
       },
 
       // Keybind Variables
@@ -90,9 +90,9 @@ export default {
           holdable: false,
           updateFlag: false,
           framesActive: 0,
-          updateFxn: function(vav) {
+          updateFxn: function (vav) {
             vav.cIndex = (vav.cIndex + 1) % 7;
-          }
+          },
         },
         changeFractal: {
           keybind: "n",
@@ -101,9 +101,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(vav) {
+          updateFxn: function (vav) {
             vav.inGasket = !vav.inGasket;
-          }
+          },
         },
         toggleRotation: {
           keybind: "r",
@@ -112,25 +112,25 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(vav) {
+          updateFxn: function (vav) {
             vav.beginRotation = !vav.beginRotation;
-          }
-        }
+          },
+        },
       },
-      invActionCtrls: ""
+      invActionCtrls: "",
     };
   },
 
   mounted() {
     this.configureWebGL();
     this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
       }
     });
-    window.addEventListener("keyup", e => {
+    window.addEventListener("keyup", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = false;
@@ -195,14 +195,14 @@ export default {
         mv.vec2(-0.809, -0.5),
 
         mv.vec2(-0.809, -0.5),
-        mv.vec2(-0.809, 0.5)
+        mv.vec2(-0.809, 0.5),
       ];
 
       var currentRect = [
         mv.vec2(0.809, -0.5), //a
         mv.vec2(-0.809, -0.5), //b
         mv.vec2(-0.809, 0.5), //c
-        mv.vec2(0.809, 0.5) //d
+        mv.vec2(0.809, 0.5), //d
       ];
 
       for (let i = 0; i < numRects; ++i) {
@@ -210,7 +210,7 @@ export default {
 
         var tempRect = [
           currentRect[3], //newa
-          currentRect[0] //newb
+          currentRect[0], //newb
         ];
 
         var distBC = mv.subtract(currentRect[2], currentRect[1]);
@@ -292,7 +292,7 @@ export default {
         this.gl.drawArrays(this.gl.LINES, 0, this.goldenRectPoints.length);
       }
       wglu.requestAnimFrame()(this.render);
-    }
-  }
+    },
+  },
 };
 </script>

@@ -19,7 +19,7 @@ var gradeMap = {
   "12": 12,
   "13": 13,
   "14": 14,
-  "15": 15
+  "15": 15,
 };
 
 const nameMaps = {
@@ -35,13 +35,13 @@ const nameMaps = {
     "09": "September",
     "10": "October",
     "11": "November",
-    "12": "December"
+    "12": "December",
   },
   rating: {
     0: "0 Stars",
     1: "1 Star",
     2: "2 Stars",
-    3: "3 Stars"
+    3: "3 Stars",
   },
   dayOfWeek: {
     0: "Sunday",
@@ -50,12 +50,12 @@ const nameMaps = {
     3: "Wednesday",
     4: "Thursday",
     5: "Friday",
-    6: "Saturday"
+    6: "Saturday",
   },
   recommend: {
     true: "Recommended",
-    false: "Not Recommended"
-  }
+    false: "Not Recommended",
+  },
 };
 
 export default {
@@ -71,7 +71,7 @@ export default {
     },
     formatString(format) {
       var args = Array.prototype.slice.call(arguments, 1);
-      return format.replace(/{(\d+)}/g, function(match, number) {
+      return format.replace(/{(\d+)}/g, function (match, number) {
         return typeof args[number] != "undefined" ? args[number] : match;
       });
     },
@@ -101,7 +101,7 @@ export default {
     kebabToCap(str) {
       return str
         .split("-")
-        .map(w => w[0].toUpperCase() + w.substr(1))
+        .map((w) => w[0].toUpperCase() + w.substr(1))
         .join(" ");
     },
     preprocessAscents(ascents, climber) {
@@ -199,7 +199,7 @@ export default {
           this.preprocessAscents(ascents, this.kebabToCap(sandboxId));
           const ret = {
             msg: "Success",
-            data: ascents
+            data: ascents,
           };
           resolve(ret);
         } else {
@@ -207,14 +207,14 @@ export default {
             msg: this.formatString(
               "Sandbox member data for [{0}] not avaliable",
               sandboxId
-            )
+            ),
           };
           reject(ret);
         }
       });
     },
     prettyCapitalize(str) {
-      return str.replace(/([A-Z])/g, " $1").replace(/^./, function(str) {
+      return str.replace(/([A-Z])/g, " $1").replace(/^./, function (str) {
         return str.toUpperCase();
       });
     },
@@ -226,11 +226,11 @@ export default {
         filteredList = filteredList.filter(opts.filterFxn);
       }
       // Add Label
-      filteredList.forEach(el => {
+      filteredList.forEach((el) => {
         el["label"] = this.mapName(stat.name, el.name, opts.nameMap);
       });
       // Add actual data for that point
-      filteredList.forEach(el => {
+      filteredList.forEach((el) => {
         if (opts.aggregateFxn) {
           el["datum"] = opts.aggregateFxn(el);
         } else {
@@ -238,7 +238,7 @@ export default {
         }
       });
       // Add Color - To allow constant colors on update allow a passed color object
-      filteredList.forEach(el => {
+      filteredList.forEach((el) => {
         if (opts.colors) {
           // Add to the color options if we find ourself a elemnt we dont have yet
           if (!opts.colors[el.label]) {
@@ -262,20 +262,20 @@ export default {
       return {
         datasets: [
           {
-            data: filteredList.map(el => {
+            data: filteredList.map((el) => {
               return el.datum;
             }),
-            backgroundColor: filteredList.map(el => {
+            backgroundColor: filteredList.map((el) => {
               return el.color;
-            })
-          }
+            }),
+          },
         ],
-        labels: filteredList.map(el => {
+        labels: filteredList.map((el) => {
           return el.label;
         }),
-        names: filteredList.map(el => {
+        names: filteredList.map((el) => {
           return el.name;
-        })
+        }),
       };
     },
     getGradeChartData(stat, allowExpansion = true, opts) {
@@ -287,18 +287,18 @@ export default {
         {
           label: "Redpoint",
           data: [],
-          backgroundColor: "#D70909" // Red
+          backgroundColor: "#D70909", // Red
         },
         {
           label: "Flash",
           data: [],
-          backgroundColor: "#006DDB" // Blue
+          backgroundColor: "#006DDB", // Blue
         },
         {
           label: "Onsite",
           data: [],
-          backgroundColor: "#3C0707" // Black-Red
-        }
+          backgroundColor: "#3C0707", // Black-Red
+        },
       ];
       for (let grade of gradeList) {
         const types = grade.get("type", allowExpansion);
@@ -328,19 +328,19 @@ export default {
       }
       return {
         datasets: datasets,
-        labels: gradeList.map(k => {
+        labels: gradeList.map((k) => {
           return "V" + k.name;
         }),
-        names: gradeList.map(k => {
+        names: gradeList.map((k) => {
           return k.name;
-        })
+        }),
       };
     },
     decomposeDate(dateStr) {
       return {
         day: dateStr.substring(8, 10),
         month: dateStr.substring(5, 7),
-        year: dateStr.substring(0, 4)
+        year: dateStr.substring(0, 4),
       };
     },
     generateTimeSeries(ascents, nTop = 10) {
@@ -383,6 +383,6 @@ export default {
       }
 
       return ret;
-    }
-  }
+    },
+  },
 };

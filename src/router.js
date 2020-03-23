@@ -13,7 +13,7 @@ export default new Router({
       path: "/",
       name: "Home",
       isMainNav: true,
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/Home.vue"),
     },
     // CLIMBING
     {
@@ -23,27 +23,27 @@ export default new Router({
       component: {
         render(c) {
           return c("router-view"); // child router container....
-        }
+        },
       },
       children: [
         {
           path: "/climbing/videos",
           name: "Videos",
-          component: () => import("./views/climbing/ClimbingVideos.vue")
+          component: () => import("./views/climbing/ClimbingVideos.vue"),
         },
         {
           path: "/climbing/ticklist",
           name: "Ticklist",
-          component: () => import("./views/climbing/ClimbingTicklist.vue")
+          component: () => import("./views/climbing/ClimbingTicklist.vue"),
         },
         {
           path: "/climbing/analytics/:sandboxId",
           defaultPath: "/climbing/analytics/david-vasko",
           name: "Analysis",
           component: () => import("./views/climbing/ClimbingAnalysis.vue"),
-          props: true
-        }
-      ]
+          props: true,
+        },
+      ],
     },
     // PORTFOLIO - Parent route to house dropdown of porjects
     {
@@ -53,13 +53,13 @@ export default new Router({
       component: {
         render(c) {
           return c("router-view"); // child router container....
-        }
+        },
       },
       children: [
         {
           path: "/billiard-ball-robot",
           name: "Ball Robot",
-          component: () => import("./views/BallRobot.vue")
+          component: () => import("./views/BallRobot.vue"),
         },
         {
           path: "/webgl",
@@ -68,35 +68,35 @@ export default new Router({
           component: NestedViewer,
           props: {
             childrenPath: ["#portfolio", "/webgl"],
-            title: "Graphics using WebGL"
+            title: "Graphics using WebGL",
           },
           children: [
             {
               path: "fractals",
               name: "Fractals on Canvas",
-              component: () => import("./views/webgl/Fractals.vue")
+              component: () => import("./views/webgl/Fractals.vue"),
             },
             {
               path: "cubert",
               name: "Cubes in Space",
-              component: () => import("./views/webgl/Cubert.vue")
+              component: () => import("./views/webgl/Cubert.vue"),
             },
             {
               path: "ffvii-textures",
               name: "FFVII Textures",
-              component: () => import("./views/webgl/FfViiTextures.vue")
+              component: () => import("./views/webgl/FfViiTextures.vue"),
             },
             {
               path: "galaxy",
               name: "Creating the Galaxy",
-              component: () => import("./views/webgl/Galaxy.vue")
+              component: () => import("./views/webgl/Galaxy.vue"),
             },
             {
               path: "island-game",
               name: "Island Game",
-              component: () => import("./views/webgl/IslandGame.vue")
-            }
-          ]
+              component: () => import("./views/webgl/IslandGame.vue"),
+            },
+          ],
         },
         {
           path: "/numerical",
@@ -105,35 +105,35 @@ export default new Router({
           component: NestedViewer,
           props: {
             childrenPath: ["#portfolio", "/numerical"],
-            title: "Numerical Analysis"
+            title: "Numerical Analysis",
           },
           children: [
             {
               path: "finite-element",
               name: "Neo-Hookean Membranes",
-              component: () => import("./views/compute/FiniteElement.vue")
+              component: () => import("./views/compute/FiniteElement.vue"),
             },
             {
               path: "finite-volume",
               name: "Supersonic Jet Inlet",
-              component: () => import("./views/compute/FiniteVolume.vue")
-            }
-          ]
+              component: () => import("./views/compute/FiniteVolume.vue"),
+            },
+          ],
         },
         {
           path: "/crossword/search",
           name: "Crossword",
-          component: () => import("./views/crossword/XwordSearch.vue")
-        }
-      ]
+          component: () => import("./views/crossword/XwordSearch.vue"),
+        },
+      ],
     },
 
     {
       path: "/crossword/:xwordId",
       name: "crossword",
       component: () => import("./views/crossword/XwordSolver.vue"),
-      props: true
+      props: true,
     },
-    { path: "*", component: () => import("./components/NotFound.vue") }
-  ]
+    { path: "*", component: () => import("./components/NotFound.vue") },
+  ],
 });

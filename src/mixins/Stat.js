@@ -80,9 +80,11 @@ export default class Stat {
   getFromPath(statPath) {
     // Validate Stat Path
     if (statPath.length % 2 != 1) {
-      throw "[Invalid Stat Path] - The provided statPath [" +
+      throw (
+        "[Invalid Stat Path] - The provided statPath [" +
         statPath +
-        "], is not odd in length";
+        "], is not odd in length"
+      );
     }
     // Get stat from Stat Path
     let stat = this.get(statPath[0]);

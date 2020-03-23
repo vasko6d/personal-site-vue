@@ -90,7 +90,7 @@ export default {
   name: "FfViiTextures",
   components: {
     WebglCamera,
-    ActionControls
+    ActionControls,
   },
   data() {
     return {
@@ -110,32 +110,32 @@ export default {
           uSampler: "",
           texS: "", // texture scaler
           texR: "", // textrue 2d rotation
-          texT: "" // texture translation
+          texT: "", // texture translation
         },
         // Attributes
         a: {
           pos: "", // Position
           norm: "", // Normal
-          uv: "" // UV
-        }
+          uv: "", // UV
+        },
       },
 
       // The value/buffer that goes with those variables
       val: {
         lPos: mv.vec3(-2.0, 2.0, 2.0),
-        shininess: 50
+        shininess: 50,
       },
       buf: {
         pos: "",
         norm: "",
-        uv: ""
+        uv: "",
       },
 
       // The data that will be tied to a buffer
       dat: {
         pos: [],
         norm: [],
-        uv: []
+        uv: [],
       },
 
       // [A]ction affected [V]ariables
@@ -149,9 +149,9 @@ export default {
           position: mv.vec3(-3, 0, 0),
           stepSize: 0.05,
           near: 0.001,
-          far: 1000
+          far: 1000,
         }),
-        textureIndex: 1
+        textureIndex: 1,
       },
 
       // Camera Keybind variables
@@ -167,9 +167,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.cubeRotTimer.toggleTimer();
-          }
+          },
         },
         changeTexture: {
           keybind: "t",
@@ -178,9 +178,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.textureIndex = (av.textureIndex + 1) % 3;
-          }
+          },
         },
         revert: {
           keybind: "z",
@@ -189,13 +189,13 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.camera = wglc.initCamera(av.camera.initialProps);
             av.cubeRotTimer.reset();
             av.texRotTimer.reset();
             av.texScrTimer.reset();
             av.textureIndex = 1;
-          }
+          },
         },
         toggleTextureScrolling: {
           keybind: "f",
@@ -204,9 +204,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.texScrTimer.toggleTimer();
-          }
+          },
         },
         toggleTextureRotation: {
           keybind: "g",
@@ -215,12 +215,12 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.texRotTimer.toggleTimer();
-          }
-        }
+          },
+        },
       },
-      invActionCtrls: "" // initialize during mount
+      invActionCtrls: "", // initialize during mount
     };
   },
 
@@ -232,12 +232,12 @@ export default {
     // Invert the conrtols and the keybinding for simple character lookups
     this.invCameraCtrls = {
       ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
-      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
+      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look"),
     };
     this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
 
     // Define Keyboard listeners
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
@@ -247,7 +247,7 @@ export default {
         this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = true;
       }
     });
-    window.addEventListener("keyup", e => {
+    window.addEventListener("keyup", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = false;
@@ -319,7 +319,7 @@ export default {
       // actual texture image
       if (imgSrc) {
         t.image = new Image();
-        t.image.onload = function() {
+        t.image.onload = function () {
           gl.bindTexture(gl.TEXTURE_2D, t);
           gl.texImage2D(
             gl.TEXTURE_2D,
@@ -364,7 +364,7 @@ export default {
         mv.vec3(sz, sz, -sz),
         mv.vec3(sz, -sz, -sz),
         mv.vec3(-sz, sz, -sz),
-        mv.vec3(-sz, -sz, -sz)
+        mv.vec3(-sz, -sz, -sz),
       ];
 
       // Each face is made up of 4 vertices. The orientation of a mapped
@@ -375,7 +375,7 @@ export default {
         [4, 5, 0, 1],
         [2, 3, 6, 7],
         [6, 7, 4, 5],
-        [1, 5, 3, 7]
+        [1, 5, 3, 7],
       ];
 
       // THe 6 different normal vectors for each face of the cube
@@ -385,7 +385,7 @@ export default {
         mv.vec3(1, 0, 0),
         mv.vec3(-1, 0, 0),
         mv.vec3(0, 0, -1),
-        mv.vec3(0, -1, 0)
+        mv.vec3(0, -1, 0),
       ];
 
       var d = this.dat;
@@ -408,7 +408,7 @@ export default {
       // same normal vector
       Array(6)
         .fill(normalVector)
-        .forEach(function(n) {
+        .forEach(function (n) {
           normals.push(n);
         });
 
@@ -498,8 +498,8 @@ export default {
       this.renderFloorCube();
 
       wglu.requestAnimFrame()(this.render);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss"></style>

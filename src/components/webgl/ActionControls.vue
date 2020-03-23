@@ -29,7 +29,7 @@
               'prm',
               'bg1-hvr',
               'bg1-txt-hvr',
-              { pactive: actionCtrls[aKey].framesActive > 0 }
+              { pactive: actionCtrls[aKey].framesActive > 0 },
             ]"
             @mousedown="actionCtrls[aKey].updateFlag = true"
             @touchstart="actionCtrls[aKey].updateFlag = true"
@@ -52,16 +52,16 @@ import ControlHelpModal from "@/components/webgl/ControlHelpModal.vue";
 export default {
   name: "ActionControls",
   props: {
-    actionCtrls: Object
+    actionCtrls: Object,
   },
   components: {
     SwitchButton,
-    ControlHelpModal
+    ControlHelpModal,
   },
   data() {
     return {
       kbToggle: false,
-      showModal: false
+      showModal: false,
     };
   },
   methods: {
@@ -72,8 +72,8 @@ export default {
       } else {
         document.documentElement.style.overflow = "auto";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

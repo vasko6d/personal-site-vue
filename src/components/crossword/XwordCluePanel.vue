@@ -40,7 +40,7 @@
 import XwordClues from "@/components/crossword/XwordClues.vue";
 export default {
   components: {
-    XwordClues
+    XwordClues,
   },
   props: {
     acrossClueObj: Object,
@@ -53,13 +53,13 @@ export default {
     curCellValue: String,
     showContextKey: String,
     curCellFlag: Boolean,
-    puzzleIsHoriz: Boolean
+    puzzleIsHoriz: Boolean,
   },
   methods: {
     executePress(ch, opts) {
       this.$emit("executePress", ch, opts);
-    }
-  }
+    },
+  },
 };
 </script>
 

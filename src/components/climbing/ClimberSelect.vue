@@ -8,14 +8,14 @@
             :class="{
               fas: true,
               'fa-angle-down': !showClimbers,
-              'fa-angle-up': showClimbers
+              'fa-angle-up': showClimbers,
             }"
           ></i>
         </span>
       </div>
     </div>
     <div v-show="showClimbers" class="flex-row">
-      <ul style="list-style-type:none ">
+      <ul style="list-style-type: none;">
         <li
           class="icn"
           @click="navigate(climber.sandboxId)"
@@ -32,7 +32,7 @@
 <script>
 export default {
   props: {
-    baseURL: String
+    baseURL: String,
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
         { name: "David Vasko", sandboxId: "david-vasko" },
         {
           name: "Chase Yamashiro",
-          sandboxId: "chase-yamashiro"
+          sandboxId: "chase-yamashiro",
         },
         { name: "Akhil Mauze", sandboxId: "akhil-mauze" },
         { name: "Scott Baron", sandboxId: "scott-baron" },
@@ -49,16 +49,16 @@ export default {
         { name: "Dustin Goldbarg", sandboxId: "dustin-goldbarg" },
         {
           name: "Nathaniel Cushing-Murray",
-          sandboxId: "nathaniel-cushing-murray"
+          sandboxId: "nathaniel-cushing-murray",
         },
         { name: "Drew Gomberg", sandboxId: "drew-gomberg" },
         {
           name: "Daniel Fineman",
-          sandboxId: "daniel-fineman"
+          sandboxId: "daniel-fineman",
         },
         { name: "Daniel Fong", sandboxId: "daniel-fong" },
-        { name: "Kody Shutt", sandboxId: "kody-shutt" }
-      ]
+        { name: "Kody Shutt", sandboxId: "kody-shutt" },
+      ],
     };
   },
   methods: {
@@ -66,7 +66,7 @@ export default {
       if (this.sandboxId != sandboxId) {
         this.$router.push(this.baseURL + sandboxId);
       }
-    }
-  }
+    },
+  },
 };
 </script>

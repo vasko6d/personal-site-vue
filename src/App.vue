@@ -5,7 +5,7 @@
       blue: isBlue,
       dark: isDark,
       light: isLight,
-      pink: isPink
+      pink: isPink,
     }"
   >
     <div class="wrapper">
@@ -30,7 +30,7 @@
                   v-closable="{
                     excludeList: [item.name, item.name + '-i'],
                     handler: 'onClose',
-                    uniqueFxnId: item.name
+                    uniqueFxnId: item.name,
                   }"
                 >
                   <ul>
@@ -74,12 +74,12 @@ import { mapActions } from "vuex";
 export default {
   name: "app",
   components: {
-    FooterLinks
+    FooterLinks,
   },
   props: ["item"],
   data() {
     return {
-      navList: []
+      navList: [],
     };
   },
   computed: {
@@ -95,14 +95,14 @@ export default {
     },
     isPink() {
       return this.themeMatches("pink");
-    }
+    },
   },
   mounted() {
     for (const route of this.$router.options.routes) {
       if (route.isMainNav) {
         let mainNavItem = {
           path: route.defaultPath || route.path,
-          name: route.name
+          name: route.name,
         };
         if (route.children) {
           mainNavItem["children"] = [];
@@ -110,7 +110,7 @@ export default {
           for (const child of route.children) {
             mainNavItem["children"].push({
               name: child.name,
-              path: child.defaultPath || child.path
+              path: child.defaultPath || child.path,
             });
           }
         }
@@ -129,8 +129,8 @@ export default {
         }
       }
     },
-    ...mapActions(["setTheme"])
-  }
+    ...mapActions(["setTheme"]),
+  },
 };
 </script>
 

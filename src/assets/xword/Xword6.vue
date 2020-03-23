@@ -37,7 +37,7 @@ export default {
           "BEDDEDGAGA#OSSO#AME##",
           "IDEO#OOLONGLEAF#BEBOP",
           "TGEL#GABBEDDEAF#ERASE",
-          "SERE####ISP#DBA#EAGER"
+          "SERE####ISP#DBA#EAGER",
         ],
         clues: {
           across: {
@@ -45,7 +45,7 @@ export default {
             6: { txt: 'File extension akin to ".conf"' },
             9: { txt: "Apple core?" },
             12: {
-              txt: "Action frequently done before saying 22-Across or 43-Down"
+              txt: "Action frequently done before saying 22-Across or 43-Down",
             },
             16: { txt: "Field" },
             17: { txt: "**Didn't have full strength coffee?" },
@@ -66,7 +66,7 @@ export default {
             47: { txt: "**Proverb about a densly leaved vegetable?" },
             49: {
               txt:
-                "Bad thing to have on your car, yet good thing to make in piles of work."
+                "Bad thing to have on your car, yet good thing to make in piles of work.",
             },
             50: { txt: "Saint Francis locale" },
             51: { txt: '"You are _, strange little man"' },
@@ -78,13 +78,13 @@ export default {
             62: { txt: "Cellars" },
             66: {
               txt:
-                "First song of a young pianist, OR how each **stared clue could be interpreted"
+                "First song of a young pianist, OR how each **stared clue could be interpreted",
             },
             74: { txt: 'Opposite of "take the penny"' },
             75: { txt: "Diadem" },
             76: {
               txt:
-                "Extension to the TLS computer networking protocol by which a client specifies which host it is attempting to connect to"
+                "Extension to the TLS computer networking protocol by which a client specifies which host it is attempting to connect to",
             },
             79: { txt: '"Three Coins in the Fountain" fountain' },
             80: { txt: '"Eww!"' },
@@ -96,18 +96,18 @@ export default {
             95: { txt: "One of 26 on the Katy Freeway" },
             96: { txt: "Merry" },
             99: {
-              txt: "**A Starbucks for only attractive women and newborns?"
+              txt: "**A Starbucks for only attractive women and newborns?",
             },
             100: { txt: "**One fifth a Holy Rosary" },
             103: { txt: "Chap" },
             104: {
               txt:
-                'According to Ben Treynor, this job is "what happens when a software engineer is tasked with what used to be called operations.": abbr.'
+                'According to Ben Treynor, this job is "what happens when a software engineer is tasked with what used to be called operations.": abbr.',
             },
             105: { txt: "Bill and Lee on Battlestar Galactica" },
             106: {
               txt:
-                "**Brought Stefani Joanne Angelina Germanotta back to your room?"
+                "**Brought Stefani Joanne Angelina Germanotta back to your room?",
             },
             113: { txt: "_ buco" },
             116: { txt: '"It\'s _, Mario!"' },
@@ -120,7 +120,7 @@ export default {
             126: { txt: "Like 111-Down" },
             127: { txt: "Company such as AT&T" },
             128: { txt: "Manager of Oracle or MySQL" },
-            129: { txt: "Hungry, as for the Sunday Crossword" }
+            129: { txt: "Hungry, as for the Sunday Crossword" },
           },
           down: {
             1: { txt: "Carly _ Jepsen with the hit 'Call Me Maybe'" },
@@ -129,13 +129,13 @@ export default {
             4: { txt: "Can be said of a daisy but not a dandelion?" },
             5: { txt: "**The latest craze fell into obscurity" },
             6: {
-              txt: "_ contidion met, _ conditional action (programming logic)"
+              txt: "_ contidion met, _ conditional action (programming logic)",
             },
             7: { txt: "Vehicle for transporing masala?" },
             8: { txt: "A particularly cold winter month: abbr." },
             9: { txt: "Common vow" },
             10: {
-              txt: "Microsoft cloud service for your company or scool: abbr."
+              txt: "Microsoft cloud service for your company or scool: abbr.",
             },
             11: { txt: 'Turns "bird" into a type of view?' },
             12: { txt: "A cheer directed at a member of ΛΘΦ" },
@@ -147,7 +147,7 @@ export default {
             20: { txt: "Python function input: abbr." },
             21: { txt: "**Year count when payments may be required" },
             29: {
-              txt: 'Actress Donna de Matteo of ABC\'s "Desperate Housewives"'
+              txt: 'Actress Donna de Matteo of ABC\'s "Desperate Housewives"',
             },
             30: { txt: "Mend, perhaps" },
             31: { txt: "One possible division of the psyche" },
@@ -209,11 +209,11 @@ export default {
             115: { txt: "Fall _ cliff (plummet)" },
             119: { txt: "Economic snapshot: abbr." },
             121: { txt: "Sugar suffix" },
-            122: { txt: "A pop" }
-          }
-        }
-      }
+            122: { txt: "A pop" },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>

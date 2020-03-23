@@ -86,7 +86,7 @@
 
 <script>
 export default {
-  name: "XwordToolModal"
+  name: "XwordToolModal",
 };
 </script>
 

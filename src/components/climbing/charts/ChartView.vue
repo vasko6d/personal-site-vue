@@ -20,16 +20,16 @@ export default {
   name: "ChartView",
   components: {
     DoughnutChart,
-    BarGraph
+    BarGraph,
   },
   props: {
-    chart: Object
+    chart: Object,
   },
   data() {
     return {
-      viewType: "chart"
+      viewType: "chart",
     };
-  }
+  },
 };
 </script>
 

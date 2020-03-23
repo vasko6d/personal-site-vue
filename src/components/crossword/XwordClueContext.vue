@@ -17,8 +17,8 @@
                 exact: isExact(cell.r, cell.c),
                 flagged: cell.flag,
                 'autosolved-border': cell.wasAutoSolved,
-                'wrong-border': showErrors && cell.wrong && cell.entry
-              }
+                'wrong-border': showErrors && cell.wrong && cell.entry,
+              },
             ]"
           >
             <div
@@ -26,8 +26,8 @@
                 'cell-wrapper',
                 {
                   wrong: showErrors && cell.wrong && cell.entry,
-                  autosolved: cell.wasAutoSolved
-                }
+                  autosolved: cell.wasAutoSolved,
+                },
               ]"
             >
               <span class="entry">{{ cell.entry }}</span>
@@ -51,7 +51,7 @@ export default {
     curCellFlag: Boolean,
     curCellValue: String,
     showContextKey: String,
-    showErrors: Boolean
+    showErrors: Boolean,
   },
   methods: {
     clickFxn(r, c) {
@@ -64,8 +64,8 @@ export default {
     },
     isExact(r, c) {
       return this.xr === r && this.xc === c;
-    }
-  }
+    },
+  },
 };
 </script>
 

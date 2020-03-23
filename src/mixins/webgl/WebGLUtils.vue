@@ -309,7 +309,7 @@ export default {
     updateBufferIndex(bufferIndexer, bufferItem, len) {
       bufferIndexer[bufferItem] = {
         start: bufferIndexer.lastEnd,
-        len: len
+        len: len,
       };
       bufferIndexer.lastEnd += len;
     },
@@ -317,7 +317,7 @@ export default {
     draw(gl, arrayType, bufferIndexer, bufferItem) {
       var idx = bufferIndexer[bufferItem];
       gl.drawArrays(arrayType, idx.start, idx.len);
-    }
-  }
+    },
+  },
 };
 </script>

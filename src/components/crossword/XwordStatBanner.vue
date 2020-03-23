@@ -10,7 +10,7 @@
           ></i>
         </div>
         <div class="stat-help" v-if="showFinishHelp">
-          <ul style="list-style-type:none">
+          <ul style="list-style-type: none;">
             <li class="help-itm">
               <strong>[ Submit ]</strong> - Sumbit your current puzzle. All
               wrong entries will be auto-solved and some basic statistics will
@@ -42,7 +42,7 @@
               $emit('setOption', {
                 optionPath: ['errors', 'showErrors'],
                 value: !showErrors,
-                dontSave: true
+                dontSave: true,
               })
             "
           >
@@ -60,7 +60,7 @@
           ></i>
         </div>
         <div class="stat-help" v-if="showStatHelp">
-          <ul style="list-style-type:none">
+          <ul style="list-style-type: none;">
             <li class="help-itm">
               <strong>[ Solve Time ]</strong> - How long the puzzle took to
               solve. Note that timer starts once crossword is opened and will
@@ -180,13 +180,13 @@
 import LineGraph from "@/components/charts/LineGraph.vue";
 export default {
   components: {
-    LineGraph
+    LineGraph,
   },
   props: {
     isCompleted: Boolean,
     showErrors: Boolean,
     stats: Object,
-    statData: Object
+    statData: Object,
   },
   data() {
     return {
@@ -198,10 +198,10 @@ export default {
         title: {
           display: true,
           text: "Crossword Progress",
-          fontSize: 20
+          fontSize: 20,
         },
         legend: {
-          position: "bottom"
+          position: "bottom",
         },
         scales: {
           xAxes: [
@@ -210,25 +210,25 @@ export default {
               scaleLabel: {
                 display: true,
                 labelString: "Time (sec)",
-                fontSize: 14
-              }
-            }
+                fontSize: 14,
+              },
+            },
           ],
           yAxes: [
             {
               scaleLabel: {
                 display: true,
                 labelString: "Number Cells",
-                fontSize: 14
-              }
-            }
-          ]
+                fontSize: 14,
+              },
+            },
+          ],
         },
         pan: {
           enabled: true,
           mode: "xy",
           speed: 10,
-          threshold: 10
+          threshold: 10,
         },
         zoom: {
           enabled: true,
@@ -236,36 +236,36 @@ export default {
 
           // Zooming directions. Remove the appropriate direction to disable
           // Eg. 'y' would only allow zooming in the y direction
-          mode: "xy"
-        }
+          mode: "xy",
+        },
       },
       seriesOpts: [
         {
           color: "#6d826c",
           borderWidth: 2,
-          label: "Filled"
+          label: "Filled",
         },
         {
           color: "#32ab2e",
           borderWidth: 2,
-          label: "Correct"
+          label: "Correct",
         },
         {
           color: "#d6b10b",
           borderWidth: 2,
-          label: "Auto-Solved"
+          label: "Auto-Solved",
         },
         {
           color: "#cc4027",
           borderWidth: 2,
-          label: "Shown Wrong"
+          label: "Shown Wrong",
         },
         {
           color: "#38a0a6",
           borderWidth: 2,
-          label: "Wrong Cleared"
-        }
-      ]
+          label: "Wrong Cleared",
+        },
+      ],
     };
   },
   computed: {
@@ -285,14 +285,14 @@ export default {
       ret += seconds + " second";
       ret += seconds > 1 ? "s" : "";
       return ret;
-    }
+    },
   },
   methods: {
     statWithPercent(stat, total) {
       let perc = Math.round((stat / total) * 100);
       return stat + " (" + perc + "%)";
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -32,7 +32,7 @@
                 :class="{
                   fas: true,
                   'fa-angle-down': !showColumnFlags,
-                  'fa-angle-up': showColumnFlags
+                  'fa-angle-up': showColumnFlags,
                 }"
               ></i>
             </span>
@@ -91,7 +91,7 @@ import Spinner from "vue-simple-spinner";
 export default {
   components: {
     StatFilter,
-    Spinner
+    Spinner,
   },
   mixins: [Utils],
   data() {
@@ -112,7 +112,7 @@ export default {
         flags: { val: null, show: false },
         type: { val: null, show: true },
         country: { val: null, show: false },
-        state: { val: null, show: false }
+        state: { val: null, show: false },
       },
       columns: [
         { name: "climber", active: true },
@@ -125,7 +125,7 @@ export default {
         { name: "area", active: true },
         { name: "subArea", active: false },
         { name: "flags", active: true },
-        { name: "comment", active: false }
+        { name: "comment", active: false },
       ],
       options: {
         headings: {
@@ -139,10 +139,10 @@ export default {
           area: "Area",
           subArea: "SubArea",
           flags: "Flags",
-          comment: "Comment"
+          comment: "Comment",
         },
         pagination: {
-          chunk: 5
+          chunk: 5,
         },
         perPageValues: [10, 25, 50, 100, 500, 2000],
         sortable: [
@@ -156,7 +156,7 @@ export default {
           "area",
           "subArea",
           "flags",
-          "comment"
+          "comment",
         ],
         filterable: [
           "climber",
@@ -168,17 +168,17 @@ export default {
           "area",
           "subArea",
           "flags",
-          "comment"
+          "comment",
         ],
         sortIcon: {
           base: "fas",
           is: "",
           up: "fa-caret-up",
-          down: "fa-caret-down"
+          down: "fa-caret-down",
         },
         orderBy: { column: "date", ascending: false },
         customSorting: {
-          grade: ascending => {
+          grade: (ascending) => {
             return (a, b) => {
               if (ascending) {
                 return this.mapGrade(a.grade) - this.mapGrade(b.grade);
@@ -186,16 +186,16 @@ export default {
               return this.mapGrade(b.grade) - this.mapGrade(a.grade);
             };
           },
-          comment: ascending => {
+          comment: (ascending) => {
             return (a, b) => {
               if (ascending) {
                 return a.commentLength - b.commentLength;
               }
               return b.commentLength - a.commentLength;
             };
-          }
-        }
-      }
+          },
+        },
+      },
     };
   },
   computed: {
@@ -213,7 +213,7 @@ export default {
     },
     currentFilteredStat() {
       return this.stats.getFiltered(false, this.currentFilters);
-    }
+    },
   },
   created() {
     this.loading = true;
@@ -227,16 +227,16 @@ export default {
       setTimeout(() => {
         var promises = [];
         let timer = new Timer(true);
-        ClimberSelect.data().importedClimbers.forEach(climber => {
+        ClimberSelect.data().importedClimbers.forEach((climber) => {
           promises.push(
-            this.fetchData(climber.sandboxId).then(result => {
+            this.fetchData(climber.sandboxId).then((result) => {
               let ascents = result.data;
               return Promise.resolve(ascents);
             })
           );
         });
         Promise.all(promises)
-          .then(allAscents => {
+          .then((allAscents) => {
             let allAscentsFlat = [].concat.apply([], allAscents);
             this.stats.goDeeper(allAscentsFlat);
             return Promise.resolve();
@@ -251,13 +251,13 @@ export default {
       if (catToClear) {
         this.$set(this.currentFilters, catToClear, {
           val: null,
-          show: this.currentFilters[catToClear].show
+          show: this.currentFilters[catToClear].show,
         });
       } else {
         for (const cat of Object.keys(this.currentFilters)) {
           this.$set(this.currentFilters, cat, {
             val: null,
-            show: this.currentFilters[cat].show
+            show: this.currentFilters[cat].show,
           });
         }
       }
@@ -272,8 +272,8 @@ export default {
       url.searchParams.append("AscentType", 1);
       console.log("Opening external 8a.nu url: ", url.toString());
       window.open(url, "_blank");
-    }
-  }
+    },
+  },
 };
 </script>
 

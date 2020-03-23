@@ -28,7 +28,7 @@
               :key="btn.id"
               :class="
                 btn.cls.concat({
-                  pactive: ctrls[cType][btn.ctrlName].updateFlag
+                  pactive: ctrls[cType][btn.ctrlName].updateFlag,
                 })
               "
               @mousedown="ctrls[cType][btn.ctrlName].updateFlag = true"
@@ -59,11 +59,11 @@ export default {
   name: "WebglCamera",
   props: {
     camera: Object,
-    ctrls: Object
+    ctrls: Object,
   },
   components: {
     SwitchButton,
-    ControlHelpModal
+    ControlHelpModal,
   },
   watch: {},
   data() {
@@ -80,8 +80,8 @@ export default {
             { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
             { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
             { cls: ["ul-item"].concat(btnClassList2), ctrlName: "up" },
-            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "down" }
-          ]
+            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "down" },
+          ],
         },
         look: {
           gClass: "mr",
@@ -92,10 +92,10 @@ export default {
             { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
             { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
             { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomin" },
-            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomout" }
-          ]
-        }
-      }
+            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomout" },
+          ],
+        },
+      },
     };
   },
   methods: {
@@ -119,7 +119,7 @@ export default {
         far: 100,
         stepSize: 0.25,
         position: mv.vec3(1, 0, 0), // this is also "eye"
-        initialProps: cameraProps
+        initialProps: cameraProps,
       };
       this.setProps(camera, cameraProps);
       return camera;
@@ -142,9 +142,9 @@ export default {
             desc: "Move forward",
             holdable: true,
             updateFlag: false,
-            updateFxn: vav => {
+            updateFxn: (vav) => {
               this.move(vav.camera, 1, 0);
-            }
+            },
           },
           backward: {
             keybind: "s",
@@ -152,9 +152,9 @@ export default {
             desc: "Move backward",
             holdable: true,
             updateFlag: false,
-            updateFxn: vav => {
+            updateFxn: (vav) => {
               this.move(vav.camera, -1, 0);
-            }
+            },
           },
           left: {
             keybind: "a",
@@ -162,9 +162,9 @@ export default {
             desc: "Strafe left",
             holdable: true,
             updateFlag: false,
-            updateFxn: vav => {
+            updateFxn: (vav) => {
               this.move(vav.camera, -1, 2);
-            }
+            },
           },
           right: {
             keybind: "d",
@@ -172,9 +172,9 @@ export default {
             desc: "Strafe right",
             holdable: true,
             updateFlag: false,
-            updateFxn: vav => {
+            updateFxn: (vav) => {
               this.move(vav.camera, 1, 2);
-            }
+            },
           },
           up: {
             keybind: "q",
@@ -182,9 +182,9 @@ export default {
             desc: "Float upward",
             holdable: true,
             updateFlag: false,
-            updateFxn: vav => {
+            updateFxn: (vav) => {
               this.move(vav.camera, 1, 1);
-            }
+            },
           },
           down: {
             keybind: "e",
@@ -192,10 +192,10 @@ export default {
             desc: "Sink downward",
             holdable: true,
             updateFlag: false,
-            updateFxn: vav => {
+            updateFxn: (vav) => {
               this.move(vav.camera, -1, 1);
-            }
-          }
+            },
+          },
         },
         look: {
           up: {
@@ -208,7 +208,7 @@ export default {
               if (vav.camera.theta < mv.rad(90)) {
                 vav.camera.theta += vav.camera.dr;
               }
-            }
+            },
           },
           down: {
             keybind: "j",
@@ -220,7 +220,7 @@ export default {
               if (vav.camera.theta > -mv.rad(90)) {
                 vav.camera.theta -= vav.camera.dr;
               }
-            }
+            },
           },
           left: {
             keybind: "h",
@@ -230,7 +230,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.phi -= vav.camera.dr;
-            }
+            },
           },
           right: {
             keybind: "k",
@@ -240,7 +240,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.phi += vav.camera.dr;
-            }
+            },
           },
           rollLeft: {
             keybind: "l",
@@ -250,7 +250,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.alpha += vav.camera.dr;
-            }
+            },
           },
           rollRight: {
             keybind: "o",
@@ -260,7 +260,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.alpha -= vav.camera.dr;
-            }
+            },
           },
           zoomin: {
             keybind: "y",
@@ -270,7 +270,7 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.fovy -= 1;
-            }
+            },
           },
           zoomout: {
             keybind: "i",
@@ -280,9 +280,9 @@ export default {
             updateFlag: false,
             updateFxn(vav) {
               vav.camera.fovy += 1;
-            }
-          }
-        }
+            },
+          },
+        },
       };
       return ctrls;
     },
@@ -329,12 +329,12 @@ export default {
       let cos = {
         t: Math.cos(camera.theta),
         p: Math.cos(camera.phi),
-        a: Math.cos(camera.alpha)
+        a: Math.cos(camera.alpha),
       };
       let sin = {
         t: Math.sin(camera.theta),
         p: Math.sin(camera.phi),
-        a: Math.sin(camera.alpha)
+        a: Math.sin(camera.alpha),
       };
       return mv.vec3(
         -sin.t * cos.p * cos.a - sin.p * sin.a,
@@ -356,8 +356,8 @@ export default {
         camera.position,
         mv.vec3(dx * v[0], dx * v[1], dx * v[2])
       );
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

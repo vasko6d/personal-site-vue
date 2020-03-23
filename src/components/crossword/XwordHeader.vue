@@ -36,7 +36,7 @@
               icn: true,
               fas: true,
               'fa-angle-down': !showNote,
-              'fa-angle-up': showNote
+              'fa-angle-up': showNote,
             }"
           ></i>
         </h2>
@@ -51,7 +51,7 @@
             <i
               @click="showTheme = !showTheme"
               :class="{
-                'icn fas fa-ellipsis-h': !showTheme
+                'icn fas fa-ellipsis-h': !showTheme,
               }"
             ></i>
           </strong>
@@ -76,7 +76,7 @@
               'icn',
               'fas',
               'fa-keyboard',
-              { enab: nativeKeyboardEnabled }
+              { enab: nativeKeyboardEnabled },
             ]"
             @click="$emit('toggleNativeKeyboard')"
           ></i
@@ -119,12 +119,12 @@ export default {
     nativeKeyboardEnabled: Boolean,
     publishDate: Date,
     opts: Object,
-    timer: Timer
+    timer: Timer,
   },
   components: {
     XwordHelp,
     XwordSettings,
-    XwordTools
+    XwordTools,
   },
   data() {
     return {
@@ -137,7 +137,7 @@ export default {
       // Help Modals
       showHelp: false,
       showSettings: false,
-      showTools: false
+      showTools: false,
     };
   },
   computed: {
@@ -146,7 +146,7 @@ export default {
       let mm = (this.minutes < 10 ? "0" : "") + this.minutes.toString();
       let ss = (this.seconds < 10 ? "0" : "") + this.seconds.toString();
       return hh + ":" + mm + ":" + ss;
-    }
+    },
   },
   mounted() {
     this.interval = setInterval(() => {
@@ -183,8 +183,8 @@ export default {
       } else {
         document.documentElement.style.overflow = "auto";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

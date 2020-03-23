@@ -9,8 +9,8 @@ export default {
         vec4: new Float32Array(this.flatten(this.vec4())).byteLength,
         mat2: new Float32Array(this.flatten(this.mat2())).byteLength,
         mat3: new Float32Array(this.flatten(this.mat3())).byteLength,
-        mat4: new Float32Array(this.flatten(this.mat4())).byteLength
-      }
+        mat4: new Float32Array(this.flatten(this.mat4())).byteLength,
+      },
     };
   },
 
@@ -93,7 +93,7 @@ export default {
           m = [
             this.vec3(v[0], 0.0, 0.0),
             this.vec3(0.0, v[0], 0.0),
-            this.vec3(0.0, 0.0, v[0])
+            this.vec3(0.0, 0.0, v[0]),
           ];
           break;
         default:
@@ -120,7 +120,7 @@ export default {
             this.vec4(v[0], 0.0, 0.0, 0.0),
             this.vec4(0.0, v[0], 0.0, 0.0),
             this.vec4(0.0, 0.0, v[0], 0.0),
-            this.vec4(0.0, 0.0, 0.0, v[0])
+            this.vec4(0.0, 0.0, 0.0, v[0]),
           ];
           break;
         //fallsthrough
@@ -208,14 +208,18 @@ export default {
       var result = [];
       if (u.matrix && v.matrix) {
         if (u.length != v.length) {
-          throw "subtract(): trying to subtract matrices" +
-            " of different dimensions";
+          throw (
+            "subtract(): trying to subtract matrices" +
+            " of different dimensions"
+          );
         }
 
         for (let i = 0; i < u.length; ++i) {
           if (u[i].length != v[i].length) {
-            throw "subtract(): trying to subtact matrices" +
-              " of different dimensions";
+            throw (
+              "subtract(): trying to subtact matrices" +
+              " of different dimensions"
+            );
           }
           result.push([]);
 
@@ -478,7 +482,7 @@ export default {
       var result = [
         u[1] * v[2] - u[2] * v[1],
         u[2] * v[0] - u[0] * v[2],
-        u[0] * v[1] - u[1] * v[0]
+        u[0] * v[1] - u[1] * v[0],
       ];
       return result;
     },
@@ -583,7 +587,7 @@ export default {
 
     sizeof(type) {
       return this.sizes[type];
-    }
-  }
+    },
+  },
 };
 </script>

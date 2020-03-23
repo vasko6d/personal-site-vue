@@ -9,8 +9,8 @@
           {
             'key-t': keyBtn.isActive === 1,
             'key-a': keyBtn.isActive === 2,
-            'key-wide': keyBtn.val === '$BACKSPACE'
-          }
+            'key-wide': keyBtn.val === '$BACKSPACE',
+          },
         ]"
         v-for="keyBtn in keyRow"
         :key="keyBtn.id"
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       keyLayout: [],
-      invKeyLayout: {}
+      invKeyLayout: {},
     };
   },
   mounted() {
@@ -58,19 +58,19 @@ export default {
   },
   methods: {
     startHandler(key) {
-      return e => {
+      return (e) => {
         e.preventDefault();
         key.isActive = 1;
       };
     },
     abortHandler(key) {
-      return e => {
+      return (e) => {
         e.preventDefault();
         key.isActive = 0;
       };
     },
     endHandler(key) {
-      return e => {
+      return (e) => {
         if (key.isActive === 1) {
           e.preventDefault();
           this.flashBtn(key);
@@ -159,7 +159,7 @@ export default {
           retRow.push({
             disp: ch,
             val: ch,
-            isActive: 0
+            isActive: 0,
           });
           retInv[ch] = { r: i, c: j };
         }
@@ -170,13 +170,13 @@ export default {
           disp: "fas fa-backspace",
           isFA: true,
           val: "$BACKSPACE",
-          isActive: 0
+          isActive: 0,
         });
         retInv["BACKSPACE"] = { r: 2, c: retArr[2].length - 1 };
       }
       return [retArr, retInv];
-    }
-  }
+    },
+  },
 };
 </script>
 

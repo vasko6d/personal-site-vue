@@ -15,8 +15,8 @@
               exact: isExact(r, c),
               flagged: cell.flag,
               'autosolved-border': cell.wasAutoSolved,
-              'wrong-border': showErrors && cell.wrong && cell.entry
-            }
+              'wrong-border': showErrors && cell.wrong && cell.entry,
+            },
           ]"
         >
           <div
@@ -24,13 +24,13 @@
               'cell-wrapper',
               {
                 wrong: calcWrong(cell),
-                autosolved: cell.wasAutoSolved
-              }
+                autosolved: cell.wasAutoSolved,
+              },
             ]"
             v-tooltip="{
               content: cell.entry + flashDash,
               show: isExact(r, c) && cell.isSpecialInput,
-              trigger: 'manual'
+              trigger: 'manual',
             }"
           >
             <span class="numbering">{{ cell.cellNum }}</span>
@@ -55,17 +55,17 @@ export default {
     isHoriz: Boolean,
     acrossNum: Number,
     downNum: Number,
-    showErrors: Boolean
+    showErrors: Boolean,
   },
   data() {
     return {
-      halfSecs: 0
+      halfSecs: 0,
     };
   },
   computed: {
     flashDash() {
       return this.halfSecs % 2 === 0 ? "_" : "&nbsp";
-    }
+    },
   },
   mounted() {
     this.interval = setInterval(() => {
@@ -103,8 +103,8 @@ export default {
         this.$emit("updateShownWrong", cell);
       }
       return shownWrong;
-    }
-  }
+    },
+  },
 };
 </script>
 

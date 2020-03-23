@@ -13,13 +13,13 @@
 export default {
   name: "switch-button",
   props: {
-    isEnabled: Boolean
+    isEnabled: Boolean,
   },
   methods: {
-    toggle: function() {
+    toggle: function () {
       this.$emit("toggle", !this.isEnabled);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -26,12 +26,12 @@ export default {
   mixins: [Utils],
   props: {
     chart: Object,
-    stats: Stat
+    stats: Stat,
   },
   data() {
     return {
       // Ascent Variables
-      subCatagory: null
+      subCatagory: null,
     };
   },
   computed: {
@@ -48,7 +48,7 @@ export default {
         choices.push({
           name: this.chart.chartData.names[i],
           label: this.chart.chartData.labels[i],
-          datum: datum
+          datum: datum,
         });
       }
       return choices;
@@ -63,8 +63,8 @@ export default {
         }
       }
       return a;
-    }
-  }
+    },
+  },
 };
 </script>
 

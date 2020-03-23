@@ -15,14 +15,14 @@ const ALL = [
   "country",
   "state",
   "type",
-  "name"
+  "name",
 ];
 import Utils from "@/mixins/Utils.js";
 export default {
   name: "Aggregate",
   fxns: {
-    avg: subName => {
-      return stat => {
+    avg: (subName) => {
+      return (stat) => {
         let sub = stat.get(subName).subStats;
         let sum = 0;
         let cnt = 0;
@@ -33,26 +33,26 @@ export default {
         return Math.round((10 * sum) / cnt) / 10;
       };
     },
-    max: subName => {
-      return stat => {
-        let vals = Object.keys(stat.get(subName).subStats).map(el => {
+    max: (subName) => {
+      return (stat) => {
+        let vals = Object.keys(stat.get(subName).subStats).map((el) => {
           return Utils.methods.makeInt(subName, el);
         });
         return Math.max(...vals);
       };
     },
     count: (subName, subValue) => {
-      return stat => {
+      return (stat) => {
         return stat.get(subName).get(subValue).count;
       };
     },
-    distinctCount: subName => {
-      return stat => {
+    distinctCount: (subName) => {
+      return (stat) => {
         return stat.get(subName).subStatCount();
       };
     },
     pct: (subName, subValue) => {
-      return stat => {
+      return (stat) => {
         let sub = stat.get(subName).subStats;
         let sum = 0;
         let cnt = 0;
@@ -65,8 +65,8 @@ export default {
         return Math.round((1000 * sum) / cnt) / 10;
       };
     },
-    sum: subName => {
-      return stat => {
+    sum: (subName) => {
+      return (stat) => {
         let sub = stat.get(subName).subStats;
         let sum = 0;
         for (const subKey of Object.keys(sub)) {
@@ -74,7 +74,7 @@ export default {
         }
         return Math.round(sum);
       };
-    }
+    },
   },
   compatibility: {
     avg: ["grade", "rating", "year", "commentLength"],
@@ -82,11 +82,11 @@ export default {
     sum: ["grade", "commentLength"],
     pct: ALL,
     count: ALL,
-    distinctCount: ALL
+    distinctCount: ALL,
   },
   needsSubValue: {
     count: true,
-    pct: true
+    pct: true,
   },
   names: {
     avg: "Average",
@@ -94,7 +94,7 @@ export default {
     sum: "Sum",
     pct: "Percentage",
     count: "Count with Value",
-    distinctCount: "Count Distinct"
+    distinctCount: "Count Distinct",
   },
   makeTitle(aggregator, catagory, value) {
     let ret = "";
@@ -107,5 +107,5 @@ export default {
       ret += " = " + value + ")";
     }
     return ret;
-  }
+  },
 };

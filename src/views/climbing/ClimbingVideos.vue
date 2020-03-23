@@ -20,7 +20,7 @@ import ClimbingVideoItem from "@/components/climbing/ClimbingVideoItem.vue";
 export default {
   name: "climbingvideos",
   components: {
-    ClimbingVideoItem
+    ClimbingVideoItem,
   },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
         {
           videoUrl: "https://player.vimeo.com/video/126732198",
           imgUrl: "https://i.vimeocdn.com/video/517272841_640.jpg",
-          desc: "Bishop"
+          desc: "Bishop",
         },
         { ytid: "75flgdpk-eU", desc: "Black Mountain" },
         {
@@ -56,11 +56,11 @@ export default {
           videoUrl:
             "https://drive.google.com/file/d/0B903aI0TyENqYVpzWEVVTlk1ZkE/preview",
           imgUrl: "../img/peabody-highline.jpg",
-          desc: "Peabody Highline"
-        }
-      ]
+          desc: "Peabody Highline",
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

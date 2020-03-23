@@ -34,7 +34,7 @@ export default {
           "###PERU##SITTER",
           "#BITFONTINASIGN",
           "#ROOT#TACO#URAE",
-          "#ANDS#SUET#NESS"
+          "#ANDS#SUET#NESS",
         ],
         clues: {
           across: {
@@ -75,7 +75,7 @@ export default {
             63: { txt: "World of Warcrafy site" },
             64: { txt: "Ifs & buts partner" },
             65: { txt: "Bird food" },
-            66: { txt: "Loch of legend" }
+            66: { txt: "Loch of legend" },
           },
           down: {
             1: { txt: "Plant part" },
@@ -89,7 +89,7 @@ export default {
             9: { txt: "Some Batchelors" },
             10: {
               txt:
-                "It always makes you smile, and is hidden in this puzzles themed answers"
+                "It always makes you smile, and is hidden in this puzzles themed answers",
             },
             11: { txt: "Turns car into mechanic, e.g.?" },
             12: { txt: "Perp prosecuters" },
@@ -118,11 +118,11 @@ export default {
             57: { txt: "Cups you drank from, once" },
             58: { txt: "End to stat or edit" },
             59: { txt: "19th Greek letter" },
-            60: { txt: "Clinch as a victory" }
-          }
-        }
-      }
+            60: { txt: "Clinch as a victory" },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>

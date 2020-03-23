@@ -12,24 +12,24 @@ export default {
     youTubeId: String,
     videoUrl: String,
     imgUrl: String,
-    videoDesc: String
+    videoDesc: String,
   },
   computed: {
-    trueVideoUrl: function() {
+    trueVideoUrl: function () {
       var s = this.videoUrl;
       if (this.youTubeId) {
         s = "https://youtu.be/" + this.youTubeId;
       }
       return s;
     },
-    trueImgUrl: function() {
+    trueImgUrl: function () {
       var s = this.imgUrl;
       if (this.youTubeId) {
         s = "https://img.youtube.com/vi/" + this.youTubeId + "/mqdefault.jpg";
       }
       return s;
-    }
-  }
+    },
+  },
 };
 </script>
 

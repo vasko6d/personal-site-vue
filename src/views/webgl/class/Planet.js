@@ -65,7 +65,7 @@ export default class Planet {
   }
 
   animateMoons(gl, loc, light, time, prevMat) {
-    this.moons.forEach(function(moon) {
+    this.moons.forEach(function (moon) {
       moon.animate(gl, loc, light, time, prevMat);
     });
   }

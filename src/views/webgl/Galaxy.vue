@@ -116,7 +116,7 @@ export default {
   name: "GalaxyView",
   components: {
     WebglCamera,
-    ActionControls
+    ActionControls,
   },
   data() {
     return {
@@ -136,21 +136,21 @@ export default {
           ambientProduct: "",
           diffuseProduct: "",
           specularProduct: "",
-          shadingFlag: ""
+          shadingFlag: "",
         },
         // Attributes
         a: {
           pos: "", // Positions
           norm: "", // Normals
-          flatNorm: "" // Flat Normals
-        }
+          flatNorm: "", // Flat Normals
+        },
       },
 
       // GL BUffers
       buf: {
         pos: "",
         norm: "",
-        flatNorm: ""
+        flatNorm: "",
       },
 
       // [A]ction affected [V]ariables
@@ -160,10 +160,10 @@ export default {
           stepSize: 0.1,
           theta: mv.rad(-30),
           near: 0.1,
-          far: 1000
+          far: 1000,
         }),
         attachedToPlanet3: false,
-        galaxy: ""
+        galaxy: "",
       },
 
       // Seed tetrahedron points to make the spheres
@@ -171,7 +171,7 @@ export default {
         a: mv.vec3(0.0, 0.0, -1.0),
         b: mv.vec3(0.0, 0.942809, 0.333333),
         c: mv.vec3(-0.816497, -0.471405, 0.333333),
-        d: mv.vec3(0.816497, -0.471405, 0.333333)
+        d: mv.vec3(0.816497, -0.471405, 0.333333),
       },
 
       // light properties that represent our single point sun light soure
@@ -179,7 +179,7 @@ export default {
         position: mv.vec4(0.0, 0.0, 0.0, 1.0),
         ambient: mv.vec4(0.2, 0.2, 0.2, 1.0),
         diffuse: mv.vec4(0.7, 0.7, 0.7, 1.0),
-        specular: mv.vec4(1.0, 1.0, 1.0, 1.0)
+        specular: mv.vec4(1.0, 1.0, 1.0, 1.0),
       },
 
       // set the min and max complexity
@@ -199,9 +199,9 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: function(av) {
+          updateFxn: function (av) {
             av.galaxy.getTimer().toggleTimer();
-          }
+          },
         },
         goToAboveView: {
           keybind: "t",
@@ -210,13 +210,13 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: av => {
+          updateFxn: (av) => {
             this.resetAav(av, false, false);
             av.camera.theta = mv.rad(-90);
             av.camera.phi = 0;
             av.camera.position = mv.vec3(0, 25, 0);
             av.camera.orthoNormalUpdateFlag = true;
-          }
+          },
         },
         attachToPlanet3: {
           keybind: "3",
@@ -225,14 +225,14 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: av => {
+          updateFxn: (av) => {
             if (av.attachedToPlanet3) {
               this.resetAav(av);
             } else {
               av.attachedToPlanet3 = true;
               av.camera.near = 1.1;
             }
-          }
+          },
         },
         revert: {
           keybind: "z",
@@ -241,12 +241,12 @@ export default {
           holdable: false,
           framesActive: 0,
           updateFlag: false,
-          updateFxn: av => {
+          updateFxn: (av) => {
             this.resetAav(av, true, true);
-          }
-        }
+          },
+        },
       },
-      invActionCtrls: "" // initialize during mount
+      invActionCtrls: "", // initialize during mount
     };
   },
 
@@ -258,12 +258,12 @@ export default {
     // Invert the conrtols and the keybinding for simple character lookups
     this.invCameraCtrls = {
       ...wglu.getInvertedControlObject(this.cameraCtrls.move, "move"),
-      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look")
+      ...wglu.getInvertedControlObject(this.cameraCtrls.look, "look"),
     };
     this.invActionCtrls = wglu.getInvertedControlObject(this.actionCtrls);
 
     // Define Keyboard listeners
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = true;
@@ -273,7 +273,7 @@ export default {
         this.cameraCtrls[invCC[0]][invCC[1]].updateFlag = true;
       }
     });
-    window.addEventListener("keyup", e => {
+    window.addEventListener("keyup", (e) => {
       let ch = String.fromCharCode(e.keyCode).toLowerCase();
       if (ch in this.invActionCtrls) {
         this.actionCtrls[this.invActionCtrls[ch][0]].updateFlag = false;
@@ -433,7 +433,7 @@ export default {
         diffuse: mv.vec4(diffuse),
         specular: mv.vec4(specular),
         shininess: shininess,
-        shading: this.av.galaxy.getShadingFlag(shading)
+        shading: this.av.galaxy.getShadingFlag(shading),
       };
     },
 
@@ -442,7 +442,7 @@ export default {
         eccentricity: eccentricity,
         omega: omega,
         phase: phase,
-        radius: radius
+        radius: radius,
       };
     },
 
@@ -470,8 +470,8 @@ export default {
       this.av.galaxy.animatePlanets(this.gl, this.loc);
 
       wglu.requestAnimFrame()(this.render);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss"></style>

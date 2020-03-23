@@ -38,7 +38,7 @@ export default {
         "difficulty",
         "dimension",
         "createDate",
-        "status"
+        "status",
       ],
       data: [
         Xword1.data().xword,
@@ -46,7 +46,7 @@ export default {
         Xword3.data().xword,
         Xword4.data().xword,
         Xword5.data().xword,
-        Xword6.data().xword
+        Xword6.data().xword,
       ],
       options: {
         headings: {
@@ -55,7 +55,7 @@ export default {
           difficulty: "Difficulty",
           dimension: "Size",
           createDate: "Date",
-          status: "Status"
+          status: "Status",
         },
         sortable: [
           "title",
@@ -63,19 +63,19 @@ export default {
           "difficulty",
           "dimension",
           "createDate",
-          "status"
+          "status",
         ],
         filterable: ["title", "author", "difficulty", "dimension", "status"],
         sortIcon: {
           base: "fas",
           is: "",
           up: "fa-caret-up",
-          down: "fa-caret-down"
+          down: "fa-caret-down",
         },
         orderBy: { column: "createDate", ascending: false },
 
         customSorting: {
-          status: ascending => {
+          status: (ascending) => {
             return (a, b) => {
               const sa = this.getStatus(a.id);
               const sb = this.getStatus(b.id);
@@ -85,12 +85,12 @@ export default {
               return this.statusMap[sa] <= this.statusMap[sb] ? 1 : -1;
             };
           },
-          dimension: ascending => {
+          dimension: (ascending) => {
             return (a, b) => {
-              const da = a.dimension.split("x").map(function(d) {
+              const da = a.dimension.split("x").map(function (d) {
                 return parseInt(d);
               });
-              const db = b.dimension.split("x").map(function(d) {
+              const db = b.dimension.split("x").map(function (d) {
                 return parseInt(d);
               });
               if (ascending) {
@@ -98,14 +98,14 @@ export default {
               }
               return da[0] <= db[0] ? 1 : -1;
             };
-          }
-        }
+          },
+        },
       },
       statusMap: {
         Completed: 2,
         Started: 1,
-        "Not Started": 0
-      }
+        "Not Started": 0,
+      },
     };
   },
   methods: {
@@ -134,8 +134,8 @@ export default {
     },
     rowClick(e) {
       this.$router.push("" + e.row.id);
-    }
-  }
+    },
+  },
 };
 </script>
 

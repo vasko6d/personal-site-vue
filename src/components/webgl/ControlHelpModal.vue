@@ -16,7 +16,7 @@
             <slot name="body">
               <template v-if="depth === 2">
                 <div v-for="tKey in Object.keys(ctrls)" :key="tKey.id">
-                  <h3>{{ tKey.replace(/^\w/, c => c.toUpperCase()) }}</h3>
+                  <h3>{{ tKey.replace(/^\w/, (c) => c.toUpperCase()) }}</h3>
                   <div
                     class="help-li"
                     v-for="cKey in Object.keys(ctrls[tKey])"
@@ -28,9 +28,9 @@
                     </span>
                     {{
                       ctrls[tKey][cKey].desc +
-                        ". You can also press the ['" +
-                        ctrls[tKey][cKey].keybind +
-                        "'] key"
+                      ". You can also press the ['" +
+                      ctrls[tKey][cKey].keybind +
+                      "'] key"
                     }}
                   </div>
                 </div>
@@ -47,9 +47,9 @@
                   </span>
                   {{
                     ctrls[cKey].desc +
-                      ". You can also press the ['" +
-                      ctrls[cKey].keybind +
-                      "'] key"
+                    ". You can also press the ['" +
+                    ctrls[cKey].keybind +
+                    "'] key"
                   }}
                 </div>
               </template>
@@ -74,8 +74,8 @@ export default {
   props: {
     title: String,
     ctrls: Object,
-    depth: Number
-  }
+    depth: Number,
+  },
 };
 </script>
 

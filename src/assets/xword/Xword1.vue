@@ -31,7 +31,7 @@ export default {
           "EMERITI#VERRUCA",
           "MOREL#TWO#INRUN",
           "IRISE#OIL#MADRE",
-          "RTE###TGV###USR"
+          "RTE###TGV###USR",
         ],
         clues: {
           across: {
@@ -71,7 +71,7 @@ export default {
             62: { txt: "Mother, to Juan" },
             63: { txt: "Highway, briefly" },
             64: { txt: "Fre. high speed rail" },
-            65: { txt: "Unix directory with the largest share of data" }
+            65: { txt: "Unix directory with the largest share of data" },
           },
           down: {
             1: { txt: "Curved bones, or teases good-naturedly" },
@@ -104,7 +104,7 @@ export default {
             40: { txt: "Having strength, energy, and a strong sex drive" },
             41: {
               txt:
-                "By performing this action on this answer, it will be right side up"
+                "By performing this action on this answer, it will be right side up",
             },
             43: { txt: "Regret" },
             45: { txt: "This type of tube is used to measure pressure" },
@@ -117,11 +117,11 @@ export default {
             53: { txt: "An Arabic language" },
             54: { txt: "Mongrel dogs" },
             55: { txt: "A male insect" },
-            58: { txt: "May be worn to disguise baldness" }
-          }
-        }
-      }
+            58: { txt: "May be worn to disguise baldness" },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>

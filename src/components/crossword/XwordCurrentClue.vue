@@ -20,7 +20,7 @@
 <script>
 export default {
   props: {
-    clue: Object
+    clue: Object,
   },
   methods: {
     moveClue(forward) {
@@ -32,8 +32,8 @@ export default {
     },
     switchDirection() {
       this.$emit("executePress", "$SWITCHDIRECTION");
-    }
-  }
+    },
+  },
 };
 </script>
 
