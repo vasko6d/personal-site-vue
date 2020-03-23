@@ -17,7 +17,7 @@
                 <a
                   class="bg1-hvr bg1-txt-hvr"
                   :ref="item.name"
-                  :href="item.path"
+                  href="#"
                   :title="item.name"
                   @click="item.isOpen = !item.isOpen"
                 >

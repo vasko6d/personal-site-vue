@@ -17,7 +17,7 @@ export default new Router({
     },
     // CLIMBING
     {
-      path: "#climbing",
+      path: "/climbing",
       isMainNav: true,
       name: "Climbing",
       component: {
@@ -47,7 +47,7 @@ export default new Router({
     },
     // PORTFOLIO - Parent route to house dropdown of porjects
     {
-      path: "#portfolio",
+      path: "/portfolio",
       name: "\xa0\xa0\xa0\xa0Portfolio\xa0\xa0\xa0\xa0",
       isMainNav: true,
       component: {

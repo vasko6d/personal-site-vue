@@ -9,8 +9,8 @@ module.exports = {
     "@vue/prettier",
   ],
   rules: {
-    "no-console": "off",//process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": "off",//process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-console": "off", //process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-debugger": "off", //process.env.NODE_ENV === "production" ? "error" : "off",
   },
   parserOptions: {
     parser: "babel-eslint",
