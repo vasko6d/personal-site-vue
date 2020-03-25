@@ -46,22 +46,19 @@ export default {
   name: "NestedViewer",
   props: {
     childrenPath: Array,
+    routePrefix: String,
     title: String,
   },
   data() {
     return {
       // dropdown data
       children: "",
-      routePrefix: "",
       isOpen: false,
     };
   },
   mounted() {
     let rs = this.$router.options.routes;
     for (const path of this.childrenPath) {
-      if (path.startsWith("/")) {
-        this.routePrefix += path;
-      }
       rs = rs.find((r) => {
         return r.path === path;
       }).children;

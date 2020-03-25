@@ -67,7 +67,8 @@ export default new Router({
           name: "WebGL",
           component: NestedViewer,
           props: {
-            childrenPath: ["#portfolio", "/webgl"],
+            childrenPath: ["/portfolio", "/webgl"],
+            routePrefix: "/webgl",
             title: "Graphics using WebGL",
           },
           children: [
@@ -104,7 +105,8 @@ export default new Router({
           name: "Numerical",
           component: NestedViewer,
           props: {
-            childrenPath: ["#portfolio", "/numerical"],
+            childrenPath: ["/portfolio", "/numerical"],
+            routePrefix: "/numerical",
             title: "Numerical Analysis",
           },
           children: [

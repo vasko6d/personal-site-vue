@@ -20,17 +20,17 @@
         L = normalize( light - pos );
         E = -pos;
 
-        // Flat Shading
+        /* Flat Shading */
       	if (shadingFlag < 0.5) {
           N = normalize( (vec4(vFlatNorm, 0)).xyz);
         }
 
-        // Gourand or Phong Shading
+        /* Gourand or Phong Shading */
       	else {
           N = normalize( (vec4(vNorm, 0)).xyz);
         }
 
-        // Flat or Gourand Shading - Phong must be done in the fragment shader
+        /* Flat or Gourand Shading - Phong must be done in the fragment shader */
       	if (shadingFlag < 1.5) {
           vec3 H = normalize( L + E );
           vec4 ambient = ambientProduct;
@@ -61,7 +61,7 @@
       varying vec4 fcolor;
       void main() {
 
-        // Phong Shading
+        /* Phong Shading */
         if (shadingFlag > 1.5) {
           vec4 FColor = fcolor;
           vec3 H = normalize( L + E );
@@ -81,7 +81,7 @@
           gl_FragColor = FColor;
       	}
 
-        // Flat/Gourand shading completed in vertex shader
+        /* Flat/Gourand shading completed in vertex shader */
       	else {
       	  gl_FragColor = fcolor;
         }

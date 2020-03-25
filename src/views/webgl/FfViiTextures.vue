@@ -1,29 +1,29 @@
 <template>
   <div id="ff-vii-textures">
     <script id="vertex-shader" type="x-shader/x-vertex">
-      // The data in 3d space
-      attribute vec3 vPos; // Actual vertex positions
-      attribute vec3 vNorm; // Normal vector for each vertex
-      attribute vec2 vUV; // Texture coordinate system UV
-      uniform vec3 lPos; // [l]ight [pos]ition
+      /* The data in 3d space */
+      attribute vec3 vPos; /* Actual vertex positions */
+      attribute vec3 vNorm; /* Normal vector for each vertex */
+      attribute vec2 vUV; /* Texture coordinate system UV */
+      uniform vec3 lPos; /*[l]ight [pos]ition */
 
-      // Transformations that will transform the data
-      uniform mat4 vMat; // [v]iew [m]atrix
-      uniform mat4 mMat; // [m]odel [m]atrix
-      uniform mat4 pMat; // [p]rojection [m]atrix
+      /* Transformations that will transform the data */
+      uniform mat4 vMat; /* [v]iew [m]atrix */
+      uniform mat4 mMat; /* [m]odel [m]atrix */
+      uniform mat4 pMat; /* [p]rojection [m]atrix */
 
-      // Texture Uniforms for Scaling, Rotating and Translating
-      uniform float texS; // [tex]ture [s]cale
-      uniform mat2 texR; // [tex]ture [r]otate
-      uniform float texT; // [tex]ture [t]ranslate
+      /* Texture Uniforms for Scaling, Rotating and Translating */
+      uniform float texS; /* [tex]ture [s]cale */
+      uniform mat2 texR; /* [tex]ture [r]otate */
+      uniform float texT; /* [tex]ture [t]ranslate */
 
-      // Fragment Shader Variables
+      /* Fragment Shader Variables */
       varying vec3 fL, fE, fN;
       varying vec2 fUV;
 
       void main(){
           vec3 pos = (vMat * mMat * vec4(vPos, 1.0)).xyz;
-      	  vec3 light = (vMat * vec4(lPos, 1.0)).xyz; //light position in camera space
+      	  vec3 light = (vMat * vec4(lPos, 1.0)).xyz; /* light position in camera space */
 
           fL = normalize(light - pos);
           fE = normalize(-pos);
@@ -44,7 +44,7 @@
       void main(){
           vec3 fH = normalize(fL + fE);
 
-          vec4 texC = texture2D(uSampler, fUV); // [tex]ture [c]olor
+          vec4 texC = texture2D(uSampler, fUV); /* [tex]ture [c]olor */
           vec4 ambient = 0.2 * texC;
           float kd = max(dot(fL, fN), 0.0);
           vec4 diffuse = kd * 0.6 * texC;
