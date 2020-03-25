@@ -30,7 +30,7 @@
     <a href="mailto:vasko6d@gmail.com" class="icn">
       <i class="fas fa-envelope"></i>
     </a>
-    <a href="/pdf/20190928-resume.pdf" target="_blank" class="icn">
+    <a href="/pdf/20200324-resume.pdf" target="_blank" class="icn">
       <i class="fas fa-file"></i>
     </a>
   </div>
