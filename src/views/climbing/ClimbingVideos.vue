@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       videoList: [
+        { ytid: "8-BJxEmLveU", desc: "Joshua Tree" },
         { ytid: "-u1w5VtMsWI", desc: "Mt Woodson" },
         { ytid: "osNdWTYSM7o", desc: "Rocklands" },
         { ytid: "eTJu9mOWVwA", desc: "Leavenworth" },
