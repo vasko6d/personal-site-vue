@@ -4,10 +4,10 @@
       <h3>
         {{ topos[topoId].title }}
       </h3>
-      <div class="img-wrap">
-        <img :src="topos[topoId].imageUrl" />
+      <img :src="topos[topoId].imageUrl" />
+      <div class="desc-container">
+        <div class="desc">{{ topos[topoId].description }}</div>
       </div>
-      <div class="desc">{{ topos[topoId].description }}</div>
       <div class="flex-row">
         <a
           v-if="topos[topoId].pdfPath"
@@ -168,12 +168,18 @@ export default {
   padding: 5px;
   margin: 5px;
 }
+.desc-container {
+  display: flex;
+  justify-content: center;
+}
 .desc {
   text-align: left;
-  max-width: 650px;
-  margin: auto;
+  width: 90%;
 }
 .no-bullet {
   list-style-type: none;
+}
+img {
+  width: 100%;
 }
 </style>
