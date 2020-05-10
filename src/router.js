@@ -43,6 +43,13 @@ export default new Router({
           component: () => import("./views/climbing/ClimbingAnalysis.vue"),
           props: true,
         },
+        {
+          path: "/climbing/topos/:topoId",
+          defaultPath: "/climbing/topos/rpc",
+          name: "Topos",
+          component: () => import("./views/climbing/ClimbingTopos.vue"),
+          props: true,
+        },
       ],
     },
     // PORTFOLIO - Parent route to house dropdown of porjects
@@ -129,7 +136,10 @@ export default new Router({
         },
       ],
     },
-
+    {
+      path: "/climbing/topos",
+      component: () => import("./views/climbing/ClimbingTopos.vue"),
+    },
     {
       path: "/crossword/:xwordId",
       name: "crossword",
