@@ -278,6 +278,31 @@ export default {
         }),
       };
     },
+    getTimeChartData(ts, opts) {
+      if (ts) {
+        let ts2 = ts.day.map((el) => {
+          return { x: el.x, y: el.yr.sinceMax };
+        });
+        console.log(ts2);
+      }
+
+      // Return it in ChartJS format
+      return {
+        datasets: [
+          {
+            data: [],
+            backgroundColor: "#6d826c",
+            borderColor: "#6d826c",
+            borderWidth: 2,
+            label: "Days Since Max",
+            fill: false,
+            pointRadius: 2,
+            pointBackgroundColor: "#6d826c",
+            pointBorderColor: "#6d826c",
+          },
+        ],
+      };
+    },
     getGradeChartData(stat, allowExpansion = true, opts) {
       let gradeList = Object.values(stat.subStats);
       gradeList.sort((a, b) => {
@@ -344,45 +369,132 @@ export default {
       };
     },
     generateTimeSeries(ascents, nTop = 10) {
-      let ret = [];
+      console.log(`Generating Time Series Data>`);
+      let ts = undefined;
       if (ascents.length > 0) {
+        ts = { day: [], month: [], year: [] };
         // Sort ascents with earliest ascent first
         ascents.sort((a, b) => {
           return new Date(a.date) - new Date(b.date);
         });
-        // Continusously updates [Y] variables
-        let gradeMax = 0;
-        let gradeAvg = 0;
-        let topGrades = [];
-        for (let i = 0; i < nTop; i++) {
-          topGrades.push(0);
-        }
-        //let gradeScore = 0;
-        //let starAvg = 0;
-        //let recommentPct = 0;
-        //let commentLenAvg = 0;
-        //let softness = 0;
-        let cnt = 0;
-        //let daysSinceMax = 0;
-        // [X] variables: (day, month or year)
-        //let tracker = this.decomposeDate(ascents[0].date);
-        // Now iterate through and generate any relevant possible times series data
+        let startDate = this.decomposeDate(ascents[0].date);
+        let t = {
+          date: {
+            day: startDate.day,
+            month: startDate.month,
+            year: startDate.year,
+          },
+          cnt: 0,
+          run: {
+            ...this.newTimeSeriesTracker(),
+            sinceMax: 0,
+            prevMaxDate: undefined,
+          },
+          day: this.newTimeSeriesTracker(),
+          month: this.newTimeSeriesTracker(),
+          year: this.newTimeSeriesTracker(),
+        };
         for (let ascent of ascents) {
-          cnt += 1;
-          gradeMax = ascent.grade > gradeMax ? ascent.grade : gradeMax;
-          gradeAvg =
-            (this.mapGrade(ascent.grade, 0) + (cnt - 1) * gradeAvg) / cnt;
-          // insert into topGrades
-          //gradeScore =
-          //  topGrades.reduce((a, b) => a + b, 0) / (cnt < nTop ? cnt : nTop);
-          // now track day/month/year changes
-          //let cur = this.decomposeDate(ascent.date);
-          //if (cur.year != tracker.year) {
-          //}
+          // new Loop values
+          const cur = this.decomposeDate(ascent.date);
+          const now = new Date(
+            parseInt(cur.year),
+            parseInt(cur.month),
+            parseInt(cur.day)
+          );
+          const gradeNumerical = this.mapGrade(ascent.grade);
+          // Update since max
+          if (gradeNumerical === t.run.max) {
+            t.run.prevMaxDate = now;
+          } else if (t.run.prevMaxDate) {
+            const diffTime = Math.abs(now - t.run.prevMaxDate);
+            t.run.sinceMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          }
+          // Check if we are same, and roll day, month, year counters if need be
+          if (cur.year === t.date.year) {
+            if (cur.month === t.date.month) {
+              if (cur.day === t.date.day) {
+              } else {
+                this.rollDay(t, ts);
+              }
+            } else {
+              this.rollMonth(t, ts);
+            }
+          } else {
+            this.rollYear(t, ts);
+          }
+          t.date = cur;
+          // Update all top lists
+          this.updateTop(t.day.top, gradeNumerical, nTop);
+          this.updateTop(t.month.top, gradeNumerical, nTop);
+          this.updateTop(t.year.top, gradeNumerical, nTop);
+          this.updateTop(t.run.top, gradeNumerical, nTop);
+          // Calculate the [Y] values
+          this.updateValues(t.day, gradeNumerical, nTop);
+          this.updateValues(t.month, gradeNumerical, nTop);
+          this.updateValues(t.year, gradeNumerical, nTop);
+          this.updateValues(t.run, gradeNumerical, nTop);
         }
+        // final update
+        this.rollYear(t, ts);
       }
 
-      return ret;
+      return ts;
+    },
+    updateTop(topList, newValue, nTop) {
+      if (topList.length < nTop) {
+        topList.push(newValue);
+      } else if (topList[nTop - 1] < newValue) {
+        topList.pop();
+        topList.push(newValue);
+      }
+      topList.sort((a, b) => a - b);
+    },
+    updateValues(tsTracker, newValue, nTop) {
+      tsTracker.cnt += 1;
+      tsTracker.max = Math.max(newValue, tsTracker.max);
+      tsTracker.avg =
+        (newValue + (tsTracker.cnt - 1) * tsTracker.avg) / tsTracker.cnt;
+      tsTracker.score =
+        tsTracker.top.reduce(function (a, b) {
+          return a + b;
+        }, 0) / Math.min(nTop, tsTracker.top.length);
+      tsTracker.numMax = tsTracker.top.filter((v) => v == tsTracker.max).length;
+    },
+    newTimeSeriesTracker() {
+      return { top: [], max: 0, avg: 0, score: 0, numMax: 0, cnt: 0 };
+    },
+    rollYear(t, ts) {
+      ts.year.push({
+        x: new Date(parseInt(t.date.year), 12, 30),
+        y: t.year,
+      });
+      t.year = this.newTimeSeriesTracker();
+      this.rollMonth(t, ts);
+    },
+    rollMonth(t, ts) {
+      ts.month.push({
+        x: new Date(parseInt(t.date.year), parseInt(t.date.month), 28),
+        y: t.month,
+      });
+      t.month = this.newTimeSeriesTracker();
+      this.rollDay(t, ts);
+    },
+    rollDay(t, ts) {
+      ts.day.push({
+        x: new Date(
+          parseInt(t.date.year),
+          parseInt(t.date.month),
+          parseInt(t.date.day)
+        ),
+        y: t.day,
+        yr: {
+          ...t.run,
+          prevMaxDate: new Date(t.run.prevMaxDate),
+          top: [...t.run.top],
+        },
+      });
+      t.day = this.newTimeSeriesTracker();
     },
   },
 };

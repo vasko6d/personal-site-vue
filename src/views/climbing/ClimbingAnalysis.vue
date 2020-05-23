@@ -48,6 +48,9 @@
           @changeLimit="changeLimit($event, index)"
         ></chart-handler>
       </div>
+      <div class="flex-row">
+        <time-series-chart :stats="currentFilteredStat"></time-series-chart>
+      </div>
     </div>
   </div>
 </template>
@@ -57,12 +60,14 @@ import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import Aggregate from "@/mixins/Aggregate.js";
 import ChartHandler from "@/components/climbing/charts/ChartHandler.vue";
+import TimeSeriesChart from "@/components/climbing/charts/TimeSeriesChart.vue";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
 import Spinner from "vue-simple-spinner";
 export default {
   components: {
     ChartHandler,
+    TimeSeriesChart,
     ClimberSelect,
     StatFilter,
     Spinner,
@@ -93,6 +98,7 @@ export default {
         state: { val: null, show: false },
       },
       stats: new Stat("ascents", ["comment"]),
+      timeSeries: {},
       showClimbers: false,
       initialized: false,
       loading: true,
@@ -407,16 +413,15 @@ export default {
               autoGenerateSubtitle: true,
             });
             // Softness, rating and recommend
-            this.addDynamicChart("pie", "softness", {
-              sortByName: true,
-            });
-            this.addDynamicChart("pie", "rating", {
-              sortByName: true,
-            });
-            this.addDynamicChart("pie", "recommend", {
-              sortByName: true,
-            });
-            this.generateTimeSeries(this.stats.values);
+            // this.addDynamicChart("pie", "softness", {
+            //   sortByName: true,
+            // });
+            // this.addDynamicChart("pie", "rating", {
+            //   sortByName: true,
+            // });
+            // this.addDynamicChart("pie", "recommend", {
+            //   sortByName: true,
+            // });
           });
         })
         .catch((error) => {

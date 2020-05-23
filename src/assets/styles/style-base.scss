@@ -282,6 +282,15 @@
     overflow-y: auto;
   }
 
+  .chart-ts {
+    margin: 5px;
+    padding: 10px;
+    margin-bottom: 0.5em;
+    height: 500px;
+    width: 90%;
+    overflow-y: auto;
+  }
+
   .chart {
     @extend .chart-w;
     @extend .chart-p;
