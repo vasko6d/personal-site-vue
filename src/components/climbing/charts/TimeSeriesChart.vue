@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-ts bg1" v-if="showChart">
+  <div class="chart-ts bg1">
     <div>
       <div class="chart-header">
         <span>
@@ -25,7 +25,13 @@
           >&nbsp;|&nbsp;
         </span>
         <span>
-          <i class="fas icn fa-chart-line" @click="viewType = 'run'"></i>
+          <i
+            class="fas icn fa-chart-line"
+            :class="{
+              'icn-a': viewType === 'chart',
+            }"
+            @click="viewType = 'chart'"
+          ></i>
         </span>
         <span class="middle"></span>
         <i
@@ -35,8 +41,48 @@
         ></i>
       </div>
     </div>
-    <h2>Time Series</h2>
-    <line-graph :chartData="chartData" :options="options" />
+    <h2>
+      {{
+        viewType == "chart"
+          ? "Time Series"
+          : viewType == "settings"
+          ? "Settings"
+          : "Ascents"
+      }}
+    </h2>
+    <line-graph
+      v-if="viewType == 'chart'"
+      :chartData="chartData"
+      :options="options"
+    />
+    <ascent-view
+      v-else-if="viewType === 'ascents'"
+      :chart="chart"
+      :stats="stats"
+    />
+    <div v-else-if="viewType === 'settings'" class="settings-container">
+      <div>Possible Data</div>
+      <table class="basic-table">
+        <tr
+          v-for="(opt, showOptKey) in viewOpts.possibleSeries"
+          :key="showOptKey"
+        >
+          <td class="b">{{ opt.label }}</td>
+          <td>
+            <input type="checkbox" id="checkbox" v-model="opt.show" />
+          </td>
+        </tr>
+      </table>
+      <div>Data Options</div>
+      <table class="basic-table">
+        <tr v-for="(opt, optKey) in viewOpts.general" :key="optKey">
+          <td class="b">{{ opt.label }}</td>
+          <td>
+            <input type="checkbox" id="checkbox" v-model="opt.enable" />
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -51,11 +97,22 @@ export default {
     LineGraph,
   },
   props: {
-    stats: Stat,
+    ascents: Array,
   },
   data() {
     return {
-      viewType: "run",
+      viewType: "chart", // "settings", "ascents",
+      viewOpts: {
+        possibleSeries: {
+          max: { label: "Max Grade", show: true },
+          sinceMax: { label: "Days Since Max", show: true },
+          numMax: { label: "Ascents at Max", show: true },
+          avg: { label: "Average Grade", show: true },
+        },
+        general: {
+          normalize: { label: "Normalize?", enable: true },
+        },
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -73,7 +130,7 @@ export default {
                 display: false,
               },
               time: {
-                unit: "day",
+                unit: "year",
               },
             },
           ],
@@ -103,45 +160,108 @@ export default {
           mode: "xy",
         },
       },
-      seriesOpts: [
-        {
-          color: "#6d826c",
-          borderWidth: 2,
-          label: "Filled",
-        },
-      ],
     };
   },
   computed: {
-    showChart() {
-      return true;
-    },
     chartData() {
-      let ascents = [...this.stats.values];
-      let ts = this.generateTimeSeries(ascents, 10);
-      let data = [];
+      let ts = this.generateTimeSeries([...this.ascents], 10);
+      let data = {
+        sinceMax: [],
+        max: [],
+        avg: [],
+        numMax: [],
+      };
+      let normalizer = {
+        sinceMax: 1,
+        max: 1,
+        avg: 1,
+        numMax: 1,
+      };
       if (ts) {
-        data = ts.day.map((el) => {
-          return { x: el.x, y: el.yr.sinceMax };
+        if (this.viewOpts.general.normalize.enable) {
+          normalizer = {
+            sinceMax: Math.max(...ts.day.map((el) => el.yr.sinceMax), 11),
+            max: Math.max(...ts.day.map((el) => el.yr.max), 1),
+            avg: Math.max(...ts.day.map((el) => el.yr.avg), 1),
+            numMax: Math.max(...ts.day.map((el) => el.yr.numMax), 1),
+          };
+        }
+        ts.day.forEach((el) => {
+          if (this.viewOpts.possibleSeries.max.show) {
+            data.max.push({ x: el.x, y: el.yr.max / normalizer.max });
+          }
+          if (this.viewOpts.possibleSeries.sinceMax.show) {
+            data.sinceMax.push({
+              x: el.x,
+              y: el.yr.sinceMax / normalizer.sinceMax,
+            });
+          }
+          if (this.viewOpts.possibleSeries.numMax.show) {
+            data.numMax.push({
+              x: el.x,
+              y: el.yr.numMax / normalizer.numMax,
+            });
+          }
+          if (this.viewOpts.possibleSeries.avg.show) {
+            data.avg.push({ x: el.x, y: el.yr.avg / normalizer.avg });
+          }
         });
       }
 
       // Return it in ChartJS format
-      return {
-        datasets: [
-          {
-            data: data,
-            backgroundColor: "#6d826c",
-            borderColor: "#6d826c",
-            borderWidth: 2,
-            label: "Days Since Max",
-            fill: false,
-            pointRadius: 2,
-            pointBackgroundColor: "#6d826c",
-            pointBorderColor: "#6d826c",
-          },
-        ],
-      };
+      let ret = { datasets: [] };
+      if (this.viewOpts.possibleSeries.sinceMax.show) {
+        ret.datasets.push({
+          data: data.sinceMax,
+          backgroundColor: "#6d826c",
+          borderColor: "#6d826c",
+          borderWidth: 2,
+          label: "Days Since Max",
+          fill: false,
+          pointRadius: 2,
+          pointBackgroundColor: "#6d826c",
+          pointBorderColor: "#6d826c",
+        });
+      }
+      if (this.viewOpts.possibleSeries.max.show) {
+        ret.datasets.push({
+          data: data.max,
+          backgroundColor: "#32ab2e",
+          borderColor: "#32ab2e",
+          borderWidth: 2,
+          label: "Max Grade",
+          fill: false,
+          pointRadius: 2,
+          pointBackgroundColor: "#32ab2e",
+        });
+      }
+      if (this.viewOpts.possibleSeries.avg.show) {
+        ret.datasets.push({
+          data: data.avg,
+          backgroundColor: "#cc4027",
+          borderColor: "#cc4027",
+          borderWidth: 2,
+          label: "Average Grade",
+          fill: false,
+          pointRadius: 2,
+          pointBackgroundColor: "#cc4027",
+          pointBorderColor: "#cc4027",
+        });
+      }
+      if (this.viewOpts.possibleSeries.numMax.show) {
+        ret.datasets.push({
+          data: data.numMax,
+          backgroundColor: "#38a0a6",
+          borderColor: "#38a0a6",
+          borderWidth: 2,
+          label: "Ascents at Max",
+          fill: false,
+          pointRadius: 2,
+          pointBackgroundColor: "#38a0a6",
+          pointBorderColor: "#38a0a6",
+        });
+      }
+      return ret;
     },
   },
   methods: {},
@@ -158,7 +278,8 @@ export default {
     flex-basis: 10px;
   }
 }
-.setting-select {
-  width: 90%;
+.settings-container {
+  max-width: 450px;
+  margin: auto;
 }
 </style>

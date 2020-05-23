@@ -399,12 +399,12 @@ export default {
           const cur = this.decomposeDate(ascent.date);
           const now = new Date(
             parseInt(cur.year),
-            parseInt(cur.month),
+            parseInt(cur.month) - 1,
             parseInt(cur.day)
           );
           const gradeNumerical = this.mapGrade(ascent.grade);
           // Update since max
-          if (gradeNumerical === t.run.max) {
+          if (gradeNumerical >= t.run.max) {
             t.run.prevMaxDate = now;
           } else if (t.run.prevMaxDate) {
             const diffTime = Math.abs(now - t.run.prevMaxDate);
@@ -448,7 +448,7 @@ export default {
         topList.pop();
         topList.push(newValue);
       }
-      topList.sort((a, b) => a - b);
+      topList.sort((a, b) => b - a);
     },
     updateValues(tsTracker, newValue, nTop) {
       tsTracker.cnt += 1;
@@ -474,7 +474,7 @@ export default {
     },
     rollMonth(t, ts) {
       ts.month.push({
-        x: new Date(parseInt(t.date.year), parseInt(t.date.month), 28),
+        x: new Date(parseInt(t.date.year), parseInt(t.date.month) - 1, 28),
         y: t.month,
       });
       t.month = this.newTimeSeriesTracker();
@@ -484,7 +484,7 @@ export default {
       ts.day.push({
         x: new Date(
           parseInt(t.date.year),
-          parseInt(t.date.month),
+          parseInt(t.date.month) - 1,
           parseInt(t.date.day)
         ),
         y: t.day,

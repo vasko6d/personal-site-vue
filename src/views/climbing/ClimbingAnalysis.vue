@@ -49,7 +49,10 @@
         ></chart-handler>
       </div>
       <div class="flex-row">
-        <time-series-chart :stats="currentFilteredStat"></time-series-chart>
+        <time-series-chart
+          v-if="currentFilteredStat && currentFilteredStat.values.length > 0"
+          :ascents="currentFilteredStat.values"
+        ></time-series-chart>
       </div>
     </div>
   </div>
