@@ -165,7 +165,9 @@
               {{ statWithPercent(stats.numCleared, stats.inputCells) }}
             </div>
           </div>
-          <line-graph :chartData="chartData" :options="options" />
+          <div class="bg1 chart-container">
+            <line-graph :chartData="chartData" :options="options" />
+          </div>
         </div>
       </div>
     </div>
@@ -173,7 +175,7 @@
 </template>
 
 <script>
-import LineGraph from "@/components/charts/LineGraph2.vue";
+import LineGraph from "@/components/charts/LineGraph.vue";
 import Utils from "@/mixins/Utils.js";
 export default {
   components: {
@@ -346,6 +348,12 @@ export default {
       margin: 3px;
       font-size: 14px;
     }
+  }
+  .chart-container {
+    margin: 7px;
+  }
+  .stat-body {
+    padding: 7px;
   }
 }
 </style>

@@ -40,7 +40,7 @@
 <script>
 import Stat from "@/mixins/Stat.js";
 import Utils from "@/mixins/Utils.js";
-import LineGraph from "@/components/charts/LineGraph2.vue";
+import LineGraph from "@/components/charts/LineGraph.vue";
 export default {
   name: "TimeSeries",
   mixins: [Utils],
