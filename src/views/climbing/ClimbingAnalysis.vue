@@ -50,8 +50,12 @@
       </div>
       <div class="flex-row">
         <time-series-chart
-          v-if="currentFilteredStat && currentFilteredStat.values.length > 0"
-          :ascents="currentFilteredStat.values"
+          v-if="
+            currentFilteredStat &&
+            currentFilteredStat.values.length > 0 &&
+            initialized
+          "
+          :ascents="stats.values"
         ></time-series-chart>
       </div>
     </div>
@@ -308,9 +312,10 @@ export default {
       };
     },
     initializeStats() {
-      this.stats = new Stat("ascents", ["comment"]);
-      this.stats.goDeeper(this.ascents);
-      console.log("Analytics: ", this.stats);
+      let s = new Stat("ascents", ["comment"]);
+      s.goDeeper(this.ascents);
+      console.log("Analytics: ", s);
+      this.stats = s;
       return new Promise((resolve) => {
         resolve();
       });
@@ -395,7 +400,6 @@ export default {
         .then((result) => {
           this.ascents = result.data;
           this.initializeStats().then(() => {
-            this.initialized = true;
             // Grade Counts
             let gradeOpts = this.defaultChartOpts();
             gradeOpts["scales"] = {
@@ -425,6 +429,7 @@ export default {
             // this.addDynamicChart("pie", "recommend", {
             //   sortByName: true,
             // });
+            this.initialized = true;
           });
         })
         .catch((error) => {
