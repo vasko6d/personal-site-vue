@@ -354,7 +354,6 @@ export default {
       if (!opts.nTop) {
         opts.nTop = 10;
       }
-      console.log(opts);
       let ts = undefined;
       if (ascents.length > 0) {
         ts = { day: [], month: [], year: [] };
@@ -381,47 +380,34 @@ export default {
           month: this.newTimeSeriesTracker(),
           year: this.newTimeSeriesTracker(),
         };
+        let rollProps;
         for (let ascent of ascents) {
-          // new Loop values
-          const cur = this.decomposeDate(ascent.date);
-          const now = new Date(
-            parseInt(cur.year),
-            parseInt(cur.month) - 1,
-            parseInt(cur.day)
-          );
-          const gradeNumerical = this.mapGrade(ascent.grade, 0);
-          // Update since max
-          let compGrade =
-            opts.comparisonGrade > -1 ? opts.comparisonGrade : t.run.max;
-          if (gradeNumerical >= compGrade) {
-            if (gradeNumerical > compGrade) {
-              t.run.prevNewMaxDate = now;
-            }
-            t.run.prevMaxDate = now;
-          } else {
-            if (t.run.prevMaxDate) {
-              const diffTime = Math.abs(now - t.run.prevMaxDate);
-              t.run.sinceMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            }
-            if (t.run.prevNewMaxDate) {
-              const diffTime = Math.abs(now - t.run.prevNewMaxDate);
-              t.run.sinceNewMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            }
-          }
           // Check if we are same, and roll day, month, year counters if need be
-          if (cur.year === t.date.year) {
-            if (cur.month === t.date.month) {
-              if (cur.day === t.date.day) {
+          const cur = this.decomposeDate(ascent.date);
+          if (cur.year == t.date.year) {
+            if (cur.month == t.date.month) {
+              if (cur.day == t.date.day) {
+                // Same Day of climbing dont roll (fisrt time through this is guaranteed)
               } else {
-                this.rollDay(t, ts);
+                this.rollDay(t, ts, rollProps);
               }
             } else {
-              this.rollMonth(t, ts);
+              this.rollMonth(t, ts, rollProps);
             }
           } else {
-            this.rollYear(t, ts);
+            this.rollYear(t, ts, rollProps);
           }
-          t.date = cur;
+          // now we know this is either a new day or the same day as last ascent
+          t.date = { ...cur };
+          const gradeNumerical = this.mapGrade(ascent.grade, 0);
+          rollProps = {
+            now: new Date(
+              parseInt(t.date.year),
+              parseInt(t.date.month) - 1,
+              parseInt(t.date.day)
+            ),
+            comparisonGrade: opts.comparisonGrade,
+          };
           // Update all top lists
           this.updateTop(t.day.top, gradeNumerical, opts.nTop);
           this.updateTop(t.month.top, gradeNumerical, opts.nTop);
@@ -434,7 +420,7 @@ export default {
           this.updateValues(t.run, gradeNumerical, opts.nTop);
         }
         // final update
-        this.rollYear(t, ts);
+        this.rollYear(t, ts, rollProps);
       }
       console.log("Time Series Data:", ts);
       return ts;
@@ -459,32 +445,51 @@ export default {
         }, 0) / Math.min(nTop, tsTracker.top.length);
       tsTracker.numMax = tsTracker.top.filter((v) => v == tsTracker.max).length;
     },
+    updateSinceMax(t, now, gradeNumerical, comparisonGradeOpt) {
+      let compGrade = comparisonGradeOpt > -1 ? comparisonGradeOpt : t.run.max;
+      if (gradeNumerical >= compGrade) {
+        if (gradeNumerical > compGrade) {
+          t.run.prevNewMaxDate = now;
+        }
+        t.run.prevMaxDate = now;
+      }
+      if (t.run.prevMaxDate) {
+        const diffTime = Math.abs(now - t.run.prevMaxDate);
+        t.run.sinceMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      }
+      if (t.run.prevNewMaxDate) {
+        const diffTime = Math.abs(now - t.run.prevNewMaxDate);
+        t.run.sinceNewMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      }
+    },
     newTimeSeriesTracker() {
       return { top: [], max: 0, avg: 0, score: 0, numMax: 0, cnt: 0 };
     },
-    rollYear(t, ts) {
+    rollYear(t, ts, rollProps) {
       ts.year.push({
         x: new Date(parseInt(t.date.year), 12, 30),
         y: t.year,
       });
       t.year = this.newTimeSeriesTracker();
-      this.rollMonth(t, ts);
+      this.rollMonth(t, ts, rollProps);
     },
-    rollMonth(t, ts) {
+    rollMonth(t, ts, rollProps) {
       ts.month.push({
         x: new Date(parseInt(t.date.year), parseInt(t.date.month) - 1, 28),
         y: t.month,
       });
       t.month = this.newTimeSeriesTracker();
-      this.rollDay(t, ts);
+      this.rollDay(t, ts, rollProps);
     },
-    rollDay(t, ts) {
+    rollDay(t, ts, rollProps) {
+      this.updateSinceMax(
+        t,
+        rollProps.now,
+        t.day.max,
+        rollProps.comparisonGrade
+      );
       ts.day.push({
-        x: new Date(
-          parseInt(t.date.year),
-          parseInt(t.date.month) - 1,
-          parseInt(t.date.day)
-        ),
+        x: new Date(rollProps.now),
         y: t.day,
         yr: {
           ...t.run,

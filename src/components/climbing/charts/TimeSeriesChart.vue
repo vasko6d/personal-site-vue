@@ -185,7 +185,7 @@ export default {
       ret.datasets.push({
         ...this.createDataset(data.sinceMax, {
           color: "#6d826c",
-          label: "Days Since Max",
+          label: "Days Since",
         }),
         hidden: true,
       });
