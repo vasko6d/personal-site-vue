@@ -56,7 +56,7 @@
             initialized &&
             tsIsOpen
           "
-          :ascents="stats.values"
+          :ascents="currentFilteredStat.values"
           @close="tsIsOpen = false"
         ></time-series-chart>
       </div>

@@ -89,7 +89,7 @@ export default {
           ],
         },
         pan: {
-          enabled: false,
+          enabled: true,
           mode: "xy",
           speed: 10,
           threshold: 10,
