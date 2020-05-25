@@ -361,16 +361,16 @@ export default {
         ascents.sort((a, b) => {
           return new Date(a.date) - new Date(b.date);
         });
-        let startDate = this.decomposeDate(ascents[0].date);
+        let now = this.decomposeDate(ascents[0].date);
         let t = {
           date: {
-            day: startDate.day,
-            month: startDate.month,
-            year: startDate.year,
+            day: now.day,
+            month: now.month,
+            year: now.year,
           },
-          cnt: 0,
           run: {
             ...this.newTimeSeriesTracker(),
+            prevMax: 0,
             sinceMax: 0,
             prevMaxDate: undefined,
             sinceNewMax: 0,
@@ -380,7 +380,6 @@ export default {
           month: this.newTimeSeriesTracker(),
           year: this.newTimeSeriesTracker(),
         };
-        let rollProps;
         for (let ascent of ascents) {
           // Check if we are same, and roll day, month, year counters if need be
           const cur = this.decomposeDate(ascent.date);
@@ -389,38 +388,37 @@ export default {
               if (cur.day == t.date.day) {
                 // Same Day of climbing dont roll (fisrt time through this is guaranteed)
               } else {
-                this.rollDay(t, ts, rollProps);
+                this.rollDay(t, ts, now);
               }
             } else {
-              this.rollMonth(t, ts, rollProps);
+              this.rollMonth(t, ts, now);
             }
           } else {
-            this.rollYear(t, ts, rollProps);
+            this.rollYear(t, ts, now);
           }
           // now we know this is either a new day or the same day as last ascent
           t.date = { ...cur };
           const gradeNumerical = this.mapGrade(ascent.grade, 0);
-          rollProps = {
-            now: new Date(
-              parseInt(t.date.year),
-              parseInt(t.date.month) - 1,
-              parseInt(t.date.day)
-            ),
-            comparisonGrade: opts.comparisonGrade,
-          };
+          now = new Date(
+            parseInt(t.date.year),
+            parseInt(t.date.month) - 1,
+            parseInt(t.date.day)
+          );
+          // Update Running tallies
+          this.updateSinceMax(t, now, gradeNumerical, opts.comparisonGrade);
+          this.updateTop(t.run.top, gradeNumerical, opts.nTop);
+          this.updateValues(t.run, gradeNumerical, opts.nTop);
           // Update all top lists
           this.updateTop(t.day.top, gradeNumerical, opts.nTop);
           this.updateTop(t.month.top, gradeNumerical, opts.nTop);
           this.updateTop(t.year.top, gradeNumerical, opts.nTop);
-          this.updateTop(t.run.top, gradeNumerical, opts.nTop);
           // Calculate the [Y] values
           this.updateValues(t.day, gradeNumerical, opts.nTop);
           this.updateValues(t.month, gradeNumerical, opts.nTop);
           this.updateValues(t.year, gradeNumerical, opts.nTop);
-          this.updateValues(t.run, gradeNumerical, opts.nTop);
         }
         // final update
-        this.rollYear(t, ts, rollProps);
+        this.rollYear(t, ts, now);
       }
       console.log("Time Series Data:", ts);
       return ts;
@@ -446,12 +444,13 @@ export default {
       tsTracker.numMax = tsTracker.top.filter((v) => v == tsTracker.max).length;
     },
     updateSinceMax(t, now, gradeNumerical, comparisonGradeOpt) {
-      let compGrade = comparisonGradeOpt > -1 ? comparisonGradeOpt : t.run.max;
+      const compGrade =
+        comparisonGradeOpt > -1 ? comparisonGradeOpt : t.run.max;
       if (gradeNumerical >= compGrade) {
         if (gradeNumerical > compGrade) {
-          t.run.prevNewMaxDate = now;
+          t.run.prevNewMaxDate = new Date(now);
         }
-        t.run.prevMaxDate = now;
+        t.run.prevMaxDate = new Date(now);
       }
       if (t.run.prevMaxDate) {
         const diffTime = Math.abs(now - t.run.prevMaxDate);
@@ -465,31 +464,25 @@ export default {
     newTimeSeriesTracker() {
       return { top: [], max: 0, avg: 0, score: 0, numMax: 0, cnt: 0 };
     },
-    rollYear(t, ts, rollProps) {
+    rollYear(t, ts, now) {
       ts.year.push({
         x: new Date(parseInt(t.date.year), 12, 30),
         y: t.year,
       });
       t.year = this.newTimeSeriesTracker();
-      this.rollMonth(t, ts, rollProps);
+      this.rollMonth(t, ts, now);
     },
-    rollMonth(t, ts, rollProps) {
+    rollMonth(t, ts, now) {
       ts.month.push({
         x: new Date(parseInt(t.date.year), parseInt(t.date.month) - 1, 28),
         y: t.month,
       });
       t.month = this.newTimeSeriesTracker();
-      this.rollDay(t, ts, rollProps);
+      this.rollDay(t, ts, now);
     },
-    rollDay(t, ts, rollProps) {
-      this.updateSinceMax(
-        t,
-        rollProps.now,
-        t.day.max,
-        rollProps.comparisonGrade
-      );
+    rollDay(t, ts, now) {
       ts.day.push({
-        x: new Date(rollProps.now),
+        x: new Date(now),
         y: t.day,
         yr: {
           ...t.run,
