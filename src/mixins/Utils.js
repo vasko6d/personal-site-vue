@@ -370,6 +370,7 @@ export default {
           },
           run: {
             ...this.newTimeSeriesTracker(),
+            sampledGrades: [],
             prevMax: 0,
             sinceMax: 0,
             prevMaxDate: undefined,
@@ -408,6 +409,16 @@ export default {
           this.updateSinceMax(t, now, gradeNumerical, opts.comparisonGrade);
           this.updateTop(t.run.top, gradeNumerical, opts.nTop);
           this.updateValues(t.run, gradeNumerical, opts.nTop);
+          if (opts.avgSamples > 0) {
+            if (t.run.sampledGrades.length == opts.avgSamples) {
+              t.run.sampledGrades.shift();
+            }
+            t.run.sampledGrades.push(gradeNumerical);
+            t.run.avg =
+              t.run.sampledGrades.reduce(function (a, b) {
+                return a + b;
+              }, 0) / t.run.sampledGrades.length;
+          }
           // Update all top lists
           this.updateTop(t.day.top, gradeNumerical, opts.nTop);
           this.updateTop(t.month.top, gradeNumerical, opts.nTop);
@@ -432,7 +443,7 @@ export default {
       }
       topList.sort((a, b) => b - a);
     },
-    updateValues(tsTracker, newValue, nTop) {
+    updateValues(tsTracker, newValue, nTop, avgSamples) {
       tsTracker.cnt += 1;
       tsTracker.max = Math.max(newValue, tsTracker.max);
       tsTracker.avg =

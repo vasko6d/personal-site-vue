@@ -73,7 +73,7 @@ export default {
           values: [...this.uniqueGrades, -1],
           negOneName: "Max",
         },
-        average: {
+        avgSamples: {
           label: "Average Samples, (last 'N'):",
           value: -1,
           type: "select",
@@ -137,6 +137,7 @@ export default {
     chartData() {
       let ts = this.generateTimeSeries([...this.ascents], {
         comparisonGrade: this.chartOpts.sinceGrade.value,
+        avgSamples: this.chartOpts.avgSamples.value,
       });
       let data = {
         sinceMax: [],
