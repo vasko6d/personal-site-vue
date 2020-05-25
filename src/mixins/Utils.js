@@ -278,31 +278,6 @@ export default {
         }),
       };
     },
-    getTimeChartData(ts, opts) {
-      if (ts) {
-        let ts2 = ts.day.map((el) => {
-          return { x: el.x, y: el.yr.sinceMax };
-        });
-        console.log(ts2);
-      }
-
-      // Return it in ChartJS format
-      return {
-        datasets: [
-          {
-            data: [],
-            backgroundColor: "#6d826c",
-            borderColor: "#6d826c",
-            borderWidth: 2,
-            label: "Days Since Max",
-            fill: false,
-            pointRadius: 2,
-            pointBackgroundColor: "#6d826c",
-            pointBorderColor: "#6d826c",
-          },
-        ],
-      };
-    },
     getGradeChartData(stat, allowExpansion = true, opts) {
       let gradeList = Object.values(stat.subStats);
       gradeList.sort((a, b) => {
@@ -369,7 +344,6 @@ export default {
       };
     },
     generateTimeSeries(ascents, nTop = 10) {
-      console.log(`Generating Time Series Data>`);
       let ts = undefined;
       if (ascents.length > 0) {
         ts = { day: [], month: [], year: [] };
@@ -438,7 +412,7 @@ export default {
         // final update
         this.rollYear(t, ts);
       }
-
+      console.log("Time Series Data:", ts);
       return ts;
     },
     updateTop(topList, newValue, nTop) {

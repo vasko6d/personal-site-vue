@@ -11,7 +11,7 @@
             @click="viewType = 'ascents'"
             v-tooltip="'Show Ascents'"
           ></i
-          >&nbsp;|&nbsp;
+          >|
         </span>
         <span v-if="chart.type != 'grade'">
           <i
@@ -22,7 +22,7 @@
             @click="viewType = 'settings'"
             v-tooltip="'Settings'"
           ></i
-          >&nbsp;|&nbsp;
+          >|
         </span>
         <span>
           <i

@@ -69,14 +69,13 @@
               :key="opt.id"
               :value="opt.raw"
               >{{ opt.label }}</option
-            > </select
-          >&nbsp;
+            >
+          </select>
           <!--<i class="fas fa-cogs icn filter-txt"></i>&nbsp;&nbsp;-->
           <i
             class="fas fa-eraser icn filter-txt"
             @click="$emit('clearFilters', catagory)"
-          ></i
-          >&nbsp;&nbsp;
+          ></i>
           <i
             class="fas fa-trash icn filter-txt"
             @click="deleteFitler(catagory)"

@@ -251,6 +251,10 @@
     color: lighten($nav-txt, 20%);
   }
 
+  i.icn {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
   .flex-row {
     display: flex;
     flex-wrap: wrap;
@@ -286,7 +290,7 @@
     margin: 5px;
     padding: 10px;
     margin-bottom: 0.5em;
-    height: 500px;
+    min-height: 500px;
     width: 90%;
     overflow-y: auto;
   }

@@ -53,9 +53,11 @@
           v-if="
             currentFilteredStat &&
             currentFilteredStat.values.length > 0 &&
-            initialized
+            initialized &&
+            tsIsOpen
           "
           :ascents="stats.values"
+          @close="tsIsOpen = false"
         ></time-series-chart>
       </div>
     </div>
@@ -109,6 +111,7 @@ export default {
       showClimbers: false,
       initialized: false,
       loading: true,
+      tsIsOpen: true,
     };
   },
   computed: {
