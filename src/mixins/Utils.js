@@ -366,6 +366,8 @@ export default {
             ...this.newTimeSeriesTracker(),
             sinceMax: 0,
             prevMaxDate: undefined,
+            sinceNewMax: 0,
+            prevNewMaxDate: undefined,
           },
           day: this.newTimeSeriesTracker(),
           month: this.newTimeSeriesTracker(),
@@ -382,10 +384,19 @@ export default {
           const gradeNumerical = this.mapGrade(ascent.grade);
           // Update since max
           if (gradeNumerical >= t.run.max) {
+            if (gradeNumerical > t.run.max) {
+              t.run.prevNewMaxDate = now;
+            }
             t.run.prevMaxDate = now;
-          } else if (t.run.prevMaxDate) {
-            const diffTime = Math.abs(now - t.run.prevMaxDate);
-            t.run.sinceMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          } else {
+            if (t.run.prevMaxDate) {
+              const diffTime = Math.abs(now - t.run.prevMaxDate);
+              t.run.sinceMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            }
+            if (t.run.prevNewMaxDate) {
+              const diffTime = Math.abs(now - t.run.prevNewMaxDate);
+              t.run.sinceNewMax = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            }
           }
           // Check if we are same, and roll day, month, year counters if need be
           if (cur.year === t.date.year) {
@@ -473,6 +484,9 @@ export default {
       });
       t.day = this.newTimeSeriesTracker();
     },
+    /*
+     * Crossword Chart Data Builder
+     */
     buildXwordChartData(data, seriesOpts) {
       let datasets = [];
       for (let seriesOpt of seriesOpts) {

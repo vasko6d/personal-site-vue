@@ -54,7 +54,7 @@ export default {
     return {
       viewType: "chart", // "settings", "ascents",
       chartOpts: {
-        normalize: { label: "Normalize Data", enable: true },
+        normalize: { label: "Normalize Data", enable: false },
       },
       options: {
         responsive: true,
@@ -116,20 +116,23 @@ export default {
         max: [],
         avg: [],
         numMax: [],
+        sinceNewMax: [],
       };
       let normalizer = {
         sinceMax: 1,
         max: 1,
         avg: 1,
         numMax: 1,
+        sinceNewMax: 1,
       };
       if (ts) {
         if (this.chartOpts.normalize.enable) {
           normalizer = {
-            sinceMax: Math.max(...ts.day.map((el) => el.yr.sinceMax), 11),
+            sinceMax: Math.max(...ts.day.map((el) => el.yr.sinceMax), 1),
             max: Math.max(...ts.day.map((el) => el.yr.max), 1),
             avg: Math.max(...ts.day.map((el) => el.yr.avg), 1),
             numMax: Math.max(...ts.day.map((el) => el.yr.numMax), 1),
+            sinceNewMax: Math.max(...ts.day.map((el) => el.yr.sinceNewMax), 1),
           };
         }
         ts.day.forEach((el) => {
@@ -143,17 +146,22 @@ export default {
             y: el.yr.numMax / normalizer.numMax,
           });
           data.avg.push({ x: el.x, y: el.yr.avg / normalizer.avg });
+          data.sinceNewMax.push({
+            x: el.x,
+            y: el.yr.sinceNewMax / normalizer.sinceNewMax,
+          });
         });
       }
 
       // Return it in ChartJS format
       let ret = { datasets: [] };
-      ret.datasets.push(
-        this.createDataset(data.sinceMax, {
+      ret.datasets.push({
+        ...this.createDataset(data.sinceMax, {
           color: "#6d826c",
           label: "Days Since Max",
-        })
-      );
+        }),
+        hidden: true,
+      });
       ret.datasets.push(
         this.createDataset(data.max, {
           color: "#32ab2e",
@@ -173,6 +181,13 @@ export default {
           label: "Ascents at Max",
         })
       );
+      ret.datasets.push({
+        ...this.createDataset(data.sinceNewMax, {
+          color: "#FFDF00",
+          label: "Days Since New Grade",
+        }),
+        hidden: true,
+      });
       return ret;
     },
   },
