@@ -343,6 +343,9 @@ export default {
         year: dateStr.substring(0, 4),
       };
     },
+    /*
+     * Time Series Functions
+     */
     generateTimeSeries(ascents, nTop = 10) {
       let ts = undefined;
       if (ascents.length > 0) {
@@ -469,6 +472,45 @@ export default {
         },
       });
       t.day = this.newTimeSeriesTracker();
+    },
+    buildXwordChartData(data, seriesOpts) {
+      let datasets = [];
+      for (let seriesOpt of seriesOpts) {
+        datasets.push({
+          backgroundColor: seriesOpt.color,
+          borderColor: seriesOpt.color,
+          borderWidth: seriesOpt.borderWidth,
+          label: seriesOpt.label,
+          fill: false,
+          pointRadius: 2,
+          pointBackgroundColor: seriesOpt.color,
+          pointBorderColor: seriesOpt.color,
+          data: [],
+        });
+      }
+      for (let datum of data) {
+        for (let j = 0; j < seriesOpts.length; j++) {
+          // remove duplicate values
+          if (datasets[j].data.length > 0) {
+            let prevY = datasets[j].data[datasets[j].data.length - 1].y;
+            if (prevY === datum[j + 1]) {
+              continue;
+            }
+          }
+          datasets[j].data.push({ x: datum[0], y: datum[j + 1] });
+        }
+      }
+      // add a final point at final time to make graphs go to end
+      let tf = data[data.length - 1][0];
+      for (let j = 0; j < seriesOpts.length; j++) {
+        datasets[j].data.push({
+          x: tf,
+          y: datasets[j].data[datasets[j].data.length - 1].y,
+        });
+      }
+      return {
+        datasets: datasets,
+      };
     },
   },
 };

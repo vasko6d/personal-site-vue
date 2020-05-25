@@ -165,11 +165,7 @@
               {{ statWithPercent(stats.numCleared, stats.inputCells) }}
             </div>
           </div>
-          <line-graph
-            :data="statData.timeSeries"
-            :options="options"
-            :seriesOpts="seriesOpts"
-          />
+          <line-graph :chartData="chartData" :options="options" />
         </div>
       </div>
     </div>
@@ -177,11 +173,13 @@
 </template>
 
 <script>
-import LineGraph from "@/components/charts/LineGraph.vue";
+import LineGraph from "@/components/charts/LineGraph2.vue";
+import Utils from "@/mixins/Utils.js";
 export default {
   components: {
     LineGraph,
   },
+  mixins: [Utils],
   props: {
     isCompleted: Boolean,
     showErrors: Boolean,
@@ -269,6 +267,12 @@ export default {
     };
   },
   computed: {
+    chartData() {
+      return this.buildXwordChartData(
+        this.statData.timeSeries,
+        this.seriesOpts
+      );
+    },
     formattedTime() {
       let hours = Math.floor((this.stats.time / (60 * 24)) % 100);
       let minutes = Math.floor(this.stats.time / 60) % 60;
