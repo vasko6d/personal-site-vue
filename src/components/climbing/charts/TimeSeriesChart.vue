@@ -27,8 +27,18 @@
         <table class="basic-table">
           <tr v-for="(opt, optKey) in chartOpts" :key="optKey">
             <td>{{ opt.label }}</td>
-            <td>
-              <input type="checkbox" id="checkbox" v-model="opt.enable" />
+            <td v-if="opt.type == 'check'">
+              <input type="checkbox" id="checkbox" v-model="opt.value" />
+            </td>
+            <td v-else>
+              <select v-model="opt.value">
+                <option
+                  v-for="vName in opt.values"
+                  :value="vName"
+                  :key="vName.id"
+                  >{{ vName == -1 ? opt.negOneName : vName }}</option
+                >
+              </select>
             </td>
           </tr>
         </table>
@@ -49,12 +59,27 @@ export default {
   },
   props: {
     ascents: Array,
+    uniqueGrades: Array,
   },
   data() {
     return {
       viewType: "chart", // "settings", "ascents",
       chartOpts: {
-        normalize: { label: "Normalize Data", enable: false },
+        normalize: { label: "Normalize Data", value: false, type: "check" },
+        sinceGrade: {
+          label: "'Since' Grade",
+          value: -1,
+          type: "select",
+          values: [...this.uniqueGrades, -1],
+          negOneName: "Max",
+        },
+        average: {
+          label: "Average Samples, (last 'N'):",
+          value: -1,
+          type: "select",
+          values: [5, 10, 25, 50, 100, -1],
+          negOneName: "All",
+        },
       },
       options: {
         responsive: true,
@@ -110,7 +135,9 @@ export default {
       return this.viewType == "chart" ? "Time Series" : "Settings";
     },
     chartData() {
-      let ts = this.generateTimeSeries([...this.ascents], 10);
+      let ts = this.generateTimeSeries([...this.ascents], {
+        comparisonGrade: this.chartOpts.sinceGrade.value,
+      });
       let data = {
         sinceMax: [],
         max: [],
@@ -126,7 +153,7 @@ export default {
         sinceNewMax: 1,
       };
       if (ts) {
-        if (this.chartOpts.normalize.enable) {
+        if (this.chartOpts.normalize.value) {
           normalizer = {
             sinceMax: Math.max(...ts.day.map((el) => el.yr.sinceMax), 1),
             max: Math.max(...ts.day.map((el) => el.yr.max), 1),
@@ -181,13 +208,15 @@ export default {
           label: "Ascents at Max",
         })
       );
-      ret.datasets.push({
-        ...this.createDataset(data.sinceNewMax, {
-          color: "#FFDF00",
-          label: "Days Since New Grade",
-        }),
-        hidden: true,
-      });
+      if (this.chartOpts.sinceGrade.value < 0) {
+        ret.datasets.push({
+          ...this.createDataset(data.sinceNewMax, {
+            color: "#FFDF00",
+            label: "Days Since New Grade",
+          }),
+          hidden: true,
+        });
+      }
       return ret;
     },
   },

@@ -57,6 +57,7 @@
             tsIsOpen
           "
           :ascents="currentFilteredStat.values"
+          :uniqueGrades="uniqueGrades"
           @close="tsIsOpen = false"
         ></time-series-chart>
       </div>
@@ -115,6 +116,12 @@ export default {
     };
   },
   computed: {
+    uniqueGrades() {
+      let uniqueGradeSet = new Set(
+        this.currentFilteredStat.values.map((el) => this.mapGrade(el.grade, 0))
+      );
+      return Array.from(uniqueGradeSet);
+    },
     currentFilteredStat() {
       return this.stats.getFiltered(false, this.currentFilters);
     },

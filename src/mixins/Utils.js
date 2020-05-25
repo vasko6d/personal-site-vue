@@ -346,7 +346,15 @@ export default {
     /*
      * Time Series Functions
      */
-    generateTimeSeries(ascents, nTop = 10) {
+    generateTimeSeries(ascents, opts) {
+      // Set default options
+      if (!opts) {
+        opts = {};
+      }
+      if (!opts.nTop) {
+        opts.nTop = 10;
+      }
+      console.log(opts);
       let ts = undefined;
       if (ascents.length > 0) {
         ts = { day: [], month: [], year: [] };
@@ -381,10 +389,12 @@ export default {
             parseInt(cur.month) - 1,
             parseInt(cur.day)
           );
-          const gradeNumerical = this.mapGrade(ascent.grade);
+          const gradeNumerical = this.mapGrade(ascent.grade, 0);
           // Update since max
-          if (gradeNumerical >= t.run.max) {
-            if (gradeNumerical > t.run.max) {
+          let compGrade =
+            opts.comparisonGrade > -1 ? opts.comparisonGrade : t.run.max;
+          if (gradeNumerical >= compGrade) {
+            if (gradeNumerical > compGrade) {
               t.run.prevNewMaxDate = now;
             }
             t.run.prevMaxDate = now;
@@ -413,15 +423,15 @@ export default {
           }
           t.date = cur;
           // Update all top lists
-          this.updateTop(t.day.top, gradeNumerical, nTop);
-          this.updateTop(t.month.top, gradeNumerical, nTop);
-          this.updateTop(t.year.top, gradeNumerical, nTop);
-          this.updateTop(t.run.top, gradeNumerical, nTop);
+          this.updateTop(t.day.top, gradeNumerical, opts.nTop);
+          this.updateTop(t.month.top, gradeNumerical, opts.nTop);
+          this.updateTop(t.year.top, gradeNumerical, opts.nTop);
+          this.updateTop(t.run.top, gradeNumerical, opts.nTop);
           // Calculate the [Y] values
-          this.updateValues(t.day, gradeNumerical, nTop);
-          this.updateValues(t.month, gradeNumerical, nTop);
-          this.updateValues(t.year, gradeNumerical, nTop);
-          this.updateValues(t.run, gradeNumerical, nTop);
+          this.updateValues(t.day, gradeNumerical, opts.nTop);
+          this.updateValues(t.month, gradeNumerical, opts.nTop);
+          this.updateValues(t.year, gradeNumerical, opts.nTop);
+          this.updateValues(t.run, gradeNumerical, opts.nTop);
         }
         // final update
         this.rollYear(t, ts);
