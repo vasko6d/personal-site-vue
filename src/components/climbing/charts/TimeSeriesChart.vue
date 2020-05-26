@@ -81,6 +81,7 @@ export default {
           negOneName: "All",
         },
       },
+      showCache: [false, true, false, true, false],
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -89,6 +90,11 @@ export default {
         },
         legend: {
           position: "bottom",
+          onClick: (e, legendItem) => {
+            let newCache = [...this.showCache];
+            newCache[legendItem.datasetIndex] = legendItem.hidden;
+            this.showCache = newCache;
+          },
         },
         scales: {
           xAxes: [
@@ -188,34 +194,36 @@ export default {
           color: "#6d826c",
           label: "Days Since",
         }),
-        hidden: true,
+        hidden: !this.showCache[0],
       });
-      ret.datasets.push(
-        this.createDataset(data.max, {
+      ret.datasets.push({
+        ...this.createDataset(data.max, {
           color: "#32ab2e",
           label: "Max Grade",
-        })
-      );
+        }),
+        hidden: !this.showCache[1],
+      });
       ret.datasets.push({
         ...this.createDataset(data.avg, {
           color: "#cc4027",
           label: "Average Grade",
         }),
-        hidden: true,
+        hidden: !this.showCache[2],
       });
-      ret.datasets.push(
-        this.createDataset(data.numMax, {
+      ret.datasets.push({
+        ...this.createDataset(data.numMax, {
           color: "#38a0a6",
           label: "Ascents at Max",
-        })
-      );
+        }),
+        hidden: !this.showCache[3],
+      });
       if (this.chartOpts.sinceGrade.value < 0) {
         ret.datasets.push({
           ...this.createDataset(data.sinceNewMax, {
             color: "#FFDF00",
             label: "Days Since New Grade",
           }),
-          hidden: true,
+          hidden: !this.showCache[4],
         });
       }
       return ret;
