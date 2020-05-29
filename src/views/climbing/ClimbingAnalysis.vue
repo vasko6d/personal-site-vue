@@ -56,7 +56,7 @@
             initialized &&
             tsIsOpen
           "
-          :ascents="currentFilteredStat.values"
+          :stat="currentFilteredStat"
           :uniqueGrades="uniqueGrades"
           @close="tsIsOpen = false"
         ></time-series-chart>

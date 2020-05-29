@@ -13,17 +13,19 @@
         ></i>
       </div>
     </div>
-    <h2>{{ title }}</h2>
-
-    <line-graph
-      class="chart-container"
-      v-if="viewType == 'chart'"
-      :chartData="chartData"
-      :options="options"
-    />
-    <div class="settings-container">
+    <h2>
+      Time Series
+      <i
+        @click="showOptions = !showOptions"
+        class="fas icn fa-cog"
+        :class="{ 'icn-a': showOptions }"
+      ></i>
+    </h2>
+    <div v-if="showOptions" class="settings-container">
+      <div class="settings-h">
+        Settings
+      </div>
       <div class="settings-block">
-        <h4>Data Options</h4>
         <table class="basic-table">
           <tr v-for="(opt, optKey) in chartOpts" :key="optKey">
             <td>{{ opt.label }}</td>
@@ -44,6 +46,28 @@
         </table>
       </div>
     </div>
+    <line-graph
+      class="chart-container"
+      :chartData="chartData"
+      :options="options"
+    />
+    <div class="settings-container">
+      <div class="settings-block">
+        <div class="settings-h" @click="showAscents = !showAscents">
+          {{ ascentTitle }}
+        </div>
+        <div v-if="showAscents">
+          <div v-if="selectedDay">
+            <ul style="list-style: none;">
+              <li v-for="ascent in selectedAscents" :key="ascent.id">
+                <span class="b">{{ ascent.name }}</span>
+                (V{{ ascent.grade }}), {{ ascent.date }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,12 +82,14 @@ export default {
     LineGraph,
   },
   props: {
-    ascents: Array,
+    stat: Stat,
     uniqueGrades: Array,
   },
   data() {
     return {
-      viewType: "chart", // "settings", "ascents",
+      selectedDay: undefined,
+      showAscents: true,
+      showOptions: false,
       chartOpts: {
         normalize: { label: "Normalize Data", value: false, type: "check" },
         sinceGrade: {
@@ -85,6 +111,14 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        onClick: (evt, arr) => {
+          if (arr.length != 0) {
+            let date = arr[0]._chart.data.datasets[0].data[arr[0]._index].x;
+            this.selectedDay = date;
+          } else {
+            this.selectedDay = undefined;
+          }
+        },
         title: {
           display: false,
         },
@@ -137,11 +171,19 @@ export default {
     };
   },
   computed: {
-    title() {
-      return this.viewType == "chart" ? "Time Series" : "Settings";
+    ascentTitle() {
+      return `Ascents (${this.selectedAscents.length})`;
+    },
+    selectedAscents() {
+      let ret = [];
+      if (this.selectedDay) {
+        ret = this.stat.get("date").get(this.toStatDateString(this.selectedDay))
+          .values;
+      }
+      return ret;
     },
     chartData() {
-      let ts = this.generateTimeSeries([...this.ascents], {
+      let ts = this.generateTimeSeries([...this.stat.values], {
         comparisonGrade: this.chartOpts.sinceGrade.value,
         avgSamples: this.chartOpts.avgSamples.value,
       });
@@ -243,6 +285,15 @@ export default {
         pointBorderColor: opts.color,
       };
     },
+    toStatDateString(d) {
+      return (
+        d.getFullYear() +
+        "-" +
+        ("0" + (d.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + d.getDate()).slice(-2)
+      );
+    },
   },
 };
 </script>
@@ -267,5 +318,11 @@ export default {
 }
 .chart-container {
   height: 400px;
+}
+.settings-h {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: large;
 }
 </style>
