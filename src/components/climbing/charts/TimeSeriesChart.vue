@@ -52,19 +52,28 @@
       :options="options"
     />
     <div class="settings-container">
-      <div class="settings-block">
-        <div class="settings-h" @click="showAscents = !showAscents">
-          {{ ascentTitle }}
-        </div>
-        <div v-if="showAscents">
-          <div v-if="selectedDay">
-            <ul style="list-style: none;">
-              <li v-for="ascent in selectedAscents" :key="ascent.id">
-                <span class="b">{{ ascent.name }}</span>
-                (V{{ ascent.grade }}), {{ ascent.date }}
-              </li>
-            </ul>
+      <div v-if="selectedDay">
+        <div class="settings-block">
+          <div class="settings-h">
+            {{ ascentTitle }}
           </div>
+          <ul style="list-style: none;">
+            <li v-for="ascent in selectedAscents" :key="ascent.id">
+              <span class="b">{{ ascent.name }}</span>
+              (V{{ ascent.grade }}), {{ ascent.date }}
+            </li>
+          </ul>
+        </div>
+        <div class="settings-block">
+          <div class="settings-h">
+            {{ maxAscentTitle }}
+          </div>
+          <ul style="list-style: none;">
+            <li v-for="ascent in maxToDate.ascents" :key="ascent.id">
+              <span class="b">{{ ascent.name }}</span>
+              (V{{ ascent.grade }}), {{ ascent.date }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -88,7 +97,6 @@ export default {
   data() {
     return {
       selectedDay: undefined,
-      showAscents: true,
       showOptions: false,
       chartOpts: {
         normalize: { label: "Normalize Data", value: false, type: "check" },
@@ -172,13 +180,44 @@ export default {
   },
   computed: {
     ascentTitle() {
-      return `Ascents (${this.selectedAscents.length})`;
+      return `Day Ascents (${this.selectedAscents.length})`;
+    },
+    maxAscentTitle() {
+      return `Ascents at V${this.maxToDate.grade} (${this.maxToDate.ascents.length})`;
     },
     selectedAscents() {
       let ret = [];
       if (this.selectedDay) {
         ret = this.stat.get("date").get(this.toStatDateString(this.selectedDay))
           .values;
+      }
+      return ret;
+    },
+    maxToDate() {
+      // Sort ascents with earliest ascent first
+      if (this.selectedDay) {
+        let filteredAscents = [...this.stat.values].filter(
+          (ascent) => ascent.date <= this.toStatDateString(this.selectedDay)
+        );
+        let maxGrade = 0;
+        let maxAscents = [];
+        for (let ascent of filteredAscents) {
+          let numericalGrade = this.mapGrade(ascent.grade);
+          if (numericalGrade > maxGrade) {
+            maxGrade = numericalGrade;
+            maxAscents = [ascent];
+          } else if (maxGrade == numericalGrade) {
+            maxAscents.push(ascent);
+          }
+        }
+        return { grade: "" + maxGrade, ascents: maxAscents };
+      }
+      return { grade: "-", ascents: [] };
+    },
+    atMaxAscents() {
+      let ret = [];
+      if (this.selectedDay) {
+        console.log(ret);
       }
       return ret;
     },
