@@ -445,6 +445,11 @@ export default {
     },
     updateValues(tsTracker, newValue, nTop, avgSamples) {
       tsTracker.cnt += 1;
+      if (newValue == tsTracker.max) {
+        tsTracker.numMax += 1;
+      } else if (newValue > tsTracker.max) {
+        tsTracker.numMax = 1;
+      }
       tsTracker.max = Math.max(newValue, tsTracker.max);
       tsTracker.avg =
         (newValue + (tsTracker.cnt - 1) * tsTracker.avg) / tsTracker.cnt;
@@ -452,7 +457,6 @@ export default {
         tsTracker.top.reduce(function (a, b) {
           return a + b;
         }, 0) / Math.min(nTop, tsTracker.top.length);
-      tsTracker.numMax = tsTracker.top.filter((v) => v == tsTracker.max).length;
     },
     updateSinceMax(t, now, gradeNumerical, comparisonGradeOpt) {
       const compGrade =
