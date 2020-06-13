@@ -25,6 +25,11 @@ export default {
   data() {
     return {
       videoList: [
+        { ytid: "kiuiZn6tRok", desc: "Bounders 5" },
+        { ytid: "czhjYF5BVgo", desc: "Bounders 4" },
+        { ytid: "rRoMCjaqTGY", desc: "Bounders 3" },
+        { ytid: "DGBJrHYObsc", desc: "Bounders 2" },
+        { ytid: "_bFMmASz2j4", desc: "Bounders 1" },
         { ytid: "AfUtHT4jVmE", desc: "Alaska" },
         { ytid: "8-BJxEmLveU", desc: "Joshua Tree" },
         { ytid: "-u1w5VtMsWI", desc: "Mt Woodson" },
@@ -37,10 +42,6 @@ export default {
         { ytid: "rnyxV-3R8ho", desc: "Scotland" },
         { ytid: "fsmt-qtqHXc", desc: "Fontainebleau" },
         { ytid: "MNAmClG5qpM", desc: "Peak District" },
-        { ytid: "czhjYF5BVgo", desc: "Bounders  4" },
-        { ytid: "rRoMCjaqTGY", desc: "Bounders 3" },
-        { ytid: "DGBJrHYObsc", desc: "Bounders 2" },
-        { ytid: "_bFMmASz2j4", desc: "Bounders 1" },
         { ytid: "uhnSAFp4QuU", desc: "Squamish 1" },
         { ytid: "hPSi-8C36Ho", desc: "Squamish 2" },
         { ytid: "Ew57orF9g4c", desc: "Joes Valley" },
