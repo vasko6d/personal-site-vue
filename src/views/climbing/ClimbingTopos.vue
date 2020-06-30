@@ -33,9 +33,14 @@
         >
           <i class="fas fa-clipboard-check"> 8a.nu</i>
         </a>
-        <div v-if="topos[topoId].videoUrl" class="icn bg1-hvr dv-btn">
+        <a
+          v-if="topos[topoId].videoUrl"
+          :href="topos[topoId].videoUrl"
+          target="_blank"
+          class="icn bg1-hvr dv-btn"
+        >
           <i class="fas fa-video"> Video</i>
-        </div>
+        </a>
         <div
           v-if="topos[topoId].rawTopoImages"
           class="icn bg1-hvr dv-btn"
@@ -102,7 +107,7 @@ export default {
           mpUrl:
             "https://www.mountainproject.com/area/107926127/rancho-penasquitos-canyon",
           a8Url:
-            "https://www.8a.nu/scorecard/Search.aspx?countrycode=GLOBAL&cragname=Rancho+Penasquitos+Canyon&ascentType=1",
+            "https://www.8a.nu/crags/bouldering/united-states/rancho-penasquitos-canyon/routes",
           rawTopoImages: [
             {
               title: "Overview Topo",
@@ -131,10 +136,11 @@ export default {
           description:
             "Mineral King is simply incredible. I have not made a topo yet but I will slowly start to compile some helpful information here",
           pdfPath: undefined,
-          videoUrl: "https://youtu.be/czhjYF5BVgo",
+          videoUrl:
+            "https://www.youtube.com/playlist?list=PLXZ2k01bhGF95i4HPsXTfD2z0Dc6pKO9c",
           imageUrl: "../../img/mk.jpg",
           a8Url:
-            "https://www.8a.nu/scorecard/Search.aspx?countrycode=GLOBAL&cragname=Mineral+King&ascentType=1",
+            "https://www.8a.nu/crags/bouldering/united-states/mineral-king/routes",
           rawTopoImages: undefined,
         },
       },

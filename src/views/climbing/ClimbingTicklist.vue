@@ -144,6 +144,7 @@ export default {
         pagination: {
           chunk: 5,
         },
+        perPage: 100,
         perPageValues: [10, 25, 50, 100, 500, 2000],
         sortable: [
           "climber",
@@ -263,6 +264,8 @@ export default {
       }
     },
     rowClick(e) {
+      //https://www.8a.nu/crags/bouldering/united-states/rancho-penasquitos-canyon/sectors/mr-longarm/routes/altivo
+      //https://www.8a.nu/crags/bouldering/united-states/buttermilks/sectors/unknown-sector/routes/soul-slinger
       let url = new URL(
         "https://www.8a.nu/scorecard/Search.aspx?SearchType=ASCENTS"
       );
