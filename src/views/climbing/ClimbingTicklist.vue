@@ -264,15 +264,7 @@ export default {
       }
     },
     rowClick(e) {
-      //https://www.8a.nu/crags/bouldering/united-states/rancho-penasquitos-canyon/sectors/mr-longarm/routes/altivo
-      //https://www.8a.nu/crags/bouldering/united-states/buttermilks/sectors/unknown-sector/routes/soul-slinger
-      let url = new URL(
-        "https://www.8a.nu/scorecard/Search.aspx?SearchType=ASCENTS"
-      );
-
-      url.searchParams.append("CragName", e.row.area);
-      url.searchParams.append("AscentName", e.row.name);
-      url.searchParams.append("AscentType", 1);
+      const url = `https://www.8a.nu/crags/bouldering/${e.row.countrySlug}/${e.row.cragSlug}/sectors/${e.row.sectorSlug}/routes/${e.row.zlaggableSlug}`;
       console.log("Opening external 8a.nu url: ", url.toString());
       window.open(url, "_blank");
     },
