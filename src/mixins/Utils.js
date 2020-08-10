@@ -1,4 +1,4 @@
-var gradeMap = {
+const gradeMap = {
   B: -1,
   "0": 0,
   "1": 1,
@@ -22,6 +22,37 @@ var gradeMap = {
   "15": 15,
 };
 
+const typeMap = {
+  rp: "redpoint",
+  os: "onsite",
+  f: "flash",
+};
+
+const fontToV = {
+  "5A": "0",
+  "5B": "1",
+  "5C": "2",
+  "6A": "3",
+  "6A+": "3/4",
+  "6B": "4",
+  "6B+": "4/5",
+  "6C": "5",
+  "6C+": "5/6",
+  "7A": "6",
+  "7A+": "7",
+  "7B": "7/8",
+  "7B+": "8",
+  "7C": "9",
+  "7C+": "10",
+  "8A": "11",
+  "8A+": "12",
+  "8B": "13",
+  "8B+": "14",
+  "8C": "15",
+  "8C+": "16",
+  "9a": "17",
+};
+
 const nameMaps = {
   month: {
     "01": "January",
@@ -42,6 +73,8 @@ const nameMaps = {
     1: "1 Star",
     2: "2 Stars",
     3: "3 Stars",
+    4: "4 Stars",
+    5: "5 Stars",
   },
   dayOfWeek: {
     0: "Sunday",
@@ -56,6 +89,103 @@ const nameMaps = {
     true: "Recommended",
     false: "Not Recommended",
   },
+};
+
+// Area Name Map (new)
+const areaNameFixes = {
+  "Red Rock": "Red Rocks",
+  Tuolumne: "Tuolumne Meadows",
+};
+
+// Manually maintained dictionary to get "country" + State
+const areaMaps = {
+  "mineral-king": { country: "United States", div1: "CA", div2: "Sequoia" },
+  "rancho-penasquitos-canyon": {
+    country: "United States",
+    div1: "CA",
+    div2: "San Diego",
+  },
+  "mt-woodson": { country: "United States", div1: "CA", div2: "San Diego" },
+  "super-slab": { country: "United States", div1: "CA", div2: "Sonoma" },
+  "salt-point": { country: "United States", div1: "CA", div2: "Sonoma" },
+  "mount-baldy": { country: "United States", div1: "CA", div2: "Los Angeles" },
+  "pomo-canyon": { country: "United States", div1: "CA", div2: "Sonoma" },
+  tramway: { country: "United States", div1: "CA", div2: "San Jacinto" },
+  bishop: { country: "United States", div1: "CA", div2: "Bishop" },
+  "black-mountain": {
+    country: "United States",
+    div1: "CA",
+    div2: "San Jacinto",
+  },
+  "marion-mountain": {
+    country: "United States",
+    div1: "CA",
+    div2: "San Jacinto",
+  },
+  "tuolomne-meadows": {
+    country: "United States",
+    div1: "CA",
+    div2: "Yosemite",
+  },
+  brickyard: { country: "United States", div1: "CA", div2: "Santa Barbara" },
+  "joshua-tree": { country: "United States", div1: "CA", div2: "Joshua Tree" },
+  yosemite: { country: "United States", div1: "CA", div2: "Yosemite" },
+  "mt-tamalpais": {
+    country: "United States",
+    div1: "CA",
+    div2: "San Fransisco",
+  },
+  "jupiter-boulders": {
+    country: "United States",
+    div1: "CA",
+    div2: "San Jacinto",
+  },
+  "malibu-tunnel-boulders": {
+    country: "United States",
+    div1: "CA",
+    div2: "Los Angeles",
+  },
+  "doomsday-boulders": { country: "United States", div1: "CA", div2: "" },
+  "temporal-boulders": {
+    country: "United States",
+    div1: "CA",
+    div2: "Los Angeles",
+  },
+  cazadero: { country: "United States", div1: "CA", div2: "Sonoma" },
+  "the-depot": { country: "United States", div1: "OR", div2: "Bend" },
+  telluride: { country: "United States", div1: "CO", div2: "Telluride" },
+  "walker-ranch": { country: "United States", div1: "CO", div2: "Boulder" },
+  klettergarden: { country: "United States", div1: "CO", div2: "Denver" },
+  "barn-canyon": { country: "United States", div1: "NM", div2: "Gallup" },
+  "waimea-bay-hi": { country: "United States", div1: "HI", div2: "Waimea Bay" },
+  "joes-valley": { country: "United States", div1: "UT", div2: "Orangeville" },
+  leavenworth: { country: "United States", div1: "WA", div2: "Leavenworth" },
+  sasquatch: { country: "United States", div1: "WA", div2: "Seattle" },
+  "service-boulder": {
+    country: "United States",
+    div1: "AK",
+    div2: "Anchorage",
+  },
+  "idle-of-skye": {
+    country: "United Kingdom",
+    div1: "Scotland",
+    div2: "Isle of Skye",
+  },
+  khajaguda: { country: "India", div1: "Telangana", div2: "Khajaguda" },
+  "mobil-gas-station": {
+    country: "United States",
+    div1: "California",
+    div2: "Lee Vining",
+  },
+};
+const stateEquivalences = {
+  CA: "California",
+  OR: "Oregon",
+  AK: "Alaska",
+  WA: "Washington",
+  NM: "New Mexico",
+  HI: "Hawaii",
+  UT: "Utah",
 };
 
 export default {
@@ -104,113 +234,112 @@ export default {
         .map((w) => w[0].toUpperCase() + w.substr(1))
         .join(" ");
     },
-    preprocessAscents(ascents, climber) {
-      for (let ascent of ascents) {
-        ascent["commentLength"] = ascent["comment"].length;
-        //new property for Soft, Hard, Neither
-        let reldif = "Neutral";
-        for (const flag of ascent["flags"]) {
-          switch (flag) {
-            case "Soft":
-            case "Hard":
-              reldif = flag;
-              break;
-          }
-        }
-        ascent["softness"] = reldif;
+    /* {
+      "date": "2016-05-28", 
+      "type": "flash", 
+      "name": "Emerald City", 
+      "recommend": true, 
+      "area": "TRAMWAY", 
+      "subArea": "THE_BOARDWALK", 
+      "country": "United States", 
+      "state": "California", 
+      "city": "San Jacinto", 
+      "flags": ["flash"], 
+      "comment": "One of the most beautiful rocks I've seen. The hike to it made it especially majestic an
+        d the view from the top was like all an LIB could hope for. I had to lose the weight of my 
+        sunglasses to get this send.", 
+      "rating": 3, 
+      "grade": "0"
+    },
+    */
+    preprocessAscent(ascent, climber) {
+      let newAscent = { ...ascent };
 
-        // Year and Month and Year are useful
-        let date = this.decomposeDate(ascent["date"]);
-        ascent["year"] = date.year;
-        ascent["month"] = date.month;
-        ascent["day"] = date.day;
+      newAscent.name = this.prettyCapitalize(ascent.zlaggableName);
 
-        // Day of week
-        let jDate = new Date(ascent["date"] + "T12:00:00Z");
-        ascent["dayOfWeek"] = jDate.getDay();
+      newAscent.commentLength = newAscent.comment
+        ? newAscent.comment.length
+        : 0;
 
-        // Climber Name
-        ascent["climber"] = climber;
+      newAscent.flags = [];
+      //new property for Soft, Hard, Neither
+      let reldif = newAscent.isEasy
+        ? "Soft"
+        : newAscent.isHard
+        ? "Hard"
+        : "Neutral";
+      newAscent.softness = reldif;
+      if (reldif != "Neutral") {
+        newAscent.flags.push(reldif);
       }
+
+      // // Year and Month and Year are useful
+      newAscent.date = newAscent.date.substring(0, 10);
+      let date = this.decomposeDate(newAscent.date);
+      newAscent.year = date.year;
+      newAscent.month = date.month;
+      newAscent.day = date.day;
+
+      // // Day of week
+      let jDate = new Date(newAscent.date + "T12:00:00Z");
+      newAscent["dayOfWeek"] = jDate.getDay();
+
+      // Climber Name
+      newAscent["climber"] = climber;
+
+      // Grade Conversion
+      newAscent.grade = fontToV[newAscent.difficulty] || "B";
+
+      if (newAscent.areaName) {
+        newAscent.area = newAscent.areaName.replace(/ \([A-Z][A-Z]\)/, "");
+        newAscent.subArea = newAscent.cragName;
+      } else {
+        newAscent.area = newAscent.cragName;
+        newAscent.subArea = this.kebabToCap(newAscent.sectorSlug);
+      }
+      newAscent.area = areaNameFixes[newAscent.area] || newAscent.area;
+
+      newAscent.type = typeMap[newAscent.type];
+      newAscent.flags.push(newAscent.type);
+      newAscent.country = this.kebabToCap(newAscent.countrySlug);
+
+      if (newAscent.firstAscent) {
+        newAscent.flags.push("FA");
+      }
+
+      if (newAscent.secondGo) {
+        newAscent.flags.push("Second Go");
+      }
+
+      return newAscent;
     },
     fetchData(sandboxId) {
-      // Pretend fetching...
-      let ascents = [];
-      switch (sandboxId) {
-        case "david-vasko":
-          ascents = require("@/assets/json/8a-scorecards/david-vasko.json")[
-            "ascents"
-          ];
-          break;
-        case "chase-yamashiro":
-          ascents = require("@/assets/json/8a-scorecards/chase-yamashiro.json")[
-            "ascents"
-          ];
-          break;
-        case "jacquie-nguyen":
-          ascents = require("@/assets/json/8a-scorecards/jacquie-nguyen.json")[
-            "ascents"
-          ];
-          break;
-        case "scott-baron":
-          ascents = require("@/assets/json/8a-scorecards/scott-baron.json")[
-            "ascents"
-          ];
-          break;
-        case "nathaniel-cushing-murray":
-          ascents = require("@/assets/json/8a-scorecards/nathaniel-cushing-murray.json")[
-            "ascents"
-          ];
-          break;
-        case "drew-gomberg":
-          ascents = require("@/assets/json/8a-scorecards/drew-gomberg.json")[
-            "ascents"
-          ];
-          break;
-        case "daniel-fong":
-          ascents = require("@/assets/json/8a-scorecards/daniel-fong.json")[
-            "ascents"
-          ];
-          break;
-        case "daniel-fineman":
-          ascents = require("@/assets/json/8a-scorecards/daniel-fineman.json")[
-            "ascents"
-          ];
-          break;
-        case "akhil-mauze":
-          ascents = require("@/assets/json/8a-scorecards/akhil-mauze.json")[
-            "ascents"
-          ];
-          break;
-        case "kody-shutt":
-          ascents = require("@/assets/json/8a-scorecards/kody-shutt.json")[
-            "ascents"
-          ];
-          break;
-        case "dustin-goldbarg":
-          ascents = require("@/assets/json/8a-scorecards/dustin-goldbarg.json")[
-            "ascents"
-          ];
-          break;
-      }
-      // return as promise
+      // Pretend fetching... return as promise
       return new Promise((resolve, reject) => {
-        if (ascents.length > 0) {
-          this.preprocessAscents(ascents, this.kebabToCap(sandboxId));
-          const ret = {
-            msg: "Success",
-            data: ascents,
-          };
-          resolve(ret);
-        } else {
-          const ret = {
-            msg: this.formatString(
-              "Sandbox member data for [{0}] not avaliable",
-              sandboxId
-            ),
-          };
-          reject(ret);
-        }
+        fetch(`/json/8a-scorecards/${sandboxId}.json`)
+          .then((raw) => {
+            return raw.json();
+          })
+          .then((rawJson) => {
+            const ascents = rawJson["ascents"].map((ascent) =>
+              this.preprocessAscent(ascent, this.kebabToCap(sandboxId))
+            );
+            if (ascents.length) {
+              resolve({ msg: "Success", data: ascents });
+            } else {
+              throw new Error("Ascents Were Empty");
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+            const ret = {
+              msg: this.formatString(
+                "Sandbox member data for [{0}] not avaliable",
+                sandboxId
+              ),
+            };
+            reject(ret);
+          });
       });
     },
     prettyCapitalize(str) {
