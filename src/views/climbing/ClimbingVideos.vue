@@ -25,6 +25,8 @@ export default {
   data() {
     return {
       videoList: [
+        { ytid: "LY7X8vQ7A4k", desc: "Leavenworth 2019" },
+        { ytid: "eTJu9mOWVwA", desc: "Leavenworth 2018" },
         { ytid: "kiuiZn6tRok", desc: "Bounders 5" },
         { ytid: "czhjYF5BVgo", desc: "Bounders 4" },
         { ytid: "rRoMCjaqTGY", desc: "Bounders 3" },
@@ -34,7 +36,6 @@ export default {
         { ytid: "8-BJxEmLveU", desc: "Joshua Tree" },
         { ytid: "-u1w5VtMsWI", desc: "Mt Woodson" },
         { ytid: "osNdWTYSM7o", desc: "Rocklands" },
-        { ytid: "eTJu9mOWVwA", desc: "Leavenworth" },
         { ytid: "xsQbE6G_dTY", desc: "Sonoma Coast" },
         { ytid: "oPQz11NzgD4", desc: "Magic Wood" },
         { ytid: "5YdARyxHnG0", desc: "Zillertal" },
