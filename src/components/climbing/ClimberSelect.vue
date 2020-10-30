@@ -41,7 +41,7 @@ export default {
         { name: "David Vasko", sandboxId: "david-vasko" },
         {
           name: "Chase Yamashiro",
-          sandboxId: "alan-nalitch",
+          sandboxId: "shirley-girth",
         },
         { name: "Akhil Mauze", sandboxId: "l-i-b" },
         { name: "Scott Baron", sandboxId: "dirk-irector" },

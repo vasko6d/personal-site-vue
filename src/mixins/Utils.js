@@ -263,11 +263,12 @@ export default {
 
       newAscent.flags = [];
       //new property for Soft, Hard, Neither
-      let reldif = newAscent.isEasy
-        ? "Soft"
-        : newAscent.isHard
-        ? "Hard"
-        : "Neutral";
+      let reldif =
+        newAscent.isEasy || newAscent.isSoft
+          ? "Soft"
+          : newAscent.isHard
+          ? "Hard"
+          : "Neutral";
       newAscent.softness = reldif;
       if (reldif != "Neutral") {
         newAscent.flags.push(reldif);
