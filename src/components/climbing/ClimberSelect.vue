@@ -43,6 +43,7 @@ export default {
           name: "Chase Yamashiro",
           sandboxId: "shirley-girth",
         },
+        { name: "Winifred Affleman", sandboxId: "winifred-affleman" },
         { name: "Akhil Mauze", sandboxId: "l-i-b" },
         { name: "Scott Baron", sandboxId: "dirk-irector" },
         { name: "Jacquie Nguyen", sandboxId: "natalie-udelarms" },
