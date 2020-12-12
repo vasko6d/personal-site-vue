@@ -36819,8 +36819,36 @@
             "type": "rp",
             "notes": "Cool to finally do. Always felt impossible",
             "rating": 3
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Black Mountain (CA)",
+            "areaSlug": "black-mountain-ca",
+            "cragName": "GroupSites 4&5",
+            "cragSlug": "groupsites-4-5",
+            "sectorSlug": "unknown-sector-5cf89",
+            "zlaggableName": "To Trudge",
+            "zlaggableSlug": "to-trudge",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/av044izh.jpg",
+            "userName": "Kody Shutt",
+            "userSlug": "kody-shutt",
+            "date": "2020-11-02T12:00:00+00:00",
+            "difficulty": "7C",
+            "gradeIndex": 27,
+            "comment": "",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "",
+            "rating": 2
         }
     ],
-    "totalItems": 1315,
+    "totalItems": 1316,
     "pageIndex": 0
 }
