@@ -112,7 +112,7 @@ export default {
         flags: { val: null, show: false },
         type: { val: null, show: true },
         country: { val: null, show: false },
-        state: { val: null, show: false },
+        // state: { val: null, show: false },
       },
       columns: [
         { name: "climber", active: true },

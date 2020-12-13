@@ -99,94 +99,81 @@ const areaNameFixes = {
 
 // Manually maintained dictionary to get "country" + State
 const areaMaps = {
-  "mineral-king": { country: "United States", div1: "CA", div2: "Sequoia" },
-  "rancho-penasquitos-canyon": {
-    country: "United States",
-    div1: "CA",
-    div2: "San Diego",
-  },
-  "mt-woodson": { country: "United States", div1: "CA", div2: "San Diego" },
-  "super-slab": { country: "United States", div1: "CA", div2: "Sonoma" },
-  "salt-point": { country: "United States", div1: "CA", div2: "Sonoma" },
-  "mount-baldy": { country: "United States", div1: "CA", div2: "Los Angeles" },
-  "pomo-canyon": { country: "United States", div1: "CA", div2: "Sonoma" },
-  tramway: { country: "United States", div1: "CA", div2: "San Jacinto" },
-  bishop: { country: "United States", div1: "CA", div2: "Bishop" },
-  "black-mountain": {
-    country: "United States",
+  "bishop-ca": { div1: "CA", div2: "Bishop" },
+  "black-mountain-ca": {
     div1: "CA",
     div2: "San Jacinto",
   },
-  "marion-mountain": {
-    country: "United States",
-    div1: "CA",
-    div2: "San Jacinto",
-  },
-  "tuolomne-meadows": {
-    country: "United States",
-    div1: "CA",
-    div2: "Yosemite",
-  },
-  brickyard: { country: "United States", div1: "CA", div2: "Santa Barbara" },
-  "joshua-tree": { country: "United States", div1: "CA", div2: "Joshua Tree" },
-  yosemite: { country: "United States", div1: "CA", div2: "Yosemite" },
-  "mt-tamalpais": {
-    country: "United States",
-    div1: "CA",
-    div2: "San Fransisco",
-  },
-  "jupiter-boulders": {
-    country: "United States",
-    div1: "CA",
-    div2: "San Jacinto",
-  },
-  "malibu-tunnel-boulders": {
-    country: "United States",
-    div1: "CA",
-    div2: "Los Angeles",
-  },
-  "doomsday-boulders": { country: "United States", div1: "CA", div2: "" },
-  "temporal-boulders": {
-    country: "United States",
-    div1: "CA",
-    div2: "Los Angeles",
-  },
-  cazadero: { country: "United States", div1: "CA", div2: "Sonoma" },
-  "the-depot": { country: "United States", div1: "OR", div2: "Bend" },
-  telluride: { country: "United States", div1: "CO", div2: "Telluride" },
-  "walker-ranch": { country: "United States", div1: "CO", div2: "Boulder" },
-  klettergarden: { country: "United States", div1: "CO", div2: "Denver" },
-  "barn-canyon": { country: "United States", div1: "NM", div2: "Gallup" },
-  "waimea-bay-hi": { country: "United States", div1: "HI", div2: "Waimea Bay" },
-  "joes-valley": { country: "United States", div1: "UT", div2: "Orangeville" },
-  leavenworth: { country: "United States", div1: "WA", div2: "Leavenworth" },
-  sasquatch: { country: "United States", div1: "WA", div2: "Seattle" },
-  "service-boulder": {
-    country: "United States",
-    div1: "AK",
-    div2: "Anchorage",
-  },
+  "joshua-tree-ca": { div1: "CA", div2: "Joshua Tree" },
+  "tramway-ca": { div1: "CA", div2: "San Jacinto" },
+};
+/*
+{
+  "barn-canyon": { div1: "NM", div2: "Gallup" },
+  brickyard: { div1: "CA", div2: "Santa Barbara" },
+  cazadero: { div1: "CA", div2: "Sonoma" },
+  "doomsday-boulders": { div1: "CA", div2: "" },
   "idle-of-skye": {
     country: "United Kingdom",
     div1: "Scotland",
     div2: "Isle of Skye",
   },
+  "joes-valley": { div1: "UT", div2: "Orangeville" },
+  "jupiter-boulders": {
+    div1: "CA",
+    div2: "San Jacinto",
+  },
+  leavenworth: { div1: "WA", div2: "Leavenworth" },
   khajaguda: { country: "India", div1: "Telangana", div2: "Khajaguda" },
+  klettergarden: { div1: "CO", div2: "Denver" },
+  "malibu-tunnel-boulders": {
+    div1: "CA",
+    div2: "Los Angeles",
+  },
+  "marion-mountain": {
+    div1: "CA",
+    div2: "San Jacinto",
+  },
+  "mineral-king": { div1: "CA", div2: "Sequoia" },
   "mobil-gas-station": {
-    country: "United States",
-    div1: "California",
+    div1: "CA",
     div2: "Lee Vining",
   },
-};
-const stateEquivalences = {
-  CA: "California",
-  OR: "Oregon",
-  AK: "Alaska",
-  WA: "Washington",
-  NM: "New Mexico",
-  HI: "Hawaii",
-  UT: "Utah",
-};
+  "mount-baldy": { div1: "CA", div2: "Los Angeles" },
+  "mt-woodson": { div1: "CA", div2: "San Diego" },
+  "mt-tamalpais": {
+    div1: "CA",
+    div2: "San Fransisco",
+  },
+  "pomo-canyon": { div1: "CA", div2: "Sonoma" },
+  "rancho-penasquitos-canyon": {
+    div1: "CA",
+    div2: "San Diego",
+  },
+  "salt-point": { div1: "CA", div2: "Sonoma" },
+  sasquatch: { div1: "WA", div2: "Seattle" },
+  "service-boulder": {
+    div1: "AK",
+    div2: "Anchorage",
+  },
+  "super-slab": { div1: "CA", div2: "Sonoma" },
+  telluride: { div1: "CO", div2: "Telluride" },
+  "temporal-boulders": {
+    div1: "CA",
+    div2: "Los Angeles",
+  },
+  "the-depot": { div1: "OR", div2: "Bend" },
+  "tuolomne-meadows": {
+    div1: "CA",
+    div2: "Yosemite",
+  },
+  yosemite: { div1: "CA", div2: "Yosemite" },
+  "walker-ranch": { div1: "CO", div2: "Boulder" },
+  "waimea-bay-hi": { div1: "HI", div2: "Waimea Bay" },
+}
+*/
+
+// var hideLog = {};
 
 export default {
   name: "utils",
@@ -234,85 +221,152 @@ export default {
         .map((w) => w[0].toUpperCase() + w.substr(1))
         .join(" ");
     },
-    /* {
-      "date": "2016-05-28", 
-      "type": "flash", 
-      "name": "Emerald City", 
-      "recommend": true, 
-      "area": "TRAMWAY", 
-      "subArea": "THE_BOARDWALK", 
-      "country": "United States", 
-      "state": "California", 
-      "city": "San Jacinto", 
-      "flags": ["flash"], 
-      "comment": "One of the most beautiful rocks I've seen. The hike to it made it especially majestic an
-        d the view from the top was like all an LIB could hope for. I had to lose the weight of my 
-        sunglasses to get this send.", 
-      "rating": 3, 
-      "grade": "0"
-    },
+    /*
+    Process the RAW JSON from 81.nu into dv format:
+
+      RAW: {
+        "ascentId": 6012919,
+        "areaName": "Bishop (CA)",
+        "areaSlug": "bishop-ca",
+        "cragName": "Sad Boulders",
+        "cragSlug": "sad-boulders",
+        "sectorSlug": "unknown-sector-79fad",
+        "zlaggableName": "The Ninth Wave",
+        "zlaggableSlug": "the-ninth-wave",
+        "countrySlug": "united-states",
+        "userAvatar": "gallery/44437.jpg",
+        "userName": "Gregor recian-God",
+        "userSlug": "david-vasko",
+        "date": "2020-12-11T12:00:00+00:00",
+        "difficulty": "7B+",
+        "gradeIndex": 26,
+        "comment": "Lubba dubba dub dub!!! I did it boys! I did the thing! Not the thing over there, but this thing!",
+        "isPrivateComment": false,
+        "traditional": false,
+        "project": false,
+        "isHard": false,
+        "isSoft": false,
+        "firstAscent": false,
+        "secondGo": false,
+        "type": "rp",
+        "notes": "Lubba dubba dub dub!!! I did it boys! I did the thing! Not the thing over there, but this thing!",
+        "rating": 4
+      }
+
+      PROCESSED: {
+        "area": "Bishop",
+        "climber": "David Vasko",
+        "comment": "Lubba dubba dub dub!!! I did it boys! I did the thing! Not the thing over there, but this thing!",
+        "commentLength": 96,
+        "date": "2020-12-11",
+        "day": "11",
+        "dayOfWeek": 5,
+        "name": "The Ninth Wave",
+        "firstAscent": false,
+        "flags": [
+          "redpoint"
+        ],
+        "grade": "8",
+        "isHard": false,
+        "isSoft": false,
+        "month": "12",
+        "rating": 4,
+        "type": "redpoint",
+        "secondGo": false,
+        "softness": "Neutral",
+        "subArea": "Sad Boulders"
+        "year": "2020",
+      }
     */
     preprocessAscent(ascent, climber) {
-      let newAscent = { ...ascent };
+      const processedAscent = {
+        area: ascent.area,
+        climber: climber,
+        comment: ascent.comment,
+        commentLength: ascent.comment ? ascent.comment.length : 0,
+        name: ascent.zlaggableName,
+        country: this.kebabToCap(ascent.countrySlug),
+        date: undefined,
+        day: undefined,
+        dayOfWeek: undefined,
+        // div1: undefined,
+        // div2: undefined,
+        firstAscent: ascent.firstAscent,
+        flags: [],
+        grade: fontToV[ascent.difficulty] || "B", // grade conversion
+        isHard: ascent.isHard,
+        isSoft: ascent.isSoft,
+        month: undefined,
+        rating: ascent.rating,
+        secondGo: ascent.secondGo,
+        softness: undefined,
+        subArea: undefined,
+        type: typeMap[ascent.type],
+        year: undefined,
+      };
 
-      newAscent.name = this.prettyCapitalize(ascent.zlaggableName);
-
-      newAscent.commentLength = newAscent.comment
-        ? newAscent.comment.length
-        : 0;
-
-      newAscent.flags = [];
-      //new property for Soft, Hard, Neither
-      let reldif =
-        newAscent.isEasy || newAscent.isSoft
+      // New property "softness" = Soft, Hard, Neither
+      const reldif =
+        ascent.isEasy || ascent.isSoft
           ? "Soft"
-          : newAscent.isHard
+          : ascent.isHard
           ? "Hard"
           : "Neutral";
-      newAscent.softness = reldif;
+      processedAscent.softness = reldif;
+
+      // Add "Hard" or "soft" as a flag
       if (reldif != "Neutral") {
-        newAscent.flags.push(reldif);
+        processedAscent.flags.push(reldif);
       }
 
-      // // Year and Month and Year are useful
-      newAscent.date = newAscent.date.substring(0, 10);
-      let date = this.decomposeDate(newAscent.date);
-      newAscent.year = date.year;
-      newAscent.month = date.month;
-      newAscent.day = date.day;
+      // Year and Month and Year are useful
+      processedAscent.date = ascent.date.substring(0, 10);
+      const date = this.decomposeDate(processedAscent.date);
+      processedAscent.year = date.year;
+      processedAscent.month = date.month;
+      processedAscent.day = date.day;
 
       // // Day of week
-      let jDate = new Date(newAscent.date + "T12:00:00Z");
-      newAscent["dayOfWeek"] = jDate.getDay();
+      const jDate = new Date(processedAscent.date + "T12:00:00Z");
+      processedAscent["dayOfWeek"] = jDate.getDay();
 
-      // Climber Name
-      newAscent["climber"] = climber;
-
-      // Grade Conversion
-      newAscent.grade = fontToV[newAscent.difficulty] || "B";
-
-      if (newAscent.areaName) {
-        newAscent.area = newAscent.areaName.replace(/ \([A-Z][A-Z]\)/, "");
-        newAscent.subArea = newAscent.cragName;
+      // Correct Area and Sub Area
+      let areaSlug = ascent.areaSlug;
+      if (ascent.areaName) {
+        processedAscent.area = ascent.areaName.replace(/ \([A-Z][A-Z]\)/, "");
+        processedAscent.subArea = ascent.cragName;
       } else {
-        newAscent.area = newAscent.cragName;
-        newAscent.subArea = this.kebabToCap(newAscent.sectorSlug);
+        processedAscent.area = ascent.cragName;
+        processedAscent.subArea = this.kebabToCap(ascent.sectorSlug);
+        areaSlug = ascent.cragSlug;
       }
-      newAscent.area = areaNameFixes[newAscent.area] || newAscent.area;
+      processedAscent.area =
+        areaNameFixes[processedAscent.area] || processedAscent.area;
 
-      newAscent.type = typeMap[newAscent.type];
-      newAscent.flags.push(newAscent.type);
-      newAscent.country = this.kebabToCap(newAscent.countrySlug);
+      // Add a few more flags
+      processedAscent.flags.push(processedAscent.type);
 
-      if (newAscent.firstAscent) {
-        newAscent.flags.push("FA");
-      }
-
-      if (newAscent.secondGo) {
-        newAscent.flags.push("Second Go");
+      if (ascent.firstAscent) {
+        processedAscent.flags.push("FA");
       }
 
-      return newAscent;
+      if (ascent.secondGo) {
+        processedAscent.flags.push("Second Go");
+      }
+
+      // DIVS - for state adn city or province city etc
+      // const divs = areaMaps[areaSlug];
+      // if (!divs) {
+      //   const logkey = "COUNTRY:DNE:" + areaSlug;
+      //   if (hideLog[logkey] === undefined) {
+      //     console.warn(
+      //       `Crag [${areaSlug}] does not have a valid area to Location Map so Country and State not found`
+      //     );
+      //     hideLog[logkey] = true;
+      //   }
+      //}
+
+      return processedAscent;
     },
     fetchData(sandboxId) {
       // Pretend fetching... return as promise
