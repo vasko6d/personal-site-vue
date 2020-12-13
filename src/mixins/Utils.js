@@ -284,6 +284,8 @@ export default {
         climber: climber,
         comment: ascent.comment,
         commentLength: ascent.comment ? ascent.comment.length : 0,
+        countrySlug: ascent.countrySlug,
+        cragSlug: ascent.cragSlug,
         name: ascent.zlaggableName,
         country: this.kebabToCap(ascent.countrySlug),
         date: undefined,
@@ -299,10 +301,12 @@ export default {
         month: undefined,
         rating: ascent.rating,
         secondGo: ascent.secondGo,
+        sectorSlug: ascent.sectorSlug,
         softness: undefined,
         subArea: undefined,
         type: typeMap[ascent.type],
         year: undefined,
+        zlaggableSlug: ascent.zlaggableSlug,
       };
 
       // New property "softness" = Soft, Hard, Neither

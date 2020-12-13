@@ -265,7 +265,7 @@ export default {
     },
     rowClick(e) {
       const url = `https://www.8a.nu/crags/bouldering/${e.row.countrySlug}/${e.row.cragSlug}/sectors/${e.row.sectorSlug}/routes/${e.row.zlaggableSlug}`;
-      console.log("Opening external 8a.nu url: ", url.toString());
+      console.log("Opening external 8a.nu url: ", url);
       window.open(url, "_blank");
     },
   },
