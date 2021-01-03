@@ -15819,8 +15819,36 @@
             "type": "go",
             "notes": "",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Yosemite (CA)",
+            "areaSlug": "yosemite-ca",
+            "cragName": "Ahwahnee",
+            "cragSlug": "ahwahnee",
+            "sectorSlug": "unknown-sector-a7e02",
+            "zlaggableName": "Chimera",
+            "zlaggableSlug": "chimera",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Chris hoss",
+            "userSlug": "chris-hoss-99e8l",
+            "date": "2020-12-25T12:00:00+00:00",
+            "difficulty": "8A+",
+            "gradeIndex": 30,
+            "comment": "",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "",
+            "rating": 0
         }
     ],
-    "totalItems": 565,
+    "totalItems": 566,
     "pageIndex": 0
 }
