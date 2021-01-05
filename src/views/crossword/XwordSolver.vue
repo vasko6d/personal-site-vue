@@ -106,6 +106,7 @@ import Xword3 from "@/assets/xword/Xword3.vue";
 import Xword4 from "@/assets/xword/Xword4.vue";
 import Xword5 from "@/assets/xword/Xword5.vue";
 import Xword6 from "@/assets/xword/Xword6.vue";
+import Xword7 from "@/assets/xword/Xword7.vue";
 
 export default {
   name: "crossword",
@@ -137,6 +138,7 @@ export default {
         4: Xword4.data().xword,
         5: Xword5.data().xword,
         6: Xword6.data().xword,
+        7: Xword7.data().xword,
       },
       xword: new Xword("", "", "", "", [], {}, {}),
       clickedClue: {}, // hacky to make clue context togglable....
