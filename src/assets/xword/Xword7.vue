@@ -11,13 +11,36 @@ export default {
         createDate: "20200105",
         difficulty: 3,
         dimension: "21x21",
-        theme: "Some clues form a sentence that introduces its own cryptic puzzle",
+        theme:
+          "Some clues form a sentence that introduces its own cryptic puzzle",
         note:
           "I had this idea in April 2020 and spent a while trying to come up with a satisfactory (and ideally NYT-legal) grid. Despite the many single-letter answers this is as close as I could get.",
         colorCells: [],
         shapeCells: [],
         numbering: [],
-        solution: ["USG#FRACTAL#RIP#CEES#", "FEUD#ENTHRONED#MDXV#C", "OVA#AMY#ITWAS#EXITERS", "#EVENA#MS#THEUNIVERSE", "ANAL#DIAPER#ENO##DYS#", "HP#EVENTUALADULTS#TBD", "AO#C##CHZ##B#SALADHUE", "BIRTHDAYZOMBIE#INSIDE", "SNORER##L#EAR##SKIN#P", "#TOODYSSEUS#KEY##AGUT", "SF#NOSH##N###O#JS###H", "WIHI###APOLOANTONOHNO", "AVOCADOES#ARM##HOWDOU", "RELATIVISTIC#D#NOWING", "MMM#ERE###MADDUCKS#AH", "#IED#ERTRIP#ORSOI#MRT", "OLSON#THEOLOGIAN#GUT#", "DL#SAMARITAN##IWERE#A", "OIL#GAPES#NEVADA#ISON", "ROOF#DEE#ITSAS#YELLAT", "SNOWIER#ISS#TLC##LIFE"],
+        solution: [
+          "USG#FRACTAL#RIP#CEES#",
+          "FEUD#ENTHRONED#MDXV#C",
+          "OVA#AMY#ITWAS#EXITERS",
+          "#EVENA#MS#THEUNIVERSE",
+          "ANAL#DIAPER#ENO##DYS#",
+          "HP#EVENTUALADULTS#TBD",
+          "AO#C##CHZ##B#SALADHUE",
+          "BIRTHDAYZOMBIE#INSIDE",
+          "SNORER##L#EAR##SKIN#P",
+          "#TOODYSSEUS#KEY##AGUT",
+          "SF#NOSH##N###O#JS###H",
+          "WIHI###APOLOANTONOHNO",
+          "AVOCADOES#ARM##HOWDOU",
+          "RELATIVISTIC#D#NOWING",
+          "MMM#ERE###MADDUCKS#AH",
+          "#IED#ERTRIP#ORSOI#MRT",
+          "OLSON#THEOLOGIAN#GUT#",
+          "DL#SAMARITAN##IWERE#A",
+          "OIL#GAPES#NEVADA#ISON",
+          "ROOF#DEE#ITSAS#YELLAT",
+          "SNOWIER#ISS#TLC##LIFE",
+        ],
         clues: {
           across: {
             1: { txt: "18th pres., who created Yellowstone Park" },
@@ -53,18 +76,29 @@ export default {
             63: { txt: "Offensive symbol made with fingers " },
             64: { txt: "Prominent elephant feature" },
             65: { txt: "Rotisserie chicken treat" },
-            66: { txt: "Fundamental computational complexity class, familiarly" },
+            66: {
+              txt: "Fundamental computational complexity class, familiarly",
+            },
             67: { txt: "Penelope's starting words" },
             71: { txt: "F or G, but not H or I" },
             74: { txt: "Bust ___" },
             76: { txt: "Niners' home (Abbr.)" },
             77: { txt: "Quick munch" },
             78: { txt: "Symbol used to represent the SI unit of force" },
-            79: { txt: "Magazine founded by North America’s first black multi-billionaire" },
-            80: { txt: "Most commonly used programming lang., according to 2020 survey" },
+            79: {
+              txt:
+                "Magazine founded by North America’s first black multi-billionaire",
+            },
+            80: {
+              txt:
+                "Most commonly used programming lang., according to 2020 survey",
+            },
             82: { txt: "Symbol used to represent a whirlybird landing zone" },
             83: { txt: "School for Washtenaw Academy Middle Academy grads" },
-            85: { txt: "American short track speed skater with eight Olympic medals" },
+            85: {
+              txt:
+                "American short track speed skater with eight Olympic medals",
+            },
             94: { txt: "Cause of financial strain for millennials" },
             98: { txt: "Half the cost of a large purchase" },
             99: { txt: "'___ Want It', 1996 song by Tupac" },
@@ -76,7 +110,7 @@ export default {
             106: { txt: "Irate fowl possibly quelled with bread" },
             109: { txt: "Doctor's office word" },
             110: { txt: "Unsavory metal detector finding, briefly" },
-            112: { txt: "Likely follow up to "Hold my beer"" },
+            112: { txt: 'Likely follow up to "Hold my beer"' },
             116: { txt: "'... ___ thought'" },
             117: { txt: "Man often found pitying fools" },
             118: { txt: "Kaitlin of Always Sunny in Philadelphia" },
@@ -84,8 +118,13 @@ export default {
             122: { txt: "Material used to make Federer's strings" },
             123: { txt: "Where to keep a secret, slangily" },
             124: { txt: "Helpful passer-by" },
-            126: { txt: "'If ___ a rich man, ya ba dibba dibba dibba dibba dibba dibba dum'" },
-            128: { txt: "Symbol representing the highest or lowest card, typically" },
+            126: {
+              txt:
+                "'If ___ a rich man, ya ba dibba dibba dibba dibba dibba dibba dum'",
+            },
+            128: {
+              txt: "Symbol representing the highest or lowest card, typically",
+            },
             129: { txt: "Cheaper than free commodity briefly in 2020" },
             131: { txt: "Stares in wonder" },
             132: { txt: "Seventh largest state by area" },
@@ -95,12 +134,20 @@ export default {
             140: { txt: "'___ if it never happened...'" },
             141: { txt: "Scold loudly" },
             143: { txt: "Like Canada, in relation to Mexico" },
-            145: { txt: "Long term dwelling not pictured on Google Earth (Abbr.)" },
+            145: {
+              txt: "Long term dwelling not pictured on Google Earth (Abbr.)",
+            },
             146: { txt: "Dr. Mom's treatment" },
-            148: { txt: "47-Down took 2-Down years to produce the answer to 148-Across, 32-Across, and 16-Down. 80-Down could use 8-Down to do it in 113-Down." },
+            148: {
+              txt:
+                "47-Down took 2-Down years to produce the answer to 148-Across, 32-Across, and 16-Down. 80-Down could use 8-Down to do it in 113-Down.",
+            },
           },
           down: {
-            1: { txt: "Tic Tac shaped subject of video recorded off the coast near San Diego and formally unclassified in 2020" },
+            1: {
+              txt:
+                "Tic Tac shaped subject of video recorded off the coast near San Diego and formally unclassified in 2020",
+            },
             2: { txt: "See 148-Across" },
             3: { txt: "Fragrant tropical fruit" },
             4: { txt: "NYSE ticker for the maker of the Model T" },
@@ -109,7 +156,10 @@ export default {
             7: { txt: "Type of med. scan" },
             8: { txt: "See 148-Across" },
             9: { txt: "Word after fine or latte" },
-            10: { txt: "Like unproven flight hardware, according to a NASA standard" },
+            10: {
+              txt:
+                "Like unproven flight hardware, according to a NASA standard",
+            },
             11: { txt: "Sow anew" },
             12: { txt: "Ego counterpart" },
             13: { txt: "19th most common letter in English language texts" },
@@ -120,26 +170,44 @@ export default {
             19: { txt: "Tenacious ___ (Jack Black’s band)" },
             21: { txt: "'I don't think so'" },
             22: { txt: "See 22-Across" },
-            23: { txt: "UCSD major featuring courses such as Algorithm Design and OSes" },
-            25: { txt: "Word found before apple or orange, but not pear or lemon" },
+            23: {
+              txt:
+                "UCSD major featuring courses such as Algorithm Design and OSes",
+            },
+            25: {
+              txt: "Word found before apple or orange, but not pear or lemon",
+            },
             27: { txt: "WWII bomber ___ Gay" },
-            28: { txt: "Possible nickname for a friend you share a web-based news aggregator with" },
-            30: { txt: "Genre that includes ambient, house, techno, and jungle" },
+            28: {
+              txt:
+                "Possible nickname for a friend you share a web-based news aggregator with",
+            },
+            30: {
+              txt: "Genre that includes ambient, house, techno, and jungle",
+            },
             31: { txt: "Skilled with numbers, informally" },
             33: { txt: "Lack of utilization" },
             34: { txt: "Seventh king of Israel and a whale hunter" },
             36: { txt: "Ancient resident of Machu Picchu" },
             37: { txt: "Madden NFL 21 company" },
-            42: { txt: "Inoffensive symbol made with fingers, in most cultures" },
+            42: {
+              txt: "Inoffensive symbol made with fingers, in most cultures",
+            },
             43: { txt: "Palindromic band" },
-            44: { txt: "An economic index based on the cost of a small cup of Sbux coffee and steamed milk and an orbital maneuver required to reach the moon (Abbr.)" },
+            44: {
+              txt:
+                "An economic index based on the cost of a small cup of Sbux coffee and steamed milk and an orbital maneuver required to reach the moon (Abbr.)",
+            },
             45: { txt: "Fell to the bottom" },
             47: { txt: "See 148-Across" },
             53: { txt: "Uttered, scrambled" },
             55: { txt: "Down Under puncher, colloquially" },
             56: { txt: "'Can ___ that?'" },
             57: { txt: "Blow-___ (salon jobs)" },
-            58: { txt: "Letter whose NATO representation is the name of a character in The Office" },
+            58: {
+              txt:
+                "Letter whose NATO representation is the name of a character in The Office",
+            },
             59: { txt: "January or March, for Pedro" },
             60: { txt: "Peeve" },
             68: { txt: "Library sound" },
@@ -148,7 +216,9 @@ export default {
             72: { txt: "Geologist's long time" },
             73: { txt: "One of two standard axes on plots" },
             75: { txt: "Kendrick Lamar song released in 2015" },
-            76: { txt: "Commonly seen following the ball on a youth soccer field" },
+            76: {
+              txt: "Commonly seen following the ball on a youth soccer field",
+            },
             80: { txt: "See 148-Across" },
             81: { txt: "'Jersey Shore' star, familiarly" },
             84: { txt: "Baker Street detective" },
@@ -157,15 +227,25 @@ export default {
             87: { txt: "Hollywood actor/actress producers?" },
             88: { txt: "Grayscale beast" },
             89: { txt: "Sam-I-__, of Green Eggs and Ham" },
-            90: { txt: "Rating for video games appropriate for those 13 and older" },
+            90: {
+              txt: "Rating for video games appropriate for those 13 and older",
+            },
             91: { txt: "Pain sounds" },
-            92: { txt: "UN composite statistic capturing life expectancy, education, and per-capita income" },
+            92: {
+              txt:
+                "UN composite statistic capturing life expectancy, education, and per-capita income",
+            },
             93: { txt: "Anything that is not 9-Down" },
             95: { txt: "Scarfed it down" },
             96: { txt: "Fraught with danger" },
-            97: { txt: "Someone who produces presents that are difficult to unwrap" },
+            97: {
+              txt: "Someone who produces presents that are difficult to unwrap",
+            },
             101: { txt: "Letter representing one of the nucleic acids" },
-            102: { txt: "Popular arcade game played with your feet, the original version (Abbr.)" },
+            102: {
+              txt:
+                "Popular arcade game played with your feet, the original version (Abbr.)",
+            },
             107: { txt: "Little monster, occasionally" },
             108: { txt: "Humanitarian agency created by JFK" },
             111: { txt: "Successor to 70-Down" },
@@ -178,7 +258,9 @@ export default {
             121: { txt: "Bills that can be embarrassing in quantity" },
             122: { txt: "Ask, ask, and ask some more" },
             125: { txt: "Neat, as a bed" },
-            127: { txt: "Letter representing the base of the natural logarithm" },
+            127: {
+              txt: "Letter representing the base of the natural logarithm",
+            },
             128: { txt: "Start-up money?" },
             130: { txt: "Bathroom, in London" },
             133: { txt: "Large vessel" },
@@ -189,7 +271,10 @@ export default {
             142: { txt: "MDMA, slangily" },
             144: { txt: "Thrice repeated letter in some names" },
             145: { txt: "First-person singular subject pronoun in English" },
-            147: { txt: "Class of driver’s license required to operate a small school bus" },
+            147: {
+              txt:
+                "Class of driver’s license required to operate a small school bus",
+            },
           },
         },
       },
