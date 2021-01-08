@@ -14923,8 +14923,36 @@
             "type": "rp",
             "notes": "Even better than than Wolfpack. Low end for the grade, maybe only v11, but as you get older and more wise you realize Jens don’t know shit and you should always take the grade. ",
             "rating": 5
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Yosemite (CA)",
+            "areaSlug": "yosemite-ca",
+            "cragName": "Candyland",
+            "cragSlug": "candyland",
+            "sectorSlug": "unknown-sector-ba185",
+            "zlaggableName": "The Diamond",
+            "zlaggableSlug": "the-diamond",
+            "countrySlug": "united-states",
+            "userAvatar": "gallery/33043.jpg",
+            "userName": "Chad Haarmed",
+            "userSlug": "dirk-irector",
+            "date": "2020-12-22T12:00:00+00:00",
+            "difficulty": "7B+",
+            "gradeIndex": 26,
+            "comment": "Can't believe how long it took me to finish this. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": true,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Can't believe how long it took me to finish this. ",
+            "rating": 4
         }
     ],
-    "totalItems": 533,
+    "totalItems": 534,
     "pageIndex": 0
 }

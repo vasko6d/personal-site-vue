@@ -15847,8 +15847,36 @@
             "type": "rp",
             "notes": "",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Red Rock (NV)",
+            "areaSlug": "red-rock-nv",
+            "cragName": "Willow springs",
+            "cragSlug": "willow-springs",
+            "sectorSlug": "unknown-sector",
+            "zlaggableName": "Fluffy Logic",
+            "zlaggableSlug": "fluffy-logic",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Chris hoss",
+            "userSlug": "chris-hoss-99e8l",
+            "date": "2021-01-05T12:00:00+00:00",
+            "difficulty": "7C+",
+            "gradeIndex": 28,
+            "comment": "@shirleygirth, if you were climbing like C.Hoss maybe you'd actually climb v11, lil bitch.",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "go",
+            "notes": "@shirleygirth, if you were climbing like C.Hoss maybe you'd actually climb v11, lil bitch.",
+            "rating": 0
         }
     ],
-    "totalItems": 566,
+    "totalItems": 567,
     "pageIndex": 0
 }
