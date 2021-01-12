@@ -24471,8 +24471,36 @@
             "type": "rp",
             "notes": "Wow I cut feet all over the place like Chris Hoss. I felt like Chris Hoss when I rock climbed this.",
             "rating": 4
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Buttermilks",
+            "cragSlug": "buttermilks",
+            "sectorSlug": "unknown-sector-c03a7",
+            "zlaggableName": "Bubba Gump",
+            "zlaggableSlug": "bubba-gump",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/k0x4nl5j.jpg",
+            "userName": "Shirley Girth",
+            "userSlug": "shirley-girth",
+            "date": "2021-01-11T12:00:00+00:00",
+            "difficulty": "7C+",
+            "gradeIndex": 28,
+            "comment": "Jesus Christ. I’ve done this.  I’ve finally done this. This boulder made me feel so much sadness. So much tearless crying. A triumph. A lobster. A chicken cocktail. Another Chase. A footpick. The mayor. A sound defeat.  A valley of despair. Then the waters became clear and I drank and I drank and I slurped it all up and I kept doing it and I felt. I felt. I felt ALIVE. I felt well. I ain’t felt this way in years. Choss. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": true,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Jesus Christ. I’ve done this.  I’ve finally done this. This boulder made me feel so much sadness. So much tearless crying. A triumph. A lobster. A chicken cocktail. Another Chase. A footpick. The mayor. A sound defeat.  A valley of despair. Then the waters became clear and I drank and I drank and I slurped it all up and I kept doing it and I felt. I felt. I felt ALIVE. I felt well. I ain’t felt this way in years. Choss. ",
+            "rating": 2
         }
     ],
-    "totalItems": 874,
+    "totalItems": 875,
     "pageIndex": 0
 }
