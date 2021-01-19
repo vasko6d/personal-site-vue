@@ -9687,8 +9687,36 @@
             "type": "rp",
             "notes": "well, not a v3 but it was a john backar.... nice climb ",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Stoney Point",
+            "cragSlug": "stoney-point",
+            "sectorSlug": "summit",
+            "zlaggableName": "Fighting with Alligators",
+            "zlaggableSlug": "fighting-with-alligators",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Zev Fineman",
+            "userSlug": "zev-fineman",
+            "date": "2021-01-12T12:00:00+00:00",
+            "difficulty": "8A",
+            "gradeIndex": 29,
+            "comment": "Fun climb, The jug start has officially broken. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Fun climb, The jug start has officially broken. ",
+            "rating": 5
         }
     ],
-    "totalItems": 346,
+    "totalItems": 347,
     "pageIndex": 0
 }
