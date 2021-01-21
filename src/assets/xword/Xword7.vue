@@ -9,10 +9,10 @@ export default {
         author: "Jacob Wood",
         editor: "Jacob Wood, Erin Menefee, Julie Nager, Ryan Menefee",
         createDate: "20200105",
-        difficulty: 3,
+        difficulty: 6,
         dimension: "21x21",
         theme:
-          "Some clues form a sentence that introduces its own cryptic puzzle",
+          "47-Down took 2-Down years to produce the answer to 148-Across, 32-Across, and 16-Down. 80-Down could use 8-Down to do it in 113-Down.",
         note:
           "I had this idea in April 2020 and spent a while trying to come up with a satisfactory (and ideally NYT-legal) grid. Despite the many single-letter answers this is as close as I could get.",
         colorCells: [],
@@ -102,7 +102,7 @@ export default {
             94: { txt: "Cause of financial strain for millennials" },
             98: { txt: "Half the cost of a large purchase" },
             99: { txt: "'___ Want It', 1996 song by Tupac" },
-            100: { txt: "Einstein's effects" },
+            100: { txt: "Like Einstein's effects" },
             102: { txt: "Vitamin shown to reduce Covid-19 infections" },
             103: { txt: "NASA M2-F1 aircraft distinguishing characteristic" },
             104: { txt: "Diner sound" },
