@@ -5039,8 +5039,36 @@
             "type": "f",
             "notes": "It was supposed to be a rest day but I'm on top of the world\nI've tried to cut these corners\nTry to take the easy way out\nI kept on falling short of something\nI coulda gave up then\nbut then again I couldn't have\n'cause I've traveled all this way for something\nI take it in but don't look down\n'Cause I'm on top of the world\nI'm on top of the world",
             "rating": 4
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Buttermilks",
+            "cragSlug": "buttermilks",
+            "sectorSlug": "unknown-sector-c03a7",
+            "zlaggableName": "Fly Boy Sit",
+            "zlaggableSlug": "fly-boy-sit-7bd73",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-01-18T12:00:00+00:00",
+            "difficulty": "7B+",
+            "gradeIndex": 26,
+            "comment": "3rd session I showed up with some skin, some cheese in a bag, and it all felt right. We had the pads and the spoots for a left-hand-to-the-lip sort of day and that's just the sort of day that we had. Psyched. Even a waffle can be psyched. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "3rd session I showed up with some skin, some cheese in a bag, and it all felt right. We had the pads and the spoots for a left-hand-to-the-lip sort of day and that's just the sort of day that we had. Psyched. Even a waffle can be psyched. ",
+            "rating": 5
         }
     ],
-    "totalItems": 180,
+    "totalItems": 181,
     "pageIndex": 0
 }
