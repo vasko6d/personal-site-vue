@@ -24583,8 +24583,36 @@
             "type": "rp",
             "notes": "m-flash. Hey man, this is actually pretty good. It's a pretty good rock climb, man. Wow! Wow this was nice. I forgot how to mantle but this was really nice and good. Hey, Dave. Dave you tried hard. You tried hard, Dave. Next time, Dave.",
             "rating": 3
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Dale's Camp",
+            "cragSlug": "dale-s-camp",
+            "sectorSlug": "unknown-sector-3f322",
+            "zlaggableName": "Zen Flute",
+            "zlaggableSlug": "zen-flute",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/k0x4nl5j.jpg",
+            "userName": "Shirley Girth",
+            "userSlug": "shirley-girth",
+            "date": "2021-01-21T12:00:00+00:00",
+            "difficulty": "7C+",
+            "gradeIndex": 28,
+            "comment": "BUT I'M IIIIIINNNN SOO DEEEEEEEEEEPPP!!!",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "BUT I'M IIIIIINNNN SOO DEEEEEEEEEEPPP!!!",
+            "rating": 5
         }
     ],
-    "totalItems": 878,
+    "totalItems": 879,
     "pageIndex": 0
 }

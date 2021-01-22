@@ -15623,8 +15623,36 @@
             "type": "rp",
             "notes": "",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Yosemite (CA)",
+            "areaSlug": "yosemite-ca",
+            "cragName": "Unknown Crag",
+            "cragSlug": "unknown-crag-ef12c-verrev",
+            "sectorSlug": "unknown-sector",
+            "zlaggableName": "Cindy",
+            "zlaggableSlug": "cindy",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Chris hoss",
+            "userSlug": "chris-hoss-99e8l",
+            "date": "2021-01-21T12:00:00+00:00",
+            "difficulty": "7C+",
+            "gradeIndex": 28,
+            "comment": "",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": true,
+            "type": "rp",
+            "notes": "",
+            "rating": 0
         }
     ],
-    "totalItems": 558,
+    "totalItems": 559,
     "pageIndex": 0
 }
