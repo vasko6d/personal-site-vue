@@ -5123,8 +5123,36 @@
             "type": "rp",
             "notes": "I've been looking at this funkyboy for a while now and always wanted to try holding those big holds. Turns out some of those big holds are bad and tricky. Psyched to do in a session. The move to the jug is fun. I love jugs on the top of rocks. And I always go to them with my left hand. ",
             "rating": 4
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Happy Boulders",
+            "cragSlug": "happy-boulders",
+            "sectorSlug": "unknown-sector-17b82",
+            "zlaggableName": "Bleached Bones",
+            "zlaggableSlug": "bleached-bones-47861",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-01-22T12:00:00+00:00",
+            "difficulty": "6B",
+            "gradeIndex": 18,
+            "comment": "Jesus criminy ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": true,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Jesus criminy ",
+            "rating": 2
         }
     ],
-    "totalItems": 183,
+    "totalItems": 184,
     "pageIndex": 0
 }
