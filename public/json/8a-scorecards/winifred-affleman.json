@@ -5151,8 +5151,36 @@
             "type": "rp",
             "notes": "Jesus criminy ",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Happy Boulders",
+            "cragSlug": "happy-boulders",
+            "sectorSlug": "unknown-sector-17b82",
+            "zlaggableName": "Hamtaro",
+            "zlaggableSlug": "hamtaro",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-01-24T12:00:00+00:00",
+            "difficulty": "7B+",
+            "gradeIndex": 26,
+            "comment": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Sorft. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Sorft. ",
+            "rating": 3
         }
     ],
-    "totalItems": 184,
+    "totalItems": 185,
     "pageIndex": 0
 }

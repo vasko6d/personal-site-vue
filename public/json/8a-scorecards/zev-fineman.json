@@ -9631,8 +9631,36 @@
             "type": "rp",
             "notes": "Another classic off the list. The bottom feels like V9 again with all the breaks. The slab is chill, you practically don't use your hands for most of it. ",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Buttermilks",
+            "cragSlug": "buttermilks",
+            "sectorSlug": "unknown-sector-c03a7",
+            "zlaggableName": "Stained Glass",
+            "zlaggableSlug": "stained-glass",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Zev Fineman",
+            "userSlug": "zev-fineman",
+            "date": "2021-01-24T12:00:00+00:00",
+            "difficulty": "7C+",
+            "gradeIndex": 28,
+            "comment": "God damn I am stoked..... One of the best lines ever. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "God damn I am stoked..... One of the best lines ever. ",
+            "rating": 0
         }
     ],
-    "totalItems": 344,
+    "totalItems": 345,
     "pageIndex": 0
 }
