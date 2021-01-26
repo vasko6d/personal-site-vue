@@ -9126,7 +9126,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "great movement. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9182,7 +9183,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Great climb, pretty height dependent. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9266,7 +9268,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I thought it was really cocaine so I spent over an hour brushing it and collecting it. Then someone told me it was just chalk..... ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9294,7 +9297,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Such a classic, such an amazing problem ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,

@@ -110,7 +110,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -726,7 +727,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I don't think it is v7",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -754,7 +756,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Not a typical Josh climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -894,7 +897,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of my proudest sends. I almost fell from the very top!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -950,7 +954,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "v8",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1174,7 +1179,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Once somebody showed me the beta, it wasn't too bad",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2098,7 +2104,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3582,7 +3589,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "repeated 5/16/10 with a right sandal on",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3666,7 +3674,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4310,7 +4319,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of my favorite problems at Tram",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4562,7 +4572,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This is the 20 foot tall face in the same boulder cluster as The Pebble. it starts on the big black knob and goes straight up. This climb deserves more attention than it has been getting.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4786,7 +4797,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of the best lines at Tram",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4926,7 +4938,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "awesome",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5094,7 +5107,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5346,7 +5360,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "It wasnt too bad once I got my sequence",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6382,7 +6397,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Was not expecting to send considering it was my 7th day on",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6942,7 +6958,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Awesome climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8762,7 +8779,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Scary!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9098,7 +9116,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I thought I was never going to finish it. It feels so good to be Done with it!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9210,7 +9229,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So happy to finish it. This turns a really good climb into an amazing climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9462,7 +9482,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Probably one of the scariest climbs I've ever done!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9770,7 +9791,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9798,7 +9820,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Really cool climb, not v5",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10358,7 +10381,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Always felt so hard except for today. Better than high plains",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10414,7 +10438,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "1st go of the day. Best day of climbing yet",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13102,7 +13127,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13662,7 +13688,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13942,7 +13969,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Thats a big lock off pretty high up! Much more fun and more consistent than its neighbor.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14250,7 +14278,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So tall and intimidating! Perfect crimps on a slab somewhere around 30ft high",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14978,7 +15007,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing technical arete. Better than the original",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -15286,7 +15316,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -15566,7 +15597,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -16098,7 +16130,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -16630,7 +16663,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Easily one of the best climbs Ive done",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -17050,7 +17084,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -17750,7 +17785,8 @@
             "secondGo": false,
             "type": "f",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -17834,7 +17870,8 @@
             "secondGo": false,
             "type": "f",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -18030,7 +18067,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of my favorites here so far",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -18366,7 +18404,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Overshot the jug on my flash attempt",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -19122,7 +19161,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "First two moves are the hardest. The rest is just committing",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -19934,7 +19974,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of the coolest climbs I've ever done. The movement is so unique I dont know how to accurately grade this climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -20046,7 +20087,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -20270,7 +20312,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Shoulda flashed. Probably on the easy side. Either way it's an amazing climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -20830,7 +20873,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Straight up. Definitely an underrated classic on this wall",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -21586,7 +21630,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -21978,7 +22023,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -22454,7 +22500,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -22846,7 +22893,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Cool",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -22958,7 +23006,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -23574,7 +23623,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -26178,7 +26228,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -26990,7 +27041,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Probably easier. Hard to say with scare factor. Either way this is a quality climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -28278,7 +28330,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -28754,7 +28807,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Been wanting to try this thing for years. Glad I finally did",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -28950,7 +29004,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Couldn't have done it without david. He wasn't there but knowing somebody as fat as me was able to pull and that zeno and not rip it off the wall helped a ton",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -30210,7 +30265,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Easily one of the best at black. Other than overground or the wheel of whatever or all those other classics everybody has been wasting their time on",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -33206,7 +33262,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -33514,7 +33571,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Post break repeat. More betterer now",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,

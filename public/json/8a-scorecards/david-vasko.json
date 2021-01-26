@@ -166,7 +166,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing. So much fun to finally reach up for that hole.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2242352,
@@ -698,7 +699,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Great experience.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 2238917,
@@ -782,7 +784,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "what Dustin said",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2276285,
@@ -1818,7 +1821,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I really like this problem. Too bad stupid butt dragger rock is there.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 2467330,
@@ -1986,7 +1990,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "great climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2467335,
@@ -2910,7 +2915,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "backlog",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 2755598,
@@ -3106,7 +3112,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "FUN!",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 3639568,
@@ -3386,7 +3393,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "great first move(i love silly stuff like campusing) with a little height at the end to make is exciting",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2755599,
@@ -3694,7 +3702,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Nothing like a good highball to get you stoked on climbing. Last move is just so great.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2755659,
@@ -3946,7 +3955,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Sooo good. Finally sticking that jug feels just incredible. So beautiful too.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2767204,
@@ -3974,7 +3984,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Such an amazing feeling to be able to climb a boulder like this. Fun slash good moves as well. Must do V5.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2767192,
@@ -4002,7 +4013,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Such an aesthetic line. Bottom is really hard, high flake is thin, and it is high enough to get a rush. Great.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3639586,
@@ -4198,7 +4210,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So beautiful! Great compression",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2767196,
@@ -4478,7 +4491,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Couple different sequences for beta but all cool! Aesthetic too",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2934155,
@@ -4562,7 +4576,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "this is my jam. ha-cha.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2906385,
@@ -4842,7 +4857,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "one of the best climbs in the area",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2906395,
@@ -4954,7 +4970,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "super fun to figure out the intricate beta! good climb",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2906417,
@@ -5234,7 +5251,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "deadpoint is only real hard move but overall great problem",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2906432,
@@ -5514,7 +5532,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Great movement on good rock! Very proud of this send",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 2934157,
@@ -5934,7 +5953,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Amazing Line! Another great black mountain highball",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5448399,
@@ -5990,7 +6010,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Retroactive recommend whore. I remember this being really good just super dirty. 5 years later im sure its super clean and great. I guarantee it just like a warehouse for males.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5448466,
@@ -6130,7 +6151,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Way sicker going direct! One pretty scary move but so much pretty.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5448422,
@@ -6298,7 +6320,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I remember this being very rewarding. Cool subtle beta and pure face.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5448423,
@@ -6522,7 +6545,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing line. A tough beginning followed by a few great jugs and a high toppout",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3000627,
@@ -7110,7 +7134,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Great arete feature right by the water. There may even be potential to fall in water, or hit rocks then fall in water. Point is there is water near this climb. Very pretty water I might add. <a href=\"https://drive.google.com/file/d/0B903aI0TyENqMU5RWUJhamZsYjg/view?usp=sharing&amp;t=13m21s\" target=\"_blank\"> Video.</a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782712,
@@ -7278,7 +7303,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of my favorite from that year of FAs. Reminisce about this one now and then. Amazing heel toe cam and difficult rock over the lip. <a href=\"https://www.youtube.com/watch?v=_bFMmASz2j4&amp;t=1m7s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782697,
@@ -7362,7 +7388,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Perfect edges up a great looking 16' face in a gorgeous setting. Among the best V1s I have ever done. <a href=\"https://www.youtube.com/watch?v=_bFMmASz2j4&amp;t=2m17s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782699,
@@ -7502,7 +7529,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Stellar movement on amazing wall of granite. <a href=\"https://www.youtube.com/watch?v=_bFMmASz2j4&amp;t=2m51s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782689,
@@ -7530,7 +7558,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing name, amazing climb. Good dancing broski. <a href=\"https://www.youtube.com/watch?v=_bFMmASz2j4&amp;t=4m42s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782682,
@@ -7670,7 +7699,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Was having so much trouble starting this darn thing then when Fanny finally shows me how do to it, it just starts pouring and thundering like crazy. And i mean dumping on us. Figured id give it another burn and sure enough those send juices were flowing. Topped out in pouring rain. \nIncreadible Feature. Good movement. Beautiful.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3934295,
@@ -7782,7 +7812,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of the best of this grade",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3150169,
@@ -7810,7 +7841,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This is my jelly. Beautiful movement on a compression problem. It is in a dangit hole but it forces you to climb super controled. Really liked this.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3150186,
@@ -8146,7 +8178,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Awesome. The fin slash pinch feature is just so snack!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3150137,
@@ -8818,7 +8851,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Pure as all holy hell. Probably not even v9 but I would be proud to have Soul Calibur be my first V9... so soft v9 it is. Thanks Scooter and Erock for bombing out there with me for the M-flash.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3430122,
@@ -8930,7 +8964,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ran this thang back today, and wow. So pure. So freaking pure. Also Pichy way to fall on your face from the top and be OKAY. Shout out UCLA SPOTDING team.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 2276252,
@@ -8958,7 +8993,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Holy highball circuit Tram! So many good tall lines in shangri la! Ran this back for the first time in 3 years and loved it. So fun to work through this technical but unfortunately reachy sequence. Anyone short ever bag this thing?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3437104,
@@ -8986,7 +9022,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Great for the grade! Awesome find this one. Definitely worth stopping by whenever your in the area... maybe run it back a few times too!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3437105,
@@ -9042,7 +9079,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ran this thing back too. Incredibly beautiful face with holds exactly where they need to be. I could do this one every trip to tram.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 3437092,
@@ -9098,7 +9136,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "D Vasko knows a thing or two about good jellies, preserves, and the like... but let me tell you, this climb was my JAM. But seriously great climb! Super aesthetic with good motion to boot!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3437093,
@@ -9378,7 +9417,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "20+ foot slabby face with glory xenos all the way up. One of the most amazing views you will ever see from the top of a boulder. <a href=\"https://www.youtube.com/watch?v=DGBJrHYObsc&amp;t=30s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3659051,
@@ -9406,7 +9446,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "A beautiful lie back crack feature that rocks over into a little bit of slab at the top. Only like 50 feet off the main road about a half mile up from Silver City. <a href=\"http://www.youtube.com/watch?v=DGBJrHYObsc&amp;t=2m57s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3659052,
@@ -9434,7 +9475,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing lip traverse into compression in a beautiful setting. <a href=\"https://www.youtube.com/watch?v=_bFMmASz2j4&amp;t=3m29s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782698,
@@ -9518,7 +9560,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Kinda out in the boonies but i thinks its on the same street as Shirley... get it? its well worth it!! Anyway, start felt impossible until my boy Shirley helped me find the right beta. Beautiful holds, good looking line and good movement to boot. Might be V5.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3474701,
@@ -9630,7 +9673,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Tram has so many good highballs and here's another! Tricky opening, but cool movement and awesome topout. I think i know why its called black moon",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4782687,
@@ -10050,7 +10094,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Since on my sent burn i was oozing out my tips onto melting holds, basically falling off every move im going to give it V7. It temps were good i could see this being easy V6. Dat cross move is sick!",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 3491046,
@@ -10106,7 +10151,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "WOOOHOOOO!!!! Send train with yer boi Jeffy!! King line of King lines.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3490979,
@@ -10190,7 +10236,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Trams attempt at Once Upon Time! Super beautiful boulder, climb has awesome moves, and its actually not really scary since the first moves are like piss. Get out here!",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4391557,
@@ -10386,7 +10433,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I remember when i was a wee lad watching Fanny work this thing. I wondered to myself \"Will i ever be strong enough to do cool climbs like this?\" Well i guess today I am! Felt super cruiser. Tons of fun.. except my shoulder started hurting after i sent and i didnt climb anymore. Hopefully it feels better tomorrow.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3506179,
@@ -10554,7 +10602,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Taking V9 for the Sea of Green!! Definitely heinously soft but movement is stellar and it was my last climb after three back to back day trips so yeah, witness this fitness!\n\nEDIT (20th May, 2019): I want to be part of the Retro Active Downgrade Crew!! Feels great to be elitist! Plus after giving it serious thought this is even softer than heinous. The downgrade has nothing to do with engineering my 100th V8.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3516502,
@@ -10946,7 +10995,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Roll out! This thing was awesome! If only you didnt have that dabber slab this would be even prouder! Top is glorious.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3531153,
@@ -11086,7 +11136,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "You'll have to excuse my friend. He's is a little slow... the crux is definitely class 5 climbing. Some lucky guys are gonna be climbing around the country with those girls on this glorious climb for the next couple months... don't worry... Chriss Hoss We'll catch our break too.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3531133,
@@ -11114,7 +11165,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Blew my load trying to stick my darned sausages into that narrow slot!..... did i say 'load' i mean 'flash'! Same thing. Whatever. Anyway, movement was awesome, rock was awesome landing was... classic lower choss.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3531149,
@@ -11478,7 +11530,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Shallow water solo-ed this piece!! When we walked up to it there was straight 3 feet of water at the base, and at first i was like... \"Shucks ill never get to climb this\". Then Dustin told me \"You Wont\" and then i stripped down and got all psyched! WooHoo!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612811,
@@ -11562,7 +11615,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "So good. Whenever I see a jug like that I....",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612815,
@@ -11590,7 +11644,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This was literally the first thing we put Akhil on after picking him up from the airport. Not the best thing for someone with skin that explodes. Seriously though, great technical face on small feet and sharp crimps.  More people should get out here",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612817,
@@ -11674,7 +11729,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Its amazing how bad that pinch can feel. Great technical body position. The sit will go next time.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612824,
@@ -11702,7 +11758,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Stellar Movement! If only dabber rock wasn't there! Is anyone named Luke?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612822,
@@ -11870,7 +11927,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So i tried this thing on friday night, and straight fell post crux. Heart breaking! So that night i lucidly dreamed all night and trained all night in that dream. Ran out there as soon as i woke up and did it first burn. Shout out brain.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612855,
@@ -11926,7 +11984,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "A really inspiring line! Some people say \"The higher you start on a boulder... the prouder the climb.\" Its got some truth. That \"J\" though!",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 3612833,
@@ -12094,7 +12153,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So get this, its Saturday night and I can't get any beta to work. I start crying and go to Save-On Foods to look up some beta. That night I invoked my lucid powers again and trained all night. As soon as i woke up i ran across the river and used, toe hooks, drop knees pogos, and she was soft as peach fuzz. Had to run it back a few days later for that elusive \"Z\"",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612857,
@@ -12150,7 +12210,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "\"No F@#$!!\". Seriously... those cuts though? Anyone? This was hands down the hardest i tried all trip, and the footy proves it. So painful, so messy, but boys... we got ourselves a \"Q\"!! That was literally total limit.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612851,
@@ -12178,7 +12239,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing! I love this line. Plus its got rad Alliteration, which makes perfect for that ABC stuff. Side note, i believe you get stronger over the course of a long trip, only reason i pulled this.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3612859,
@@ -12290,7 +12352,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "So someone booby trapped the sloper rail and put dirt and lichen on it, just to blow my flash. I bet you it was that Data Kid from the Goonies. Ran it back three times becasue i wanted to outdo Guim.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3637239,
@@ -12346,7 +12409,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "An Amazing, Aesthetic And Arduous Ascent. An Absolute A+ Anywhere. Aerially Alarming And Appalling, Although Awarding At Apex",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3637250,
@@ -12486,7 +12550,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Uber soft but ill give it 6 for its quality movement and the Sea of Green.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3637216,
@@ -12626,7 +12691,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "After all the hype I actually expected this to be hard.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3637264,
@@ -12654,7 +12720,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Near perfect. This gem is a must do! Shout Crush for the full value fall!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3637258,
@@ -12682,7 +12749,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Climbs like these remind you why you should like slab.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3637269,
@@ -12906,7 +12974,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "This is probably the low ballest climb i have ever recommended. But what it lacks in height it makes up for in features movement and sawg.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3649048,
@@ -13018,7 +13087,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Good movement. Check. Ergo holds. Check. Not short. Check. Huge jug sloper. Check. Only downside is the awkward landing zone. My proudest flash to date, this is an amazing line.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3649139,
@@ -13326,7 +13396,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Words cannot express the amazing adventure that is \"The Creature from the Black Lagoon\". I too stripped down to my skivvies fearing the worst.  Left foot blew halfway through the foot trav and miraculously held the barn door with just my fingernails and a right smear. When you finally reach the crack you have 20 more vertical feet of glory. Simply incredible.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3649146,
@@ -13438,7 +13509,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "That starting left hand side pull is such an amazing feature. Holy Cow!  Two glorious throws add up to a pretty epic boulder problem.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3657941,
@@ -13522,7 +13594,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "If I'm being honest with myself, this is lower end V6. Luckily i can lie to myself to make me feel better.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3657974,
@@ -13634,7 +13707,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This beautiful V0 belongs alongside \"Emerald City\" at Tramway, and \"Summer Vacation\" at Squamish in the easy highball hall of fame. One of the best V0s i have ever done. Gorgeous setting and good movement including a mid way mantel.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3662813,
@@ -13774,7 +13848,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb may take the cake for most gorgeous setting. Located on the top of a ridge overlooking a great ocean vista. Pretty tricky body position for that first move of the stand.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3663191,
@@ -13970,7 +14045,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "While sandstone has its flaws, this line is astounding. The last right hand before the lip is a little crumbly, but it adds an enjoyable hint of spice. Highballs on your own are sketch. Beautiful arch formation!",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 3662846,
@@ -13998,7 +14074,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Two amazing consecutive deadpoints. Simply gorgeous. I worry that the start hold has a dwindling lifespan. I wouldn't want to be the person who ruins this classic piece.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3663228,
@@ -14110,7 +14187,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wow. I got the coffee jitters right before trying thing and flailed like a gumby. Erock sent and inspired me, so I pushed through the worst shakes i have ever had and topped her. This thing deserves more sends, its so good. Love the moves up high, that have the perfect amount of spice.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3673580,
@@ -14222,7 +14300,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Magnificent! Ran it first thing in the morning as part of the ol' warmup and it felt easy. Ran it back a second time at night last thing of the day and felt stupid hard. But i know its really soft.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3673577,
@@ -14502,7 +14581,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Hello. This is \"The Man\" Incorporated calling to offer you a climb with BIG moves and PHAT holds. You wont you... ...But seriously power test piece!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3684905,
@@ -14670,7 +14750,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Don't really know how rope grades convert, so ill just say V2? This think is a dope climb, landing is a little wonky for a bouldering fall, but its good. Lie Backed it.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4491246,
@@ -14866,7 +14947,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Not quite as classic as the UCLA testpiece \"Streetcar Set on Fire\" but pretty damn close.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3768990,
@@ -14922,7 +15004,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "AWESOME! Unique, fun ergo movement with a lot of spice. I liked every single move of this beast. Honestly really soft, probably a V6 but its got a scare factor and Kody and I are both really good at pushing so its hard to tell how hard the rock over really is. If you have the pads and are in the area, try it!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3768981,
@@ -15090,7 +15173,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Awesome line! Tall slappy/arete-ey/dihedral-ey feature. Like the book says, holds right where you need them!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3772693,
@@ -15230,7 +15314,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Awesome dead point high off the deck! So so aesthetic... in fact, almost as aesthetic as McSharty herself!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3780171,
@@ -15314,7 +15399,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Another one for Buttermilk highball bingo!! Cannot believe I have never even hear about this line before. Good jug line to a  high enjoyable mantle.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3780174,
@@ -15510,7 +15596,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This gorgeous line has been number 1 on my tick list for so gosh darn long. Five total sessions, and one session a week for the last 4 weeks! A couple of solo sessions too! You cannot ask for a better problem: awesome features, unreal panoramic view, solid movement , just an all around grand experience. Sorry team yellow but I'm a bitch and I am taking the points.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3794166,
@@ -15902,7 +15989,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Matt's timelapse captured a savage send train. Sandbox with 5 soft-second-go's 1 flash, and a shirley in a pear tree. Definitely soft but thoroughly enjoyed this climb!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3794364,
@@ -15958,7 +16046,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Flashed it twice, I'm that cool. Such an awesome move! Boulder is really cool looking, and that nook is really cozy. Plus its got the best hackey-sack spot in the world! Shoutout Scott for playing on the edge.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3794260,
@@ -16238,7 +16327,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Third go. Only recommended it because it had 0%. I love high balls and the last two moves are deadpoints way off the deck which is siick. That left hand pinch is DOPE. Rampage baaabyy!",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 3794373,
@@ -16490,7 +16580,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Possibly the best feature I have ever climbed. Simply Amazing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3794927,
@@ -16546,7 +16637,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "m-soft-third-go. We had the best temps you can possibly get on this climb. Made the sloper feel real nice. This probably has the most jugs a V8 can possible have. Loved it. Absolutely loved it.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3794934,
@@ -16602,7 +16694,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Off the beaten path soft V5 thats fun. Recommending it so people hike up here. Great view. Send train with yer bois Jquee and Stoffy.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 3794953,
@@ -16658,7 +16751,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Shirley knows a thing or two about high stepping. Thanks for the good beta! M-soft-second-go. One of the MUST DO lines in Joe's. 20+ feet of glory.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 3794971,
@@ -17470,7 +17564,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wow. Such an amazing climb, with a cryptic yet beautiful sequence through the technical crux. It also finishes with a  committing reach to the lip. =]",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4037144,
@@ -17806,7 +17901,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "I felt like i could rip off several of the holds, but good movement and rewarding height. Holy cow Julio Jones is a man amongst men.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4046186,
@@ -18142,7 +18238,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Black mountain highball circuit always delivers. on a day where i feel like shit (because i am a fat piece of shit these days, so it makes sense i should feel like it too) its nice to get a little off the deck and just enjoy climbing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4062655,
@@ -18226,7 +18323,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Apparently this thing broke recently! I did not realize this until days later when I watched old videos. It makes getting out of the dihedral easier i think, but it adds a relatively big throw up top, so  I've been debating if deserves soft 7 or soft 8. Simply for the Sea of Green i had to opt for soft 8, and that is more meaningful i think.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4109020,
@@ -18478,7 +18576,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Best line on the boulder. Awesome toe hook which is pretty crucial, adn solid ass sharp holds. BTW i would have also sent Checkerboard, but some wankers from the Bay decided to get snowed out while driving down adn decided to turn around after 6 hours. I hope they at least jerked eachother off in that 12 hour drive jeeze!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4109036,
@@ -18814,7 +18913,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Great must do line at the Pollen Grains. Seven Spanish like start holds into nice diagonal crack and top is a jug. Amazing for the grade.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4147803,
@@ -18842,7 +18942,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Simply Fantastic! Great temps making for easy work of this beautiful line. Though I would be way more dinged up but turns out i still had some reserves.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4147823,
@@ -18954,7 +19055,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Fantastic! Its like solving a puzzle with your body and motion, except not boring like a real jigsaw puzzle. Real glad that last right hand is bomber because i could not get to it statically. Its funny because as you micro it, it goes from feeling stiff to feeling soft. All in all a must do line!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4171604,
@@ -19038,7 +19140,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Don't you hate when you accidental flash someone project in front of them? Like seriously, i had no idea i was going to flash. I even thought about dropping right after the crux. Bad Vasko. Anyway, this was an awesome 5 and you should definitely try if you are in the area. The big start jug may eventually break so the clock is ticking!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4171586,
@@ -19150,7 +19253,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Woah! This thing has a really high reccomended percentage! And for good reason, i must add. Quality face/slab climbing with just the right amount of holds, and a little height to give it the right amount of spice.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4171603,
@@ -19290,7 +19394,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "I am actually going to recommend this choss pile. I mean for sure most of the holds are friable, but did you see how big that hueco is!! You know what i do when i see a hueco like that?",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4188334,
@@ -19458,7 +19563,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Such a cool feature! Apparently that was not Abby's worst looking top out which is rather amazing because it was just the worst.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4188353,
@@ -19514,7 +19620,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Somebody's stronger than Zev and Shirley Muahaha! Hope you guys enjoy the hike a second time. Grecian God of Shittiness and Modesty strikes again!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4188348,
@@ -19626,7 +19733,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing how a few degrees counterclockwise and a thumb catch will turn anything into a jug.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4188361,
@@ -19794,7 +19902,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I had all of black mountain to myself today and it was glorious, made the last move of this piece a little scarier but it was still glorious. I was always trying to cross to that horn thing but i realized its softer to just straight lock off to the lip. Oh i forgot! A tree fell on top of this boulder so that's cool. Im a crumbly canyon wall and im coming to get you!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4207291,
@@ -19850,7 +19959,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "All in all this thing is about 20+ hand moves. Beautiful hueco jug features into a few powerful bursts and also includes a perchy heel. Such a beautiful piece of granite. I think i only gave it four burns but felt more like I gave it my entire soul and human existence. So tiring. Only downsides are that damn cut, and the fact you are coming out of a hole.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4213686,
@@ -19906,7 +20016,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "A dictation from when i topped out: \n\n<strong>Me</strong> - \"oh my god its so scary! wow!\" \n<strong>Shirley</strong> - \"How'd it feel?\" \n<strong>Me</strong> - \"That was one a.. thats.. thats why you climb dude. That feeling.. i thought i was dead\"\n\nApparently you climb to feel like you are going to die lol. Seriously this thing is incredible. Beautiful climb, with a desperate move to probably the most glorious Xeno of all time. Total euphoria at the top, rightly called Joy. Im curious how many other people have actually topped this thang?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4213699,
@@ -19934,7 +20045,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Toe hooks, lions and knee bars Oh My! Good beta from your boy now slim Shirley. Fantastic movement, 10/10 would bang. The hike from Twilight to here was, well, certainty an adventure =]. Glad to share it with the now slim Shirley.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4213734,
@@ -20354,7 +20466,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This one of those climbs where it seems like 0 strength is required, only good technique and immaculate balance. A little trust may help too! Great fun, plus you get to down climb Zone one =]",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4242276,
@@ -20438,7 +20551,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This thing deserves at least as much love as Big Greenie! More people need to get on this test piece?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4242284,
@@ -20606,7 +20720,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This boulder is worth it for the features alone. Some of the biggest coolest looking Huecos around!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4242257,
@@ -20662,7 +20777,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Shirley please dont go to Wild Things with out me. Baby I'm sorry!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4242213,
@@ -20690,7 +20806,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "For how close this thing is to the main Boulder Basin I am astonished it is not done more. Amazing climb/downclimb. Respect the boulders baby!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4279820,
@@ -20718,7 +20835,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "The allure of curry pizza gave me the wings and mental steel required to hold the jump. 10/10 would go on a romantic date by the beach with and invite on a second date.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4279805,
@@ -20774,7 +20892,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I hate when climbs fill my basket with butterflies, but this is the one and only \"Midnight Lightening\"! i mean its legendary, how can you not be giddy! Seriously though, fighting the nervousness of being on such an amazing and treasured block was definitely the hardest part.  Once i was able to relax, this thing went down as smooth as a good stout on nitro. Cheers.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4279799,
@@ -20914,7 +21033,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "MHAMA. I love you baby. Sorry I couldn't be the man you needed me to be.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4299101,
@@ -21586,7 +21706,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Bullet Proof Granite, cool jugs, and big moves. Need more zeros like it. <a href=\"https://www.youtube.com/watch?v=rRoMCjaqTGY&amp;t=1m31s\" target=\"_blank\"> Video. </a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4477823,
@@ -22006,7 +22127,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "A fun little Gem on the Master Blaster Boulder that may darn well be the best thing on the boulder. Pinch is super cool and gave me a lot of trouble. Short but a worthwhile FA by your boy Kody.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4477798,
@@ -22062,7 +22184,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Stunning, perfect hand/wide finger crack on bulletproof granite 100 yards from the Cold Springs Campground. Likely not an FA since I found a rusty bolt on top but this is a areola test piece! So good. A little scary pulling off ground since there is a 10ft fall to the left &gt;.&lt;. Must Do!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4477799,
@@ -22118,7 +22241,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Best FA i have put up to date! Amazing compression on quality granite. Such a beautiful refrigerator and its even topped with a fun mantel. Woot!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4477814,
@@ -22454,7 +22578,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Fourth Go. Shoulda gotten sprayed bc totally coulda flashed. Mongoid soft, but also mongoid fun. I would not want to be Shirley's palm meat after his pre-send burn... 5 minutes supporting all that girth as he tries to mantle... ouch. Also Drew told me there were no holds above the Jug so i did the mantle in pure ass style without pulling on anything above the lip. Honestly this feature is so amazing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4481982,
@@ -22790,7 +22915,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This thing is awesome. So pure. I may recommend a lot climbs but it is because i do a lot of really good rock climbs. This climb is indeed really good. Top is not quite as easy as you might expect from a jug haul so keep your wits about you.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4509347,
@@ -22846,7 +22972,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "The large shelf may be worrisome to some, but for me it was a great checkpoint that i could down climb to and re-chalk while i refined my beta. I was up and down at least 3 times before i completed my flash. This climb is so amazing, all non-bitches need to do it.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4509303,
@@ -22986,7 +23113,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "The coveted m-soft-second-go(-after-warm-up-on-moves). Met an awesome pair form the UK and our group slayed this soft piece. Woulda been 4 person send train but Shirley decided to take 3 tries rather than 2.  Three person train with a detached caboose aint bad though. This climb is just so good, the crimps are so amazing, and it is just beautiful. Looking at this piece of granite always makes me think of Matthias. I miss that man.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4521158,
@@ -23014,7 +23142,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Dales Camp is hard. Such quality face climbing on gorgeous rock. It was even more of a puzzle since there was no chalk on any holds above half way. Dales Camp has many gems and this climb alone is worth the walk.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4521188,
@@ -23350,7 +23479,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I feel like a schoolboy again when I imagine pulling this mantle 20 feet in the air. Literally would complete me.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4552122,
@@ -23966,7 +24096,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Took many sessions, much hard was given. Very warm today, but psyche was warmer. A little contrived at the start but definitely an area test piece. Good movement, amazing feature all topped with huuuge tracks of land! (by that i mean satisfying big ol move). Good butt workout to hike at woodson if your looking for that sort of thing.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4571179,
@@ -24106,7 +24237,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb is an absolute monster. A big savage awe-inspiring behemoth. So hard for the grade that someone should definitely upgrade (not me of course.. soft). I have wanted to do this this ever since i first saw it, and my heart would race every time i though about it actually trying it. It was definitely racing on the send, but topping out a monster like this is one of the greatest feelings I get as a climber.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4576570,
@@ -24498,7 +24630,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "So aesthetic. Luffy would definitely eat this with out blinking.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4581891,
@@ -24582,7 +24715,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Oh my amazing. Made even better by the Big Horn sheep sighting across the way. That middle jug is one of the best holds I have ever grabbed. So much aesthetic in this piece, deserving of the high recommend percent.\nEdit: next time i want to try with eyes closed. v0.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4581911,
@@ -24778,7 +24912,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Did Davy just Double-Double!? Yes. Yes he did, In grand style, taking down two of the best lines on the mountain. How i put this together i will never know, but I did it, and that is more meaning full i think. I had only stick the dyno once in Isolation, i had only stuck the move right to the thumb pointer catch once in Insolation, i had only tried the big throw to the lip once and failed miserably, but figured id give it a ground up go. Everything went right and I fluked like a pro. I was in such disbelief at the top, i kinda forgot how to climb. There was a moment i was smearing on moss with my left leg with my right knee in the high right hand and thought for sure i would plummet to my death. I was so scared i thought i might pee on myself, which i didnt.. but drew did the next day in the car which was one of the funniest things i have ever seen. DM me for the whole story ;]. This climb is unreal.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4586270,
@@ -24806,7 +24941,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "My best M-Flash to date. I had a few butterflies in my basket but executed the climb perfectly. First time sticking the high right crimp from the ground and took it to the top. I remember 5 or so years ago watching Fanny send this piece, and never dreamed that i would some day be strong enough to do it myself. When I topped out i screamed a lot, and SpaceX decided to celebrate with me by launching a bunch of Satellites into space. Very fitting. So crazy to see that ominous looking cloud from the darkness of black mountain. I wish i could have seen Shirley's face when drew told him i did this with out him.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4586261,
@@ -25870,7 +26006,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Lol 13% reccomended rate... i guess that's just 1/8 though. More importantly some dad challenged me to a fight at Shcats today because i beat his child's pokemon. I got a 3,566 CP Mewtwo brah, come at me!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4639069,
@@ -26178,7 +26315,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Drunj was wearing off bc i was sobering up to try Secrets, but drew decided Form Destroyer would be softer. Good thing he did because this climb is dilp! One huge move. If anyone finds shoes here they are Jeffs... god help that boy.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4639052,
@@ -26290,7 +26428,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Lets do a star recap; Tall (+2), tops out on the rim (+1), landing is completely full of human feces (-1), Cool Movement (+1), nice crux holds (+1), hollow-friable critical midwall jug (-2), in the Happies (-2), climbed it with yer boi Shirley (+0.5), the pleasure i get telling people about this climb and they ask me which airport (+6.4), which if my math is correct, like it always is, that is 6.9 stars... perfect.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4639074,
@@ -26430,7 +26569,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "So weird that the crux is knowing that you will have a 10+ person audience if you die. I love soft highballs.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4642826,
@@ -26486,7 +26626,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Notice the \"recommend\" with only 2 stars. The movement on this piece is so good! but the choss is quite distracting. Those left feet are constantly changing and that top out jug is complete choss: however, since it does not get very much traffic i think it deserves the recommend. I could not believe i pulled honestly. I think i just wanted Daniel and Joel to think I'm stronger than i am. Trying to inflate my own ego always give me +1 V power.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4642820,
@@ -26570,7 +26711,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I always wonder why a Land of Choss can have such amazing problems. But if you multiply 0% by infinity you get excatly 42 world class boulders. This is one of them. A mistake to warm up on (unless you downclimb from the top i guess) since crux is very crimpy, but so so good.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4653314,
@@ -26654,7 +26796,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "The top of this boulder is perfection. I said on my first trip to JTree the only thing i wanted to get on was White Rasta. We didnt get on it. I preceded to say the same thing every subsequent trip. Now on my like 8th time to JTree i finally get to touch this marvelous piece of granite.  I get so nervous watching other groups try highballs.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4653319,
@@ -27354,7 +27497,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Great!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4662343,
@@ -27550,7 +27694,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "All pictures make that right hand look like a sharp arete feature. Newsflash Walter Cronkite: You Arent. Very bad, very very bad. As good as that left hand jug is, the right hand is equal parts bad. But it makes the high left food delicious. I like.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4662331,
@@ -27690,7 +27835,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Great movement, cool holds, tops a jug. Its getting dark.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668365,
@@ -27774,7 +27920,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Don't forget that question mark loggers!? If this were a crossword puzzle that question mark could be the difference in whether this was solvable. Turns out it is solvable and is Quite Enjoyable.Cool dihedral like movement, with some balance to keep you zen.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4664007,
@@ -28054,7 +28201,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Holy Poly! Start was silly, but once you get to the crack system this thing evolves from Magicarp into Garydos. Big, majestic and for some reason is classified as \"flying\" even though if you fell from this height you would plummet and die. That crux lock off is so so so good.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668398,
@@ -28166,7 +28314,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Another aptly named climb. Normally climbs are done when you get to the top, but this particular piece does not! You go up an enjoyable arete, and then traverse on the lip over the chasm instead of topping out. The lip is so narrow you really could not top out anyway, so you just ride the whole \"rainbow\", enjoying the height until you get nestled safely back on the other side. Enjoy the pot of gold boys!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668464,
@@ -28278,7 +28427,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "My whole goal of going to Leavenworth was to flash this masterpiece. Sure enough I channeled my inner michaelangelo and sculpted a perfect Grecian God. Booyah! One of the coolest features anywhere, perfect horizontal refrigerator with amazing movement. Too bad you don't even use the refrigerator and simply rock over on easy slab....",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668467,
@@ -28418,7 +28568,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "And the Lord said: \"let there be a granite pinch, hold it and be gay\". Wow. Thank god for that top jug right dust?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668460,
@@ -28474,7 +28625,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This climb is a monolith for the Mad Meadows area. You can see is standing majestically from the base of the meadows. The climbing is good too so that's nice. Triple flash train baby with my dudes. Dustin and Pinchy &lt;3.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668454,
@@ -28586,7 +28738,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Holy Hueco!! I have a theory, the higher a climb starts it is automatically better. This thing starts pretty darn high, so yeah its basically amazing. Only little scary but as long as your right knee is not prone to spontaneous explosions, you should do this. Shame on you Mr Barron for not doing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668544,
@@ -28614,7 +28767,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Where'd my bible go? Oh wait, I remember I left it protruding out of the Hueco Crimper Boulder, no worries. Add this to the list.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668519,
@@ -28838,7 +28992,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "So many good moves on good holds. I like. Can never have too much beer, we started overusing the bugalissen accent.  Well you cant really overuse it... but might have started to get offensive. Sorry world.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668512,
@@ -28866,7 +29021,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Classic.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668476,
@@ -28978,7 +29134,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Max stars, max recommend. If you climb harder that V5 and are taller than 4 feet and are in Leavenworth you have no excuse not to do this climb. Simply inreal and unsane! Love love love love love love (like Bruce)",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668504,
@@ -29118,7 +29275,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Kevin Newell, I wish I could visit Leavenworth as much as you. Your multi-logs may throw off my \"Recommend Percentage\" search strategy, but god damn do I respect them. One of the best mantles i have ever done. Every climb i did today had crux mantles. Last climb of a savage 6 days on. Levy i love you.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4668569,
@@ -29426,7 +29584,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Definitely the craziest swing I have ever held. One of those moves where you are kind of in disbelief when you are still on the the rock instead of on the ground. Shout out this climb for making my dyno montage was doper.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4773516,
@@ -29454,7 +29613,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb is unlike anything i have ever done. All in all it packs a good 20 feet of climbing with a no hands rest right before a heart breaker dyno. Dyno in isolation is supposed to be like V5 but its hard not to get in your own head when you are in the no hands rest from the bottom. Worked this with an amazing dude in a yellow shirt who i tragically forgot his name. Very nice to climb a 7C+ early in the trip to help convince myself i am not still weak.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4773532,
@@ -29538,7 +29698,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Another unique climb in a fantastic location. Riverfront property of this caliber is quite tough to come by. There were some awesome dudes here that were playing Bloodhound Gang on a speaker! So dope! Untis Untis Untis baby, untis untis that mantle is so fun!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4774156,
@@ -29706,7 +29867,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Absolutely the best thing in Ginzling! Steep roof with awesome holds up to a sweet toe hook crux (or crazy tension derp). I will never forget this climb for several reasons: 1) Matthias showed me the amazing Arnold Schwarzenegger \"the pump\" video here 2) I sent this thing 3) I could not send the V5 next to it and actually fell multiple times from the final jug to a chorus of Matthias laughter. Great times. But lets be real the main reason i wont forget is reason number 1.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4774194,
@@ -29790,7 +29952,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Very enjoyable highball that makes an incredible warm up circuit all on its own. The best move is at the top which makes it even better.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4773557,
@@ -29986,7 +30149,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wow perfect block. This and Guava Yelli are the Gems of Zillertal in my opinion. Such nice solid crimps, that decrease in size perfectly for the crux. Used an awesome hand heel match on the large crimps for the crux.  In such a pretty setting to! Awesome grove of rocks on pretty green farm with of course the beautiful alps in view.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4776040,
@@ -30154,7 +30318,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Somehow this thing never looks big if photos or videos but.. well its pretty big. Definitely had an escalated heart rate when rehearsing the top out in my head. So good and looks stellar in person.  The lower portion was more difficult that it looked but the top was quite easy which was good because we did not have the pads for a fall from there. My only regret is not making it look easier because Matthias did not want to try afterward.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4776087,
@@ -30182,7 +30347,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Simply [amazing], is there any other kind? Would you like to join us in a carol to celebrate the birth of [this amazing climb]? Its a slant buy guess the movie! You know if I'm referencing this movie exactly how highly I esteem this climb.. thats very highly! Amazing crimps to a high juggy top out. Actually quite the perfect warm up! Ran it back 5 times I think.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4776094,
@@ -30210,7 +30376,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "m-flash baby! I found a loop hole in my bet with Alan. He said if i didn't flash this i was not allowed to return to the states... but he was mum on what kind of flash. I think i even prefer the m-flash! This thing deserves all the hype and all the stars. So good. Did an unconventional left heel hook to set up the crux dp!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4776102,
@@ -30294,7 +30461,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "The features of this rock are awesome! First move crux but then you get some sustained power on \"basically\" jugs. Red point crux might be the huge move at the end but hands and feet are both huge so no biggy. Matthias with the epic send pulling a Akhil Mauze on said big move. Lute my dude.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777029,
@@ -30462,7 +30630,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Everything was wet today... like I slapped every hold with my shirt and put chalk on it and just prayed that there was any friction left. Conditions and questionable beta choices made this feel quite hard, but it was equally amazing. So good. Must do of the grade here.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777077,
@@ -30490,7 +30659,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Oh Boy. It look so much bigger in person. Wish I would have flashed but a distance check does wonders for a fluttering heart. Fall is actually quite good, but since top is not quite a jug it really is a question of commitment. Awesome line though! Much wows.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777073,
@@ -30518,7 +30688,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So soft I feel guilty taking 7B+ for it, but as of June 15th 281 other people said 7B+ so maybe its one of those keep it soft scenarios. Regardless, super cool climb on bomber under clings to a fun arete crux. I actually ran into some people here! good to know if i seriously hurt myself there is a chance someone would hear my screams.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777068,
@@ -30574,7 +30745,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This thing is Plus Ultra for you BnHA fans. You could say this is the All Might of Chironico. So good. So many beautiful flat crimp ledges with a nice gentle overhang and a nice easy top out with insane panorama. Wish i would have flashed but alas i was scared.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777079,
@@ -30770,7 +30942,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This climb was actually not on my pre-scouted list of \"must do\" climbs. I simply walked by it, saw an amazing face and knew i had to try it. Holds get a wee bit wee toward the top and with a little trust the medicine goes down smooth.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777097,
@@ -31218,7 +31391,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Jugs up to such an amazing aptly named move. On my first try, i simply did a distance check and helicoptered off the pads. Like i said in an earlier log, the landings here are so nice that it didn't matter. A few tries later and the helicopter stuck. Fantastic.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777129,
@@ -31246,7 +31420,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Stunning. A Haiku to pay my respects to the boulder gods for a climb this good: \n* Green pretty forest\n* Tall boulder inspires my heart\n* Try and trust for send",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777122,
@@ -31358,7 +31533,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Possibly the coolest looking boulder. From each angle a new vision is born. With a little imagination a Whale and a Crocodile are rather easy to see.  The climbing is stellar to with a very low probability move to the \"nostril\". SO glad Chelsea got to see this place. I thought once i saw Bas Cuvier i knew Font, but I was so utterly wrong. This forest is gorgeous in so many wildy different ways.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777145,
@@ -31414,7 +31590,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "This is as good as climbing gets. The feature is unparalleled. Looks like three fingers reaching out from the depths to crush all who dare try. Landing is so good i would be comfortable with no pads, which is saying something because the crux involves a pretty good swing. Heel toe cam with a two finger pocket sometimes scares me but not in this case, it inspires me. Not to mention the Cul de Chien area is insanely gorgeous. I swear if i ever end up in France for a serious period of time i will play volleyball at Cul de Chien.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777128,
@@ -31526,7 +31703,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Also lives up to the hype. Taller than it looks in film, and the features are so good. Was trying with no pad when a nice scottish man showed up which was a nice both for the pads and as a seguay into the next part of our trip since we were flying to Edinburh in about 4 hours!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777154,
@@ -31638,7 +31816,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Oh my hard. I could not even pull of the ground for my first 5 or so tries. Had to commit to death crimping and i finally got my foot up. Slightly scary with no pads but this is an amazing boulder. Also once you \"top out\" you still have about 50ft of slab before you have truly conquered the boulder. Some dad and his son were cheering me as i topped out from the Cannons at Dumbarton Castle. Quite heroic i must say.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777233,
@@ -31806,7 +31985,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "This climb is where the really old grafiti is! Videos make it look kinda grungy and dirty but it looks awesome in person and with the water backdrop looks almost majestic. Anyway cannot believe i blew the flash. Mere newtons away from holding it.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777236,
@@ -31890,7 +32070,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Scary. I think it took me 3 tries and its only V2. But it is insanely pretty =]. A butterfly flew headfirst into my camera why i was climbing which was adorable. I wish i got her name before she flew out of my life forever. We shared a moment that will last till the end. I had a mild panic attack at like 20 feet up and had to do breathing exercises to get enough clarity to finish the problem. So good. Also the plan was to do \"Buckstone Dyno\" after this but the Buckstone was surrounded by about 30 sheep, 10 or more of them babies so i had to abort that idea (the babies were so cute though so it was worth the walk).",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777245,
@@ -31918,7 +32099,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Know how i said L'angle Ben's was the most burns id given a climb at 40+ tries? Well this just topped the charts. Easily 50 tries. How is this possible? Well i had the slab moves so dialed i was getting to the jump every time, but if the climb is just footwork to a jump do i really need rest between burns? Rapid fired like a champ. Anyway beautiful looking face with nice intro slab moves to a full big ol jump. It was quite hot and in the sun so i was not able to use the high right foot like i see commonly in videos. I just sank my booty low and launched. Had a heart breaker go about 20 burns before the actual send where i held the lib for about half a second before slipping. After nearly giving up I moved my foot 6 inches to the right and magically it was all i needed. At the end of this my left hands middle bad is about to burst, grit stone will eat your skin.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777240,
@@ -31974,7 +32156,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I was not able to do Brass Monkeys (so sad it felt so doable) but this iconic line went. Ridiculously hard for V5 especially in boiling sunlight. Took me at least 10 tries to stick the first moves and 2 tries to grow balls for the top. It is quite high especially with only 2 pads and no spotter! Such a beautiful diagonal feature that you can see from miles away. Must do. There was some rare bird nesting nearby that meant i could not try \"Brad Pit\" much sad. I hope the bird is happy.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4963717,
@@ -32310,7 +32493,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Right behind Gorilla Warfare is a gorgeous ~30ft inspiring face. This climb is the arete and while I have touted the views of basically every climb on this trip, this one likely has the best. And i got it on footy so you will see it too! A no fall climb for sure.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777270,
@@ -32366,7 +32550,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Why this is not in the book is bewhildering. Look at year of the cat, now spin 180 degrees. Now look maybe 30 degrees to your right and slightly up hill (it might even be the reverse side of Matt Hoch) and you will see this slab masterpiece. The easier version i did starts by climbing the rocks on the right side and traversing left till you get to the obvious xeno line. I didn't quite traverse all the way left to the starting xeno but close enough. There is a direct start/low that has an insanely hard mantle that I am now hungry for.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777269,
@@ -32422,7 +32607,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Thus concludes the epic story that will now forever be known as Little Beheezy. First saw this proud line in June 2014 and first tried this thing the following year in 2014. Its always amazing to find such an amazing unclimbed gem so close to the road. Well i guess in this case the road is so out of the way that i guess it makes sense. Anyway cool tension moves lead to intreaguing compression and an airy top out. You start under a flat ledge that you end up reaching down to from the higher slopers. A very high heel hook is used, a toe hook is used and a whole lot of squeezing. I may have outdone myself on this one. World (or the few friends i have) enjoy this masterpiece. \nPS: The fat Nathaniel broke a hold shortly after i sent, but drew got the second ascent post break and reconfirmed the grade.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777667,
@@ -32450,7 +32636,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "A sweet little FA the Magic Carpet boulder put up by our very own Bro Crush. An obvious shrinking diagonal edge a a cool textured/colored face. Cant believe I blew the flash.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777668,
@@ -32590,7 +32777,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Second ascent. I tried this thing three years ago but could not work out the sequence before slave driver Michael said we had to move on to make dinner at the Chalet. Drewbie snagged the FA and can technically change the name but I think \"Magic Carpet\" has already stuck. Two big moves and you are at the top of the boulder. So so satisfying. I was basically foaming at the mouth when i stuck the lip. Just wait for Bounders 4 to see this thing in all of its glory!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777296,
@@ -32618,7 +32806,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Second Ascent. Same magical first move as Magic Carpet but then match/finagle to bust a big move right to a good gaston. Continue up and right to glory. Pretty sure this used up the remainder of my strength. Hiking those two bottles of Black Tuesday all the way out here was a great idea. I am on cloud 9... speaking of cloud an amazing cloud system rolled through as we were working these boulders. Made for a very surreal and truly beautiful surrounding. I love my dudes. You'll come back right!?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777283,
@@ -32646,7 +32835,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb is dedicated to the first hat i ever loved. It was a green trucker hat purchased on the road to Julian and it said \"Meyer's Orchard\". I no longer have this hat and i have no idea when i lost it. In Bounders 2 i can be seen wearing this hat in the first shot of this climb but not in the other 2 cuts. Interesting movement with a very annoying landing. The landing is not flat with potential to fall and additional 6 feet. That can be protected pretty well with a good spot but the worst part is the prickly bush that covers the ENTIRE landing. So annoying. Shout out my boys Drew, Nathaniel and Chase for making the 6 mile hike out to Franklin lake with camping and climbing gear. You are all men amongst men.<a href=\"https://www.youtube.com/watch?v=DGBJrHYObsc&amp;t=3m44s\" target=\"_blank\">Video.</a>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4777683,
@@ -32702,7 +32892,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "You have never seen xenos until you have seen this climb. A sequence of 6 ginormous xenos form an about 7 foot crescent shape. I knew when i saw this i had to do it. The last move is tragically reachy and would actually be quite easy to jump to if the landing permitted mistakes. It doesn't. And being 7 miles away from any chance of help puts all potential dangerous moves on hold. Chase found some awesome right heel and left undercling but he was still half an inch too short. Glad I snagged the FA before drew used his orangatang arms to span like the monkey he is. I really want to go back and try Chases beta, it looks nicer.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4778927,
@@ -32786,7 +32977,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Cannot believe I had never heard of this climb before! Its slightly dabby but offers a highly enjoyable variation to Greasefire! Amazing toe hook action and strong body tension. Plus its called Inside Out so how was this not a crowd favorite when the movie came out. Chase and Zev starting a send train and me coming in with the unlikely detached caboose. Wild wild swing for me.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4782674,
@@ -32842,7 +33034,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I have walked by this thing before and thought it looked amazing. Assumed people had tried it and deemed it \"dirty\" or \"bad\" so never even considered trying it. Just goes to show, assumptions suck. It also makes you realize that even in a popular crag like Tramway there are hidden gems, not on off the beaten path, but quite literally next to the beaten path. So much rock in the world. Anyway, thanks Austin and crew for this great addition to Tramway. Scarier in person than your videos make it seem. Really fun interesting movement to better holds up high that you are very thankful for. Three person send train with Chase taking the engine and Zev taking the caboose. Could be hard V6 but scare factor and sickness deserves the V7.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4778979,
@@ -32926,7 +33119,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Speaking of rated 'X', our boy Ryan saw quite a bit of dinged up dongers this trip. Miss you bud.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4792184,
@@ -32982,7 +33176,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Makes the walk worth it! Saddle Boulder really is quite good, tall with an nice sustained gentle overhang and cool holds. This climb packs a dyno AND a rose. So slippery in these summer temps... thank goodness the heel is so big! I love Ryan and I'm thankful the gate was open!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4792192,
@@ -33178,7 +33373,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I tried to make Alan feel bad telling him he better do it this burn because i knew I could do this next go. Turns out: I started a joke, that got the whole world crying, but i didnt see the joke was on me. Took me another like 7 tries...",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4792309,
@@ -33234,7 +33430,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This deserves the thumb. Awesome feature with good feeling holds, a cool heel and a good rock over. My hands are so wet in these temps, everything feels like 5 grades harder... hold hands with me and then try to climb.. i dare you",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4792313,
@@ -33290,7 +33487,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "A great 0 on nice big Xenos that eerily remind me of Craters. huh. cool.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4792311,
@@ -33738,7 +33936,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Drew made this look like V6, pretty sure his foot didn't even cut... Took a lot of tries and only difference between sending and not sending was one time i just didn't come down.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4812098,
@@ -33878,7 +34077,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Cool holds on pretty proud face! Holds are worse up high than I anticipated, but still managed the flash! 7a is the limit these days.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4812121,
@@ -34046,7 +34246,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Favorite climb i have been on so far! Quality movement on cool holds with lots of beta options. Big holds up high... unless you dont see the jugs and just mantle on the shelf....\nMet an awesome climbing family from france who had the little balls of energy called children who were diving head first into all the pads because it was fun. Indestructible at that age.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4812140,
@@ -34074,7 +34275,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Despite throwing up in my mouth several times due to simple body exhaustion i still eeked my way up this one. One of the \"Must do\" of rocklands checked off. Pretty technical but perfect landing despite the height. Drew may or may not have flashed... just wait and see for yourself!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4812138,
@@ -34186,7 +34388,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing line on amazing boulder. Today was full of ups and downs... Drew decided to show his humanitarian side and donate literally all of his clothes, his checked bag and his Iphone to the poor community of Lamberts bay.  Drew your compassion is quite inspiring! Abby was so inspired she donated 300$ to Lamberts Bay. I seem like a dick because i only donated a pocket knife, a phone power supply, dark chocholate coffee beans, moldy bread, peanut butter, trash. I cant wait to see how the town flourishes when given such generosity. Oh Lamberts bay. I could sing songs about you.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4812224,
@@ -34326,7 +34529,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Such a rare feature! Amazing to literally climb around the Arch through cool movement! This is how i thought i would feel after a rest day.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4813692,
@@ -34438,7 +34642,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Dynos to Jugs high up is always going to get the thumb from me. Such an inspiring face... speaking of inspiring,  watching Drew second go Airstar was one of the most amazing and inspiring things ever! What a day!\n\nAlmost lost my precious tripod from Chel but after my third hike up to Cedar Rouge i found it in a bush! &gt;.&lt;",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4817482,
@@ -34522,7 +34727,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Really wanted the flash but didn't account for how disorienting the start is. You honestly forget what is up and what is down!! But at least I didn't start on the wrong boulder...  That was possibly the funniest thing I have ever seen =D. I love you Zev. Best V8 in the world? This boulder would be famous even if it was unclimable, just so darn cool!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4817470,
@@ -34550,7 +34756,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Left variation. As book states, start with the left hand juggy sidepull in the middle of the face and a right hand crimp. Do a hard gaston sequence to join the actual Tiger Claw. Took quite a few burns to figure out.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4817467,
@@ -34578,7 +34785,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "World Class for the grade! Very soft at V4 still but incredible line. The book needs to do a better job at describing different lines. Assuming I am correct, this starts on the obvious jugs on the right side of the boulder and climbs up the incredible side pulls formed as part of the \"tiger claw\" feature. The book makes it seem like you start in the middle of the face and are only allowed to use the gastons of the tiger claw feature. So silly.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4818272,
@@ -34634,7 +34842,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Jugs into like..... one of the coolest jumps ever!\n\nSad that there is a easier crimp option (Springbitch heehee) but so inspiring and slightly terrifying looking up at the two massive jug rails like 5-6 feet apart. \n\nOn a sad note, I couldn't do pinotage.. i ripped the ass of my pants... i hurt my ring finger... and i lost my tripod from chel. Cry, Cry, Cry!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4818275,
@@ -34690,7 +34899,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This is the kind of climb you wish that you flashed!! Its a freaking route! and if you suck at finding rests the top is TOTAL LIMIT. Such cool incut holds down low into JUGS into two options to top out. If you top out right remove stars and your balls. Direct is way doper. The guidebook did DG this to 7b but I'm taking the points. On the top out I had to surpass my limits when my hand slipped off the sloper and i used a nothing hold and somehow didn't fall.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4818279,
@@ -34718,7 +34928,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Ians Roof is Amazing!!! This is for several reasons: 1) it stays in the shade when the rest of the world is blazing 2) its tall on beautiful rock 3) We saw baboons across the way (The make quite terrifying roars!). I love the double leg cam start and the high jug top.Really only two hard moves so I understand the DG.... Seems like a lot of the taller stuff got a high grade in the old guide.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4821046,
@@ -34746,7 +34957,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing feature with great climbing. Surprisingly hard for 7a and surprisingly hard finishing sloper moves! So good to climb today with minimal pain in finger and left elbow. Still no shot at crimping on the right side but i can still climb!\n\nCountry roads, take me home!",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 4821048,
@@ -34802,7 +35014,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Such nice comfortable climbing up the awesome spout!\n\nDrew continues crushing! Drama continues growing... I continue drinking... hangover...",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4822292,
@@ -35054,7 +35267,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Amazing boulder. So moist... i must be the Moistiesy Moose Tea...",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4822303,
@@ -35082,7 +35296,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "So good! Felt very un-rocklands like, but in a cool way. Read the sequence wrong but Jeremy gave me clutch hold beta which almost saved the flash but drew ruined my flash by pointing me to s shitty hold and saying \"Heres a good hold\". Hit the ground so hard. Also shout out drew for knowing exactly how to be directly in the way of the footage... makes it harder to viterbatate when all i see is drews back.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4826228,
@@ -35362,7 +35577,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "That diagonal jug rail is phenomenal.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4828390,
@@ -35474,7 +35690,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Awesome!!!! bust a couple big moves and get all laid out then hold a sick rip!  Don't worry Westin, one day you will climb 7a. Blew the flash campusing to a none hold.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4833850,
@@ -35754,7 +35971,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Such amazing line of good holds up to a slightly disappointing last move. Last move was too hard to do in hiking boots so had to boot up. Best part of this climb was the fact that after sending i went to dinner with friends: the ultra psyched crew of Matthias, Matt, Me, Drew and Weston.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4838247,
@@ -35782,7 +36000,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Aesthetic out the wazoo! Climbs well too which makes it an instant classic for the grade. Shout out shoelace in the shot.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4838200,
@@ -35838,7 +36057,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "So much fun! Jugs to a perfect lock off! 6C is trying to challenge 8B as the best grade in Rocklands.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 4838196,
@@ -36426,7 +36646,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "I need to double check name, but i keep forgetting to log. This is the obvious beauty just below Loh Roof and Great Dane. Now i can forget to update. Brilliant, Brilliant, Brilliant i say!\n\nGreat easy slab climbing. Before you know it you are waaay off the deck on easier and easier slab. SO great. \n\n... or to save on postage.. ill just poison him with this!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5029063,
@@ -36650,7 +36871,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ultra classic pureness to the max.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5064091,
@@ -36874,7 +37096,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "To my best friends, you guys mean so much to me.. and... i don't know what id be without you. Triple Threat Trio Rage Brigade... Triple Threat Trio Rage Brigade. To Nick, you.. you're certifiably crazy insane mofo, and sometimes he gets  me a little PISSed, but.. other times you can be so real, you respect me and i respect that, and i know that if i ever needed you you'd be there in a second.  That's right your my baby Bubba, To Beck wow, the gentle giant, freaking grade a pimp right here, your a true artist on the canvas and off. You challenge me and inspire me to be a better person. you rule. True player for real. So lets have some freaking fun on Saturday night. Talk to some girls, or talk to some guys we just met about stuff we like, mp3s magazines it doesnt matter, if we like em enough we are gonna invite them over as long as we had fun.. and i know im not the most cleanly.. cleanliest roommate in the whole world, i know we might fight sometimes over what we record on the DVR, NICK!... yeah..\n\nCheers! Woah Bing Bong High Low High Low, Low Hi Hello Anchor Drop ooOOOOKay....lemon lime CHerry Pie.. shhhh she's sleeping... shows sleepin, shes very very tired.. aaaaahh..\n\nI spin you spin I spin you spin, we spin... SPOTLIGHT. Dun Dun dun dun dun dun dundundundundun Dun dun dun dun..\n\nAllright everybody on teh ground this is a robbery! AHHH! Put your wallets in the bag! Dont look at me biths! I can take him,  Dont try to be a hero man, I knwo i can take him. Bang, OW! Bang, OW!.\n\nWoooaaah Hula Hoop, ice scream spoop, little poop im sorry. ohhhh..\n\nTaxi. Yeah Taxi, oh im the taxi man. \n\nSPOTLIGHT. Dun Du n dun dun dun dun dundundundundun Dun dun dun dun..\n\nYou have to get out of here my husband will be here any minute. I dont care i love you. Oh thats him right now here, Honey your home early, i heard voices. it must have been the TV on upstairs. Where is he!? Dont you dare hurt her! Whore. Bang, OW! Bang, OW!. \n\nWoaaah! Im lonely. Ex Girlfriends! I wonder how shes doing? Oooh la la ooh la la status report!\n\nIve been traveling a lot. I got a new job. Ive been seeing your friend kevin. What! is it serious. ... Yes!.\n\nOoga chacka, ooga chacka, ooga chacka, ooga chacka\n\nHes ready, lets release him. Lets bring out the beast. Here comes the beast, here comes the beast here comes the beast!!!!\n\nFeeling fine wine and dine california love. Bun dun dun dun dun dun, bah la dah dah dah.\n\nAhhhh! Ahhhhh! Ahhhh! Oh! Ach ch...\n\nHave no fear, coast is clear, Now we drink the beer!!!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5074680,
@@ -36986,7 +37209,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "<strong>Master List</strong> (n.) - The inventory of grievances in the expedited arbitration process that have not been settled, withdrawn, granted or removed to formal arbitration. (<i>in regards to climbing</i>) - A list compiled over the years by various experts and sacred texts that describe that holy quest to complete all the stiffest V6s in Bishop. Modern translations enumerate this list as follows: French Press, Rio's Crack (proper low dumb start), Green Wall Center, Every Color You Are, Atari, and Saigon. Any who complete this list shall be deified and praised by those around them.\n\nMerriam-Websters Words.. not mine. Bow down to me, Shirley and Mr Dirk Irector!!! It was a long 8 years.. but Momma we made it!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5096126,
@@ -37266,7 +37490,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "If we get the Triple we can make the 9 o'clock showing of Captain Marvel!!! Iwo!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5096149,
@@ -37658,7 +37883,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Only 10 logs on this thing!!! Really!? This deserves so much more traffic than that. Took a few attempts to trust I wouldn't fall on the rock, but movement wise this thing was quite fun!\n\nApparently this weekend was some sort of Womens Climbing Festival which meant ratios were terrible!! But on the positive side they did have extra free fruit available at the Birthday Boulder which was rad.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 5111599,
@@ -37798,7 +38024,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "The weather gods have smiled upon me again this day. \n\nAn hour out from Leavenworth the world became a winter wonderland with a fresh ~4 inch snow dusting covering all the eye could see. While it may have been quote unquote \"Dry\" snow, as Drew desperately tried to invent, there was no way it looked climable and our best fears of driving 20 hours into a bad forecast resulting in a week of drinking would be realized. But as my perfect life always works out, in another 10 miles the snow dissipated and we had 6 climable days in a row. They were also drinkable days in case you were worried.\n\n\nThis climb is AMAZING. As both Ryan and Dustin made clear the top hold is not as good as you want. Both taking points on for the inspiring drop off.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5137218,
@@ -38022,7 +38249,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Very nice. Very very nice. Features are cool and holds are big. \n\nThe airfield is nice because it gives you a little pit of privacy. Privacy is getting harder and harder to have in these established climbing areas. Actually its gotten harder to have anywhere. But i don't really like privacy. If you want to know my location indefinitely just ask.\n\nWhat is privacy anyway? Lets be honest, if you think you have a tick up your asshole you wont hesitate from ripping your pants off and having the closest human being double check. Its just normal. You might even have just fallen off of Tombstone and yelled \"Watch Out!\" as you pulled your pants down to your ankles and frantically reached for your taint.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5137535,
@@ -38302,7 +38530,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "ooOOoOOO my 'Quest For Pain' senses are tingling!! The book even calls this the boulderer bane and a true sandbag. How can you not be inspired when you read that!? Its also just an amazingly cool feature. \n\nTook a good bit of work and beta testing to get a sequence to the top. Only a little bit of blood, a good price for endorphins. \n\nI nearly killed myself trying to set up my camera when I leaned on a dead tree trunk overhanging the road. That thing had zero structural integrity.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5137527,
@@ -38330,7 +38559,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "I recommend this facetiously. Any description that starts with \"Start on the guano covered jug\" is going to be good.\n\nI learned about some interesting diseases on this trip. Hanta and Rhabdo. Pretty sure our Ryan had symptoms of both of them.\n\nI dedicate this send to him.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5137548,
@@ -38582,7 +38812,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Best climb of the trip and I would even go as far to say one of the best climbs in Icicle Canyon. Previous comments indicate the climb used to be dirty and friable but things must have cleaned up because this climb was near perfect. The last move to the sinker is not the hardest move but is just so damn glorious.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5137600,
@@ -38722,7 +38953,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "I thought [a four star climb] was only true in fairy tales\nMeant for someone else but not for me\n[Group Apathy] was out to get me\nThat's the way it seemed\nDisappointment haunted all of my dreams\n\nThen I saw [Tampax Arete], now I'm a believer\nNot a trace, of doubt in my mind\nI'm in love, and I'm a believer\nI couldn't leave her if I tried\n\n---\n\nFeatures on this are world star. 6 person send train on this beauty.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5138403,
@@ -38806,7 +39038,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "That was NOT nice and easy. My body is definitely thrashed. There is so much bodily pain but at least I am not in systemic body collapse like Ryan who may very well be in late stage Rhabdo.\n\nI was so glad for the slap part of this climb because I desperately wanted to be off of crimps. The throw part was RAD too. Totally missed the good part.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5138567,
@@ -38946,7 +39179,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Stellar. So good in fact that Dustin, who intentionally left his shoes at the car on our morning jaunt, borrowed shoes too large to touch this beauty. Nice gentle angel with nice feed and cool holds. The tree on the back has a sap waterfall if you wanted to see something cool.\n\nI did not flash. Thing was pretty darn wet and I ended up spending a good 10-15 minutes on the wall drying and chalking the holds.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5138495,
@@ -39198,7 +39432,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "<div style=\"color: rgba(0, 128, 0, 1); font-size: 32px\">One Hundredth V8 baby!!</div> Its amazing but sometimes I still feel like I'm not a V8 climber. Exciting to finally complete the century, and very happy it happened in Alaska! Such an experience on such a surprisingly good boulder. \n\nOne reason I love 8a (despite its many, many flaws) is it has given me a consistent place to log my climbs (literally EVERYTHING). That's the only way I even know this is my 100th. Its awesome to be able to look back and see just how much I have done, and read my comments and see how I developed into such a wanker. \n\nAlways a little sad to know that this sort of climb is my style.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5191662,
@@ -39310,7 +39545,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Chelsea's first outdoor send!!! I think she is hooked, I love you baby! Aaand you looked so good while doing it. \n\nPretty cool boulder to be your first. So obscure but really amazing. I doubt this has ever been anyones first.\n\n[Unknown #10 on akclimbing.com PDF.] - I hate unnamed/unknown things",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5191643,
@@ -39562,7 +39798,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Amazing easy line that starts on a honker Xeno and climbs through massive huecos to a stair stepper top out. I was not able to find this in the book despite it being super obvious and only about 100 yds passed \"Yo Picasso\" on the right. Definitely not an FA but it deserves a name. \n\nThe V0's are also having a celebration party and this guy was invited. Way to go buddy!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5208754,
@@ -39590,7 +39827,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Don't get me wrong there are better 7s at Tram (and softer), but this thing deserves more traffic than it gets. It's cleaned up over the years and all the friable hands and feet are long gone. Thanks to that the start is basically (well in my case, literally), a campus. I don't think you need to fear getting 'horned' I had two pads and no spotter and there is only really two insecure moves both of which are over the best part of the landing. Was cool to hear Kody's beautiful voice resonating in the wilderness.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5208741,
@@ -39618,7 +39856,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "I thought I knew all of tram but I had never ventured past \"Yo Picasso!\". No big numbers out here but some really cool easier grades! Dropped my pads at Mystic Rythms (no I did not send but progress my dudes... progress, redline is long passed but like all good things... they come to those who wait).\n\nAnyway, very inspiring ergonomic feature with compression variations all leading to a cool apex. If all the coolest V2's on the mountain were to have a celebration party this climb would be one of the guests of honor along with 'All Seeing Eye of the Great Architect of the Universe' and 'Shades of the Oldschool'\n\nOnly downside is that the flake reminds me a little bit of 'The Fang' feature at Horse Flats. No it doesn't flex like that horror of a climb but anytime you have that large of a flake you fear that it will one day break.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5219009,
@@ -39870,7 +40109,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Seems a little morpho but definitely RAD. Thought it was supposed to be a dyno originally but the hold you have to go to is surprisingly bad and the feet are all but nonexistant. Will recommend to others.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5255495,
@@ -40122,7 +40362,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "The big obvious slab facing the road on the Triforce Boulder. Cant believe I did not do this line earlier. I think \"Lil' Beezy\" had me psyche blinded. Hardest move (V0 crux) is at the top, oh so sweet!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5255519,
@@ -40150,7 +40391,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Campsite #31 Boulder, the far right side start sitting with right hand on the arete and left hand on a low opposing sidepull. Very easy and could likely be done purly as an arete, but it is very short and aesthetic and moves nicely. Most of the climbs on this are probably not FAs. It is way to obvious of a boulder.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5255530,
@@ -40346,7 +40588,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Campsite #31 Boulder, Probably the coolest line on the boulder. Sit start at the obvious \"lump\", with gold holds at the top of the lump. Simply pull on stand up then \"jump\" for the top.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5255521,
@@ -40458,7 +40701,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Been thinking about this one for years. Glad it turned out to be easier than I thought. The boulder is pretty obvious, its on the left side of the talus field, above cold springs crack and a stones throw away from Cheese Wedge Arete. Climb the obvious crack in the center of the boulder up to the large and glorious jug. Make a big move out and left to a juggy crack system on the top of the boulder. So nice. Always good to top out something slightly spicy on jugs.  Notice that the crack systems make an pretty obvious \"T\" shape on the boulder.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5255528,
@@ -41354,7 +41598,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Kody gave this thing V4?! I might have been doing it wrong but the opening sequence was so fucking hard. Feet are terrible so the start is basically footless and very tri-cep intensive (its two days later and my right arm is un-extendable currently). After the first sequence the difficulty drops considerable but there is some choss and it is quite high so keep your wits about you. This was leagues harder than anything i tried today so i propose V7. \n\nAnyway, 10 years ago the legendary Kody Shutt said \"This climb deserves more attention than it has been getting.\" What attention Kody!? No body even looks at this thing! It's 10 years later and your statement hasn't helped. I don't think a single person has even tried it. I know this might sound mean but, don't worry buddy! I got you! I will try vigorously to get other people on it and spread your good word. Amen Kody \"Black Mountain\" Shutt.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5287022,
@@ -41606,7 +41851,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb gets max points in the aesthetic category for its absolutely stellar shape and location. I mean this thing is just reeking of feminine beauty!! I could totally make half donkey/half dragon babies with this thing. It might be a little creepy but hey its love. \n\nIt is slightly forced (you can easily rock over at basically any point) and rock quality isn't perfect (seems a little thin at parts and there is a friable chicken head which is easily avoided but definitely in the line). That all being said, this roof is absolutely ridiculous, full outward distance traveled from ground to tip is like 30ft or more; aaand somehow this rock is positioned right on the ridge with a gorgeous view westward toward Morongo. I mean this ridge is so iconic you can pinpoint it from the 10 freeway while driving to Tram. Topping out to a view like that is just ALL TIME.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5293160,
@@ -41830,7 +42076,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "#PRNF ([P]ending [R]eal [N]ame [F]ound) - On the ridge of deer canyon on your way to Diving Board there is a stellar face with tons of holds and variations. Try to follow the most obvious up-left trending crack on the center of the face. There are so many holds that its easy to drift one way or the other but keep it classy. \n\nNOTE: This recommend is for this boulder in general not specifically this line. If this boulder was closer to the Station it would be an ultra classic warm up location with variations of variations.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5293114,
@@ -42586,7 +42833,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "PRNF: Holy Roley Poley Mr. Guacamole! This wall is unreal. Sustained overhang with decent height and cool features! Some of the rock (especially up high) is suspect but damn this rock is cool. This line, which I am dubbing \"Mount Baldy's Best Kept Secret\" is the right side of the large overhanging face up a almost prow. Holds all feel nice and movement is good. Even has option of a lower extension if you wanted to get a workout here. Want to com back to work the other, harder lines!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5370473,
@@ -43006,7 +43254,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "How did I miss this boulder all these years! Its huge and glorious! So many amazing features on the lip and it looks like potential for some harder lines/variations as well. The roof this lip on is like 60 degrees overhanging! I don't think the overhang is possible, but there are some not so good holds that might be shark toothed in nature... so who knows. Drewbie? \n\nIt's pretty amazing that the full lip is actually the path of least resistance. There might be a way to mantle early but it would definitely be harder than V7. \n\nI started on the pretty obvious underling feature with a good incut.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5406775,
@@ -43034,7 +43283,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Aptly named for the seemingly likely potential of falling and getting very, very wet. Took me several times of pulling on to finally commit to the big move. The rock on this piece feels AMAZING.\n\nJust beneath the main \"waterfall\", if you look eastward toward the waterfall this boulder is overhanging the main creek on the right. It has dab potential directly behind you and the water beneath is a few feet deep! Even getting to the start holds was a little annoying because you have to lean across some water to grab a nice left and right edge, then stretch your foot over to avoid getting wet. Then you pull on and you are in it.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5406681,
@@ -43258,7 +43508,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Definitely a must do for the area. One very fun move on a very obvious boulder. I am very hungry and thirsty at this time. Maybe next time I should bring food or water?\n\nnah.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 5392684,
@@ -43286,7 +43537,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "A nice climb anywhere! Definitely one of the main attractions for the area. Big ol' move to a nice hold. Will likely do this climb many more times in my life time. In a nice spot of perpetual shade! except maybe deep, deep summer...",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 5406680,
@@ -43370,7 +43622,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Definitely need your head screwed on tight for this one! Scope it out because the fall would not end well. But that being said its very easy and the rock is the most striking feature on the south side of the creek. When you are on the North Side looking over, this climb just sings. Kuzco could build his summer home here. \n\nAlso note that the right side of this boulder has potential for an amazing ~v6 FA. Amazing holds lead to either a terrifying roll onto \"Where Eagles Dare\" or a cool looking sequence up and right. Hopefully I can snag this FA in the next week.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5406938,
@@ -43706,7 +43959,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Never heard of this before but will add it to the amazing must do V4s at tram. Ill start spreading the word. \n\nThe starting feed are a little crumbly (that will clean up) but very nice crack with good holds and you get a glorious top out! The book says \"Funky landing\" but with one pad i felt as snug as a bug in a rug.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5407007,
@@ -44014,7 +44268,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Gregor \"grease gun\" Recian-God, patiently waited his turn before splooshing all over this one. That high seam was way worse than i thought it would be and i left it worse than that even. I bet you cant even imagine. I cant and i was THERE. Sorry folks. I might be the sole reason drew doesn't have SteelFingersV8Soft. \n\nThat high seam seems like it would be better and that nub nabbles like a champ. #alliteration #homophone\n\nI have two shout outs:\n#1 Marina for saying goodbye to rational thought and hello to simply sending shit!! When you get past the crux all that matters is sending, way to go! I was 10 billion percent (reference anyone?) sure that you would not fall.\n#2 SteelFingersv8Soft - You bring smiles to many and I hope you have a nice winter season. You are a real hero and deserve a nice warm hearth to roast chestnuts at. If I hear you spent the winter alone I will drive out and warm you myself. Cheers.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5407164,
@@ -44042,7 +44297,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Points baby! We never did an official tally but pretty sure Me Chase and Marina pulled the 'W'.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5407149,
@@ -44182,7 +44438,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Pretty sure this is \"Reach for it Center\" in the book but Reach for it center is just so many less characters! And i know that this is the best of the Reach For Its from experience... i mean i haven't tried the others but i know... you know?\n\nAnd i would rather be listed with my precious 'Ryan Bauer' and 'Shirley Girth' than be politically correct.\n\nAlso WTF I biffed the big move one, this took more burns than Cellulite.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5407150,
@@ -44434,7 +44691,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Definitely an area must do! Nothing too hard at the waterfall so it was nice to try rather hard on this one. Eileen and Chel (and Princess Ella - who loves my crash pad shade) ran out here with me for a quick sesh before a long sesh of drinking wine, beer, sake and meads!  Started on a low right hand crimp and a higher left hand side pulling crimp. Big first move to bomber right hand then, surprisingly hard sequence moving left. Bottom rock quality is great, but once you get through the crux it gets a bit hollow. Its located on the big rock on the north side of the waterfall. Same rock as Mr. Longarm just opposite side.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 5443413,
@@ -44770,7 +45028,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This boulder is ginormous, like really-really well endowed. Very big pin-pin, if you will. This boulder is just uphill from the super mysterious \"Land Survey Monument - Please do not disturb\" sign seemingly in no mans land. Maybe I am a recommend slut... but this climb is too good to abstain.  \n\n\"Pont du Gard\" is on the uphill side and starts on the most obvious feature ever. Amazing ascending jug crack/trough that trends up and right. So many jugs, and just good climbing overall. This is also the down climb since every other part of the boulder is like 25+ feet. \n\nI would honestly be pretty surprised if this is real FA, the climb just sings so I'm sure someone else heard it before me.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5449825,
@@ -44854,7 +45113,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb really is fantastic. I think it took 4 sessions so pretty close to redlining. And it only took me 23 tries today; I know the exact number since I have footage. Piece of cake!\n\nAlso WTF this climb is so hard, i dont understand. My fat sausages are oozing more than ever before so i just kept rocketing out of that dirty sloot. Was trying to do that steezy had foot match lock off for the first 15 goes but i just got too tired and the hold got too greasy. So i had to settle for pogo. Still cool, but def not steezy!\n\nAlso, of everything i touched today the easiest climb was \"Street Car Named Desire\", i repeated it cause i was in the area. Although now that i think of it my palms dont sweat... only my tips. Bummer. Who do i complain to to fix that genetic defect?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5449821,
@@ -44882,7 +45142,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Simply amazing. More climbs like this please. So nice I did it 5 times. Cant believe it was my 7th trip to JTree before I  finally touched this piece. \n\nI just landed a job in San Diego, and I start on December 9th so I wanted to get one last climbing trip under my belt. Was originally planning on going to bishop but too much rain my dudes. Got so stoked on JTree i just bought a guide and a national parks pass.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5450445,
@@ -45218,7 +45479,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Like a tiger earns its stripes, this climb earned its 'hard'.\n\nIf I could make a hypothetical rock garden where i just choose rock climbs that are perfectly replicated so i could do them daily, this climb might make the cut. Even a 'might' is a big deal.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5451617,
@@ -45246,7 +45508,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "I hate that I am a recommend whore, but when you find a cute climb gruesomely curb stomped and left in the gutter, what would any kind soul do? That's right, you help her out.\n\nThis climb, while potentially chossy at the top (no big deal since its only class 3 climbing), it has an awesome gaston lock off (at least the way I did it). Since ive been to bishop tons of time and have never heard of this climb, i feel like the world (well at least my watchers) should at least hear of it. \n\nThere are certainty better sixes but it deserves a look at least and maybe a fondle. Its just to the left of Morning Dove so its not far!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5451614,
@@ -45834,7 +46097,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Based on true events:\n<blockquote>After their fight at the Bridge of Khazad-dûm, Gandalf and the Balrog both fell into the deep chasm. Gandalf was burned by the Balrog's fire on the way down, then almost froze in the water at the bottom. He pursued his foe for days through dark tunnels, and then all the way up the Endless Stair to the top of Durin's Tower in the living rock of Zirakzigil, where the two engaged in a two-day long battle at the pinnacle of the Silvertine above the clouds. They fought in a narrow space upon Celebdil, above the mists of the world<footer>-The Lord of the Rings</footer></blockquote>\n\nArea epic my dudes! This is real climbing. Even though I'm pretty sure most falls would hit the landing, and most of those would not tumble past that, there is a very real non-zero chance that you fall a good 50 feet off the canyon wall and die.\n\nLocated on the west corner of the \"Where Eagles Dare Boulder\" start standing on opposing jugs and work your way right through the overhang/arete feature.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5491218,
@@ -46030,7 +46294,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "\"iWatch Boys!\". A more inspiring sentence has never been said when sending this rig. \n\nNews flash Scott hates the word \"rig\". No idea why. Maybe it makes him thing of those big oil rigs and pollution? Maybe he is afraid of semi-trucks. Who knows. What I do know is that this climb is legitness. Lets do Scotts new proposed star metric for climbs\n\n[*] - Is the climb between 7 and 15 feet tall, with a good landing?\n[*] - Are the holds solid?\n[*] - Is the line pure?\n[*] - Is the movement good?\n[*] - Is it aesthetic?\n\nThe order of stars are important, don't forget that. Needless to say this is a good ass line. Thank you Scott for those metric. \n\nAlso, soft. I could have sworn I remembered seeing this being V8 which shows that memory is always perfect. I used the sweet extend-O right heel hook, Scott did a sick knee bar. First climb I have done where i pinched a nerve or cut off blood flow or something because my ring finger was completely numb at the top.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5498149,
@@ -46058,7 +46323,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Guys! Guys!! I did a thing! I used my body and got on top of a thing!! Hooray!\n\nI cant believe this doesn't get even a single little blip of a fluttering heart in the book. Like I could see people getting severely hurt just climbing to the base of the climb itself! \n\nI think technically most falls would hit the landing, but with a landing significantly  smaller than those little yellow helicopter pads on the tramway towers, landing is not whats worrisome; its bouncing. Bouncing like a bumble all the way down the canyon; possible making the quickest descent to the parking lot possible. At least there is an upside.\n\nAnyway, surprisingly this was my third session over 10 years on this RIG. It came down to one mega trust of a right hand jam to get my left foot up, otherwise it was cake. I will go back with my boy big Scott one of these days because he can and should do it. \n\nThe fact that you can see this line from the parking lot and its inspiring as hell, I am willing to continue my recommend whoring.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5515261,
@@ -46114,7 +46380,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Another area test piece. RPC is shaping up to be quite a nice little San Diego gem of an area. I mean the Whole \"PoGo\" boulder is gonna blow up with variations I just know it. I can see at least two back side jonses and thats before 5 o clock on a Saturday! Start standing with right hand on the obvious jug and chose your grip, standard, western, or spock. I chose spock which was a little weird at first but then suddenly it just felt right. Left hand on an opposing jug. Work up straight through the sloper depressing using subtle combustion. Very inspiring line.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5515254,
@@ -46170,7 +46437,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Sometimes you find amazing things: this is a beautiful bullet rock with crazy patterns. Kind of a shame the roof doesnt have any holds but that sets up a nice desperate throw from river polished slopers on the lip to the top. Starts on a detached part of the boulder and after sticking in a totally mandatory but not needed knee bar, set up on the best part of the slick lip and jump up and left to the good juggy arete. A little harder since the landing really isnt that good, but its not very high so I think youll pull through. I bet the straight campus from the slopers goes, but it might be V9 alone.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 5515262,
@@ -46338,7 +46606,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Now, based on a centuries-old translation of Norse texts, historians had believed that my name is the [Grecian] God, but after comparing the text to the ruins of a Viking shield, it was  found that one of the letters had been mistranslated. So, by changing this letter, and inserting the correct one, we find that \"The [Grecian] God of Shittiness and Modesty but only one of those is True\", the key and Classic Snadbox member, is not [Grecian] at all, gentlemen, but [GREASIN]! (softly) Pause for effect. Gentlemen, I’ll take your questions now.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5522674,
@@ -47262,7 +47531,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This climb will be my ode to my friends. Happy Birthday Shirley, you are a man amongst men and I love you dearly. Now we will be the same age for a good 3 month. Good work on those poems. My jelly beans can always be yours. Camaraderie with my dudes is always a blast. I miss you all. AK nice job having enough energy and finger durability to send this glorious feature, thanks for picking be up at Chelseas Grandparents and sharing a glorious 2 for 3 with me at that special place. Drew great to finally meet Jamie and always a pleasure to feel your Butchoosole, Booka Booka Booka you you you strong strong strong boi boi boi. Marina I am always insanely impressed, sorry chase doesn't know how to tell where climbs start and so jealous and inspired by your bloody bloody tip oozing its way up the ultra classic pearl necklace. Scott you are my baby boo. Please let me hold you.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5523039,
@@ -47514,7 +47784,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wow. This climb is all time. Everyone walks by it without a second glance despite many aesthetic qualities. Erik was struggle bussing so figured I would give him inspiration by doing it in my flip-flops. If anyone can actually do this as their first V3 ill buy them a 6-pack of any beer they choose***\n\t\n<span style=\"font-size: 6px\">***Not redeemable for cash. $30.00 maximum value</span>",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5549007,
@@ -47626,7 +47897,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Every time I told someone I had not done this they responded with 'Wow! I cant believe YOU haven't done that soft piece' (shoutout Jenny, Scott, et al.). They were all absolutely right, but this was a serious epic for me! Too much delicateness and balance for this brute. Soul Slinger has been on my mind even since Chase popped his V9 cherry on it (or maybe ever since Key-Lime started projecting it), but I failed session after session. My last 3 times to bishop, the Milks were snowed out, so I was relieved to finally get a rare opportunity Morty. High wind was pretty optimal for maximizing friction with hands as wet as mine. Great to knock you nemisis out early in the trip that way you can start drinking beer earlier... although pretty sure I was already a beer or two deep at this point. Nice work Erik on the quick send yourself! \n\t\nReally amazing how impossible this thing originally felt and how easy it feels when dialed. Truly an great rock climb!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5549001,
@@ -47766,7 +48038,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Lives up to the hype! Glad this thing is getting more attention lately because it deserves it! Cool holds and awesome sequences. JQuee making the send of the day on this.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5549020,
@@ -48018,7 +48291,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Start in the glorious crack feet toe hooking on the prow and follow the obvious crack all the way up. Good aesthetic climbing and an unbelievable view make this climb quite special. Just off the right side of the Franklin lake trail as you start to ascend from the first lake.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5692999,
@@ -48074,7 +48348,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Actually looked at this years ago with Chase, Drew and Nathaniel but tired eyes and dry psyche blurred our \"line\" vision. Immaculate rock quality, with good body tension and an irresistable back flag make this climb quite good. After sending this I had enough psyche to propel me up FLorence peak (20.5 total miles)! I gained enough ground on the final switchbacks to the pass, that I figured I had time to test the scramble. Quite fun, and another peak in the valley checked!",
-            "rating": 4
+            "rating": 4,
+            "recommend": true
         },
         {
             "ascentId": 5693006,
@@ -48102,7 +48377,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "A direct finish to Biggorron's Sword. After a move or two, dyno straight up to the lip and mantle away. Insane glory awaits. Dont forget to place that bomb on that off colored section of wall when you hear the tell tale chich-chich-chcih",
-            "rating": 4
+            "rating": 4,
+            "recommend": true
         },
         {
             "ascentId": 5692996,
@@ -48466,7 +48742,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb would be a test piece anywhere. I think a low start goes too! Thank you whoever told me to ducktape my knee pad to my leg. Made the knee bar SOO much better. Thought it was feeling closer to V9 then I did it fresher and m-flashed it twice. Soft. Kinda wish I was the one to FA this... stupid, big, strong drewbie. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5693032,
@@ -49250,7 +49527,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Incredible. We all ran it as the glory lap after crushing Hose Monster. Proudly makes the cut for Best V0's of California!!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5769591,
@@ -49474,7 +49752,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "What a beautiful block! movement is good too! Someone strong should try the V15 to the right.\n\nA few things I cant believe. (1) Scott thought this was more natural to start one move in. Seriously!? God gives you a glorious pinch and you start one move in! As drew said \"Yeah that definitely starts matched on the pinch\". (2) Scott thought this was V8! Bah. He couldn't even do Ranger Cave! rofl. (3) How amazing this block is. It even has an incredible chilling cave. \n",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5829785,
@@ -49530,7 +49809,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "The Igor Wall is incredible. Quality, Quantity and Proximity. Only negative is the top outs, but maybe when we rope it up we will find a more enjoyable top. This line doesn't care about that tho, since is Pure, like the Project. Rather frustrating! The final move is huge like her tracks of land.\n\nShout out Drew Chase Kody Scott and Eileen for joining me on another unforgettable trip to MK.  Thank you from the bottom of my heart, I hope you enjoyed it as much as i did. See yalls here next time!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5853385,
@@ -49558,7 +49838,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I did this thing on my first day rope climbing outside over 10 years ago. Back then it was hard and I had to try and crimp feet. Today I m-flashed and actually crack climbed! Started the train with yer boy Zev. I guess I can confidently say I am slightly better. Incredible crack, that's all there is to say! Oh the downclimb is the crux for us boulderers.. reversing a crack is wack. First time for everything.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5853304,
@@ -49586,7 +49867,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Left entrance. I know grades are hard to translate sometimes from Rope to Boulder... but this thing could and probably should be V7. We did it ground up and while I'm sure it would have felt a little easier with temps, this has a mono lock off and a dead point like to the lip like 20 feet high.\n\nRegardless, simply incredible. Aesthetic, with great moves and even the mono is satisfying! Awesome weekend with my boy Zev! Sad MK fell through but it turned out pretty dope.\n",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5876619,
@@ -49698,7 +49980,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Incredible line. Awesome features on beautiful looking arete... there might actual be TOO many features! Did the stand which was still a tad awkward to pull off the ground but overall this line is fantastic. Tahoe continues to Impress, this is my kind of bouldering. Thank you Scott and Drew for bringing me out. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5923127,
@@ -49726,7 +50009,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "My JAM! A little bit of squeezing followed by a very unique mantle!! Squeezing part is probably about V6, and the mantle alone is probably V7... but I am a Mantle Wizard so kind of hard to tell. Dialed the mantle in isolation after a few goes, then it took about 6 tries or so from the ground! Very stoked on this one especially because I didn't know it was a project at the time. Monkey saw a mantle, monkey had to do the mantle!",
-            "rating": 4
+            "rating": 4,
+            "recommend": true
         },
         {
             "ascentId": 5923124,
@@ -49866,7 +50150,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Simply Dusty, is there no other kind? Why flash gods why!? Show mercy! This was meant to me mine!! Egads, Zounds, other archaic curses!! Oh well, soft second go is clussic! Like dusty this climb is simply amazing. A tad reach but if you like squeezy and pretty boulders, have I got a song for you.  If you lived close enough, and climbed at my difficulty this boulder could basically be a home gym all on its own. GET ON IT.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5923136,
@@ -50398,7 +50683,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "This is a king line. The direct finish on \"A Nice Boulder\" through the amazing xenos and flakes. 20ish feet of amazeballs. Thank you All Might for your always inspiring presence and phrases.  So amazing to come full circle on this boulder after seeing it ~5 years ago and thinking \"Wow that's cool but i will NEVER be back here\", turns out I came back! Also good try on picking up that water bottle Eileen! ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5953603,
@@ -50622,7 +50908,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "AMAZING slab crack! Super obvious and super good. Me Eileen and Joel running Train on this piece! My sister is a BADASS, she hasn't climbed in forever and easily sacks up for this kinda tall, slightly scary climb! Joes follows suit already giving this 3 ascents!! Very cool mid mantle into a pod, followed by some good crack feet or technical face smears. Can sit start for slightly more difficulty, but doesn't add any fun. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5953651,
@@ -50818,7 +51105,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Amazing boulder quite close to the Resort itself! How awesome. Name is a tribute to the amazing author Brandon Sanderson who continues to mystify my brain and transform my world. Seemingly bare rounded arete has just enough holds to make it amazing. to the left of \"Ranger Rock\" to the right of the burnt stump. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6008312,
@@ -52246,7 +52534,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Yes!! This is the climb that made me seek Lake Ramona. Beyond fantastic with aesthetics in every category. Amazing rock and equally amazing view. Great movement AND I've unlocked a shorter friendly beta so now no excuses for not coming to LR. I love that the area overview for LR on MP still says: \"The boulders on the hilltop west of Lake Ramona are enticing from afar but less appealing when you get closer. Mostly a nice destination for a morning hike.\" How wrong they were!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5998998,
@@ -52330,7 +52619,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This thing is INCREDIBLE; all variations are fantastic. I wonder how many people you could fit on this boulder at one time? Perfect angle with Pavlovian texture. Like seriously I'm drooling right now. Taller than you expect which just means more surface area to play! Honestly one of the most perfect slabs I have EVER been on. If you could somehow copy this and put it on an angle adjuster, it would be really awesome to see how steep the friction would hold. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5999026,
@@ -52386,7 +52676,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb is one of my favorite from the day! Such varied and fun movement on an incredibly gorgeous piece of rock. Only con is that it faces south so it gets hammered by that totally inconsiderate burning ball of gas in the sky. Shade felt cool, but while working this I felt like I was in the devils asshole. Honestly felt more like V6 or V7 to me but that could have just been due to that asshole thing, and the fact the ideal beta took a bit to find. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 5999013,
@@ -53114,7 +53405,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "A climb as awesome as it is soft... and let me tell you tis pretty awesome! Got a solo session at rock creek today but third day on reeeeaaally is hard on the booty, by booty i mean body, you take a doodie with that? I'm a tired Grecian God that's for sure. Also Compression Session is really hard.  But back to the elephant, this climb is rad. Did the huge one arm swing dyno variant so yeah, I go big.  ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6014073,
@@ -53366,7 +53658,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This thing is actually really good. Its also only V4. Cool movement to choss. As long as you pull out not down you should be fine. ",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 6021874,
@@ -53534,7 +53827,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Incredible. Great holds all the way up on a beautiful rock, fairly tall, with great and easy top out. Was planning on climbing at Lake Ramona this weekend but had a few too many Pure Project Quads and Black Tuesdays on Christmas. Spent all Saturday recovering: Binged an anime called BNA and started a great Korean show called Sweet Home. I was going to climb more today, but pomegranate tree pruning took like 6 hours, what a monster tree! It had over 800 fruits this season!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6043543,
@@ -53646,7 +53940,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Might be slightly gimmicky but when nature give you gimmicks, you  gobble them up! Nature is so amazing. The movement is unique, fun and pretty much forced. Its hard to even set a climb in the easier grade range this cool. It's in a beautiful location with good rock quality, what else could you ask for!?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6043782,
@@ -53702,7 +53997,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Perfection. Utter bliss. This is easily one of my top 5 favorite climbs of ALL TIME. Aesthetics are 6 / 5: perfectly cleaved face with a striking sharp arete, and even has that gory darn diving board feature! Movement is 6 / 5: looks improbably but as you start climbing, it feels oh so natural. Rock quality is 5 / 5. You could come to LR for this alone and you would leave happy. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6043709,
@@ -53730,7 +54026,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I knew I was running on empty all day... but this is how I KNEW. know what I mean?  Fell at the top of a V3 because my body just completely gave out... took a super long break and managed to eek out the send but damn I'm destroyed. This is one of the most aesthetic climbs PERIOD. It doesn't even make sense how perfectly sculped the dike feature is.  Absolute must do. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6043561,
@@ -53814,7 +54111,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I don't even like crack, but this think is so epic and begs to be climbed. First move is rather painful but that's part of the appeal my dudes. I was honestly glad for something other that my tips to be screaming. This thing had awesome variety of movement of holds, but the steepness keeps it quite sustained. I ended up inverting to get one of my right hand jams in. It makes for a rather ludicrous but cool looking sequence. \n\n",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6043630,
@@ -54514,7 +54812,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This thing is actually awesome. Should probably have a fluttering heart. Its tall with good holds. Good for a beaten down boy. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6063999,
@@ -54542,7 +54841,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Another really good climb I have never read the description for, but may seriously warm up here instead of slow dance area. Thank you Junshine for bringing some shine into my dreary day",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 6064000,
@@ -55018,7 +55318,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "You know I'm such a fool for you\nYou got me wrapped around your finger\nDo you have to let it linger?\nDo you have to, do you have to, do you have to let it linger?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 6066360,

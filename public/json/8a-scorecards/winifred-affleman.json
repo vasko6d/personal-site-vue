@@ -530,7 +530,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1818,7 +1819,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1986,7 +1988,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "As Sherlock would say, nice and soft, soft and nice.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2742,7 +2745,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I don't like this new 8a.nu",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2966,7 +2970,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I'm just like you but longer.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3666,7 +3671,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "The most beautiful boulder. Gosh I hope this doesn't break. I should have flashed but I wasn't wearing my undercling glasses. Unlike Jedi Mindtricks, I would do this again and again and again.",
-            "rating": 4
+            "rating": 4,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3806,7 +3812,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Whoa! Never knew this boulder was back here. What perfect edges. I didn't think this SoCo rock had it in it. I loved this. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5168,7 +5175,7 @@
             "date": "2021-01-24T12:00:00+00:00",
             "difficulty": "7B+",
             "gradeIndex": 26,
-            "comment": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Sorft. ",
+            "comment": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Soft, but as the wise Gregor says, 7B is not a grade. ",
             "isPrivateComment": false,
             "traditional": false,
             "project": false,
@@ -5177,7 +5184,7 @@
             "firstAscent": false,
             "secondGo": false,
             "type": "rp",
-            "notes": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Sorft. ",
+            "notes": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Soft, but as the wise Gregor says, 7B is not a grade. ",
             "rating": 3
         }
     ],

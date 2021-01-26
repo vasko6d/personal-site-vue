@@ -166,7 +166,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -558,7 +559,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Had to campus the majority due to hurt hamstring. Still fun.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -642,7 +644,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Super snack. Bringing some chalk helped on the top.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -782,7 +785,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Really fun. Coolest on the boulder.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -950,7 +954,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Sweet climb. Subtle beta makes this much easier and super snack.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1118,7 +1123,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Scared my spotters cutting feet on the easy top slab. Really cool problem.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1314,7 +1320,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "From the low start. What an awesome feature.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1482,7 +1489,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Unreal how sick this thing is.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1594,7 +1602,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Holy shit, excellent.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1622,7 +1631,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Holy isht, this was proud. One of my favorite V4's I've done. Bandsox team send.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1734,7 +1744,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "One of the best in the happys. Why did I think this was dumb at first??",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1930,7 +1941,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This upside-down pizza slice of a climb is going to make you hungry. Hungry to send that is. Whether your crime is rape, murder, arson, rape, or stampeding cattle through the Vatican , everyone deserves to do some time on this climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2014,7 +2026,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Best of its grade. You can climb your Summer Vacation all year long and it still wont be as sick.  A climb so nice I did it twice.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2042,7 +2055,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "This is pure. This is highhhhh flyinggg. Super clean line with excellent flow.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2070,7 +2084,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Added for the stretch factor.  I don't think I'll ever see such a reachy peach ever again.  And I'm not talking about Shirley's shartpile at the Sandbox.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2182,7 +2197,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Wow this is ill. Betas are key, but the 3 person send/flash train was awesome. Who needs pads on this thing?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2266,7 +2282,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Holy isht.  I've never committed to anyone as much as I committed to this squanchy line.  So ill.  The drop off is the mental crux.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2434,7 +2451,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "This was awesome. Definitely my jam, bread, butter, jelly, sexual preference, and style.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2686,7 +2704,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Simply my favorite boulder to date. I recommend drinking half a bottle of Fireball while flailing on Red Dragon before sending.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2994,7 +3013,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "The reason anyone would do this, if they could, which they should, would be because they could, but they haven't. Shout out to Vin for some should have been obvious (to me) top out beta. This is such a damn fun problem I'll probably run up it every opportunity I get.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3050,7 +3070,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "After the Millennium Falcon Van decided to to breath better by bouncing her windshield off on Buttermilk road, you could say I was pretty motivated to makes the most of that drive. And I did. This was the only climb I was really interested in doing this day. Probably the best victory lap top out I've climbed.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3246,7 +3267,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Never would I have expected this to go with my first attempt using the crimp out left.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3750,7 +3772,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Another classic completed. Took sending this to get my psych back after flailing on \"It's About Time\" for like an hour. Luckily this is a much better climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4086,7 +4109,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I love when you find beta that just works perfectly for yourself. This was such a fun time figuring out my beta and then sending with it the first go after finding it. Also, it is a sit start people... Just fyi.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4114,7 +4138,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "First of the grade! What an awesome climb. Shout out to people leaving stash pads, Squamish for having unseasonably dry weather, and coffee/gummy worms for getting me up this. Definitely an area I'll be happy to come back to for Cruelty and Splendor at some point...",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4422,7 +4447,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "What a lovely boulder to end 2019 on. This was one of the first climbs I tried in Bishop way back with a Jenny Knall type and Fanny Dong giving betas. Good times. Probably my first time back in the sads since 2015. Not so sad anymore.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4450,7 +4476,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ooooh weee, that was spice-yyy. Shout out to Shirley for the spot because I thought I was going to backflip off the last holds. Turns out, they weren't that last holds and I just don't know how to rock climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4562,7 +4589,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Turns out all it took to make this soft was to try it after working beefcake for a couple hours.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4590,7 +4618,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "What a quality V7. Benchmark for the grade. First not soft bolder I've done in a while.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4618,7 +4647,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Could be 3 stars if it wasn't for the dab factor. Super cool line though. Shout out Nico and Scott for pad caddying for my send.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4842,7 +4872,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This thing is so damn rad. Stoked to have discovered my stoke on it at the beginning this season and put it down! Definitely soft if you have good toe hook shoes, which for me were way too small Solutions.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,

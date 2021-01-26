@@ -138,7 +138,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -250,7 +251,8 @@
             "secondGo": false,
             "type": "f",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -334,7 +336,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -362,7 +365,8 @@
             "secondGo": false,
             "type": "f",
             "notes": null,
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -726,7 +730,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -754,7 +759,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Awesome foot slipped near the top though",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -838,7 +844,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -922,7 +929,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1370,7 +1378,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1482,7 +1491,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1874,7 +1884,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Little scary at the top. Really cool problem",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1902,7 +1913,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4142,7 +4154,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "choss. did it during a hailstorm naked.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4226,7 +4239,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "my favorite climb at joes",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4254,7 +4268,8 @@
             "secondGo": false,
             "type": "f",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4282,7 +4297,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4562,7 +4578,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5430,7 +5447,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "did a while ago only logging to SB North a bunch of bitches and to challenge these bitches to a v-point competition this winter.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5486,7 +5504,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "What a line! Super cool figure. Definitely secured the injured status on my hammy.  Bummer that Shirley never did this...",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5514,7 +5533,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "soft. choss. incredible",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5654,7 +5674,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of the best I have done.  Shout out to Director for the spot and moral support and to the whole Sandbox for being sick and good at climbing soft boulders.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5990,7 +6011,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Bummed my first 11 was a soft lowball chossy traverse.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6438,7 +6460,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "about damn time.  choss.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6690,7 +6713,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Shout out dong straniel and davy for the support.  Head game strong, giving it that is.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6774,7 +6798,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Incredible line.  Classic touchstone climbing gyms scenario where the climb is also good because its soft.  Great way to finish up the worst day i've climbed since bishop spring '15",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7222,7 +7247,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Amazing.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7418,7 +7444,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "You know after the suss second ground up. Qualified.  So scrunchy.  Such good roof compression.  Static to the lip, you know if you're an ape.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7978,7 +8005,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Makes me question why the northbox is going to Tuolumne this weekend.  This climb is gold.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8734,7 +8762,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Worried my fat ass was going to break that thin patina.  Well, I didn't so I'm psyched.  Just my style, soft.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9126,7 +9155,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I wish I hiked to the underground instead of doing this thing today.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9350,7 +9380,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "so sick massive swang rad.  best i did in joes.  so dope",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9686,7 +9717,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "ewwww\n* clarification my brothers name is trent so that pocket was a little too damp for my taste",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9798,7 +9830,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wow.  Real good my fat ass didnt break holds.  After talking with Cristy Aldwell I think soft 8A+ could be fair",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9994,7 +10027,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Just actually reallly coool.  kshutt11 is my hero. Its got everything you could ask for, handholds and footholds.  Shoutout to d.vask and s.grith to  come and show this thing some  (sex) traffic.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10106,7 +10140,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Super unexpected.  Probably longest standing project at black.  But somehow was so soft on the m-soft second go",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10162,7 +10197,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "The best one I've done at tram.  Might defy the vary nature of boulders and be not soft.  Shoutout Davy and Zev for the stand, Shirely we miss your ass.  Also expect a log from kshutt11 soon I know the Attack of the staph 8a log is really the best place to get climbing media.\n\nedit: Didn't wanna keep everyone waiting, kshutt11 will not be logging soon.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10218,7 +10254,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "real good full variety of movement.  lil tall. tram doesn't get much better.  Love the davy massive dp attempt.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10470,7 +10507,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Arete near Velvet with a terrible landing.  On the other side of the rock pile from velvet.  Fun moves on crimps and pinches to a crux encounter at the lip",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10498,7 +10536,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Spent years trying Kody's beta, first try with  my own.  Real fun one.  The epitome of not my style you actually have to use your feet",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10582,7 +10621,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Would recommend if the top wasnt so dirty.  Would also recommend if the top was dirty. So theres that",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10638,7 +10678,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "New break opens up whole new doors for me. I thought this may be the first not soft harder boulder for me but this one is plush like wool socks or something like that.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10806,7 +10847,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Of the lines on this boulder this has to make the top 3.  Id say I pulled the send out of my ass but them the butt plug wouldnt be doing its job.  Shoutout Shirley for letting me down climb the boulder one more time and kody for convincing me it was soft.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10834,7 +10876,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "soft. psyched reachy beta is the way",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11002,7 +11045,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I remember years ago when @crispychen told kody he was wet dreaming and I knew I had to have a wet dream myself. Who knew you could have a soft wet dream!  Easier for the short.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11394,7 +11438,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This comment has nothing to do with Mandala.  Its just about two boys, both fat, both alone.  For two long years these boys quested out of fatness, unsuccessfully, I may add.  At the end of this arduous period there could only be one, Alan Nalitch.  But along the way these bullfrogs learned so much about the bodies of one another.  From the perils of the Chappies to the periodic 30 minute yaking they grew together.  While in the end there is only one Alan they both learned that Alan was inside of them all along and, to be frank, they should really get that checked out Alan is not really something you want inside of you for that long.  And while the world, or rather just 8a.nu, may have to say farewell to Shirley for a bit they can always get just a bit closer to him with just a subtle scratch of the buttock, in fact, I may just enjoy one such scratch myself.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11674,7 +11719,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "\"I used to be a Morman\" #powerwashjoes",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12122,7 +12168,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "not soft, like the first ascentionist",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12318,7 +12365,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "almost blew the topout from a forearm dry fire, had to spice it up",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12682,7 +12730,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "amazzzzing, some classic time meeting Jeremy after it, still think I'm better than you for what its worth",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12822,7 +12871,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "my butchchops hole was so close",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12878,7 +12928,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I may not be able to prelog for david but consider this davy's first 8a",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12962,7 +13013,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Carlos coming in clutch with the beta, this thing is yours next sess!",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13018,7 +13070,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13046,7 +13099,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "second goed 8b psyched!",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13130,7 +13184,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Driving to Bishop last year I got a text that I was too fat to do the swarm, took a while to brainstorm a comeback, you're too weak to do Sky. \n Came in late so the #keeprocklandssoft crew could have a team send on this one.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13214,7 +13269,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Blew the flash, and the next go, a guess three is right out.  Great send to finish the trip, best uncut and unfiltered and unblurred footy yet.  Two planets my dude!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13690,7 +13746,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Beautiful choss.  So close to breaking the entire hold off stained glass,  maybe I’ll get it next time.  Shoutout to the Girthest man for sending that unnamed choss to the right of this beaut.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14054,7 +14111,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "davy got my ass and then my ass was free and then my ass was mounting",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14306,7 +14364,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Classic m-soft second go after suss. Total anti-style.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14558,7 +14617,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14614,7 +14674,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14642,7 +14703,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "#approvedboulderlist  wonder what I will be allowed to try next! ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -15342,7 +15404,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "really cool one and amazingly not soft which is strange for tahoe",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,

@@ -82,7 +82,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Really fun, big moves on Jugs. Not too difficult but this is definitely my type of climb",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -530,7 +531,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "3rd go? Feels soft. That being said, hella fun",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -782,7 +784,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Two days of work, probably 7 tries the first time, came back two weeks later and sent it on the first try. Fun",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -838,7 +841,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Two days of work. Real fun and real perdy line",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1398,7 +1402,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1426,7 +1431,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Pumpy. Powerful. Hard. Beautiful.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -1930,7 +1936,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "FINALLY. Worked on it in the morning, got my ass kicked, came back at the end of the day and it felt easy. Wuh?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2042,7 +2049,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2126,7 +2134,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Didn't take too many tries but tons of effort. Classic.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2210,7 +2219,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2266,7 +2276,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "A must see.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2294,7 +2305,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Classic. A must see.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2434,7 +2446,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Glad to have finally finished this classic.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2546,7 +2559,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Awesome line. Used the intermediate which makes the last move a bit less intimidating.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -2966,7 +2980,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Tricky, but great climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3218,7 +3233,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Avenging the death of my index finger last week.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3330,7 +3346,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Soft UCLA rockwall v7.\n\nAnyway, really excited about this one. Didn't expect to try it much this trip, thought I would if I finished up some old projects. But then came the rains, and it was one of the few dry or relatively dry things. Took three sessions, went first try once I got the first move, which felt fucking hard. Maybe easier if you have big hands and can pinch the right start hold easily.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3386,7 +3403,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Straight forward, down pulling crimps. Lots of fun, although not as much fun as setting up a crashpads slide down the landing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3638,7 +3656,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Awesome climb. Sent after it got dark, had the car running so I could use the high beams to light it up.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3694,7 +3713,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Classic. Really glad I sent before watching the guy take a buttrape rock to the thigh...",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -3918,7 +3938,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Felt so hard last year, but with better beta actually feels like a 7. Awesome climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4170,7 +4191,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Topped out and then sat on top, holding a jug for 10 minutes while getting battered by 50 to 70 mph winds.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4282,7 +4304,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Second go from the start after trying the stand once. Amazing line, great way to finish off the season.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4366,7 +4389,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Cool climb, especially with the non-reachy beta. Elevation definitely a factor.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -4394,7 +4418,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "The ideal highball, hard moves at the bottom, easy up high. And yet I was still terrified.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5038,7 +5063,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "If this is v9, consider me, Miles Davis. But yea, it's a pretty good climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5178,7 +5204,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Awesome. Not that scary.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -5262,7 +5289,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Scrunchy foot beta fo life.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6578,7 +6606,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Erik and I got super lost looking for this thing. Awesome boulder, excellent climb. Erik can frash the sit next time for sure!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6690,7 +6719,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Sandbox sendfest 2015.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -6774,7 +6804,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "A+ problem. Definitely sent because of pillow talk on crash pad island the night before.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7054,7 +7085,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Shoutout nut whips.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7278,7 +7310,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Sent while snowing, so cool. At least my shoulder didn't completely prevent me from climbing...",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7306,7 +7339,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Amazing. So proud of Stoffel for putting it down despite no finger tips.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7446,7 +7480,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Unique. In a good way. Like a surprise poop at Schat's.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7474,7 +7509,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "You know how when you visit a new area, and you're trying to find the boulders, and you end up getting suuuper lost only to realize later that you're an idiot and we're reading the map wrong? Yea this was not one of those times.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7502,7 +7538,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Two things: 1) How this is v9 and Space Race is v7, I'll never know. Legit couldn't do the 7. 2) Really glad I didn't pull the really good left hand crimp/pinch off onto my face. That thing is gonna blow.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7558,7 +7595,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ended up walking about 6 miles round trip. Dear god these boulders are far. But there is definitely some quality lines out there.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7614,7 +7652,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Definitely my style. Great climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7670,7 +7709,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Shirley did it in less tries than me. Fuck.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7726,7 +7766,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So glad Ryan's foot didn't pop while starfishing or else I would have gotten kicked right in the face.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7782,7 +7823,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Fun compression. Top out to the left if you like stepping on chossy knobs!",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7838,7 +7880,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Well the knobs were uh... fun?",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -7866,7 +7909,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ryan and Chase passed up this to keep trying the glorified campus board. Good thing too since this was just choss.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8118,7 +8162,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": null,
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8314,7 +8359,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Ultimate Trogdor is the best V8 in California, 1v1 me you straight willn't.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8538,7 +8584,8 @@
             "secondGo": false,
             "type": "os",
             "notes": "Roadside, good movement, and fairly tall. What more could you want?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8650,7 +8697,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Shoutout Craig for not sticking the crimp at the lip. If he had I would have pooped myself trying to spot him.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8678,7 +8726,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Can't imagine a boulder being more my style. So freaking fun. Shoutout Ryan and SDJ for letting me talk them into a night only trip and climbing until 4AM. Ya'll the realest.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8762,7 +8811,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Sometimes I have these epiphanies that maybe I'm not that smart. How could I have not realized that a boulder with \"Skeeter\" in the name was going to be a breeding ground for mosquitoes? Despite that, really fun climb, highly recommend. Just not in the middle of summer.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8818,7 +8868,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Started on the lowest holds under the center of the face. 19 hand moves from the sit good lord, what am I sport climbing?",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8846,7 +8897,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "First go after doing the stand. Beginning moves are powerful and fun, upper a little techy and tall. Perfect climb.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -8874,7 +8926,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Best v5 in Tahoe? At least until someone rips one of any number of holds off the wall.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9294,7 +9347,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So freaking fun.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9406,7 +9460,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Soft, but oh so perfect compression.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9518,7 +9573,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Q U A L I T R",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9546,7 +9602,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Had to wait for some big strong men to come spot me because those topout holds look like choss, sound like choss, and quack like choss. But somehow they didn't break.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9574,7 +9631,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "I didn't drive 1,000 miles to give honest grades. I came for the soft boulders and gah damn I'm taking all the points.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -9798,7 +9856,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Oh sweet as.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10022,7 +10081,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of the few climbs where it actually might be better because there's a rock in the way. So fun.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10078,7 +10138,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Super good/",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10246,7 +10307,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "You know what, for a climb with such a high dab potential and a constant scent of pee, this thing is pretty sweet as.",
-            "rating": 3
+            "rating": 3,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -10358,7 +10420,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Started from the lowest jug. Way in the hole. Amazing boulder, I heart squeezing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11030,7 +11093,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Another classic “Felt Impossible Until It Went” and then it was soft. Your classic FIUIW if you will. And you will. Shoutout Trevor for figuring out it was left hand first, and for his heroic/desperate slap onto a blank face crucial move that saved many a bootchoosle on that day.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11170,7 +11234,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Started the way the book said, soft unless you're smol.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11198,7 +11263,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Psyched to finally put this down. Thank god Alex recommended getting a right foot up for the crux, otherwise I might have never done this thing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11226,7 +11292,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Everything is aid, all climbing is contrived, and this is both rad and see-oft.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11646,7 +11713,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This climb is so weird, and has so many uncomfortable/strange holds, that it was actually fun. Recommended.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11674,7 +11742,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Definitely soft if you’re tall enough to do the knee scum/left hand bump beta. \n\nReally proud of myself for this one. I hiked two big Organics up from the gate/pavement and sent despite both my toe and tailbone not being 100%. Not too long ago that would have been more than enough to shut me down mentally, but I was able to just enjoy the process and managed to send. Gonna try and enjoy this one for a little longer than normal.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11786,7 +11855,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Spent two hours trying to figure out a way to do the first move, and then once I found a sneaky knee bar it went second go, after just a classic punt since I didn’t even think a out the top out before hand.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11814,7 +11884,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Too tall/inflexible to do the high heel hook, too short to keep the left foot on for the big move. Feels quite a bit harder than most 9s I’ve done so I think I’m going with the rare upgrade.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -11842,7 +11913,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Really great boulder. Full value.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12122,7 +12194,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "This wasn’t high on my list at the start of the trip but man this thing is amazing. So fun. I think this is now one of my top 5 favorite climbs all time.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12262,7 +12335,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So sick. This is definitely going to be one of the most popular 8s once it’s more known.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12318,7 +12392,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Hero send, so gassed. Really really rad movement. Definitely worth the hike.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12430,7 +12505,8 @@
             "secondGo": false,
             "type": "f",
             "notes": "Shoutout Will and Joaquin for sussing all the beta. Only reason I was able to flash.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12514,7 +12590,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Four days on it, 2 micro beta additions in me, and immeasurable hope. \n\nFell after sticking the good crimp a half dozen times, was starting to wonder if I wasn’t going to be able to finish it this trip. So. Freaking. Stoked.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12570,7 +12647,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "3 days of effort. Started sitting with the lowest two pockets, a three finger stack for the left and a small two finger pocket for the right. Not exactly sure if that’s the actual start but didn’t want to start to high. Amazing line, if only that tree wasn’t there.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -12850,7 +12928,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "My head game needs work. I also need to get better at topping out marginally scary boulders.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13074,7 +13153,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "To loosely quote the great boulder philosopher Nathanbro: “If the climbs goes, then it must be soft”. Also tendonitis is a bitch, feels like my left arm is going to fall off.",
-            "rating": 0
+            "rating": 0,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13102,7 +13182,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "What can I say, when the studly Davey/Nate duo are around, and I see that sweet sweet kneebar potential, the pants have just GOT to come off. \n\nClimbs well, looks swell, and has got a sweet-as kneebar for rell. 3 stars, would recommend.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13270,7 +13351,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Can’t believe I’ve never done this thing before, and how good it is. So sick.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13634,7 +13716,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Can’t imagine a better way to end my funemployment trip. Something like 5 days of work, punted HARD on day 4 and couldn’t repeat the beginning, but managed to pull the send out of my boochoosle today. Not sure what the future holds but psyched to see what’s in store.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13662,7 +13745,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "So much more enjoyable with a built up snow bank landing.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13942,7 +14026,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Woke up early and snuck in a send before the rain. Thought it wasn't going to be too hard but ended up in an epic.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -13970,7 +14055,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Derrick's beta was clutch. Feels less scary than it looks.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14054,7 +14140,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "The key to sending is being completely wrecked from digging the van out of a snow bank the night before. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14082,7 +14169,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Really great line, more enjoyable than Ill Cave for me.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14278,7 +14366,8 @@
             "secondGo": true,
             "type": "rp",
             "notes": "Some of the sweetest grippy grips my grippers ever gripped.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14362,7 +14451,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "One of the best of the grade in Tahoe.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14446,7 +14536,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Supes good.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14530,7 +14621,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Dope.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14586,7 +14678,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wanted to do this for years, and thank god Drew didn't rip off the glued crimp before I had a chance to do it. Just needed some temps and that #sadboidiet to send. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14670,7 +14763,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Punted off this 8 months ago because I was pumped and alone on the top out. Very happy to finish this and walk away with only a little hole in my finger. One of the best.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14810,7 +14904,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Well this turned into quite a weekend. I really identify with this boulder because it's basically just pain from start to finish and if that doesn't sum up my life then oh boy I don't know what does. Also I smashes Chris Hoss in car points and that is neat.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14866,7 +14961,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "For some reason I don't think I did this on my previous trips. Really rad.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14894,7 +14990,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Wasn't sure it was going to live up to the hype but oh boy did it. But even better than the climb was the decision to downclimb the tree using some really great bear hugging technique suggested by Vikas. My body looks like it was attacked by Stoffel. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14922,7 +15019,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Even better than than Wolfpack. Low end for the grade, maybe only v11, but as you get older and more wise you realize Jens don’t know shit and you should always take the grade. ",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         },
         {
             "ascentId": 0,
@@ -14978,7 +15076,8 @@
             "secondGo": false,
             "type": "rp",
             "notes": "Rad movement, finally finished after all these years. Shoutout Vikas for telling me to use the wrong hold, as if I needed an extra barrier to sending.",
-            "rating": 5
+            "rating": 5,
+            "recommend": true
         }
     ],
     "totalItems": 535,
