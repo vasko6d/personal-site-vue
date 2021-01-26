@@ -98,7 +98,7 @@ export default {
         year: { val: null, show: true },
         month: { val: null, show: true },
         dayOfWeek: { val: null, show: false },
-        recommend: { val: null, show: false },
+        recommend: { val: null, show: true },
         grade: { val: null, show: true },
         rating: { val: null, show: false },
         softness: { val: null, show: true },

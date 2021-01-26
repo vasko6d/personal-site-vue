@@ -99,9 +99,9 @@ export default class Stat {
     if (filters && Object.keys(filters).length > 0) {
       for (const cat of Object.keys(filters)) {
         if (filters[cat].val != null) {
-          //console.log("> Filter: " + cat);
+          // console.log("> Filter: " + cat);
           stat = stat.get(cat);
-          //console.log("> Value: " + filters[cat].val);
+          // console.log("> Value: " + filters[cat].val);
           stat = stat.get(filters[cat].val, true, false);
         }
       }

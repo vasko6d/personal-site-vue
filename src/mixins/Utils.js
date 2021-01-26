@@ -300,6 +300,7 @@ export default {
         isSoft: ascent.isSoft,
         month: undefined,
         rating: ascent.rating,
+        recommend: !!ascent.recommend,
         secondGo: ascent.secondGo,
         sectorSlug: ascent.sectorSlug,
         softness: undefined,
@@ -491,7 +492,7 @@ export default {
       for (let grade of gradeList) {
         const types = grade.get("type", allowExpansion);
         let cnt = 0;
-        if (opts && opts.filters && opts.filters.type === "redpoint") {
+        if (opts && opts.filters && opts.filters.type.val === "redpoint") {
           cnt = grade.count;
         } else if (types.get("redpoint", allowExpansion)) {
           cnt = types.get("redpoint", allowExpansion).count;
@@ -499,7 +500,7 @@ export default {
         datasets[0].data.push(cnt);
 
         cnt = 0;
-        if (opts && opts.filters && opts.filters.type === "flash") {
+        if (opts && opts.filters && opts.filters.type.val === "flash") {
           cnt = grade.count;
         } else if (types.get("flash", allowExpansion)) {
           cnt = types.get("flash", allowExpansion).count;
@@ -507,7 +508,7 @@ export default {
         datasets[1].data.push(cnt);
 
         cnt = 0;
-        if (opts && opts.filters && opts.filters.type === "onsite") {
+        if (opts && opts.filters && opts.filters.type.val === "onsite") {
           cnt = grade.count;
         } else if (types.get("onsite", allowExpansion)) {
           cnt = types.get("onsite", allowExpansion).count;
