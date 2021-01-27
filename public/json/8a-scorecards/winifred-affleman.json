@@ -5186,8 +5186,36 @@
             "type": "rp",
             "notes": "I climbed this thing so bad sometimes I wonder if I climbed this thing at all. The heel move is cool and made me feel pretty cool. Soft, but as the wise Gregor says, 7B is not a grade. ",
             "rating": 3
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Happy Boulders",
+            "cragSlug": "happy-boulders",
+            "sectorSlug": "unknown-sector-17b82",
+            "zlaggableName": "Hair Trigger",
+            "zlaggableSlug": "hair-trigger",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-01-26T12:00:00+00:00",
+            "difficulty": "6C",
+            "gradeIndex": 21,
+            "comment": "You’ll get it someday, Gregor! ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "f",
+            "notes": "You’ll get it someday, Gregor! ",
+            "rating": 2
         }
     ],
-    "totalItems": 185,
+    "totalItems": 186,
     "pageIndex": 0
 }
