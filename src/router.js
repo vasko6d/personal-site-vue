@@ -146,6 +146,12 @@ export default new Router({
       component: () => import("./views/crossword/XwordSolver.vue"),
       props: true,
     },
+    {
+      path: "/climbing/import/analytics",
+      name: "Import Analysis",
+      component: () => import("./views/climbing/ClimbingImportAnalysis.vue"),
+      props: true,
+    },
     { path: "*", component: () => import("./components/NotFound.vue") },
   ],
 });
