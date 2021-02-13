@@ -1,13 +1,11 @@
 <template>
   <div id="boulder-scorecard">
     <h1>The Sandbox's Ticklist</h1>
-    <spinner
-      v-show="loading"
-      size="huge"
-      message="Fetching Sandbox Scorecards..."
-      :line-size="24"
-    ></spinner>
-    <div v-show="!loading" class="flex-row">
+    <div v-if="loading">
+      <spinner size="huge" :line-size="24"></spinner>
+      <div>{{ loadingMessage }}</div>
+    </div>
+    <div v-else class="flex-row">
       <!--div class="chart-w">
         <div class="chart-p bg1">
           <climber-select baseURL="/climbing/ticklist/" />
@@ -97,6 +95,7 @@ export default {
   data() {
     return {
       loading: true,
+      loadingMessage: "Fetching Scorecards...",
       showColumnFlags: false,
       stats: new Stat("ascents", ["comment"]),
       currentFilters: {
@@ -220,34 +219,35 @@ export default {
     this.loading = true;
     this.fetchAllData();
   },
-  updated() {
-    this.loading = false;
-  },
   methods: {
     fetchAllData() {
       setTimeout(() => {
         var promises = [];
         let timer = new Timer(true);
-        ClimberSelect.data().importedClimbers.forEach((climber) => {
+        const climberData = ClimberSelect.data().importedClimbers;
+        let fetchCount = 0;
+        climberData.forEach((climber) => {
           promises.push(
             this.fetchData(climber.sandboxId).then((result) => {
               const ascents = result.ascents.map((ascent) =>
                 this.preprocessAscent(ascent, climber.name)
               );
+              fetchCount++;
+              this.loadingMessage = `Fetching Scorecards ( ${fetchCount} / ${climberData.length} )...`;
               return Promise.resolve(ascents);
             })
           );
         });
-        Promise.all(promises)
-          .then((allAscents) => {
+        Promise.all(promises).then((allAscents) => {
+          this.loadingMessage = "Processing Scorecards...";
+          setTimeout(() => {
             let allAscentsFlat = [].concat.apply([], allAscents);
             this.stats.goDeeper(allAscentsFlat);
-            return Promise.resolve();
-          })
-          .then(() => {
             console.log(`[${timer.getTimeSec()}] All Ascents porcessed`);
             console.log("Ticklist: ", this.stats);
-          });
+            this.loading = false;
+          }, 100);
+        });
       }, 250);
     },
     clearFilters(catToClear) {

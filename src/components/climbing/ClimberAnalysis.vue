@@ -2,7 +2,8 @@
   <div id="climber-analysis">
     <h1>{{ climberName }}'s Analysis</h1>
     <div v-if="loading">
-      <spinner size="huge" message="Analyzing..." :line-size="24"></spinner>
+      <spinner size="huge" :line-size="24"></spinner>
+      <div>Analyzing...</div>
     </div>
     <div v-else>
       <div class="flex-row">

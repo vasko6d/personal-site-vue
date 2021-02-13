@@ -8,12 +8,10 @@
         />
       </div>
     </div>
-    <spinner
-      v-if="loading"
-      size="huge"
-      message="Fetching climber data ..."
-      :line-size="24"
-    ></spinner>
+    <div v-if="loading">
+      <spinner size="huge" :line-size="24"></spinner>
+      <div>Fetching Data...</div>
+    </div>
     <div v-else>
       <climber-analysis
         :climberName="climberName"
