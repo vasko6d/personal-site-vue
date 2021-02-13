@@ -4,7 +4,7 @@
     <spinner
       v-show="loading"
       size="huge"
-      message="Loading ..."
+      message="Fetching Sandbox Scorecards..."
       :line-size="24"
     ></spinner>
     <div v-show="!loading" class="flex-row">

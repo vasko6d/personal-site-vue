@@ -34,13 +34,13 @@ export default new Router({
         {
           path: "/climbing/ticklist",
           name: "Ticklist",
-          component: () => import("./views/climbing/ClimbingTicklist.vue"),
+          component: () => import("./views/climbing/SandboxTicklist.vue"),
         },
         {
           path: "/climbing/analytics/:sandboxId",
           defaultPath: "/climbing/analytics/david-vasko",
           name: "Analysis",
-          component: () => import("./views/climbing/ClimbingAnalysis.vue"),
+          component: () => import("./views/climbing/SandboxAnalysis.vue"),
           props: true,
         },
         {
