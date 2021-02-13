@@ -379,17 +379,7 @@ export default {
       return new Promise((resolve, reject) => {
         fetch(`/json/8a-scorecards/${sandboxId}.json`)
           .then((raw) => {
-            return raw.json();
-          })
-          .then((rawJson) => {
-            const ascents = rawJson["ascents"].map((ascent) =>
-              this.preprocessAscent(ascent, this.kebabToCap(sandboxId))
-            );
-            if (ascents.length) {
-              resolve({ msg: "Success", data: ascents });
-            } else {
-              throw new Error("Ascents Were Empty");
-            }
+            resolve(raw.json());
           })
           .catch((e) => {
             console.error(e);

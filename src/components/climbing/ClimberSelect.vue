@@ -24,6 +24,10 @@
         >
           {{ climber.name }}
         </li>
+        <li>...</li>
+        <li class="icn" @click="$router.push('/climbing/import/analytics')">
+          Import Json File
+        </li>
       </ul>
     </div>
   </div>
