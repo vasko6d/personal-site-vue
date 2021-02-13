@@ -24,8 +24,12 @@
         >
           {{ climber.name }}
         </li>
-        <li>...</li>
-        <li class="icn" @click="$router.push('/climbing/import/analytics')">
+        <li v-if="linkToJsonAnalysis">...</li>
+        <li
+          v-if="linkToJsonAnalysis"
+          class="icn"
+          @click="$router.push('/climbing/import/analytics')"
+        >
           Import Json File
         </li>
       </ul>
@@ -37,6 +41,7 @@
 export default {
   props: {
     baseURL: String,
+    linkToJsonAnalysis: Boolean,
   },
   data() {
     return {

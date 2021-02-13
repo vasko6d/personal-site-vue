@@ -431,6 +431,7 @@ export default {
           // });
           this.initialized = true;
           this.loading = false;
+          this.$emit("initialized");
         })
         .catch((error) => {
           window.alert(error.msg || error);

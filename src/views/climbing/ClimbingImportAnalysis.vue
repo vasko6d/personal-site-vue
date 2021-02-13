@@ -17,7 +17,7 @@
             />
           </div>
           <div
-            v-if="ascentJsonFile"
+            v-if="ascentJsonFile && !initialized"
             class="cbtn prm bg1-hvr bg1-txt-hvr"
             @click="onAnalyze()"
           >
@@ -31,6 +31,7 @@
         <climber-analysis
           :climberName="this.climberName"
           :rawAscents="this.ascentJson.ascents"
+          @initialized="initialized = true"
         ></climber-analysis>
       </div>
     </div>
@@ -49,10 +50,13 @@ export default {
       ascentJson: undefined,
       climberName: false,
       importError: undefined,
+      initialized: false,
     };
   },
   methods: {
     onFileSelect(event) {
+      this.climberName = undefined;
+      this.initialized = false;
       this.ascentJsonFile = event.srcElement.value;
     },
     onAnalyze() {

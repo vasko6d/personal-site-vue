@@ -231,7 +231,9 @@ export default {
         ClimberSelect.data().importedClimbers.forEach((climber) => {
           promises.push(
             this.fetchData(climber.sandboxId).then((result) => {
-              const ascents = result.data;
+              const ascents = result.ascents.map((ascent) =>
+                this.preprocessAscent(ascent, climber.name)
+              );
               return Promise.resolve(ascents);
             })
           );

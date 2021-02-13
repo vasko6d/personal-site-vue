@@ -2,7 +2,10 @@
   <div id="ticklist-analysis">
     <div class="flex-row">
       <div class="chart bg1">
-        <climber-select baseURL="/climbing/analytics/" />
+        <climber-select
+          :linkToJsonAnalysis="true"
+          baseURL="/climbing/analytics/"
+        />
       </div>
     </div>
     <spinner
