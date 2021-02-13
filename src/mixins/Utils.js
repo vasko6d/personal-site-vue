@@ -20,6 +20,7 @@ const gradeMap = {
   "13": 13,
   "14": 14,
   "15": 15,
+  "16": 16,
 };
 
 const typeMap = {
@@ -50,7 +51,7 @@ const fontToV = {
   "8B+": "14",
   "8C": "15",
   "8C+": "16",
-  "9a": "17",
+  "9A": "17",
 };
 
 const nameMaps = {

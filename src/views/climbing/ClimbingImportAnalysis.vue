@@ -26,33 +26,29 @@
         </div>
       </div>
     </div>
-    <div v-if="this.ascentJson && this.ascentJson.totalItems">
-      <h1>Analysis</h1>
+    <div v-if="this.climberName">
       <div class="blk-container">
-        <div class="bg1">
-          <spinner
-            v-show="loading"
-            size="huge"
-            message="Analyzing ..."
-            :line-size="24"
-          ></spinner>
-        </div>
+        <climber-analysis
+          :climberName="this.climberName"
+          :rawAscents="this.ascentJson.ascents"
+        ></climber-analysis>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Spinner from "vue-simple-spinner";
+import ClimberAnalysis from "@/components/climbing/ClimberAnalysis.vue";
 export default {
   components: {
-    Spinner,
+    ClimberAnalysis,
   },
   data() {
     return {
       ascentJsonFile: undefined,
       ascentJson: undefined,
-      loading: false,
+      climberName: false,
+      importError: undefined,
     };
   },
   methods: {
@@ -64,8 +60,20 @@ export default {
       reader.readAsText(this.$refs.ascentFile.files[0], "UTF-8");
       reader.onload = (evt) => {
         this.ascentJson = JSON.parse(evt.target.result);
-        console.log(this.ascentJson.totalItems);
-        this.loading = true;
+        if (
+          this.ascentJson &&
+          this.ascentJson.ascents &&
+          this.ascentJson.ascents.length &&
+          this.ascentJson.totalItems
+        ) {
+          this.climberName = this.ascentJson.ascents[0].userName;
+          console.log(
+            `Sucesfully parsed local JSON file for climber [${this.climberName}], with [${this.ascentJson.ascents.length}] climbs`
+          );
+        } else {
+          this.importError = "Bad File";
+          alert("Bad Json File");
+        }
       };
       reader.onerror = (evt) => {
         console.error(evt);
