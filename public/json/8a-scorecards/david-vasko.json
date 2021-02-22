@@ -56385,8 +56385,36 @@
             "type": "f",
             "notes": "This is the dangit hole of all dangit holes! You could fit and entire tiny house down here. Its a little scary because it kinda looks like with some more erosion all the surrounding boulders could shift / fall! Rather enjoyable but nothing to write home about. I did use feet first beta to get to the first jug on the right arete, so that was cool! Top is choss. ",
             "rating": 2
+        },
+        {
+            "ascentId": 6098563,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Mt Woodson",
+            "cragSlug": "mt-woodson",
+            "sectorSlug": "the-hanging-gardens",
+            "zlaggableName": "Van Gogh High",
+            "zlaggableSlug": "van-gogh-high",
+            "countrySlug": "united-states",
+            "userAvatar": "gallery/44437.jpg",
+            "userName": "Gregor recian-God",
+            "userSlug": "david-vasko",
+            "date": "2021-02-21T12:00:00+00:00",
+            "difficulty": "7A",
+            "gradeIndex": 23,
+            "comment": "Failed of 4 / 4 on my projects as well as Final Round... yet again.  But I did manage to do the highest possible start of the \"Van Gogh\" project. It starts two moves in,  but since its my first time topping the boulder and I live for days climbed metric I'm taking it. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": true,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Failed of 4 / 4 on my projects as well as Final Round... yet again.  But I did manage to do the highest possible start of the \"Van Gogh\" project. It starts two moves in,  but since its my first time topping the boulder and I live for days climbed metric I'm taking it. ",
+            "rating": 3
         }
     ],
-    "totalItems": 2003,
+    "totalItems": 2004,
     "pageIndex": 0
 }

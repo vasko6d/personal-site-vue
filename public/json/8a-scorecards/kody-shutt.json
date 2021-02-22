@@ -37129,8 +37129,36 @@
             "type": "rp",
             "notes": "Hard with no glasses",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Druid Stones",
+            "cragSlug": "druid-stones",
+            "sectorSlug": "unknown-sector-2d7b8",
+            "zlaggableName": "McCallum",
+            "zlaggableSlug": "mccallum",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/av044izh.jpg",
+            "userName": "Kody Shutt",
+            "userSlug": "kody-shutt",
+            "date": "2021-02-14T12:00:00+00:00",
+            "difficulty": "7A+",
+            "gradeIndex": 24,
+            "comment": "Just a quick day trip to the druids",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Just a quick day trip to the druids",
+            "rating": 2
         }
     ],
-    "totalItems": 1324,
+    "totalItems": 1325,
     "pageIndex": 0
 }
