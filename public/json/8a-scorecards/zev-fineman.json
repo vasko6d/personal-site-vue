@@ -9775,8 +9775,36 @@
             "type": "rp",
             "notes": "Realllllllly cool climb with great movement ",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Joshua Tree (CA)",
+            "areaSlug": "joshua-tree-ca",
+            "cragName": "Planet X",
+            "cragSlug": "planet-x",
+            "sectorSlug": "unknown-sector-80e0a",
+            "zlaggableName": "Satellite Boulder Right",
+            "zlaggableSlug": "satellite-boulder-right",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Zev Fineman",
+            "userSlug": "zev-fineman",
+            "date": "2021-02-28T12:00:00+00:00",
+            "difficulty": "6C",
+            "gradeIndex": 21,
+            "comment": "a bit spicy\n",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "a bit spicy\n",
+            "rating": 0
         }
     ],
-    "totalItems": 349,
+    "totalItems": 350,
     "pageIndex": 0
 }
