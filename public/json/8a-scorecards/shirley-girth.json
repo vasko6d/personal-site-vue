@@ -25491,8 +25491,36 @@
             "type": "rp",
             "notes": "Wow this was pretty good!",
             "rating": 3
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Happy Boulders",
+            "cragSlug": "happy-boulders",
+            "sectorSlug": "unknown-sector-17b82",
+            "zlaggableName": "Kill On Sight",
+            "zlaggableSlug": "kill-on-sight",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/k0x4nl5j.jpg",
+            "userName": "Shirley Girth",
+            "userSlug": "shirley-girth",
+            "date": "2021-03-14T12:00:00+00:00",
+            "difficulty": "8A",
+            "gradeIndex": 29,
+            "comment": "Don’t call me Ishmael",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Don’t call me Ishmael",
+            "rating": 4
         }
     ],
-    "totalItems": 906,
+    "totalItems": 907,
     "pageIndex": 0
 }
