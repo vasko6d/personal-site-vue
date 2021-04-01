@@ -37577,8 +37577,36 @@
             "type": "rp",
             "notes": "Pretty uncomfortable ",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Black Mountain",
+            "cragSlug": "black-mountain",
+            "sectorSlug": "lower-coral",
+            "zlaggableName": "SNAFU Left",
+            "zlaggableSlug": "snafu-left",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/av044izh.jpg",
+            "userName": "Kody Shutt",
+            "userSlug": "kody-shutt",
+            "date": "2021-03-27T12:00:00+00:00",
+            "difficulty": "8B",
+            "gradeIndex": 31,
+            "comment": "Always felt next to impossible. Maybe breaking my wrist was the necessary rest I needed. Not really sure on the grade",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Always felt next to impossible. Maybe breaking my wrist was the necessary rest I needed. Not really sure on the grade",
+            "rating": 4
         }
     ],
-    "totalItems": 1340,
+    "totalItems": 1341,
     "pageIndex": 0
 }

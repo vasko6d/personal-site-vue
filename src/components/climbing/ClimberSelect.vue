@@ -54,7 +54,7 @@ export default {
         },
         { name: "Winifred Affleman", sandboxId: "winifred-affleman" },
         { name: "Akhil Mauze", sandboxId: "l-i-b" },
-        { name: "Scott Baron", sandboxId: "dirk-irector" },
+        { name: "Scott Barron", sandboxId: "dirk-irector" },
         { name: "Jacquie Nguyen", sandboxId: "natalie-udelarms" },
         { name: "Dustin Goldbarg", sandboxId: "scooter-limb" },
         {
