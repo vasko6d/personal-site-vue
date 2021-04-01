@@ -5916,8 +5916,36 @@
             "type": "rp",
             "notes": "Significantly harder than crack prob. Hit my head on the choss roof topping out. I keep forgetting I have a lump on my head and touching it and then it hurts for a good 20 minutes. The sound of head on choss echoed through the whole valley. David was the only one whose first reaction was to laugh, which is completely and totally fair given my history. ",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Buttermilks",
+            "cragSlug": "buttermilks",
+            "sectorSlug": "unknown-sector-c03a7",
+            "zlaggableName": "The Melanator",
+            "zlaggableSlug": "the-melanator",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-03-16T12:00:00+00:00",
+            "difficulty": "6A",
+            "gradeIndex": 16,
+            "comment": "Did this twice because Chase claimed my start wasn’t legit even though it probably was. At least I’ll be more fit now than if I’d only done it once.  I remember when I used to climb V5. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Did this twice because Chase claimed my start wasn’t legit even though it probably was. At least I’ll be more fit now than if I’d only done it once.  I remember when I used to climb V5. ",
+            "rating": 3
         }
     ],
-    "totalItems": 211,
+    "totalItems": 212,
     "pageIndex": 0
 }
