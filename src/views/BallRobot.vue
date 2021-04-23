@@ -4,7 +4,7 @@
     <iframe
       height="240"
       width="360"
-      src="https://docs.google.com/file/d/0B903aI0TyENqOGFwV2NGMFhWZnM/preview?pli=1"
+      src="https://docs.google.com/file/d/0B903aI0TyENqOGFwV2NGMFhWZnM/preview"
       frameborder="0"
       allowfullscreen
     ></iframe>
