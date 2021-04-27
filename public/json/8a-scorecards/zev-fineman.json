@@ -9831,8 +9831,36 @@
             "type": "f",
             "notes": "did the direct. v9 or v10, I do not know but it was really fun ",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Black Mountain (CA)",
+            "areaSlug": "black-mountain-ca",
+            "cragName": "Unknown Crag",
+            "cragSlug": "unknown-crag-52e59-verrev",
+            "sectorSlug": "unknown-sector",
+            "zlaggableName": "Gilgamesh",
+            "zlaggableSlug": "gilgamesh",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Zev Fineman",
+            "userSlug": "zev-fineman",
+            "date": "2021-04-25T12:00:00+00:00",
+            "difficulty": "7B+",
+            "gradeIndex": 26,
+            "comment": "Really dope climb ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Really dope climb ",
+            "rating": 5
         }
     ],
-    "totalItems": 351,
+    "totalItems": 352,
     "pageIndex": 0
 }

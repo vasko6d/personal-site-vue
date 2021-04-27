@@ -26005,6 +26005,34 @@
             "cragName": "Rock Creek",
             "cragSlug": "rock-creek",
             "sectorSlug": "unknown-sector-b590e",
+            "zlaggableName": "Blunder Sit Left",
+            "zlaggableSlug": "blunder-sit-left",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/k0x4nl5j.jpg",
+            "userName": "Shirley Girth",
+            "userSlug": "shirley-girth",
+            "date": "2021-04-23T12:00:00+00:00",
+            "difficulty": "7A+",
+            "gradeIndex": 24,
+            "comment": "Wow. this thing is hard hard.",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": true,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Wow. this thing is hard hard.",
+            "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Rock Creek",
+            "cragSlug": "rock-creek",
+            "sectorSlug": "unknown-sector-b590e",
             "zlaggableName": "Clearly Zealous",
             "zlaggableSlug": "clearly-zealous",
             "countrySlug": "united-states",
@@ -26055,6 +26083,6 @@
             "rating": 2
         }
     ],
-    "totalItems": 926,
+    "totalItems": 927,
     "pageIndex": 0
 }
