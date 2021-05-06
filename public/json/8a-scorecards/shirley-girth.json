@@ -26081,8 +26081,36 @@
             "type": "rp",
             "notes": "Good temps yesterday made it easy peasy squeeze my greasy greens",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Bishop (CA)",
+            "areaSlug": "bishop-ca",
+            "cragName": "Rock Creek",
+            "cragSlug": "rock-creek",
+            "sectorSlug": "unknown-sector-b590e",
+            "zlaggableName": "Blunder Sit Right",
+            "zlaggableSlug": "blunder-sit-right",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/k0x4nl5j.jpg",
+            "userName": "Shirley Girth",
+            "userSlug": "shirley-girth",
+            "date": "2021-05-04T12:00:00+00:00",
+            "difficulty": "7B+",
+            "gradeIndex": 26,
+            "comment": "I haven't any idea if this is what it is but started low and right and climbed into one move blunder. Actually quite fun",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "I haven't any idea if this is what it is but started low and right and climbed into one move blunder. Actually quite fun",
+            "rating": 3
         }
     ],
-    "totalItems": 927,
+    "totalItems": 928,
     "pageIndex": 0
 }
