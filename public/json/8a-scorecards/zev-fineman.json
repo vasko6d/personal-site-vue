@@ -9943,8 +9943,36 @@
             "type": "rp",
             "notes": "In my grade chasing days. ",
             "rating": 0
+        },
+        {
+            "ascentId": 0,
+            "areaName": "Black Mountain (CA)",
+            "areaSlug": "black-mountain-ca",
+            "cragName": "Lower OK",
+            "cragSlug": "lower-ok",
+            "sectorSlug": "unknown-sector",
+            "zlaggableName": "Lobotomy",
+            "zlaggableSlug": "lobotomy",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Zev Fineman",
+            "userSlug": "zev-fineman",
+            "date": "2021-05-23T12:00:00+00:00",
+            "difficulty": "7C+",
+            "gradeIndex": 28,
+            "comment": "I wanted to take v11 for this for the 8a points....but since everyone likes to troll at black, this climb is probably closer to v8. The movement to this climb is pretty much bang on since you do some awkward behind your head shit and instead of a jump for a jug, you bail out left on slab.... Fun times and a great climb ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "I wanted to take v11 for this for the 8a points....but since everyone likes to troll at black, this climb is probably closer to v8. The movement to this climb is pretty much bang on since you do some awkward behind your head shit and instead of a jump for a jug, you bail out left on slab.... Fun times and a great climb ",
+            "rating": 0
         }
     ],
-    "totalItems": 355,
+    "totalItems": 356,
     "pageIndex": 0
 }
