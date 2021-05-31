@@ -6785,8 +6785,36 @@
             "type": "rp",
             "notes": "Good and fun",
             "rating": 3
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Brickyard",
+            "cragSlug": "brickyard",
+            "sectorSlug": "the-far-right",
+            "zlaggableName": "Smooth Criminal",
+            "zlaggableSlug": "smooth-criminal",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/xmx2ecoy.jpg",
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-05-30T12:00:00+00:00",
+            "difficulty": "7A",
+            "gradeIndex": 23,
+            "comment": "Send train with the sis. Sick ONE!",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Send train with the sis. Sick ONE!",
+            "rating": 4
         }
     ],
-    "totalItems": 242,
+    "totalItems": 243,
     "pageIndex": 0
 }
