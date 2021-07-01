@@ -121,7 +121,7 @@
         </div>
         <div class="stat-row">
           <div class="stat-type">Score :</div>
-          <div class="stat-val">
+          <div class="stat-val" @click="rickRoll()">
             {{ statWithPercent(stats.numTrulySolved, stats.inputCells) }}
           </div>
         </div>
@@ -297,6 +297,11 @@ export default {
     statWithPercent(stat, total) {
       let perc = Math.round((stat / total) * 100);
       return stat + " (" + perc + "%)";
+    },
+    rickRoll() {
+      window
+        .open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank")
+        .focus();
     },
   },
 };
