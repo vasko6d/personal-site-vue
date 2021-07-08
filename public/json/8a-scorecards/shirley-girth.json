@@ -26165,8 +26165,36 @@
             "type": "rp",
             "notes": "So nasty greasy grimey. Yuck. Wonderful rock climb",
             "rating": 5
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Way Lake",
+            "cragSlug": "way-lake",
+            "sectorSlug": "the-meadow",
+            "zlaggableName": "Shake 'n' Bake",
+            "zlaggableSlug": "shake-n-bake",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/k0x4nl5j.jpg",
+            "userName": "Shirley Girth",
+            "userSlug": "shirley-girth",
+            "date": "2021-07-05T12:00:00+00:00",
+            "difficulty": "7C",
+            "gradeIndex": 27,
+            "comment": "With the knee pad",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "With the knee pad",
+            "rating": 3
         }
     ],
-    "totalItems": 930,
+    "totalItems": 931,
     "pageIndex": 0
 }

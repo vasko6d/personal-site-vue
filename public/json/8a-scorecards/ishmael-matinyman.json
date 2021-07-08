@@ -16026,8 +16026,36 @@
             "type": "rp",
             "notes": "",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "hartley springs",
+            "cragSlug": "hartley-springs",
+            "sectorSlug": "road-boulder",
+            "zlaggableName": "Bachar Ladder Low",
+            "zlaggableSlug": "bachar-ladder-low",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Ishmael matinyman",
+            "userSlug": "ishmael-matinyman",
+            "date": "2021-07-05T12:00:00+00:00",
+            "difficulty": "8A+",
+            "gradeIndex": 30,
+            "comment": "",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "",
+            "rating": 4
         }
     ],
-    "totalItems": 570,
+    "totalItems": 571,
     "pageIndex": 0
 }

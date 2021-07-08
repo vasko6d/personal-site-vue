@@ -5951,8 +5951,36 @@
             "type": "f",
             "notes": "Spent about a minute on the climb before the topout not knowing what to do... then I decided to just do the damn thing. Hands first, then feet follow. Shoutsout Kaya for making the Lizard's mouth approaches look softer than diamonds, but like much MUCH softer. #summerofShirLIB",
             "rating": 2
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Santa Barbara",
+            "cragSlug": "santa-barbara",
+            "sectorSlug": "skofield-park",
+            "zlaggableName": "Well Coiffed",
+            "zlaggableSlug": "well-coiffed",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Lil ib",
+            "userSlug": "l-i-b",
+            "date": "2021-06-28T12:00:00+00:00",
+            "difficulty": "7A",
+            "gradeIndex": 23,
+            "comment": "Wow, I feel like I'm almost back. An outdoor v6, indoor v7s and still falling off 4s. I must be back! Next stop Way lake, end of July or early August, with Gregor the reciangod, because he promised. \nThis thing was a pretty cool overhangy tensiony crimpy slopery juggy testypiece with some fun movement and an oaky afterbirth. It's across the river from most of the bounders and just to the left of Vanity. Watch out for poison oak... if you believe in that sort of thing. Milo I miss you already. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": true,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "Wow, I feel like I'm almost back. An outdoor v6, indoor v7s and still falling off 4s. I must be back! Next stop Way lake, end of July or early August, with Gregor the reciangod, because he promised. \nThis thing was a pretty cool overhangy tensiony crimpy slopery juggy testypiece with some fun movement and an oaky afterbirth. It's across the river from most of the bounders and just to the left of Vanity. Watch out for poison oak... if you believe in that sort of thing. Milo I miss you already. ",
+            "rating": 3
         }
     ],
-    "totalItems": 212,
+    "totalItems": 213,
     "pageIndex": 0
 }
