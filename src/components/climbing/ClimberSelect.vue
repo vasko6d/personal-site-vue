@@ -68,6 +68,7 @@ export default {
         },
         { name: "Daniel Fong", sandboxId: "fanny-dong" },
         { name: "Kody Shutt", sandboxId: "kody-shutt" },
+        { name: "David Woo", sandboxId: "david-woo" },
       ],
     };
   },
