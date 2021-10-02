@@ -6,40 +6,40 @@
         v-for="(cell, c) in row"
         :key="cell.id"
         @click="clickFxn(r, c, cell.color)"
+        v-tooltip="{
+          content: cell.entry + flashDash,
+          show: isExact(r, c) && cell.isSpecialInput,
+          trigger: 'manual',
+        }"
       >
-        <div
-          :class="[
-            cell.color,
-            {
-              active: isActive(cell),
-              exact: isExact(r, c),
-              flagged: cell.flag,
-              'autosolved-border': cell.wasAutoSolved,
-              'wrong-border': showErrors && cell.wrong && cell.entry,
-            },
-          ]"
-        >
+        <div class="color-base" :class="[cell.color]">
           <div
             :class="[
-              'cell-wrapper',
               {
-                wrong: calcWrong(cell),
+                flagged: cell.flag,
                 autosolved: cell.wasAutoSolved,
+                wrong: showErrors && cell.wrong && cell.entry,
               },
             ]"
-            v-tooltip="{
-              content: cell.entry + flashDash,
-              show: isExact(r, c) && cell.isSpecialInput,
-              trigger: 'manual',
-            }"
           >
-            <span class="numbering">{{ cell.cellNum }}</span>
-            <div class="entry">
-              <span v-if="!cell.isSpecialInput">{{ cell.entry }}</span>
-              <i v-else class="fas fa-comment-dots"></i>
+            <div
+              :class="[
+                {
+                  active: isActive(cell),
+                  exact: isExact(r, c),
+                },
+              ]"
+            >
+              <div class="cell-wrapper">
+                <span class="numbering">{{ cell.cellNum }}</span>
+                <div class="entry">
+                  <span v-if="!cell.isSpecialInput">{{ cell.entry }}</span>
+                  <i v-else class="fas fa-comment-dots"></i>
+                </div>
+                <div class="circle" v-show="cell.shape === 'circle'"></div>
+              </div>
             </div>
           </div>
-          <div class="circle" v-show="cell.shape === 'circle'"></div>
         </div>
       </div>
     </div>

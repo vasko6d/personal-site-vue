@@ -4,85 +4,79 @@
   .p-cell {
     flex-grow: 1;
     cursor: pointer;
-    border: 1px solid black;
+    position: relative;
     max-width: 4ch;
-    .black {
-      background-color: black;
-      color: white;
+    color: black;
+    .numbering {
+      user-select: none;
+      position: absolute;
+      top: 0;
+      left: 2px;
+      font-size: calc(20% + 0.2vw);
     }
-    .white {
-      background-color: white;
-      border: 2px solid white;
-      color: black;
+    .entry {
+      position: absolute; // need better zindex and centering
+      bottom: 0;
+      font-size: calc(35% + 0.15vw + 3px);
+      font-weight: 1000;
+      width: 100%;
     }
-    .gray {
-      background-color: lighten(gray, 15%);
-      border: 2px solid lighten(gray, 15%);
-      color: black;
-    }
-    .active {
-      background-color: rgb(255, 255, 152);
-      border: 2px solid rgb(255, 255, 152);
-      color: black;
-    }
-    .autosolved-border {
-      border: 2px solid rgba(94, 255, 0, 0.3);
-    }
-    .wrong-border {
-      border: 2px solid rgba(red, 0.2);
-    }
-    .exact {
-      background-color: rgb(158, 240, 255);
-      color: black;
-      border: 2px solid rgb(18, 219, 255);
-    }
-    .flagged {
-      border: 2px solid rgb(255, 166, 2);
-    }
-    .autosolved {
-      background-color: rgba(94, 255, 0, 0.3);
-      color: green;
-    }
-    .black,
-    .white,
-    .gray {
-      text-align: center;
-      position: relative;
-      min-width: 1ch;
-      min-height: 1ch;
-      .cell-wrapper {
-        width: 100%;
-        height: 0;
-        padding-top: 100%;
-        .numbering {
-          user-select: none;
-          position: absolute;
-          top: 0;
-          left: 0;
-          margin-top: -0.65ch;
-          font-size: calc(20% + 0.2vw);
-        }
-        .entry {
-          position: absolute; // need better zindex and centering
-          bottom: 0;
-          font-size: calc(35% + 0.15vw + 3px);
-          font-weight: 1000;
-          width: 100%;
-        }
-      }
-      .wrong {
-        background-color: rgba(red, 0.2);
-        color: red;
-      }
-      .circle {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0);
-        border-radius: 50%;
-        border: 1px solid black;
-      }
+    .circle {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0);
+      border-radius: 50%;
+      border: 1px solid black;
     }
   }
 }
+.cell-wrapper {
+  min-width: 1ch;
+  min-height: 1ch;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  outline: 1px solid black;
+  // border: 2px solid transparent; // Borders seem to throw off aspect ratio
+}
+/* Background Coloring */
+.black {
+  background-color: black;
+  cursor: default;
+  color: white;
+}
+.white {
+  background-color: white;
+}
+.gray {
+  background-color: lighten(gray, 15%);
+}
+.active {
+  background-color: rgba(255, 255, 152, 0.5);
+}
+.exact {
+  background-color: rgba(158, 240, 255, 0.7);
+}
+.autosolved {
+  background-color: rgba(94, 255, 0, 0.3);
+  color: green;
+}
+.wrong {
+  background-color: rgba(red, 0.2);
+  color: red;
+}
+/* Special Border Coloring */
+// .exact {
+//   .cell-wrapper {
+//     border: 2px solid rgb(18, 219, 255) !important;
+//   }
+// }
+// .flagged {
+//   .cell-wrapper {
+//     border: 2px solid rgb(255, 166, 2) !important;
+//   }
+// }
+

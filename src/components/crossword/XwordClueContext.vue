@@ -7,30 +7,39 @@
           v-for="cell in context"
           :key="cell.id"
           @click="clickFxn(cell.r, cell.c)"
+          v-tooltip="{
+            content: cell.entry + flashDash,
+            show: isExact(r, c) && cell.isSpecialInput,
+            trigger: 'manual',
+          }"
         >
-          <div
-            :class="[
-              cell.color,
-              {
-                input: cell.isInput,
-                active: isActive(cell.acrossNum, cell.downNum),
-                exact: isExact(cell.r, cell.c),
-                flagged: cell.flag,
-                'autosolved-border': cell.wasAutoSolved,
-                'wrong-border': showErrors && cell.wrong && cell.entry,
-              },
-            ]"
-          >
+          <div class="color-base" :class="[cell.color]">
             <div
               :class="[
-                'cell-wrapper',
                 {
-                  wrong: showErrors && cell.wrong && cell.entry,
+                  flagged: cell.flag,
                   autosolved: cell.wasAutoSolved,
+                  wrong: showErrors && cell.wrong && cell.entry,
                 },
               ]"
             >
-              <span class="entry">{{ cell.entry }}</span>
+              <div
+                :class="[
+                  {
+                    active: isActive(cell.acrossNum, cell.downNum),
+                    exact: isExact(cell.r, cell.c),
+                  },
+                ]"
+              >
+                <div class="cell-wrapper">
+                  <span class="numbering">{{ cell.cellNum }}</span>
+                  <div class="entry">
+                    <span v-if="!cell.isSpecialInput">{{ cell.entry }}</span>
+                    <i v-else class="fas fa-comment-dots"></i>
+                  </div>
+                  <div class="circle" v-show="cell.shape === 'circle'"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -78,11 +87,12 @@ export default {
       flex-shrink: 1;
       max-width: 3ch;
       .black,
-      .white {
+      .white,
+      .gray {
         .cell-wrapper {
           .entry {
             font-size: 75%;
-            transform: translatex(-50%) translatey(20%);
+            transform: translatex(35%) translatey(-20%);
             overflow: hidden;
           }
         }
