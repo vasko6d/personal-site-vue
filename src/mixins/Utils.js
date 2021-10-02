@@ -378,9 +378,7 @@ export default {
       // Pretend fetching... return as promise
       return new Promise((resolve, reject) => {
         fetch(`/json/8a-scorecards/${sandboxId}.json`)
-          .then((raw) => {
-            resolve(raw.json());
-          })
+          .then((raw) => resolve(raw.json()))
           .catch((e) => {
             console.error(e);
             const ret = {

@@ -30,7 +30,7 @@
             >{{ clue.txt }}</span
           >
           <xword-clue-context
-            v-show="
+            v-if="
               contextOpt === 'always' ||
               (contextOpt === 'toggle' && clue.showContext)
             "

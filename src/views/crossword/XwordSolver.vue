@@ -99,15 +99,6 @@ import XwordHeader from "@/components/crossword/XwordHeader.vue";
 import XwordStatBanner from "@/components/crossword/XwordStatBanner.vue";
 import Xword from "@/components/crossword//Xword.js";
 
-// Xword Data Source Imports
-import Xword1 from "@/assets/xword/Xword1.vue";
-import Xword2 from "@/assets/xword/Xword2.vue";
-import Xword3 from "@/assets/xword/Xword3.vue";
-import Xword4 from "@/assets/xword/Xword4.vue";
-import Xword5 from "@/assets/xword/Xword5.vue";
-import Xword6 from "@/assets/xword/Xword6.vue";
-import Xword7 from "@/assets/xword/Xword7.vue";
-
 export default {
   name: "crossword",
   beforeRouteLeave(to, from, next) {
@@ -131,15 +122,6 @@ export default {
       showOptions: false,
       showHelp: false,
       showTools: false,
-      rawXwords: {
-        1: Xword1.data().xword,
-        2: Xword2.data().xword,
-        3: Xword3.data().xword,
-        4: Xword4.data().xword,
-        5: Xword5.data().xword,
-        6: Xword6.data().xword,
-        7: Xword7.data().xword,
-      },
       xword: new Xword("", "", "", "", [], {}, {}),
       clickedClue: {}, // hacky to make clue context togglable....
       contextEnabled: false,
@@ -179,41 +161,130 @@ export default {
     },
   },
   mounted() {
-    let raw = this.rawXwords[this.xwordId];
-    this.xword = new Xword(
-      raw.title,
-      raw.author,
-      raw.editor,
-      raw.createDate,
-      raw.solution,
-      raw.clues.across,
-      raw.clues.down,
-      raw.theme,
-      raw.note,
-      { shapeCells: raw.shapeCells, colorCells: raw.colorCells }
-    );
-    if (localStorage["xword:" + this.xwordId.toString()]) {
-      let progress = JSON.parse(
-        localStorage["xword:" + this.xwordId.toString()]
+    this.fetchXword().then((raw) => {
+      this.xword = new Xword(
+        raw.title,
+        raw.author,
+        raw.editor,
+        raw.createDate,
+        raw.solution,
+        raw.clues.across,
+        raw.clues.down,
+        raw.theme,
+        raw.note,
+        { shapeCells: raw.shapeCells, colorCells: raw.colorCells }
       );
-      this.xword.reloadSavedData(progress);
-    }
-    if (localStorage["xwordOpts"]) {
-      let cachedOpts = JSON.parse(localStorage["xwordOpts"]);
+      if (localStorage[`xword:${this.xwordId}`]) {
+        const progress = JSON.parse(localStorage[`xword:${this.xwordId}`]);
+        this.xword.reloadSavedData(progress);
+      }
+      if (localStorage["xwordOpts"]) {
+        const cachedOpts = JSON.parse(localStorage["xwordOpts"]);
 
-      // To prevent stale opts in localStorage assign current opts with falues from cached ones
-      this.useCachedOpt(cachedOpts, ["clues", "showCluePanel"]);
-      this.useCachedOpt(cachedOpts, ["clues", "contextOpt"]);
-      this.useCachedOpt(cachedOpts, ["clues", "hideClueOpt"]);
-      this.useCachedOpt(cachedOpts, ["errors", "showErrors"]);
-      this.useCachedOpt(cachedOpts, ["keyboard", "showOnPageKeyboard"]);
-      this.useCachedOpt(cachedOpts, ["keyboard", "enableNativeKeyboardToggle"]);
-      this.useCachedOpt(cachedOpts, ["navigation", "autoSkipFilledCells"]);
-      this.useCachedOpt(cachedOpts, ["currentClue", "loc"]);
-    }
-    console.log(this.xword);
+        // To prevent stale opts in localStorage assign current opts with falues from cached ones
+        this.useCachedOpt(cachedOpts, ["clues", "showCluePanel"]);
+        this.useCachedOpt(cachedOpts, ["clues", "contextOpt"]);
+        this.useCachedOpt(cachedOpts, ["clues", "hideClueOpt"]);
+        this.useCachedOpt(cachedOpts, ["errors", "showErrors"]);
+        this.useCachedOpt(cachedOpts, ["keyboard", "showOnPageKeyboard"]);
+        this.useCachedOpt(cachedOpts, [
+          "keyboard",
+          "enableNativeKeyboardToggle",
+        ]);
+        this.useCachedOpt(cachedOpts, ["navigation", "autoSkipFilledCells"]);
+        this.useCachedOpt(cachedOpts, ["currentClue", "loc"]);
+      }
+      console.log(this.xword);
+    });
   },
   methods: {
+    fetchXword() {
+      return new Promise((resolve, reject) => {
+        fetch(`/json/xwords/headers.json`)
+          .then((response) => {
+            response.json().then((json) => {
+              const xword = json.headers.find((h) => h.id === this.xwordId);
+              const promises = [];
+
+              // Fetch the Solution
+              promises.push(
+                new Promise((resolve1) => {
+                  fetch(`/json/xwords/solutions/${this.xwordId}.json`).then(
+                    (response) => {
+                      response.json().then((json) => {
+                        xword.solution = json.solution;
+                        resolve1();
+                      });
+                    }
+                  );
+                })
+              );
+
+              // Fetch the Clues
+              promises.push(
+                new Promise((resolve2) => {
+                  fetch(`/json/xwords/clues/${this.xwordId}.json`).then(
+                    (response) => {
+                      response.json().then((json) => {
+                        // Preprocess clues into an obejct
+                        for (const [key, txt] of Object.entries(json.across)) {
+                          json.across[key] = { txt };
+                        }
+                        for (const [key, txt] of Object.entries(json.down)) {
+                          json.down[key] = { txt };
+                        }
+                        xword.clues = json;
+                        resolve2();
+                      });
+                    }
+                  );
+                })
+              );
+
+              // Fetch the Options if specified
+              if (xword.optionId) {
+                promises.push(
+                  new Promise((resolve3) => {
+                    fetch(`/json/xwords/options/${this.xwordId}.json`).then(
+                      (response) => {
+                        response.json().then((json) => {
+                          xword = { ...xword, ...json };
+                          resolve3();
+                        });
+                      }
+                    );
+                  })
+                );
+              }
+
+              // Wait until all are done then return the processed xword
+              return Promise.all(promises).then(() => resolve(xword));
+            });
+          })
+          .catch((e) => {
+            console.error(e);
+            reject({
+              msg: `Failed To fetch Crossword with Id =[${this.xwordId}]`,
+            });
+          });
+      });
+    },
+    // fetchData(xwordId) {
+    //   return new Promise((resolve, reject) => {
+    //     fetch(`/json/xwords/${xwordId}.json`)
+    //       .then((raw) => resolve(raw.json()))
+    //       .catch((e) => {
+    //         console.error(e);
+    //         const ret = {
+    //           msg: this.formatString(
+    //             "CrossWord with Id [{0}] not avaliable",
+    //             xwordId
+    //           ),
+    //         };
+    //         reject(ret);
+    //       });
+    //   });
+    // },
     clear(clearType) {
       switch (clearType) {
         case "puzzle":

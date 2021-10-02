@@ -1,0 +1,16 @@
+{
+  "headers": [
+    {
+      "id": "1",
+      "title": "We are at a Railroad Crossing",
+      "author": "David Vasko",
+      "editor": "David Vasko",
+      "createDate": "20150601",
+      "difficulty": 5,
+      "dimension": "15x15",
+      "theme":
+        "The Railroad Crossing is literally depicted by the letter 'R' forming an X across the entire puzzle.",
+      "optionId": null
+    }
+  ]
+}

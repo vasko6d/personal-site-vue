@@ -1,38 +1,40 @@
 <template>
-  <div class="table-container">
-    <h1>Choose a Crossword to Begin</h1>
-    <div class="blk-container">
-      <v-client-table
-        :columns="columns"
-        :data="data"
-        :options="options"
-        @row-click="rowClick"
-      >
-        <div slot="createDate" slot-scope="props">
-          {{ toDateString(props.row.createDate) }}
-        </div>
-        <div slot="status" slot-scope="props">
-          {{ getStatus(props.row.id) }}
-        </div>
-      </v-client-table>
+  <div>
+    <div v-if="loadingMessage">
+      <spinner size="huge" :line-size="24"></spinner>
+      <div>{{ loadingMessage }}</div>
+    </div>
+    <div v-else class="table-container">
+      <h1>Choose a Crossword to Begin</h1>
+      <div class="blk-container">
+        <v-client-table
+          :columns="columns"
+          :data="xwordHeaders"
+          :options="options"
+          @row-click="rowClick"
+        >
+          <div slot="createDate" slot-scope="props">
+            {{ toDateString(props.row.createDate) }}
+          </div>
+          <div slot="status" slot-scope="props">
+            {{ getStatus(props.row.id) }}
+          </div>
+        </v-client-table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// Xword Data Source Imports
-import Xword1 from "@/assets/xword/Xword1.vue";
-import Xword2 from "@/assets/xword/Xword2.vue";
-import Xword3 from "@/assets/xword/Xword3.vue";
-import Xword4 from "@/assets/xword/Xword4.vue";
-import Xword5 from "@/assets/xword/Xword5.vue";
-import Xword6 from "@/assets/xword/Xword6.vue";
-import Xword7 from "@/assets/xword/Xword7.vue";
-
+import Spinner from "vue-simple-spinner";
 export default {
+  components: {
+    Spinner,
+  },
   name: "XwordSearch",
   data() {
     return {
+      loadingMessage: "Fetching Crosswords...",
       columns: [
         "title",
         "author",
@@ -41,15 +43,7 @@ export default {
         "createDate",
         "status",
       ],
-      data: [
-        Xword1.data().xword,
-        Xword2.data().xword,
-        Xword3.data().xword,
-        Xword4.data().xword,
-        Xword5.data().xword,
-        Xword6.data().xword,
-        Xword7.data().xword,
-      ],
+      xwordHeaders: [],
       options: {
         headings: {
           name: "Title",
@@ -110,7 +104,28 @@ export default {
       },
     };
   },
+  created() {
+    this.fetchXwordHeaders();
+  },
   methods: {
+    fetchXwordHeaders() {
+      setTimeout(() => {
+        fetch(`/json/xwords/headers.json`)
+          .then((response) => {
+            response.json().then((json) => {
+              setTimeout(() => {
+                this.xwordHeaders = json.headers;
+                console.log("Xword Headres: ", json);
+                this.loadingMessage = undefined;
+              }, 100);
+            });
+          })
+          .catch((e) => {
+            console.error(e);
+            reject({ msg: "Failed To fetch Crossword Headers" });
+          });
+      }, 250);
+    },
     toDateString(yyyymmdd) {
       return new Date(
         parseInt(yyyymmdd.substring(0, 4)),

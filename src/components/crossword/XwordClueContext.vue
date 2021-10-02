@@ -9,7 +9,7 @@
           @click="clickFxn(cell.r, cell.c)"
           v-tooltip="{
             content: cell.entry + flashDash,
-            show: isExact(r, c) && cell.isSpecialInput,
+            show: isExact(cell.r, cell.c) && cell.isSpecialInput,
             trigger: 'manual',
           }"
         >
@@ -61,6 +61,21 @@ export default {
     curCellValue: String,
     showContextKey: String,
     showErrors: Boolean,
+  },
+  data() {
+    return {
+      halfSecs: 0,
+    };
+  },
+  computed: {
+    flashDash() {
+      return this.halfSecs % 2 === 0 ? "_" : "&nbsp;";
+    },
+  },
+  mounted() {
+    setInterval(() => {
+      this.halfSecs = (this.halfSecs + 1) % 100;
+    }, 500);
   },
   methods: {
     clickFxn(r, c) {

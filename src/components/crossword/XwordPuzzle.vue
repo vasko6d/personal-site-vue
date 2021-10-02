@@ -68,7 +68,7 @@ export default {
     },
   },
   mounted() {
-    this.interval = setInterval(() => {
+    setInterval(() => {
       this.halfSecs = (this.halfSecs + 1) % 100;
     }, 500);
   },
