@@ -1,6 +1,10 @@
 <template>
   <div id="crossword">
-    <div class="blk-container">
+    <div v-if="loadingMessage">
+      <spinner size="huge" :line-size="24"></spinner>
+      <div>{{ loadingMessage }}</div>
+    </div>
+    <div v-else class="blk-container">
       <div style="height: 0; overflow: hidden;">
         <input
           type="text"
@@ -99,6 +103,7 @@ import XwordHeader from "@/components/crossword/XwordHeader.vue";
 import XwordStatBanner from "@/components/crossword/XwordStatBanner.vue";
 import Xword from "@/components/crossword//Xword.js";
 
+import Spinner from "vue-simple-spinner";
 export default {
   name: "crossword",
   beforeRouteLeave(to, from, next) {
@@ -112,6 +117,7 @@ export default {
     XwordKeyboard,
     XwordHeader,
     XwordStatBanner,
+    Spinner,
   },
   props: {
     xwordId: String,
@@ -119,6 +125,7 @@ export default {
   data() {
     return {
       opts: this.defaultOpts(),
+      loadingMessage: "Loading Crossword...",
       showOptions: false,
       showHelp: false,
       showTools: false,
@@ -194,6 +201,7 @@ export default {
         this.useCachedOpt(cachedOpts, ["navigation", "autoSkipFilledCells"]);
         this.useCachedOpt(cachedOpts, ["currentClue", "loc"]);
       }
+      this.loadingMessage = undefined;
       console.log(this.xword);
     });
   },
