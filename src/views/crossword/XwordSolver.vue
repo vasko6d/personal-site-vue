@@ -207,11 +207,12 @@ export default {
   },
   methods: {
     fetchXword() {
+      // TODO once a back end exists  creat an endpoint of DB view to fetch this all in one go
       return new Promise((resolve, reject) => {
         fetch(`/json/xwords/headers.json`)
           .then((response) => {
             response.json().then((json) => {
-              const xword = json.headers.find((h) => h.id === this.xwordId);
+              let xword = json.headers.find((h) => h.id === this.xwordId);
               const promises = [];
 
               // Fetch the Solution
@@ -253,7 +254,7 @@ export default {
               if (xword.optionId) {
                 promises.push(
                   new Promise((resolve3) => {
-                    fetch(`/json/xwords/options/${this.xwordId}.json`).then(
+                    fetch(`/json/xwords/options/${xword.optionId}.json`).then(
                       (response) => {
                         response.json().then((json) => {
                           xword = { ...xword, ...json };

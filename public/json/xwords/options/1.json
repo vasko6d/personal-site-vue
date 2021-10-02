@@ -1,0 +1,10 @@
+{
+  "colorCells": [],
+  "shapeCells": [
+    ["2", "4", "circle"],
+    ["4", "12", "circle"],
+    ["10", "2", "circle"],
+    ["12", "10", "circle"]
+  ],
+  "numbering": []
+}

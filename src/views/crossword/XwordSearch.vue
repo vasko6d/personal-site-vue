@@ -109,22 +109,17 @@ export default {
   },
   methods: {
     fetchXwordHeaders() {
-      setTimeout(() => {
-        fetch(`/json/xwords/headers.json`)
-          .then((response) => {
-            response.json().then((json) => {
-              setTimeout(() => {
-                this.xwordHeaders = json.headers;
-                console.log("Xword Headres: ", json);
-                this.loadingMessage = undefined;
-              }, 100);
-            });
-          })
-          .catch((e) => {
-            console.error(e);
-            reject({ msg: "Failed To fetch Crossword Headers" });
+      fetch(`/json/xwords/headers.json`)
+        .then((response) => {
+          response.json().then((json) => {
+            setTimeout(() => {
+              this.xwordHeaders = json.headers;
+              console.log("Xword Headres: ", json);
+              this.loadingMessage = undefined;
+            }, 100);
           });
-      }, 250);
+        })
+        .catch((e) => console.error(e));
     },
     toDateString(yyyymmdd) {
       return new Date(

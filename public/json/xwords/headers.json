@@ -11,6 +11,81 @@
       "theme":
         "The Railroad Crossing is literally depicted by the letter 'R' forming an X across the entire puzzle.",
       "optionId": null
+    },
+    {
+      "id": "2",
+      "title": "B.W.S.T - 12",
+      "author": "Dustin Goldbarg",
+      "editor": "Dustin Goldbarg",
+      "createDate": "20180429",
+      "difficulty": 7,
+      "dimension": "21x21",
+      "theme":
+        "Each asterisked clue is two famous band names next to eachother",
+      "optionId": null
+    },
+    {
+      "id": "3",
+      "title": "Ditto",
+      "author": "David Vasko",
+      "editor": "David Vasko",
+      "createDate": "20191001",
+      "difficulty": 3,
+      "dimension": "5x5",
+      "theme": "The nth column is the same as the nth row",
+      "note":
+        "I saw this seqence of words in the San Diego Union Tribune, credit listed as 'Ken Egger, Lincoln, Neb'. I made it into a crossword and made the clues.",
+      "optionId": null
+    },
+    {
+      "id": "4",
+      "title": "Family Portrait",
+      "author": "Dustin Goldbarg",
+      "editor": "Dustin Goldbarg",
+      "createDate": "20150424",
+      "difficulty": 5,
+      "dimension": "15x15",
+      "theme":
+        "All the **starred clues have a cheese hidden in their answer. 16-Across has 'CHEDDAR', 57-Across has 'FONTINA', 3-Down has 'FETA', 8-Down has 'PARMESAN, 25-DOWN has 'GOAT' and 22-DOWN has'EDAM'. It's called 'Family Portrait' because you traditionally say 'CHEESE' for the camera.",
+      "optionId": null
+    },
+    {
+      "id": "5",
+      "title": "B.W.S.T. - 3 ",
+      "author": "Dustin Goldbarg",
+      "editor": "Dustin Goldbarg",
+      "createDate": "20151215",
+      "difficulty": 5,
+      "dimension": "15x15",
+      "theme":
+        "Each circled cell has a family word in it. The intersection of 17-Across and 4-Down is 'SIS', the intersection of 25-Across asnd 11-Down is 'MOM', the intersection of 45-Across and 33-Down is 'DAD', and the intersection of 58-Across and 55-Down is 'BRO'",
+      "optionId": "1"
+    },
+    {
+      "id": "6",
+      "title": "Wolfgang",
+      "author": "David Vasko",
+      "editor": "David Vasko",
+      "createDate": "20191016",
+      "difficulty": 6,
+      "dimension": "21x21",
+      "theme":
+        "Each **stared clue is only made up of the letters [A, B, C, D, E, F, G] which represent the notes of the C-Major scale",
+      "optionId": null
+    },
+    {
+      "id": "7",
+      "title": "What Was the Question?",
+      "author": "Jacob Wood",
+      "editor": "Jacob Wood, Erin Menefee, Julie Nager, Ryan Menefee",
+      "createDate": "20200105",
+      "difficulty": 6,
+      "dimension": "21x21",
+      "theme":
+        "47-Down took 2-Down years to produce the answer to 148-Across, 32-Across, and 16-Down. 80-Down could use 8-Down to do it in 113-Down.",
+      "note":
+        "I had this idea in April 2020 and spent a while trying to come up with a satisfactory (and ideally NYT-legal) grid. Despite the many single-letter answers this is as close as I could get.",
+      "optionId": null
     }
   ]
 }
