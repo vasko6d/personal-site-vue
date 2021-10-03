@@ -10,25 +10,27 @@
         }"
       ></i>
     </div>
-    <div class="clue-list">
-      <ol v-show="showClues">
-        <li
-          v-for="(clue, num) in clueObj"
-          :value="num"
-          :class="['clue', { active: isActive(num) }]"
-          :key="clue.id"
-          v-show="showClue(clue)"
-        >
-          <span
-            class="clue-txt"
-            @click="
-              $emit('executePress', '$TOGGLESHOWCONTEXT', {
-                direction: direction,
-                number: num,
-              })
-            "
-            >{{ clue.txt }}</span
-          >
+    <div class="clue-list" v-if="showClues">
+      <div
+        v-for="(clue, num) in clueObj"
+        :class="['clue', { active: isActive(num) }]"
+        :key="clue.id"
+      >
+        <div v-if="showClue(clue)">
+          <div class="clue-num-txt">
+            <div>{{ num }}.</div>
+            <div
+              class="clue-txt"
+              @click="
+                $emit('executePress', '$TOGGLESHOWCONTEXT', {
+                  direction: direction,
+                  number: num,
+                })
+              "
+            >
+              {{ clue.txt }}
+            </div>
+          </div>
           <xword-clue-context
             v-if="
               contextOpt === 'always' ||
@@ -46,8 +48,8 @@
             :showErrors="showErrors"
             @contextClick="contextClick"
           />
-        </li>
-      </ol>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -154,6 +156,13 @@ export default {
           cursor: pointer;
         }
       }
+    }
+  }
+  .clue-num-txt {
+    display: flex;
+    gap: 5px;
+    div:first-of-type {
+      font-weight: bold;
     }
   }
 }

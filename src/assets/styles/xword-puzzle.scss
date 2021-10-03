@@ -16,7 +16,7 @@
     }
     .entry {
       position: absolute; // need better zindex and centering
-      bottom: 0.6ch;
+      bottom: 0.5ch;
       font-size: calc(35% + 0.15vw + 3px);
       font-weight: 1000;
       width: 100%;
@@ -55,7 +55,7 @@
   background-color: lighten(gray, 15%);
 }
 .active {
-  background-color: rgba(255, 255, 152, 0.5);
+  background-color: rgba(255, 255, 152, 0.6);
 }
 .exact {
   background-color: rgba(158, 240, 255, 0.7);
