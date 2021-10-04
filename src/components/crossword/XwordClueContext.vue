@@ -107,8 +107,10 @@ export default {
         .cell-wrapper {
           .entry {
             font-size: 75%;
-            transform: translatex(35%) translatey(-15%);
-            overflow: hidden;
+            width: 90%;
+            margin: auto;
+            margin-bottom: -0.5ch;
+            text-align: center;
           }
         }
       }
