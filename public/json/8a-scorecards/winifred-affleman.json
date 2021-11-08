@@ -7010,8 +7010,36 @@
             "type": "rp",
             "notes": "It's pretty cool that I created this entry. Glad I was able to suss the top before trying from the bottom. ",
             "rating": 4
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Pine Mountain",
+            "cragSlug": "pine-mountain",
+            "sectorSlug": "unknown-sector",
+            "zlaggableName": "Mystical Steps Toward Deathless Superconsciousness",
+            "zlaggableSlug": "mystical-steps-toward-deathless-superconsciousness",
+            "countrySlug": "united-states",
+            "userAvatar": "p/gallery/xmx2ecoy.jpg",
+            "userName": "Winifred Affleman",
+            "userSlug": "winifred-affleman",
+            "date": "2021-10-23T12:00:00+00:00",
+            "difficulty": "7A",
+            "gradeIndex": 23,
+            "comment": "I came out of my climbing hiatus for this. ",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "I came out of my climbing hiatus for this. ",
+            "rating": 3
         }
     ],
-    "totalItems": 250,
+    "totalItems": 251,
     "pageIndex": 0
 }
