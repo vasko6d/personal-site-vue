@@ -16475,8 +16475,36 @@
             "type": "rp",
             "notes": "",
             "rating": 4
+        },
+        {
+            "ascentId": 0,
+            "areaName": null,
+            "areaSlug": null,
+            "cragName": "Cosumnes river gorge",
+            "cragSlug": "cosumnes-river-gorge",
+            "sectorSlug": "unknown-sector",
+            "zlaggableName": "Right of the Miwok",
+            "zlaggableSlug": "right-of-the-miwok",
+            "countrySlug": "united-states",
+            "userAvatar": null,
+            "userName": "Ishmael matinyman",
+            "userSlug": "ishmael-matinyman",
+            "date": "2021-11-08T12:00:00+00:00",
+            "difficulty": "8A",
+            "gradeIndex": 29,
+            "comment": "right of miwok, start on opposing sidepulls and make big move to jug then long reach to rail. has this been done?",
+            "isPrivateComment": false,
+            "traditional": false,
+            "project": false,
+            "isHard": false,
+            "isSoft": false,
+            "firstAscent": false,
+            "secondGo": false,
+            "type": "rp",
+            "notes": "right of miwok, start on opposing sidepulls and make big move to jug then long reach to rail. has this been done?",
+            "rating": 3
         }
     ],
-    "totalItems": 586,
+    "totalItems": 587,
     "pageIndex": 0
 }
