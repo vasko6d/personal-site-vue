@@ -18,7 +18,11 @@
     "vue-router": "^3.3.4",
     "vue-simple-spinner": "^1.2.10",
     "vue-tables-2": "^2.3.3",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "trim-newlines": ">=3.0.1",
+    "tar": ">=4.4.18",
+    "nth-check": ">=2.0.1",
+    "ansi-regex": ">=5.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.6",
