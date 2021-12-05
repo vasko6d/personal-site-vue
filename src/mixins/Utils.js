@@ -301,7 +301,7 @@ export default {
         isSoft: ascent.isSoft,
         month: undefined,
         rating: ascent.rating,
-        recommend: !!ascent.recommend,
+        recommend: !!ascent.recommended, // 8a changed their response...
         secondGo: ascent.secondGo,
         sectorSlug: ascent.sectorSlug,
         softness: undefined,
