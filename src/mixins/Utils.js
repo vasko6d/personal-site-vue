@@ -352,13 +352,20 @@ export default {
       // Add a few more flags
       processedAscent.flags.push(processedAscent.type);
 
-      if (ascent.firstAscent) {
-        processedAscent.flags.push("FA");
-      }
-
-      if (ascent.secondGo) {
-        processedAscent.flags.push("Second Go");
-      }
+      if (ascent.firstAscent) processedAscent.flags.push("FA");
+      if (ascent.secondGo) processedAscent.flags.push("Second Go");
+      if (ascent.isOverhang) processedAscent.flags.push("isOverhang");
+      if (ascent.isVertical) processedAscent.flags.push("isVertical");
+      if (ascent.isSlab) processedAscent.flags.push("isSlab");
+      if (ascent.isRoof) processedAscent.flags.push("isRoof");
+      if (ascent.isAthletic) processedAscent.flags.push("isAthletic");
+      if (ascent.isEndurance) processedAscent.flags.push("isEndurance");
+      if (ascent.isCrimpy) processedAscent.flags.push("isCrimpy");
+      if (ascent.isCruxy) processedAscent.flags.push("isCruxy");
+      if (ascent.isSloper) processedAscent.flags.push("isSloper");
+      if (ascent.isTechnical) processedAscent.flags.push("isTechnical");
+      if (ascent.isDanger) processedAscent.flags.push("isDanger");
+      if (ascent.withKneepad) processedAscent.flags.push("withKneepad");
 
       // DIVS - for state adn city or province city etc
       // const divs = areaMaps[areaSlug];
