@@ -1,25 +1,27 @@
 <template>
-  <v-client-table
-    ref="vuetable"
-    :columns="columns"
-    :data="values"
-    :options="options"
-    @row-click="rowClick"
-  >
-    <div slot="date" slot-scope="props">
-      {{ props.row.date.replace(/-/g, "&#8209;") }}
-    </div>
-    <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
-    <div slot="flags" slot-scope="props">
-      {{ props.row.flags.join(", ") }}
-    </div>
-    <div slot="recommend" slot-scope="props">
-      <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
-    </div>
-    <div slot="comment" slot-scope="props">
-      <div class="left" v-html="props.row.comment"></div>
-    </div>
-  </v-client-table>
+  <div id="ascent-table">
+    <v-client-table
+      ref="vuetable"
+      :columns="columns"
+      :data="values"
+      :options="options"
+      @row-click="rowClick"
+    >
+      <div slot="date" slot-scope="props">
+        {{ props.row.date.replace(/-/g, "&#8209;") }}
+      </div>
+      <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
+      <div slot="flags" slot-scope="props">
+        {{ props.row.flags.join(", ") }}
+      </div>
+      <div slot="recommend" slot-scope="props">
+        <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
+      </div>
+      <div slot="comment" slot-scope="props">
+        <div class="left" v-html="props.row.comment"></div>
+      </div>
+    </v-client-table>
+  </div>
 </template>
 
 <script>
@@ -113,3 +115,16 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+#ascent-table {
+  display: inline-block;
+  max-width: 1400px;
+  @media only screen and (max-width: 1400px) {
+    max-width: 100%;
+  }
+  .left {
+    text-align: left;
+  }
+  overflow-x: auto;
+}
+</style>

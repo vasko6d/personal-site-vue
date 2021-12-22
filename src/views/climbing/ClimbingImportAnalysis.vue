@@ -70,13 +70,11 @@
       </div>
     </div>
     <div v-if="this.climberName">
-      <div class="blk-container">
-        <climber-analysis
-          :climberName="this.climberName"
-          :rawAscents="this.ascentJson.ascents"
-          @initialized="initialized = true"
-        ></climber-analysis>
-      </div>
+      <climber-analysis
+        :climberName="this.climberName"
+        :rawAscents="this.ascentJson.ascents"
+        @initialized="initialized = true"
+      ></climber-analysis>
     </div>
   </div>
 </template>
@@ -160,6 +158,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/table-container.scss";
 #import-analysis {
   display: flex;
   flex-direction: column;
