@@ -420,16 +420,20 @@ export default {
             sortByName: true,
             autoGenerateSubtitle: true,
           });
+          // Month
+          this.addDynamicChart("bar", "month", {
+            sortByName: true,
+          });
           // Softness, rating and recommend
-          // this.addDynamicChart("pie", "softness", {
-          //   sortByName: true,
-          // });
-          // this.addDynamicChart("pie", "rating", {
-          //   sortByName: true,
-          // });
-          // this.addDynamicChart("pie", "recommend", {
-          //   sortByName: true,
-          // });
+          this.addDynamicChart("bar", "rating", {
+            sortByName: true,
+          });
+          this.addDynamicChart("pie", "softness", {
+            sortByName: true,
+          });
+          this.addDynamicChart("pie", "recommend", {
+            sortByName: true,
+          });
           this.initialized = true;
           this.loading = false;
           this.$emit("initialized");
