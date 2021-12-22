@@ -30,7 +30,7 @@
       >
       </climber-column-select>
     </div>
-    <div v-show="!loading" class="table-container">
+    <div v-show="!loading">
       <climber-ascent-table
         :columns="activeColumns"
         :values="currentFilteredStat.values"

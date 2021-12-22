@@ -95,12 +95,10 @@
           </climber-column-select>
         </div>
 
-        <div class="table-container">
-          <climber-ascent-table
-            :columns="activeColumns"
-            :values="currentFilteredStat.values"
-          ></climber-ascent-table>
-        </div>
+        <climber-ascent-table
+          :columns="activeColumns"
+          :values="currentFilteredStat.values"
+        ></climber-ascent-table>
       </div>
     </div>
   </div>
