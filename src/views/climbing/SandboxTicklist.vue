@@ -21,60 +21,20 @@
           />
         </div>
       </div>
-      <div class="chart-w">
-        <div class="chart-p bg1">
-          <div class="b">
-            <span class="icn" @click="showColumnFlags = !showColumnFlags">
-              Column Select
-              <i
-                :class="{
-                  fas: true,
-                  'fa-angle-down': !showColumnFlags,
-                  'fa-angle-up': showColumnFlags,
-                }"
-              ></i>
-            </span>
-          </div>
-          <div v-show="showColumnFlags" class="VuePagination col-opts">
-            <div>
-              <ul class="flex-row">
-                <li
-                  :class="{ active: col.active }"
-                  class="col-btn"
-                  v-for="col in columns"
-                  :key="col.id"
-                  @click="col.active = !col.active"
-                >
-                  {{ options.headings[col.name] }}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <climber-column-select
+        :columns="columns"
+        :labelMap="headings"
+        @toggleActive="
+          columns[$event.index].active = !columns[$event.index].active
+        "
+      >
+      </climber-column-select>
     </div>
     <div v-show="!loading" class="table-container">
-      <v-client-table
-        ref="vuetable"
+      <climber-ascent-table
         :columns="activeColumns"
-        :data="currentFilteredStat.values"
-        :options="options"
-        @row-click="rowClick"
-      >
-        <div slot="date" slot-scope="props">
-          {{ props.row.date.replace(/-/g, "&#8209;") }}
-        </div>
-        <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
-        <div slot="flags" slot-scope="props">
-          {{ props.row.flags.join(", ") }}
-        </div>
-        <div slot="recommend" slot-scope="props">
-          <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
-        </div>
-        <div slot="comment" slot-scope="props">
-          <div class="left" v-html="props.row.comment"></div>
-        </div>
-      </v-client-table>
+        :values="currentFilteredStat.values"
+      ></climber-ascent-table>
     </div>
   </div>
 </template>
@@ -83,6 +43,8 @@
 import Utils from "@/mixins/Utils.js";
 import Stat from "@/mixins/Stat.js";
 import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
+import ClimberAscentTable from "@/components/climbing/ClimberAscentTable.vue";
+import ClimberColumnSelect from "@/components/climbing/ClimberColumnSelect.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
 import Timer from "@/mixins/webgl/Timer.js";
 import Spinner from "vue-simple-spinner";
@@ -90,6 +52,8 @@ export default {
   components: {
     StatFilter,
     Spinner,
+    ClimberAscentTable,
+    ClimberColumnSelect,
   },
   mixins: [Utils],
   data() {
@@ -126,75 +90,18 @@ export default {
         { name: "flags", active: true },
         { name: "comment", active: false },
       ],
-      options: {
-        headings: {
-          climber: "Climber",
-          date: "Date",
-          type: "Type",
-          grade: "Grade",
-          name: "Name",
-          rating: "Stars",
-          recommend: "Recommend",
-          area: "Area",
-          subArea: "SubArea",
-          flags: "Flags",
-          comment: "Comment",
-        },
-        pagination: {
-          chunk: 5,
-        },
-        perPage: 100,
-        perPageValues: [10, 25, 50, 100, 500, 2000],
-        sortable: [
-          "climber",
-          "date",
-          "type",
-          "grade",
-          "name",
-          "recommend",
-          "rating",
-          "area",
-          "subArea",
-          "flags",
-          "comment",
-        ],
-        filterable: [
-          "climber",
-          "date",
-          "type",
-          "grade",
-          "name",
-          "rating",
-          "area",
-          "subArea",
-          "flags",
-          "comment",
-        ],
-        sortIcon: {
-          base: "fas",
-          is: "",
-          up: "fa-caret-up",
-          down: "fa-caret-down",
-        },
-        orderBy: { column: "date", ascending: false },
-        customSorting: {
-          grade: (ascending) => {
-            return (a, b) => {
-              if (ascending) {
-                return this.mapGrade(a.grade) - this.mapGrade(b.grade);
-              }
-              return this.mapGrade(b.grade) - this.mapGrade(a.grade);
-            };
-          },
-          comment: (ascending) => {
-            return (a, b) => {
-              if (ascending) {
-                return a.commentLength - b.commentLength;
-              }
-              return b.commentLength - a.commentLength;
-            };
-          },
-        },
+      headings: {
+        climber: "Climber",
+        date: "Date",
+        type: "Type",
+        grade: "Grade",
+        name: "Name",
+        rating: "Stars",
+        recommend: "Recommend",
+        area: "Area",
+        subArea: "SubArea",
+        flags: "Flags",
+        comment: "Comment",
       },
     };
   },
@@ -264,11 +171,6 @@ export default {
           });
         }
       }
-    },
-    rowClick(e) {
-      const url = `https://www.8a.nu/crags/bouldering/${e.row.countrySlug}/${e.row.cragSlug}/sectors/${e.row.sectorSlug}/routes/${e.row.zlaggableSlug}`;
-      console.log("Opening external 8a.nu url: ", url);
-      window.open(url, "_blank");
     },
   },
 };
