@@ -47,7 +47,8 @@
           <h3 style="text-align: left;">Analyze Via Pasted Text</h3>
           <p style="text-align: left;">
             Or alternatively copy paste the JSON response text into the below.
-            This is possible on a phone.
+            This is possible on a phone, but you have to figure out how to
+            select all on your device.
           </p>
           <div class="import-btn">
             <textarea
@@ -111,7 +112,6 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           this.rawAreaText = this.$refs.rawJson.value;
-          console.warn(this.rawAreaText);
         });
       });
     },
