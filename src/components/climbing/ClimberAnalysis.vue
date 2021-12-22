@@ -54,6 +54,32 @@
           @close="tsIsOpen = false"
         ></time-series-chart>
       </div>
+      <h2>Ascents</h2>
+      <div class="flex-row">
+        <div class="chart bg1">
+          <stat-filter
+            :currentFilters="currentFilters"
+            :stats="stats"
+            :startExpanded="false"
+            @clearFilters="clearFilters"
+          />
+        </div>
+        <climber-column-select
+          :columns="columns"
+          :labelMap="headings"
+          @toggleActive="
+            columns[$event.index].active = !columns[$event.index].active
+          "
+        >
+        </climber-column-select>
+      </div>
+
+      <div class="table-container">
+        <climber-ascent-table
+          :columns="activeColumns"
+          :values="currentFilteredStat.values"
+        ></climber-ascent-table>
+      </div>
     </div>
   </div>
 </template>
@@ -66,6 +92,8 @@ import ChartHandler from "@/components/climbing/charts/ChartHandler.vue";
 import TimeSeriesChart from "@/components/climbing/charts/TimeSeriesChart.vue";
 import StatFilter from "@/components/climbing/StatFilter.vue";
 import Spinner from "vue-simple-spinner";
+import ClimberAscentTable from "@/components/climbing/ClimberAscentTable.vue";
+import ClimberColumnSelect from "@/components/climbing/ClimberColumnSelect.vue";
 export default {
   name: "ClimberAnalysis",
   components: {
@@ -73,6 +101,8 @@ export default {
     TimeSeriesChart,
     StatFilter,
     Spinner,
+    ClimberAscentTable,
+    ClimberColumnSelect,
   },
   mixins: [Utils],
   props: {
@@ -106,9 +136,44 @@ export default {
       initialized: false,
       loading: true,
       tsIsOpen: true,
+      columns: [
+        { name: "climber", active: true },
+        { name: "date", active: true },
+        { name: "type", active: false },
+        { name: "grade", active: true },
+        { name: "name", active: true },
+        { name: "rating", active: true },
+        { name: "recommend", active: false },
+        { name: "area", active: true },
+        { name: "subArea", active: false },
+        { name: "flags", active: true },
+        { name: "comment", active: false },
+      ],
+      headings: {
+        climber: "Climber",
+        date: "Date",
+        type: "Type",
+        grade: "Grade",
+        name: "Name",
+        rating: "Stars",
+        recommend: "Recommend",
+        area: "Area",
+        subArea: "SubArea",
+        flags: "Flags",
+        comment: "Comment",
+      },
     };
   },
   computed: {
+    activeColumns() {
+      let ret = [];
+      for (let col of this.columns) {
+        if (col.active) {
+          ret.push(col.name);
+        }
+      }
+      return ret;
+    },
     uniqueGrades() {
       let uniqueGradeSet = new Set(
         this.currentFilteredStat.values.map((el) => this.mapGrade(el.grade, 0))
