@@ -26,59 +26,81 @@
           />
         </div>
       </div>
-      <h2>Dynamic Charts</h2>
-      <div class="flex-row">
-        <chart-handler
-          v-for="(dynamicChart, index) in computedCharts"
-          :key="dynamicChart.id"
-          :chart="dynamicChart"
-          :stats="currentFilteredStat"
-          @close="closeChart(dynamicChart)"
-          @changeChartType="changeChartType($event, index)"
-          @changeAggregator="changeAggregator($event, index)"
-          @changeBaseStat="changeBaseStat($event, index)"
-          @changeSortOrder="changeSortOrder($event, index)"
-          @changeLimit="changeLimit($event, index)"
-        ></chart-handler>
-      </div>
-      <div class="flex-row">
-        <time-series-chart
-          v-if="
-            currentFilteredStat &&
-            currentFilteredStat.values.length > 0 &&
-            initialized &&
-            tsIsOpen
-          "
-          :stat="currentFilteredStat"
-          :uniqueGrades="uniqueGrades"
-          @close="tsIsOpen = false"
-        ></time-series-chart>
-      </div>
-      <h2>Ascents</h2>
-      <div class="flex-row">
-        <div class="chart bg1">
-          <stat-filter
-            :currentFilters="currentFilters"
-            :stats="stats"
-            :startExpanded="false"
-            @clearFilters="clearFilters"
-          />
+      <h2 class="icn" @click="showDynamicCharts = !showDynamicCharts">
+        Dynamic Charts
+        <i
+          :class="{
+            fas: true,
+            'fa-angle-down': !showDynamicCharts,
+            'fa-angle-up': showDynamicCharts,
+          }"
+        ></i>
+      </h2>
+      <div v-if="showDynamicCharts">
+        <div class="flex-row">
+          <chart-handler
+            v-for="(dynamicChart, index) in computedCharts"
+            :key="dynamicChart.id"
+            :chart="dynamicChart"
+            :stats="currentFilteredStat"
+            @close="closeChart(dynamicChart)"
+            @changeChartType="changeChartType($event, index)"
+            @changeAggregator="changeAggregator($event, index)"
+            @changeBaseStat="changeBaseStat($event, index)"
+            @changeSortOrder="changeSortOrder($event, index)"
+            @changeLimit="changeLimit($event, index)"
+          ></chart-handler>
         </div>
-        <climber-column-select
-          :columns="columns"
-          :labelMap="headings"
-          @toggleActive="
-            columns[$event.index].active = !columns[$event.index].active
-          "
-        >
-        </climber-column-select>
+        <div class="flex-row">
+          <time-series-chart
+            v-if="
+              currentFilteredStat &&
+              currentFilteredStat.values.length > 0 &&
+              initialized &&
+              tsIsOpen
+            "
+            :stat="currentFilteredStat"
+            :uniqueGrades="uniqueGrades"
+            @close="tsIsOpen = false"
+          ></time-series-chart>
+        </div>
       </div>
+      <h2 class="icn" @click="showAscents = !showAscents">
+        Ascents
+        <i
+          :class="{
+            fas: true,
+            'fa-angle-down': !showAscents,
+            'fa-angle-up': showAscents,
+          }"
+        ></i>
+      </h2>
+      <div v-if="showAscents">
+        <div class="flex-row">
+          <div class="chart bg1">
+            <stat-filter
+              :currentFilters="currentFilters"
+              :stats="stats"
+              :startExpanded="false"
+              @clearFilters="clearFilters"
+            />
+          </div>
+          <climber-column-select
+            :columns="columns"
+            :labelMap="headings"
+            @toggleActive="
+              columns[$event.index].active = !columns[$event.index].active
+            "
+          >
+          </climber-column-select>
+        </div>
 
-      <div class="table-container">
-        <climber-ascent-table
-          :columns="activeColumns"
-          :values="currentFilteredStat.values"
-        ></climber-ascent-table>
+        <div class="table-container">
+          <climber-ascent-table
+            :columns="activeColumns"
+            :values="currentFilteredStat.values"
+          ></climber-ascent-table>
+        </div>
       </div>
     </div>
   </div>
@@ -111,6 +133,8 @@ export default {
   },
   data() {
     return {
+      showDynamicCharts: true,
+      showAscents: false,
       ascents: [],
       charts: {
         adhoc: [],

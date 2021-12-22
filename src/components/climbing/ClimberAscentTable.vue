@@ -23,11 +23,13 @@
 </template>
 
 <script>
+import Utils from "@/mixins/Utils.js";
 export default {
   props: {
     values: Array,
     columns: Array,
   },
+  mixins: [Utils],
   data() {
     return {
       options: {
