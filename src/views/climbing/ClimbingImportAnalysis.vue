@@ -4,6 +4,7 @@
       <div class="blk-container">
         <h1>Analysis Importer</h1>
         <div class="bg1">
+          <h3 style="text-align: left;">Get 8a Data</h3>
           <p style="text-align: left;">
             Select a local JSON file of ascents from 8a.nu to view the analytics
             of a climber not in the sandbox. Get it by using the following url
@@ -17,6 +18,8 @@
               >{total-ascents}</strong
             >
           </p>
+          <hr style="margin: 20px 0;" />
+          <h3 style="text-align: left;">Analyze Via Saved File</h3>
           <p style="text-align: left;">
             After using the above URL you should see a ton of text in the
             broswer. Right click anywhere and then click "Save as.." and save it
@@ -38,7 +41,29 @@
             class="cbtn prm bg1-hvr bg1-txt-hvr"
             @click="onAnalyze()"
           >
-            Analyze Climber
+            Analyze Json File
+          </div>
+          <hr style="margin: 20px 0;" />
+          <h3 style="text-align: left;">Analyze Via Pasted Text</h3>
+          <p style="text-align: left;">
+            Or alternatively copy paste the JSON response text into the below.
+            This is possible on a phone.
+          </p>
+          <div class="import-btn">
+            <textarea
+              ref="rawJson"
+              style="width: 90%; height: 100px;"
+              @keyup.enter="onTextAreaChange($refs.rawJson.value)"
+              @paste="onTextAreaChange($refs.rawJson.value)"
+              @blur="onTextAreaChange($refs.rawJson.value)"
+            />
+          </div>
+          <div
+            v-if="rawAreaText && !initialized"
+            class="cbtn prm bg1-hvr bg1-txt-hvr"
+            @click="analyzeRawText()"
+          >
+            Analyze Raw Json Text
           </div>
         </div>
       </div>
@@ -66,6 +91,7 @@ export default {
       ascentJsonFile: undefined,
       ascentJson: undefined,
       climberName: false,
+      rawAreaText: undefined,
       importError: undefined,
       initialized: false,
     };
@@ -75,6 +101,28 @@ export default {
       this.climberName = undefined;
       this.initialized = false;
       this.ascentJsonFile = event.srcElement.value;
+      this.rawAreaText = undefined;
+      this.$refs.rawJson.value = "";
+    },
+    onTextAreaChange() {
+      this.climberName = undefined;
+      this.initialized = false;
+      this.ascentJsonFile = undefined;
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.rawAreaText = this.$refs.rawJson.value;
+          console.warn(this.rawAreaText);
+        });
+      });
+    },
+    analyzeRawText() {
+      try {
+        const json = JSON.parse(this.rawAreaText);
+        this.validateJson(json, true);
+      } catch (e) {
+        this.importError = `"Unparsable JSON: ${e}"`;
+        alert(this.importError);
+      }
     },
     goToMy8aJson() {
       window.open(
@@ -83,28 +131,29 @@ export default {
       );
     },
     onAnalyze() {
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsText(this.$refs.ascentFile.files[0], "UTF-8");
-      reader.onload = (evt) => {
-        this.ascentJson = JSON.parse(evt.target.result);
-        if (
-          this.ascentJson &&
-          this.ascentJson.ascents &&
-          this.ascentJson.ascents.length &&
-          this.ascentJson.totalItems
-        ) {
-          this.climberName = this.ascentJson.ascents[0].userName;
-          console.log(
-            `Sucesfully parsed local JSON file for climber [${this.climberName}], with [${this.ascentJson.ascents.length}] climbs`
-          );
-        } else {
-          this.importError = "Bad Ascent File";
-          alert(this.importError);
-        }
-      };
-      reader.onerror = (evt) => {
-        console.error(evt);
-      };
+      reader.onload = (evt) => this.validateJson(JSON.parse(evt.target.result));
+      reader.onerror = (evt) => console.error(evt);
+    },
+    validateJson(jsonToValidate, isRaw) {
+      if (
+        jsonToValidate &&
+        jsonToValidate.ascents &&
+        jsonToValidate.ascents.length &&
+        jsonToValidate.totalItems
+      ) {
+        this.climberName = jsonToValidate.ascents[0].userName;
+        this.ascentJson = jsonToValidate;
+        console.log(
+          `Sucesfully parsed local JSON file for climber [${this.climberName}], with [${this.ascentJson.ascents.length}] climbs`
+        );
+      } else {
+        this.importError = isRaw
+          ? "Raw Json does not have the expected fields for 8a"
+          : "Ascent File does not have the expected fields for 8a";
+        alert(this.importError);
+      }
     },
   },
 };
