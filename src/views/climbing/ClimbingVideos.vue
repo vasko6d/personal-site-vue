@@ -25,14 +25,15 @@ export default {
   data() {
     return {
       videoList: [
-        { ytid: "_U80DQPPp5Q", desc: "RPC" },
-        { ytid: "LY7X8vQ7A4k", desc: "Leavenworth 2019" },
-        { ytid: "eTJu9mOWVwA", desc: "Leavenworth 2018" },
+        { ytid: "h01kUPKnrTA", desc: "Bounders 6" },
         { ytid: "kiuiZn6tRok", desc: "Bounders 5" },
         { ytid: "czhjYF5BVgo", desc: "Bounders 4" },
         { ytid: "rRoMCjaqTGY", desc: "Bounders 3" },
         { ytid: "DGBJrHYObsc", desc: "Bounders 2" },
         { ytid: "_bFMmASz2j4", desc: "Bounders 1" },
+        { ytid: "_U80DQPPp5Q", desc: "RPC" },
+        { ytid: "LY7X8vQ7A4k", desc: "Leavenworth 2019" },
+        { ytid: "eTJu9mOWVwA", desc: "Leavenworth 2018" },
         { ytid: "AfUtHT4jVmE", desc: "Alaska" },
         { ytid: "8-BJxEmLveU", desc: "Joshua Tree" },
         { ytid: "-u1w5VtMsWI", desc: "Mt Woodson" },
