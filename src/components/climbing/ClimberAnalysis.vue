@@ -497,10 +497,17 @@ export default {
           gradeOpts["tooltips"] = {
             mode: "label",
             callbacks: {
-              label: function (t, d) {
-                var dstLabel = d.datasets[t.datasetIndex].label;
-                var yLabel = t.yLabel;
+              label: (t, d) => {
+                const dstLabel = d.datasets[t.datasetIndex].label;
+                const yLabel = t.yLabel;
                 return dstLabel + ": " + yLabel;
+              },
+              title: (t, d) => {
+                console.log("here");
+                return `${t[0].xLabel} - (${t.reduce(
+                  (pv, cv) => pv + cv.yLabel,
+                  0
+                )})`;
               },
             },
           };
