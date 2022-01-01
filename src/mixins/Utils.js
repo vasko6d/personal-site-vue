@@ -404,9 +404,9 @@ export default {
       });
     },
     getPieChartData(stat, opts) {
-      let statList = Object.values(stat.subStats);
+      const statList = Object.values(stat.subStats);
       // Filter is given a filter function (shallow copy)
-      let filteredList = [...statList];
+      const filteredList = [...statList];
       if (opts.filterFxn) {
         filteredList = filteredList.filter(opts.filterFxn);
       }
@@ -414,6 +414,10 @@ export default {
       filteredList.forEach((el) => {
         el["label"] = this.mapName(stat.name, el.name, opts.nameMap);
       });
+      // Apply a "split function"
+      if (opts.splitStat) {
+        console.warn("mustSplit Stat");
+      }
       // Add actual data for that point
       filteredList.forEach((el) => {
         if (opts.aggregateFxn) {
@@ -440,9 +444,7 @@ export default {
         : (a, b) => b.datum - a.datum;
       filteredList.sort(opts.sortFxn || defaultSort);
       // Apply limit if passed
-      if (opts.limit) {
-        filteredList = filteredList.slice(0, opts.limit);
-      }
+      if (opts.limit) filteredList = filteredList.slice(0, opts.limit);
       // Return it in ChartJS format
       return {
         datasets: [
@@ -482,7 +484,7 @@ export default {
         {
           label: "Onsite",
           data: [],
-          backgroundColor: "#3C0707", // Black-Red
+          backgroundColor: "#e6c530", // Yellow
         },
       ];
       for (let grade of gradeList) {

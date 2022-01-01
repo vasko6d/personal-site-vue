@@ -47,6 +47,7 @@
             @changeChartType="changeChartType($event, index)"
             @changeAggregator="changeAggregator($event, index)"
             @changeBaseStat="changeBaseStat($event, index)"
+            @changeSplitStat="changeSplitStat($event, index)"
             @changeSortOrder="changeSortOrder($event, index)"
             @changeLimit="changeLimit($event, index)"
           ></chart-handler>
@@ -281,6 +282,14 @@ export default {
         );
       }
     },
+    changeSplitStat(newSplitStat, chartIndex) {
+      this.$set(this.charts.dynamic[chartIndex], "type", "bar");
+      this.$set(
+        this.charts.dynamic[chartIndex].opts,
+        "splitStat",
+        newSplitStat
+      );
+    },
     clearFilters(catToClear) {
       if (catToClear) {
         this.$set(this.currentFilters, catToClear, {
@@ -412,12 +421,9 @@ export default {
     },
     addDynamicChart(chartType, statBase, opts = {}) {
       // Default opts with must be defined.
-      if (!opts.sortByName) {
-        opts.sortByName = false;
-      }
-      if (!opts.limit) {
-        opts.limit = 0;
-      }
+      opts.sortByName = opts.sortByName || false;
+      opts.limit = opts.limit || 0;
+      opts.splitStat = opts.splitStat || null;
       // Create chart
       let dynamicChart = {
         type: chartType,
@@ -427,14 +433,15 @@ export default {
       this.charts.dynamic.push(dynamicChart);
     },
     createChart(chartType, statBase, opts) {
-      let stat = this.stats.getFiltered(statBase, opts.filters);
-      let dynamicChart = {
+      const stat = this.stats.getFiltered(statBase, opts.filters);
+      const dynamicChart = {
         type: chartType,
         title: opts.title || this.prettyCapitalize(statBase) + " Chart",
         statBase: statBase,
         opts: opts,
         chartOpts: opts.chartOpts || this.defaultChartOpts(),
       };
+      dynamicChart.chartOpts["splitStat"] = !!opts.splitStat;
       if (opts.subtitleFxn) {
         dynamicChart["subtitle"] = opts.subtitleFxn(stat);
       } else if (opts.autoGenerateSubtitle) {

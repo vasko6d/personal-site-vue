@@ -58,7 +58,7 @@ export const SortStackedBarByValue = {
   },
   beforeDatasetDraw(chart, args) {
     if (chart.options.splitStat && chart.sortedData) {
-      // be sure to always set the "y" and "base" values
+      // Ensure that our caculated "y" and "base" values are properly set
       chart.getDatasetMeta(args.index).data.forEach((data, index) => {
         const currentData = chart.sortedData[index].data;
         const el = currentData.find((e) => e.datasetIndex === args.index);

@@ -20,7 +20,27 @@
             </select>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
+          <td class="b">"Split By" Stat</td>
+          <td>
+            <select
+              v-model="chart.opts.splitStat"
+              @change="changeSplitStat()"
+              class="setting-select"
+            >
+              <option :value="null">{{
+                chart.opts.splitStat === null ? "Select a split stat" : "none"
+              }}</option>
+              <option
+                v-for="cname in Object.keys(stats.subStats)"
+                :value="cname"
+                :key="cname.id"
+                >{{ prettyCapitalize(cname) }}</option
+              >
+            </select>
+          </td>
+        </tr> -->
+        <tr v-if="!chart.opts.splitStat">
           <td class="b">Type</td>
           <td>
             <select
@@ -177,6 +197,9 @@ export default {
     },
     changeBaseStat() {
       this.$emit("changeBaseStat", this.chart.statBase);
+    },
+    changeSplitStat() {
+      this.$emit("changeSplitStat", this.chart.opts.splitStat);
     },
     changeAggregator(emptyValue = false) {
       //console.log(this.aggregator, this.catToAggregate, this.valToAggregate);
