@@ -489,10 +489,20 @@ export default {
       this.initializeStats()
         .then(() => {
           // Grade Counts
-          let gradeOpts = this.defaultChartOpts();
+          const gradeOpts = this.defaultChartOpts();
           gradeOpts["scales"] = {
             xAxes: [{ stacked: true }],
             yAxes: [{ stacked: true }],
+          };
+          gradeOpts["tooltips"] = {
+            mode: "label",
+            callbacks: {
+              label: function (t, d) {
+                var dstLabel = d.datasets[t.datasetIndex].label;
+                var yLabel = t.yLabel;
+                return dstLabel + ": " + yLabel;
+              },
+            },
           };
           this.addDynamicChart("grade", "grade", {
             title: "Ascents per Grade",
