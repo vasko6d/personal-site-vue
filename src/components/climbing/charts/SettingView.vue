@@ -20,7 +20,7 @@
             </select>
           </td>
         </tr>
-        <!-- <tr>
+        <tr>
           <td class="b">"Split By" Stat</td>
           <td>
             <select
@@ -32,14 +32,14 @@
                 chart.opts.splitStat === null ? "Select a split stat" : "none"
               }}</option>
               <option
-                v-for="cname in Object.keys(stats.subStats)"
+                v-for="cname in allowedSplitStats"
                 :value="cname"
                 :key="cname.id"
                 >{{ prettyCapitalize(cname) }}</option
               >
             </select>
           </td>
-        </tr> -->
+        </tr>
         <tr v-if="!chart.opts.splitStat">
           <td class="b">Type</td>
           <td>
@@ -182,6 +182,11 @@ export default {
     },
     aggregators() {
       return Aggregate.names;
+    },
+    allowedSplitStats() {
+      return ["area", "dayOfWeek", "month", "flags", "rating", "year"].filter(
+        (s) => s != this.chart.statBase
+      );
     },
   },
   methods: {

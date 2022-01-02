@@ -263,6 +263,7 @@ export default {
       this.$set(this.charts.dynamic[chartIndex].opts, "limit", limit);
     },
     changeBaseStat(newBaseStat, chartIndex) {
+      this.changeSplitStat(null, chartIndex);
       this.$set(this.charts.dynamic[chartIndex], "statBase", newBaseStat);
       this.$delete(this.charts.dynamic[chartIndex].opts, "colors");
     },
@@ -442,6 +443,12 @@ export default {
         chartOpts: opts.chartOpts || this.defaultChartOpts(),
       };
       dynamicChart.chartOpts["splitStat"] = !!opts.splitStat;
+      if (opts.splitStat) {
+        dynamicChart.chartOpts["scales"] = {
+          xAxes: [{ stacked: true }],
+          yAxes: [{ stacked: true }],
+        };
+      }
       if (opts.subtitleFxn) {
         dynamicChart["subtitle"] = opts.subtitleFxn(stat);
       } else if (opts.autoGenerateSubtitle) {
@@ -473,7 +480,8 @@ export default {
           // Disable legend on pie if more than 20 entries
           dynamicChart.chartOpts.legend = {
             display:
-              chartType === "pie" && dynamicChart.chartData.labels.length < 8,
+              opts.splitStat ||
+              (chartType === "pie" && dynamicChart.chartData.labels.length < 8),
           };
           break;
         case "grade":
@@ -510,7 +518,6 @@ export default {
                 return dstLabel + ": " + yLabel;
               },
               title: (t, d) => {
-                console.log("here");
                 return `${t[0].xLabel} - (${t.reduce(
                   (pv, cv) => pv + cv.yLabel,
                   0

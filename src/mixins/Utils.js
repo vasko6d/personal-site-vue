@@ -1,3 +1,5 @@
+import Stat from "./Stat";
+
 const gradeMap = {
   B: -1,
   "0": 0,
@@ -406,7 +408,7 @@ export default {
     getPieChartData(stat, opts) {
       const statList = Object.values(stat.subStats);
       // Filter is given a filter function (shallow copy)
-      const filteredList = [...statList];
+      let filteredList = [...statList];
       if (opts.filterFxn) {
         filteredList = filteredList.filter(opts.filterFxn);
       }
@@ -414,18 +416,52 @@ export default {
       filteredList.forEach((el) => {
         el["label"] = this.mapName(stat.name, el.name, opts.nameMap);
       });
-      // Apply a "split function"
-      if (opts.splitStat) {
-        console.warn("mustSplit Stat");
-      }
       // Add actual data for that point
-      filteredList.forEach((el) => {
-        if (opts.aggregateFxn) {
-          el["datum"] = opts.aggregateFxn(el);
-        } else {
-          el["datum"] = el.count;
-        }
-      });
+      let datasets;
+      if (opts.splitStat) {
+        // Apply a "split function"
+        datasets = [];
+        const maxSplits = 2;
+
+        // First pass find all the buckets - TODO: do this in one pass
+        filteredList.forEach((stat) => {
+          const statsToSplit = Object.values(stat.get(opts.splitStat).subStats);
+          statsToSplit.sort((a, b) => b.count - a.count);
+          const limit = Math.min(statsToSplit.length, maxSplits);
+          for (let i = 0; i < limit; i++) {
+            const splitStat = statsToSplit[i];
+            if (datasets.find((ds) => ds.name === splitStat.name)) continue;
+            datasets.push({
+              label: this.mapName(opts.splitStat, splitStat.name, opts.nameMap),
+              name: splitStat.name,
+              data: [],
+              backgroundColor: this.getRandomColor(),
+            });
+          }
+        });
+
+        // Second pass fill all the buckets
+        filteredList.forEach((stat) => {
+          const statsToSplit = stat.get(opts.splitStat).subStats;
+          const statsToSplitArr = Object.values(statsToSplit);
+          const topSet = new Set();
+          statsToSplitArr.sort((a, b) => b.count - a.count);
+          const limit = Math.min(statsToSplitArr.length, maxSplits);
+          for (let i = 0; i < limit; i++) {
+            topSet.add(statsToSplitArr[i].name);
+          }
+          datasets.forEach((ds) => {
+            let el = statsToSplit[ds.name] || new Stat(ds.name);
+            if (!topSet.has(ds.name)) el = new Stat(ds.name);
+            ds.data.push(opts.aggregateFxn ? opts.aggregateFxn(el) : el.count);
+          });
+        });
+      }
+      // apply aggregate function
+      filteredList.forEach(
+        (el) =>
+          (el["datum"] = opts.aggregateFxn ? opts.aggregateFxn(el) : el.count)
+      );
       // Add Color - To allow constant colors on update allow a passed color object
       filteredList.forEach((el) => {
         if (opts.colors) {
@@ -447,7 +483,7 @@ export default {
       if (opts.limit) filteredList = filteredList.slice(0, opts.limit);
       // Return it in ChartJS format
       return {
-        datasets: [
+        datasets: datasets || [
           {
             data: filteredList.map((el) => {
               return el.datum;
