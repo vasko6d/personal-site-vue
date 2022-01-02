@@ -199,9 +199,15 @@ export default {
       return Aggregate.names;
     },
     allowedSplitStats() {
-      return ["area", "dayOfWeek", "month", "flags", "rating", "year"].filter(
-        (s) => s != this.chart.statBase
-      );
+      return [
+        "area",
+        "dayOfWeek",
+        "grade",
+        "month",
+        "flags",
+        "rating",
+        "year",
+      ].filter((s) => s != this.chart.statBase);
     },
   },
   methods: {

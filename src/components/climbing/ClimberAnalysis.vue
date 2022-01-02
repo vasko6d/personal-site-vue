@@ -285,6 +285,8 @@ export default {
       }
     },
     changeSplitStat(newSplitStat, chartIndex) {
+      // TODO: need to address aggregators better when using a split stat...
+      // May have to aggregate the stat before splitting to sort right
       if (!newSplitStat) this.changeSplitLimit(2, chartIndex);
       this.$set(this.charts.dynamic[chartIndex], "type", "bar");
       this.$set(
