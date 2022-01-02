@@ -100,6 +100,31 @@ const areaNameFixes = {
   Tuolumne: "Tuolumne Meadows",
 };
 
+// Distinct Colors
+const distinctColors = [
+  "#e6194b",
+  "#3cb44b",
+  "#ffe119",
+  "#4363d8",
+  "#f58231",
+  "#911eb4",
+  "#46f0f0",
+  "#f032e6",
+  "#bcf60c",
+  "#fabebe",
+  "#008080",
+  "#e6beff",
+  "#9a6324",
+  "#fffac8",
+  "#800000",
+  "#aaffc3",
+  "#808000",
+  "#ffd8b1",
+  "#000075",
+  "#808080",
+  "#000000",
+];
+
 // Manually maintained dictionary to get "country" + State
 const areaMaps = {
   "bishop-ca": { div1: "CA", div2: "Bishop" },
@@ -188,6 +213,10 @@ export default {
         color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
+    },
+    getDistinctColor(index) {
+      if (index < distinctColors.length) return distinctColors[index];
+      else return this.getRandomColor();
     },
     formatString(format) {
       var args = Array.prototype.slice.call(arguments, 1);
@@ -435,7 +464,7 @@ export default {
               label: this.mapName(opts.splitStat, splitStat.name, opts.nameMap),
               name: splitStat.name,
               data: [],
-              backgroundColor: this.getRandomColor(),
+              backgroundColor: this.getDistinctColor(datasets.length),
             });
           }
         });
@@ -463,15 +492,15 @@ export default {
           (el["datum"] = opts.aggregateFxn ? opts.aggregateFxn(el) : el.count)
       );
       // Add Color - To allow constant colors on update allow a passed color object
-      filteredList.forEach((el) => {
+      filteredList.forEach((el, index) => {
         if (opts.colors) {
           // Add to the color options if we find ourself a elemnt we dont have yet
           if (!opts.colors[el.label]) {
-            opts.colors[el.label] = this.getRandomColor();
+            opts.colors[el.label] = this.getDistinctColor(index);
           }
           el["color"] = opts.colors[el.label];
         } else {
-          el["color"] = this.getRandomColor();
+          el["color"] = this.getDistinctColor(index);
         }
       });
       // Sort data
