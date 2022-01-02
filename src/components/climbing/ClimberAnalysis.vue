@@ -48,6 +48,7 @@
             @changeAggregator="changeAggregator($event, index)"
             @changeBaseStat="changeBaseStat($event, index)"
             @changeSplitStat="changeSplitStat($event, index)"
+            @changeSplitLimit="changeSplitLimit($event, index)"
             @changeSortOrder="changeSortOrder($event, index)"
             @changeLimit="changeLimit($event, index)"
           ></chart-handler>
@@ -284,11 +285,19 @@ export default {
       }
     },
     changeSplitStat(newSplitStat, chartIndex) {
+      if (!newSplitStat) changeSplitLimit(2, chartIndex);
       this.$set(this.charts.dynamic[chartIndex], "type", "bar");
       this.$set(
         this.charts.dynamic[chartIndex].opts,
         "splitStat",
         newSplitStat
+      );
+    },
+    changeSplitLimit(newSplitLimit, chartIndex) {
+      this.$set(
+        this.charts.dynamic[chartIndex].opts,
+        "splitLimit",
+        newSplitLimit
       );
     },
     clearFilters(catToClear) {
@@ -425,6 +434,7 @@ export default {
       opts.sortByName = opts.sortByName || false;
       opts.limit = opts.limit || 0;
       opts.splitStat = opts.splitStat || null;
+      opts.splitLimit = opts.splitLimit || 2;
       // Create chart
       let dynamicChart = {
         type: chartType,

@@ -53,6 +53,20 @@
             </select>
           </td>
         </tr>
+        <tr v-else>
+          <td class="b">Split Limit</td>
+          <td>
+            <select
+              v-model="chart.opts.splitLimit"
+              @change="$emit('changeSplitLimit', chart.opts.splitLimit)"
+              class="setting-select"
+            >
+              <option v-for="v in splitLimitOpts" :value="v" :key="v">{{
+                v
+              }}</option>
+            </select>
+          </td>
+        </tr>
         <tr>
           <td class="b">Sort order</td>
           <td>
@@ -171,6 +185,7 @@ export default {
       aggregator: null,
       catToAggregate: null,
       valToAggregate: null,
+      splitLimitOpts: [1, 2, 3, 4],
     };
   },
   computed: {

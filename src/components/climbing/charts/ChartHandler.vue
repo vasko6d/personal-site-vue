@@ -55,6 +55,7 @@
       @changeAggregator="$emit('changeAggregator', $event), chartView()"
       @changeBaseStat="$emit('changeBaseStat', $event), chartView()"
       @changeSplitStat="$emit('changeSplitStat', $event), chartView()"
+      @changeSplitLimit="$emit('changeSplitLimit', $event), chartView()"
       @changeSortOrder="$emit('changeSortOrder', $event), chartView()"
       @changeLimit="$emit('changeLimit', $event), chartView()"
     />

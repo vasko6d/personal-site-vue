@@ -450,15 +450,18 @@ export default {
       if (opts.splitStat) {
         // Apply a "split function"
         datasets = [];
-        const maxSplits = 2;
+        const topSets = [];
+        const maxSplits = opts.splitLimit;
 
         // First pass find all the buckets - TODO: do this in one pass
         filteredList.forEach((stat) => {
           const statsToSplit = Object.values(stat.get(opts.splitStat).subStats);
           statsToSplit.sort((a, b) => b.count - a.count);
           const limit = Math.min(statsToSplit.length, maxSplits);
+          const topSet = new Set();
           for (let i = 0; i < limit; i++) {
             const splitStat = statsToSplit[i];
+            topSet.add(splitStat.name);
             if (datasets.find((ds) => ds.name === splitStat.name)) continue;
             datasets.push({
               label: this.mapName(opts.splitStat, splitStat.name, opts.nameMap),
@@ -467,18 +470,13 @@ export default {
               backgroundColor: this.getDistinctColor(datasets.length),
             });
           }
+          topSets.push(topSet);
         });
 
         // Second pass fill all the buckets
-        filteredList.forEach((stat) => {
+        filteredList.forEach((stat, index) => {
           const statsToSplit = stat.get(opts.splitStat).subStats;
-          const statsToSplitArr = Object.values(statsToSplit);
-          const topSet = new Set();
-          statsToSplitArr.sort((a, b) => b.count - a.count);
-          const limit = Math.min(statsToSplitArr.length, maxSplits);
-          for (let i = 0; i < limit; i++) {
-            topSet.add(statsToSplitArr[i].name);
-          }
+          const topSet = topSets[index];
           datasets.forEach((ds) => {
             let el = statsToSplit[ds.name] || new Stat(ds.name);
             if (!topSet.has(ds.name)) el = new Stat(ds.name);
