@@ -285,7 +285,7 @@ export default {
       }
     },
     changeSplitStat(newSplitStat, chartIndex) {
-      if (!newSplitStat) changeSplitLimit(2, chartIndex);
+      if (!newSplitStat) this.changeSplitLimit(2, chartIndex);
       this.$set(this.charts.dynamic[chartIndex], "type", "bar");
       this.$set(
         this.charts.dynamic[chartIndex].opts,
@@ -469,7 +469,12 @@ export default {
           " " +
           this.prettyCapitalize(statBase) +
           "s" +
-          (opts.limit ? ", Top " + opts.limit : "");
+          (opts.limit ? ", Top " + opts.limit : "") +
+          (opts.splitStat
+            ? `, Split(${opts.splitLimit}) on '${this.prettyCapitalize(
+                opts.splitStat
+              )}'`
+            : "");
       }
       switch (chartType) {
         case "bar":
@@ -551,6 +556,7 @@ export default {
           // Month
           this.addDynamicChart("bar", "month", {
             sortByName: true,
+            autoGenerateSubtitle: true,
           });
           // Softness, rating and recommend
           this.addDynamicChart("bar", "rating", {
