@@ -46,9 +46,9 @@
       </div>
     </div>
     <h2>{{ chart.title }}</h2>
-    <chart-view v-if="viewType === 'chart'" :chart="chart" />
+    <chart-view v-show="viewType === 'chart'" :chart="chart" />
     <setting-view
-      v-else-if="viewType === 'settings'"
+      v-if="viewType === 'settings'"
       :chart="chart"
       :stats="stats"
       @changeChartType="$emit('changeChartType', $event), chartView()"
