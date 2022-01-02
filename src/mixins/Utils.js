@@ -445,6 +445,30 @@ export default {
       filteredList.forEach((el) => {
         el["label"] = this.mapName(stat.name, el.name, opts.nameMap);
       });
+      // apply aggregate function
+      filteredList.forEach(
+        (el) =>
+          (el["datum"] = opts.aggregateFxn ? opts.aggregateFxn(el) : el.count)
+      );
+      // Add Color - To allow constant colors on update allow a passed color object
+      filteredList.forEach((el, index) => {
+        if (opts.colors) {
+          // Add to the color options if we find ourself a elemnt we dont have yet
+          if (!opts.colors[el.label]) {
+            opts.colors[el.label] = this.getDistinctColor(index);
+          }
+          el["color"] = opts.colors[el.label];
+        } else {
+          el["color"] = this.getDistinctColor(index);
+        }
+      });
+      // Sort data
+      let defaultSort = opts.sortByName
+        ? (a, b) => (a.name > b.name ? 1 : -1)
+        : (a, b) => b.datum - a.datum;
+      filteredList.sort(opts.sortFxn || defaultSort);
+      // Apply limit if passed
+      if (opts.limit) filteredList = filteredList.slice(0, opts.limit);
       // Add actual data for that point
       let datasets;
       if (opts.splitStat) {
@@ -484,30 +508,6 @@ export default {
           });
         });
       }
-      // apply aggregate function
-      filteredList.forEach(
-        (el) =>
-          (el["datum"] = opts.aggregateFxn ? opts.aggregateFxn(el) : el.count)
-      );
-      // Add Color - To allow constant colors on update allow a passed color object
-      filteredList.forEach((el, index) => {
-        if (opts.colors) {
-          // Add to the color options if we find ourself a elemnt we dont have yet
-          if (!opts.colors[el.label]) {
-            opts.colors[el.label] = this.getDistinctColor(index);
-          }
-          el["color"] = opts.colors[el.label];
-        } else {
-          el["color"] = this.getDistinctColor(index);
-        }
-      });
-      // Sort data
-      let defaultSort = opts.sortByName
-        ? (a, b) => (a.name > b.name ? 1 : -1)
-        : (a, b) => b.datum - a.datum;
-      filteredList.sort(opts.sortFxn || defaultSort);
-      // Apply limit if passed
-      if (opts.limit) filteredList = filteredList.slice(0, opts.limit);
       // Return it in ChartJS format
       return {
         datasets: datasets || [
