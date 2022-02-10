@@ -35,7 +35,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "http-proxy": ">=1.18.1",
     "node-forge": ">=1.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "prettier": "^2.0.5",
     "sass-loader": "^8.0.2",
     "sockjs": ">=0.3.20",
