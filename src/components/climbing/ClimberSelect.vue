@@ -63,12 +63,20 @@ export default {
         },
         { name: "Im a Tiny Man", sandboxId: "ishmael-matinyman" },
         {
+          name: "Ryan Bauer",
+          sandboxId: "ryan-bauer",
+        },
+        {
+          name: "Pinch Nick",
+          sandboxId: "pinch-nick",
+        },
+        {
           name: "Daniel Fineman",
           sandboxId: "zev-fineman",
         },
         { name: "Daniel Fong", sandboxId: "fanny-dong" },
         { name: "Kody Shutt", sandboxId: "kody-shutt" },
-        { name: "David Woo", sandboxId: "david-woo" },
+        { name: "David Woo", sandboxId: "d-w" },
         { name: "Aden Parker", sandboxId: "aden-parker" },
       ],
     };
