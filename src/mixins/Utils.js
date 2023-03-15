@@ -97,6 +97,7 @@ const nameMaps = {
 // Area Name Map (new)
 const areaNameFixes = {
   "Red Rock": "Red Rocks",
+  "Joes Valley": "Joe's Valley",
   Tuolumne: "Tuolumne Meadows",
 };
 
