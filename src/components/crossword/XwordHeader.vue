@@ -58,7 +58,7 @@
           <span
             v-show="showTheme"
             @click="showTheme = !showTheme"
-            style="cursor: pointer;"
+            style="cursor: pointer"
             >{{ themeExp }}</span
           >
         </div>

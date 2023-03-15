@@ -37,7 +37,7 @@
                 <div id="touch-controls">
                   <h3>
                     Touch / Click Controls
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -81,7 +81,7 @@
                 <div id="keyboard-controls">
                   <h3>
                     Keyboard Controls
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -119,7 +119,7 @@
                 <div id="tools">
                   <h3>
                     Tools
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -160,7 +160,7 @@
                 <div id="other">
                   <h3>
                     Other
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -201,7 +201,7 @@
                 <div id="on-page-keyboard">
                   <h3>
                     On-Page Keyboard
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -221,7 +221,7 @@
                 <div id="clue-context">
                   <h3>
                     Clue Context
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -257,7 +257,7 @@
                 <div id="current-clue-box">
                   <h3>
                     Current Clue Box
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>
@@ -286,7 +286,7 @@
                 <div id="multi-input">
                   <h3>
                     Multi-Input Cell
-                    <span style="font-size: 0.65em;">
+                    <span style="font-size: 0.65em">
                       (
                       <a class="icn" href="#help-top">top</a> )
                     </span>

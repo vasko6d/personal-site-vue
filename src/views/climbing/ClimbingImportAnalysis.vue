@@ -4,8 +4,8 @@
       <div class="blk-container">
         <h1>Analysis Importer</h1>
         <div class="bg1">
-          <h3 style="text-align: left;">Get 8a Data</h3>
-          <p style="text-align: left;">
+          <h3 style="text-align: left">Get 8a Data</h3>
+          <p style="text-align: left">
             Select a local JSON file of ascents from 8a.nu to view the analytics
             of a climber not in the sandbox. Get it by using the following url
             <strong>when logged into</strong> 8a.nu. If you click the below link
@@ -18,9 +18,9 @@
               >{total-ascents}</strong
             >
           </p>
-          <hr style="margin: 20px 0;" />
-          <h3 style="text-align: left;">Analyze Via Saved File</h3>
-          <p style="text-align: left;">
+          <hr style="margin: 20px 0" />
+          <h3 style="text-align: left">Analyze Via Saved File</h3>
+          <p style="text-align: left">
             After using the above URL you should see a ton of text in the
             broswer. Right click anywhere and then click "Save as.." and save it
             somewhere on your computer (I did not figure out how to do this on
@@ -43,9 +43,9 @@
           >
             Analyze Json File
           </div>
-          <hr style="margin: 20px 0;" />
-          <h3 style="text-align: left;">Analyze Via Pasted Text</h3>
-          <p style="text-align: left;">
+          <hr style="margin: 20px 0" />
+          <h3 style="text-align: left">Analyze Via Pasted Text</h3>
+          <p style="text-align: left">
             Or alternatively copy paste the JSON response text into the below.
             This is possible on a phone, but you have to figure out how to
             select all on your device.
@@ -53,7 +53,7 @@
           <div class="import-btn">
             <textarea
               ref="rawJson"
-              style="width: 90%; height: 100px;"
+              style="width: 90%; height: 100px"
               @keyup.enter="onTextAreaChange($refs.rawJson.value)"
               @paste="onTextAreaChange($refs.rawJson.value)"
               @blur="onTextAreaChange($refs.rawJson.value)"

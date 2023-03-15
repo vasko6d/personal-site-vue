@@ -15,7 +15,7 @@
       </div>
     </div>
     <div v-show="showClimbers" class="flex-row">
-      <ul style="list-style-type: none;">
+      <ul style="list-style-type: none">
         <li
           class="icn"
           @click="navigate(climber.sandboxId)"

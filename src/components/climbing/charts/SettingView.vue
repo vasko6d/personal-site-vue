@@ -6,48 +6,58 @@
         <tr>
           <td class="b">Base Stat</td>
           <td>
+            <!-- eslint-disable vue/no-mutating-props -->
             <select
               v-model="chart.statBase"
               @change="changeBaseStat()"
               class="setting-select"
             >
+              <!-- eslint-enable vue/no-mutating-props -->
               <option
                 v-for="cname in Object.keys(stats.subStats)"
                 :value="cname"
                 :key="cname.id"
-                >{{ prettyCapitalize(cname) }}</option
               >
+                {{ prettyCapitalize(cname) }}
+              </option>
             </select>
           </td>
         </tr>
         <tr>
           <td class="b">"Split By" Stat</td>
           <td>
+            <!-- eslint-disable vue/no-mutating-props -->
             <select
               v-model="chart.opts.splitStat"
               @change="changeSplitStat()"
               class="setting-select"
             >
-              <option :value="null">{{
-                chart.opts.splitStat === null ? "Select a split stat" : "none"
-              }}</option>
+              <!-- eslint-enable vue/no-mutating-props -->
+              <option :value="null">
+                {{
+                  chart.opts.splitStat === null ? "Select a split stat" : "none"
+                }}
+              </option>
               <option
                 v-for="cname in allowedSplitStats"
                 :value="cname"
                 :key="cname.id"
-                >{{ prettyCapitalize(cname) }}</option
               >
+                {{ prettyCapitalize(cname) }}
+              </option>
             </select>
           </td>
         </tr>
         <tr v-if="!chart.opts.splitStat">
           <td class="b">Type</td>
           <td>
+            <!-- eslint-disable vue/no-mutating-props -->
             <select
               v-model="chart.type"
               @change="changeChartType()"
               class="setting-select"
             >
+              <!-- eslint-enable vue/no-mutating-props -->
               <option value="pie">Pie</option>
               <option value="bar">Bar</option>
             </select>
@@ -56,25 +66,29 @@
         <tr v-else>
           <td class="b">Split Limit</td>
           <td>
+            <!-- eslint-disable vue/no-mutating-props -->
             <select
               v-model="chart.opts.splitLimit"
               @change="$emit('changeSplitLimit', chart.opts.splitLimit)"
               class="setting-select"
             >
-              <option v-for="v in splitLimitOpts" :value="v" :key="v">{{
-                v
-              }}</option>
+              <!-- eslint-enable vue/no-mutating-props -->
+              <option v-for="v in splitLimitOpts" :value="v" :key="v">
+                {{ v }}
+              </option>
             </select>
           </td>
         </tr>
         <tr>
           <td class="b">Sort order</td>
           <td>
+            <!-- eslint-disable vue/no-mutating-props -->
             <select
               v-model="chart.opts.sortByName"
               @change="changeSortOrder()"
               class="setting-select"
             >
+              <!-- eslint-enable vue/no-mutating-props -->
               <option :value="true">Sort by name</option>
               <option :value="false">Sort by value</option>
             </select>
@@ -89,15 +103,16 @@
                 class="setting-select"
                 @change="emptyCatVal(), changeAggregator()"
               >
-                <option :value="null">{{
-                  aggregator === null ? "Select function" : "none"
-                }}</option>
+                <option :value="null">
+                  {{ aggregator === null ? "Select function" : "none" }}
+                </option>
                 <option
                   v-for="aKey in Object.keys(aggregators)"
                   :value="aKey"
                   :key="aKey.id"
-                  >{{ aggregators[aKey] }}</option
                 >
+                  {{ aggregators[aKey] }}
+                </option>
               </select>
             </div>
             <div v-show="aggregator != null">
@@ -111,8 +126,9 @@
                   v-for="aOpt in aggregateOpts"
                   :value="aOpt"
                   :key="aOpt.id"
-                  >{{ prettyCapitalize(aOpt) }}</option
                 >
+                  {{ prettyCapitalize(aOpt) }}
+                </option>
               </select>
             </div>
             <div v-show="catToAggregate != null && needsSubValue">
@@ -128,8 +144,9 @@
                   )"
                   :value="vName"
                   :key="vName.id"
-                  >{{ vName }}</option
                 >
+                  {{ vName }}
+                </option>
               </select>
             </div>
           </td>
@@ -139,22 +156,25 @@
           <td align="center">
             <div
               class="flex-row-nw setting-select bg1"
-              style="padding: 3px 8px 3px 8px;"
+              style="padding: 3px 8px 3px 8px"
             >
-              <span class="flex-gs" style="flex-basis: 10px;">
+              <span class="flex-gs" style="flex-basis: 10px">
+                <!-- eslint-disable vue/no-mutating-props -->
                 <input
                   v-model.number="chart.opts.limit"
                   type="number"
-                  style="width: 100%;"
-                /> </span
-              >&nbsp;
+                  style="width: 100%"
+                />
+                <!-- eslint-enable vue/no-mutating-props -->
+              </span>
+              &nbsp;
               <span>
                 <i
                   class="fas fa-check icn filter-txt"
                   v-tooltip="'Apply Limit'"
                   @click="changeLimit()"
-                ></i
-                >&nbsp;
+                ></i>
+                &nbsp;
                 <i
                   class="fas fa-trash icn filter-txt"
                   v-tooltip="'Remove Limit'"

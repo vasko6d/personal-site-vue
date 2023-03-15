@@ -21,26 +21,27 @@
         >
       </div>
       <div class="btn-grid">
-        <template v-for="aKey in Object.keys(actionCtrls)">
-          <div
-            :key="actionCtrls[aKey].id"
-            :class="[
-              'cbtn',
-              'prm',
-              'bg1-hvr',
-              'bg1-txt-hvr',
-              { pactive: actionCtrls[aKey].framesActive > 0 },
-            ]"
-            @mousedown="actionCtrls[aKey].updateFlag = true"
-            @touchstart="actionCtrls[aKey].updateFlag = true"
-            @mouseup="actionCtrls[aKey].updateFlag = false"
-            @touchend="actionCtrls[aKey].updateFlag = false"
-          >
-            <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
-              {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
-            </i>
-          </div>
-        </template>
+        <!-- eslint-disable vue/no-mutating-props -->
+        <div
+          v-for="aKey in Object.keys(actionCtrls)"
+          :key="actionCtrls[aKey].id"
+          :class="[
+            'cbtn',
+            'prm',
+            'bg1-hvr',
+            'bg1-txt-hvr',
+            { pactive: actionCtrls[aKey].framesActive > 0 },
+          ]"
+          @mousedown="actionCtrls[aKey].updateFlag = true"
+          @touchstart="actionCtrls[aKey].updateFlag = true"
+          @mouseup="actionCtrls[aKey].updateFlag = false"
+          @touchend="actionCtrls[aKey].updateFlag = false"
+        >
+          <i :class="kbToggle ? '' : actionCtrls[aKey].icon">
+            {{ kbToggle ? actionCtrls[aKey].keybind : "" }}
+          </i>
+        </div>
+        <!-- eslint-enable vue/no-mutating-props -->
       </div>
     </div>
   </div>

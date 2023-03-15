@@ -10,7 +10,7 @@
           ></i>
         </div>
         <div class="stat-help" v-if="showFinishHelp">
-          <ul style="list-style-type: none;">
+          <ul style="list-style-type: none">
             <li class="help-itm">
               <strong>[ Submit ]</strong> - Sumbit your current puzzle. All
               wrong entries will be auto-solved and some basic statistics will
@@ -60,7 +60,7 @@
           ></i>
         </div>
         <div class="stat-help" v-if="showStatHelp">
-          <ul style="list-style-type: none;">
+          <ul style="list-style-type: none">
             <li class="help-itm">
               <strong>[ Solve Time ]</strong> - How long the puzzle took to
               solve. Note that timer starts once crossword is opened and will

@@ -5,11 +5,11 @@
       <div>{{ loadingMessage }}</div>
     </div>
     <div v-else class="blk-container">
-      <div style="height: 0; overflow: hidden;">
+      <div style="height: 0; overflow: hidden">
         <input
           type="text"
           ref="psuedo-input"
-          style="opacity: 0;"
+          style="opacity: 0"
           purpose="To trick the phone into bringing up its keyboard"
         />
       </div>

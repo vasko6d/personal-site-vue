@@ -31,7 +31,7 @@
     </div>
     <div
       class="b bg1"
-      style="margin-top: 0.5em; padding-top: 0.25em;"
+      style="margin-top: 0.5em; padding-top: 0.25em"
       v-show="addingFilter && showFilters"
     >
       <div class="flex-row">
@@ -62,14 +62,16 @@
       >
         <div class="flex-row">
           <span class="filter-txt">{{ prettyCapitalize(catagory) }} =</span>
+          <!-- eslint-disable-next-line vue/no-mutating-props -->
           <select class="flex-gs" v-model="currentFilters[catagory].val">
             <option :value="null">All</option>
             <option
               v-for="opt in filterOpts[catagory]"
               :key="opt.id"
               :value="opt.raw"
-              >{{ opt.label }}</option
             >
+              {{ opt.label }}
+            </option>
           </select>
           <!--<i class="fas fa-cogs icn filter-txt"></i>&nbsp;&nbsp;-->
           <i
@@ -155,11 +157,14 @@ export default {
     },
     addFilter() {
       if (this.filterToAdd != null) {
+        // eslint-disable-next-line vue/no-mutating-props
         this.currentFilters[this.filterToAdd].show = true;
       }
     },
     deleteFitler(catToDelete) {
+      // eslint-disable-next-line vue/no-mutating-props
       this.currentFilters[catToDelete].show = false;
+      // eslint-disable-next-line vue/no-mutating-props
       this.currentFilters[catToDelete].val = null;
     },
   },

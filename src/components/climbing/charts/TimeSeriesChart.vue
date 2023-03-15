@@ -22,9 +22,7 @@
       ></i>
     </h2>
     <div v-if="showOptions" class="settings-container">
-      <div class="settings-h">
-        Settings
-      </div>
+      <div class="settings-h">Settings</div>
       <div class="settings-block">
         <table class="basic-table">
           <tr v-for="(opt, optKey) in chartOpts" :key="optKey">
@@ -38,8 +36,9 @@
                   v-for="vName in opt.values"
                   :value="vName"
                   :key="vName.id"
-                  >{{ vName == -1 ? opt.negOneName : vName }}</option
                 >
+                  {{ vName == -1 ? opt.negOneName : vName }}
+                </option>
               </select>
             </td>
           </tr>
@@ -57,7 +56,7 @@
           <div class="settings-h">
             {{ ascentTitle }}
           </div>
-          <ul style="list-style: none;">
+          <ul style="list-style: none">
             <li v-for="ascent in selectedAscents" :key="ascent.id">
               <span class="b">{{ ascent.name }}</span>
               (V{{ ascent.grade }}), {{ ascent.date }}
@@ -68,7 +67,7 @@
           <div class="settings-h">
             {{ maxAscentTitle }}
           </div>
-          <ul style="list-style: none;">
+          <ul style="list-style: none">
             <li v-for="ascent in maxToDate.ascents" :key="ascent.id">
               <span class="b">{{ ascent.name }}</span>
               (V{{ ascent.grade }}), {{ ascent.date }}
@@ -188,8 +187,9 @@ export default {
     selectedAscents() {
       let ret = [];
       if (this.selectedDay) {
-        ret = this.stat.get("date").get(this.toStatDateString(this.selectedDay))
-          .values;
+        ret = this.stat
+          .get("date")
+          .get(this.toStatDateString(this.selectedDay)).values;
       }
       return ret;
     },

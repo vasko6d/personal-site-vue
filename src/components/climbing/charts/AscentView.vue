@@ -4,12 +4,12 @@
     <select v-model="subCatagory" class="setting-select">
       <option :value="null">Select {{ chart.statBase }}</option>
       <option value="All">~ALL~</option>
-      <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">{{
-        cat.label + " (" + cat.datum + ")"
-      }}</option>
+      <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">
+        {{ cat.label + " (" + cat.datum + ")" }}
+      </option>
     </select>
-    <div style="margin-left: 5%;" v-if="subCatagory != null">
-      <ul style="text-align: left;">
+    <div style="margin-left: 5%" v-if="subCatagory != null">
+      <ul style="text-align: left">
         <li v-for="ascent in ascents" :key="ascent.id">
           <span class="b">{{ ascent.name }}</span>
           (V{{ ascent.grade }}), {{ ascent.date }}

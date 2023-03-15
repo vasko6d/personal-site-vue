@@ -20,29 +20,32 @@
         @toggle="kbToggle = !kbToggle"
         >Show Keyboard Binds</switch-button
       >
-      <template v-for="cType in Object.keys(gridLayout)">
-        <div :class="['udlr-group', gridLayout[cType].gClass]" :key="cType.id">
-          <div class="h2-item">{{ gridLayout[cType].gTitle }}</div>
-          <template v-for="btn in gridLayout[cType].gKeys">
-            <div
-              :key="btn.id"
-              :class="
-                btn.cls.concat({
-                  pactive: ctrls[cType][btn.ctrlName].updateFlag,
-                })
-              "
-              @mousedown="ctrls[cType][btn.ctrlName].updateFlag = true"
-              @touchstart="ctrls[cType][btn.ctrlName].updateFlag = true"
-              @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
-              @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
-            >
-              <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-                {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
-              </i>
-            </div>
-          </template>
+      <div
+        v-for="cType in Object.keys(gridLayout)"
+        :class="['udlr-group', gridLayout[cType].gClass]"
+        :key="cType.id"
+      >
+        <div class="h2-item">{{ gridLayout[cType].gTitle }}</div>
+        <!-- eslint-disable vue/no-mutating-props -->
+        <div
+          v-for="btn in gridLayout[cType].gKeys"
+          :key="btn.id"
+          :class="
+            btn.cls.concat({
+              pactive: ctrls[cType][btn.ctrlName].updateFlag,
+            })
+          "
+          @mousedown="ctrls[cType][btn.ctrlName].updateFlag = true"
+          @touchstart="ctrls[cType][btn.ctrlName].updateFlag = true"
+          @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
+          @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
+        >
+          <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
+            {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+          </i>
         </div>
-      </template>
+        <!-- eslint-enable vue/no-mutating-props -->
+      </div>
     </div>
   </div>
 </template>
