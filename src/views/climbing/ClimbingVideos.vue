@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       videoList: [
+        { ytid: "b7XTOl92sF8", desc: "Lake Ramona" },
         { ytid: "h01kUPKnrTA", desc: "Bounders 6" },
         { ytid: "kiuiZn6tRok", desc: "Bounders 5" },
         { ytid: "czhjYF5BVgo", desc: "Bounders 4" },
