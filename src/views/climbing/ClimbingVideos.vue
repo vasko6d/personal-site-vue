@@ -31,6 +31,7 @@ export default {
         { ytid: "czhjYF5BVgo", desc: "Bounders 4" },
         { ytid: "rRoMCjaqTGY", desc: "Bounders 3" },
         { ytid: "DGBJrHYObsc", desc: "Bounders 2" },
+        { ytid: "f_gBeXyvZbU", desc: "Bounders 1 (full)" },
         { ytid: "_bFMmASz2j4", desc: "Bounders 1" },
         { ytid: "_U80DQPPp5Q", desc: "RPC" },
         { ytid: "LY7X8vQ7A4k", desc: "Leavenworth 2019" },
