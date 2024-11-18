@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       videoList: [
-        { ytid: "GymcnFspr2k", desc: "The Statue Of David - FA" },
+        { ytid: "qhBnAKuoscs", desc: "The Statue Of David - FA" },
         { ytid: "wi7yHzLnaU4", desc: "Laputa - FA" },
         { ytid: "b7XTOl92sF8", desc: "Lake Ramona" },
         { ytid: "h01kUPKnrTA", desc: "Bounders 6" },
