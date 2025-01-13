@@ -25,9 +25,8 @@ export default {
   data() {
     return {
       videoList: [
-        { ytid: "--WXrR_kzHQ", desc: "Black Mountain" },
-        { ytid: "qhBnAKuoscs", desc: "The Statue Of David - FA" },
-        { ytid: "wi7yHzLnaU4", desc: "Laputa - FA" },
+        { ytid: "GyEgVEw8sVs", desc: "Black Mountain 2024" },
+        { ytid: "--WXrR_kzHQ", desc: "Black Mountain: Archives" },
         { ytid: "b7XTOl92sF8", desc: "Lake Ramona" },
         { ytid: "h01kUPKnrTA", desc: "Bounders 6" },
         { ytid: "kiuiZn6tRok", desc: "Bounders 5" },
