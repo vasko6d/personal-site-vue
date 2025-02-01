@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       videoList: [
+        { ytid: "yz7znPQ4EZQ", desc: "V7 - Apollo Wept - First Ascent" },
         { ytid: "GyEgVEw8sVs", desc: "Black Mountain 2024" },
         { ytid: "--WXrR_kzHQ", desc: "Black Mountain: Archives" },
         { ytid: "b7XTOl92sF8", desc: "Lake Ramona" },
