@@ -555,6 +555,18 @@ export default {
             sortByName: true,
             autoGenerateSubtitle: true,
           });
+          // Most V Points Days
+          this.addDynamicChart("bar", "date", {
+            sortByName: false,
+            limit: 20,
+            aggregateFxn: Aggregate.fxns.sum("grade"),
+            aggOpts: {
+              aggregator: "sum",
+              catagory: "grade",
+              value: null,
+            },
+            aggregateTitle: "Highest V Point Days",
+          });
           // Month
           this.addDynamicChart("bar", "month", {
             sortByName: true,
@@ -562,12 +574,6 @@ export default {
           });
           // Softness, rating and recommend
           this.addDynamicChart("bar", "rating", {
-            sortByName: true,
-          });
-          this.addDynamicChart("pie", "softness", {
-            sortByName: true,
-          });
-          this.addDynamicChart("pie", "recommend", {
             sortByName: true,
           });
           this.initialized = true;
