@@ -47,21 +47,25 @@ export default {
     return {
       showClimbers: false,
       importedClimbers: [
-        { name: "David Vasko", sandboxId: "david-vasko" },
+        { name: "G. Recian-God", sandboxId: "david-vasko" },
+        { name: "C. Haarmed", sandboxId: "dirk-irector" },
         {
-          name: "Chase Yamashiro",
+          name: "Shirley",
           sandboxId: "shirley-girth",
         },
-        { name: "Winifred Affleman", sandboxId: "winifred-affleman" },
-        { name: "Akhil Mauze", sandboxId: "l-i-b" },
-        { name: "Scott Barron", sandboxId: "dirk-irector" },
-        { name: "Jacquie Nguyen", sandboxId: "natalie-udelarms" },
-        { name: "Dustin Goldbarg", sandboxId: "scooter-limb" },
+        { name: "W. Affleman", sandboxId: "winifred-affleman" },
+        { name: "Im a Tiny Man", sandboxId: "ishmael-matinyman" },
+        { name: "David Woo", sandboxId: "d-w" },
+        { name: "B. iscuit", sandboxId: "bella-iscuit" },
+        { name: "B. Alznurmouth", sandboxId: "bernd-alznurmouth" },
+        { name: "Aden Parker", sandboxId: "aden-parker" },
+        { name: "LIB", sandboxId: "l-i-b" },
+        { name: "N. Udlearms", sandboxId: "natalie-udelarms" },
+        { name: "S. Limb", sandboxId: "scooter-limb" },
         {
           name: "Nathaniel Cushing-Murray",
           sandboxId: "chris-rush",
         },
-        { name: "Im a Tiny Man", sandboxId: "ishmael-matinyman" },
         {
           name: "Ryan Bauer",
           sandboxId: "ryan-bauer",
@@ -76,8 +80,6 @@ export default {
         },
         { name: "Daniel Fong", sandboxId: "fanny-dong" },
         { name: "Kody Shutt", sandboxId: "kody-shutt" },
-        { name: "David Woo", sandboxId: "d-w" },
-        { name: "Aden Parker", sandboxId: "aden-parker" },
       ],
     };
   },
