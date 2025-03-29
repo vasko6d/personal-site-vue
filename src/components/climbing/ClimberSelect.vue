@@ -58,6 +58,7 @@ export default {
         { name: "David Woo", sandboxId: "d-w" },
         { name: "B. iscuit", sandboxId: "bella-iscuit" },
         { name: "B. Alznurmouth", sandboxId: "bernd-alznurmouth" },
+        { name: "Hal", sandboxId: "hal-ford" },
         { name: "Aden Parker", sandboxId: "aden-parker" },
         { name: "LIB", sandboxId: "l-i-b" },
         { name: "N. Udlearms", sandboxId: "natalie-udelarms" },
