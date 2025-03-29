@@ -11,7 +11,11 @@
           <h2>Climber Stats</h2>
           <div class="flex-row">
             <table class="basic-table">
-              <tr v-for="cStat in climberStats" :key="cStat.id">
+              <tr
+                v-for="cStat in climberStats"
+                :key="cStat.id"
+                @click="handleStatClick(cStat)"
+              >
                 <td class="b">{{ cStat.name }}</td>
                 <td>{{ cStat.value }}</td>
               </tr>
@@ -232,7 +236,24 @@ export default {
         });
         cStats.push({ name: "Average Stars", value: a.star.avg });
         cStats.push({ name: "Recommend %", value: a.star.recommend + "%" });
-        cStats.push({ name: "Softness", value: a.softness + " / 10" });
+        // cStats.push({ name: "Softness", value: a.softness + " / 10" });
+        Object.keys(a.grade.dubMap)
+          .sort()
+          .forEach((key) => {
+            let count = a.grade.dubMap[key].length;
+            let name = `${key}x`;
+            if (key == 2) {
+              name = "Double";
+            } else if (key == 3) {
+              name = "Triple";
+            }
+            name += " Double";
+            cStats.push({
+              name,
+              value: `${count}`,
+              dates: a.grade.dubMap[key],
+            });
+          });
         cStats.push({
           name: "Average Comment",
           value: a.comment.avgLen + " characters",
@@ -251,6 +272,16 @@ export default {
     },
   },
   methods: {
+    handleStatClick(stat) {
+      if (stat.dates) {
+        stat.dates.forEach((date) => {
+          console.log(date.date);
+          date.ascents.forEach((a) =>
+            console.log(`\t > ${a.area}: V${a.grade} - ${a.name}`)
+          );
+        });
+      }
+    },
     closeChart(chart) {
       this.$set(chart.opts, "hideChart", true);
     },
@@ -351,6 +382,7 @@ export default {
           min: 0,
           avg: 0,
           score: 0,
+          dubMap: {},
         },
         star: {
           avg: 0,
@@ -378,8 +410,10 @@ export default {
       let totalCommentLen = 0;
       let hard = 0;
       let soft = 0;
+      const dateMap = {};
       for (const ascent of ascents) {
-        sum += this.mapGrade(ascent.grade, 0);
+        const grade = this.mapGrade(ascent.grade, 0);
+        sum += grade;
         starSum += parseInt(ascent.rating);
         if (topCount < ntop) {
           topTotal += this.mapGrade(ascent.grade, 0);
@@ -389,7 +423,29 @@ export default {
         numRecommend += ascent.recommend ? 1 : 0;
         soft += ascent.softness === "Soft" ? 1 : 0;
         hard += ascent.softness === "Hard" ? 1 : 0;
+
+        // Count the doubles send in a single date
+        if (grade >= 10) {
+          if (ascent.date in dateMap) {
+            dateMap[ascent.date].push(ascent);
+          } else {
+            dateMap[ascent.date] = [ascent];
+          }
+        }
       }
+
+      // Calculate Double Double / Triple Double
+      Object.keys(dateMap).forEach((date) => {
+        let ascents = dateMap[date];
+        if (ascents.length > 1) {
+          if (ascents.length in a.grade.dubMap) {
+            a.grade.dubMap[ascents.length].push({ date, ascents });
+          } else {
+            a.grade.dubMap[ascents.length] = [{ date, ascents }];
+          }
+        }
+      });
+
       a.grade.avg = Math.round((10 * sum) / ascents.length) / 10;
       a.star.avg = Math.round((10 * starSum) / ascents.length) / 10;
       a.star.recommend = Math.round((100 * numRecommend) / ascents.length);
@@ -397,6 +453,9 @@ export default {
       a.softness = (soft - hard) / ascents.length;
       a.softness = 5 + Math.round(50 * a.softness) / 10;
       a.comment.avgLen = Math.round(totalCommentLen / ascents.length);
+
+      console.log("Ascent Analysis: ", a);
+
       return a;
     },
     defaultChartOpts() {
