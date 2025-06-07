@@ -25,6 +25,8 @@ export default {
   data() {
     return {
       videoList: [
+        { ytid: "sUvxtaG_0yY", desc: "Mt Woodson: Vol. 2" },
+        { ytid: "-u1w5VtMsWI", desc: "Mt Woodson: Vol. 1" },
         { ytid: "yz7znPQ4EZQ", desc: "V7 - Apollo Wept - First Ascent" },
         { ytid: "GyEgVEw8sVs", desc: "Black Mountain 2024" },
         { ytid: "--WXrR_kzHQ", desc: "Black Mountain: Archives" },
@@ -41,7 +43,6 @@ export default {
         { ytid: "eTJu9mOWVwA", desc: "Leavenworth 2018" },
         { ytid: "AfUtHT4jVmE", desc: "Alaska" },
         { ytid: "8-BJxEmLveU", desc: "Joshua Tree" },
-        { ytid: "-u1w5VtMsWI", desc: "Mt Woodson" },
         { ytid: "osNdWTYSM7o", desc: "Rocklands" },
         { ytid: "xsQbE6G_dTY", desc: "Sonoma Coast" },
         { ytid: "oPQz11NzgD4", desc: "Magic Wood" },
