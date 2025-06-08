@@ -49,14 +49,16 @@ export default {
       importedClimbers: [
         { name: "G. Recian-God", sandboxId: "david-vasko" },
         { name: "C. Haarmed", sandboxId: "dirk-irector" },
+        { name: "M. Agzag", sandboxId: "munin-agzag" },
+        { name: "B. Iscuit", sandboxId: "bella-iscuit" },
         {
           name: "Shirley",
           sandboxId: "shirley-girth",
         },
+        { name: "大 师兄", sandboxId: "da-shi-xiong" },
         { name: "W. Affleman", sandboxId: "winifred-affleman" },
         { name: "Im a Tiny Man", sandboxId: "ishmael-matinyman" },
         { name: "David Woo", sandboxId: "d-w" },
-        { name: "B. iscuit", sandboxId: "bella-iscuit" },
         { name: "B. Alznurmouth", sandboxId: "bernd-alznurmouth" },
         { name: "Hal", sandboxId: "hal-ford" },
         { name: "Aden Parker", sandboxId: "aden-parker" },
