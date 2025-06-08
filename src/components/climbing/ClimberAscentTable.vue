@@ -1,5 +1,19 @@
 <template>
   <div id="ascent-table">
+    <div>
+      <button @click="showConfirm = true">Export to CSV</button>
+    </div>
+    <div v-if="showConfirm" class="confirm-dialog">
+      <div class="confirm-content">
+        <p>
+          Are you sure you want to export these [{{ values.length }}] ascents to
+          CSV?
+        </p>
+        <button @click="downloadCSV(values)">Current Columns</button>
+        <button @click="downloadCSV(false)">All Data</button>
+        <button @click="showConfirm = false">Cancel</button>
+      </div>
+    </div>
     <div class="table-container">
       <v-client-table
         ref="vuetable"
@@ -36,6 +50,7 @@ export default {
   mixins: [Utils],
   data() {
     return {
+      showConfirm: false,
       options: {
         headings: {
           climber: "Climber",
@@ -114,6 +129,66 @@ export default {
       console.log("Opening external 8a.nu url: ", url);
       window.open(url, "_blank");
     },
+    convertToCSV(data, activeColumnsOnly = true) {
+      const csvRows = [];
+      if (activeColumnsOnly) {
+        csvRows.push(this.columns.join(","));
+        for (const row of data) {
+          const values = this.columns.map((header) => {
+            let cell = row[header];
+            // Handle arrays (e.g., flags)
+            if (Array.isArray(cell)) {
+              cell = cell.join(", ");
+            }
+            // Escape quotes
+            const escaped = ("" + (cell !== undefined ? cell : "")).replace(
+              /"/g,
+              '\\"'
+            );
+            return `"${escaped}"`;
+          });
+          csvRows.push(values.join(","));
+        }
+      } else {
+        const headers = Object.keys(data[0]);
+        csvRows.push(headers.join(","));
+
+        for (const row of data) {
+          const values = headers.map((header) => {
+            const escaped = ("" + row[header]).replace(/"/g, '\\"');
+            return `"${escaped}"`;
+          });
+          csvRows.push(values.join(","));
+        }
+      }
+
+      return csvRows.join("\n");
+    },
+    downloadCSV(data) {
+      const csv = this.convertToCSV(data);
+
+      // Get current datetime in YYYY-MM-DD_HH-mm-ss format
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, "0");
+      const datetime = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
+        now.getDate()
+      )}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(
+        now.getSeconds()
+      )}`;
+      const filename = `ascents_${datetime}.csv`;
+
+      console.log("Downloading CSV: ", filename);
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", filename);
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
   },
 };
 </script>
@@ -130,5 +205,27 @@ export default {
     text-align: left;
   }
   overflow-x: auto;
+}
+.confirm-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  .confirm-content {
+    background: #fff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    button {
+      margin: 0 1em;
+    }
+  }
 }
 </style>
