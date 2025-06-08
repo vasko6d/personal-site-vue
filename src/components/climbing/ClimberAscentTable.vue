@@ -9,8 +9,22 @@
           Are you sure you want to export these [{{ values.length }}] ascents to
           CSV?
         </p>
-        <button @click="downloadCSV(values)">Current Columns</button>
-        <button @click="downloadCSV(false)">All Data</button>
+        <button
+          @click="
+            downloadCSV(values);
+            showConfirm = false;
+          "
+        >
+          Current Columns
+        </button>
+        <button
+          @click="
+            downloadCSV(false);
+            showConfirm = false;
+          "
+        >
+          All Data
+        </button>
         <button @click="showConfirm = false">Cancel</button>
       </div>
     </div>
