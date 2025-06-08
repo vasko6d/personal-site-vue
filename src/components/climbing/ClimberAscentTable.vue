@@ -205,26 +205,26 @@ export default {
     text-align: left;
   }
   overflow-x: auto;
-}
-.confirm-dialog {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  .confirm-content {
-    background: #fff;
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    button {
-      margin: 0 1em;
+  .confirm-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    .confirm-content {
+      background: #fff;
+      padding: 2em;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      button {
+        margin: 0 1em;
+      }
     }
   }
 }
