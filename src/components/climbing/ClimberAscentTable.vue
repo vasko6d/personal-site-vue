@@ -19,7 +19,7 @@
         </button>
         <button
           @click="
-            downloadCSV(false);
+            downloadCSV(values, false);
             showConfirm = false;
           "
         >
@@ -144,42 +144,35 @@ export default {
       window.open(url, "_blank");
     },
     convertToCSV(data, activeColumnsOnly = true) {
-      const csvRows = [];
-      if (activeColumnsOnly) {
-        csvRows.push(this.columns.join(","));
-        for (const row of data) {
-          const values = this.columns.map((header) => {
-            let cell = row[header];
-            // Handle arrays (e.g., flags)
-            if (Array.isArray(cell)) {
-              cell = cell.join(", ");
-            }
-            // Escape quotes
-            const escaped = ("" + (cell !== undefined ? cell : "")).replace(
-              /"/g,
-              '\\"'
-            );
-            return `"${escaped}"`;
-          });
-          csvRows.push(values.join(","));
+      const escapeCSV = (value) => {
+        if (value === undefined || value === null) return "";
+        let str = String(value);
+        // Double quotes inside the field must be doubled
+        str = str.replace(/"/g, '""');
+        // If the field contains a comma, newline, or double quote, wrap it in double quotes
+        if (/[",\n\r]/.test(str)) {
+          str = `"${str}"`;
         }
-      } else {
-        const headers = Object.keys(data[0]);
-        csvRows.push(headers.join(","));
+        return str;
+      };
 
-        for (const row of data) {
-          const values = headers.map((header) => {
-            const escaped = ("" + row[header]).replace(/"/g, '\\"');
-            return `"${escaped}"`;
-          });
-          csvRows.push(values.join(","));
-        }
+      const csvRows = [];
+      const headers = activeColumnsOnly ? this.columns : Object.keys(data[0]);
+      csvRows.push(headers.join(","));
+
+      for (const row of data) {
+        const values = headers.map((header) => {
+          let cell = row[header];
+          if (Array.isArray(cell)) cell = cell.join(", ");
+          return escapeCSV(cell);
+        });
+        csvRows.push(values.join(","));
       }
 
       return csvRows.join("\n");
     },
-    downloadCSV(data) {
-      const csv = this.convertToCSV(data);
+    downloadCSV(data, activeColumnsOnly = true) {
+      const csv = this.convertToCSV(data, activeColumnsOnly);
 
       // Get current datetime in YYYY-MM-DD_HH-mm-ss format
       const now = new Date();
