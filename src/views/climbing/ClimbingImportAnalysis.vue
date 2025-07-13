@@ -14,7 +14,7 @@
             analyze.
           </p>
           <p class="eight-a-url bg1-hvr bg1-txt-hvr" @click="goToMy8aJson()">
-            https://www.8a.nu/api/users/<strong>{user-name}</strong>/ascents?category=bouldering&pageIndex=0&pageSize=<strong
+            https://www.8a.nu/api/unification/ascent/v1/web/users/<strong>{user-name}</strong>/ascents?category=bouldering&pageIndex=0&pageSize=<strong
               >{total-ascents}</strong
             >
           </p>
@@ -124,7 +124,7 @@ export default {
     },
     goToMy8aJson() {
       window.open(
-        "https://www.8a.nu/api/users/david-vasko/ascents?category=bouldering&pageIndex=0&pageSize=4000",
+        "https://www.8a.nu/api/unification/ascent/v1/web/users/david-vasko/ascents?category=bouldering&pageIndex=0&pageSize=6000",
         "_blank"
       );
     },
