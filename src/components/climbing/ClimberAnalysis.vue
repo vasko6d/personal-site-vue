@@ -155,6 +155,7 @@ export default {
         softness: { val: null, show: true },
         flags: { val: null, show: false },
         type: { val: null, show: true },
+        subArea: { val: null, show: true },
         country: { val: null, show: false },
         // state: { val: null, show: false },
       },

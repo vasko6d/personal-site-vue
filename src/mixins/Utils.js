@@ -126,6 +126,44 @@ const distinctColors = [
   "#000000",
 ];
 
+// TODO: in the filterable shoudl create a nested view ex US -> California -> Bishop -> Catacombs / Main / Rock Creek
+const specialAreaCases = {
+  arizona: {
+    name: "Arizona",
+    uniqueSubAreas: ["kelly-canyon"],
+  },
+  "bishop-ca": {
+    name: "Bishop",
+    uniqueSubAreas: ["rock-creek", "catacombs", "heaven"],
+  },
+  california: {
+    name: "California",
+    uniqueSubAreas: ["salt-point", "stinson-beach"],
+  },
+  colorado: {
+    name: "Colorado",
+    uniqueSubAreas: ["mt-evans", "newlin"],
+    uniqueSectorSlugs: {
+      // Could maybe swtich "Destination" to Mt Evans in cases like this so we have more granularity
+      "mt-evans": ["lincoln-lake"],
+    },
+  },
+  "yosemite-ca": {
+    name: "Yosemite",
+    uniqueSubAreas: ["tuolumne-meadows"],
+  },
+  washington: {
+    name: "Washington",
+    // TODO: Need a map miller river obviously has a generated suffix
+    uniqueSubAreas: [
+      "leavenworth-boulders",
+      "miller-river-vjvzn",
+      "index",
+      "gold-bar",
+    ],
+  },
+};
+
 // Manually maintained dictionary to get "country" + State
 const areaMaps = {
   "bishop-ca": { div1: "CA", div2: "Bishop" },
@@ -313,7 +351,9 @@ export default {
     */
     preprocessAscent(ascent, climber) {
       const processedAscent = {
+        ...ascent, // Copy all ascent properties
         area: ascent.area,
+        destination: null, // IF a larger area is given ex Bishop
         climber: climber,
         comment: ascent.comment,
         commentLength: ascent.comment ? ascent.comment.length : 0,
@@ -371,8 +411,32 @@ export default {
       // Correct Area and Sub Area
       let areaSlug = ascent.areaSlug;
       if (ascent.areaName) {
-        processedAscent.area = ascent.areaName.replace(/ \([A-Z][A-Z]\)/, "");
-        processedAscent.subArea = ascent.cragName;
+        const special = specialAreaCases[ascent.areaSlug];
+        if (special) {
+          processedAscent.destination = special.name;
+          processedAscent.area = special.name;
+          processedAscent.subArea = ascent.cragName;
+
+          // If this is a specail crag we need to split out the known "unique" sub areas
+          if (special.uniqueSubAreas.includes(ascent.cragSlug)) {
+            processedAscent.area = this.kebabToCap(ascent.cragSlug);
+            processedAscent.subArea = this.kebabToCap(ascent.sectorSlug);
+            if (
+              special.uniqueSectorSlugs &&
+              ascent.cragSlug in special.uniqueSectorSlugs &&
+              special.uniqueSectorSlugs[ascent.cragSlug].includes(
+                ascent.sectorSlug
+              )
+            ) {
+              // This deep we lose some context, so area and subArea are duplicated
+              processedAscent.area = this.kebabToCap(ascent.sectorSlug);
+            }
+          }
+        } else {
+          // Remove country code from area name ex Bishop (CA)
+          processedAscent.area = ascent.areaName.replace(/ \([A-Z][A-Z]\)/, "");
+          processedAscent.subArea = ascent.cragName;
+        }
       } else {
         processedAscent.area = ascent.cragName;
         processedAscent.subArea = this.kebabToCap(ascent.sectorSlug);
