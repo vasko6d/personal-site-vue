@@ -25,12 +25,7 @@ export default {
   data() {
     return {
       videoList: [
-        { ytid: "sUvxtaG_0yY", desc: "Mt Woodson: Vol. 2" },
-        { ytid: "-u1w5VtMsWI", desc: "Mt Woodson: Vol. 1" },
-        { ytid: "yz7znPQ4EZQ", desc: "V7 - Apollo Wept - First Ascent" },
-        { ytid: "GyEgVEw8sVs", desc: "Black Mountain 2024" },
-        { ytid: "--WXrR_kzHQ", desc: "Black Mountain: Archives" },
-        { ytid: "b7XTOl92sF8", desc: "Lake Ramona" },
+        { ytid: "SzuX-PkNO7g", desc: "Bounders 7" },
         { ytid: "h01kUPKnrTA", desc: "Bounders 6" },
         { ytid: "kiuiZn6tRok", desc: "Bounders 5" },
         { ytid: "czhjYF5BVgo", desc: "Bounders 4" },
@@ -38,6 +33,12 @@ export default {
         { ytid: "DGBJrHYObsc", desc: "Bounders 2" },
         { ytid: "f_gBeXyvZbU", desc: "Bounders 1 (full)" },
         { ytid: "_bFMmASz2j4", desc: "Bounders 1" },
+        { ytid: "sUvxtaG_0yY", desc: "Mt Woodson: Vol. 2" },
+        { ytid: "-u1w5VtMsWI", desc: "Mt Woodson: Vol. 1" },
+        { ytid: "yz7znPQ4EZQ", desc: "V7 - Apollo Wept - First Ascent" },
+        { ytid: "GyEgVEw8sVs", desc: "Black Mountain 2024" },
+        { ytid: "--WXrR_kzHQ", desc: "Black Mountain: Archives" },
+        { ytid: "b7XTOl92sF8", desc: "Lake Ramona" },
         { ytid: "_U80DQPPp5Q", desc: "RPC" },
         { ytid: "LY7X8vQ7A4k", desc: "Leavenworth 2019" },
         { ytid: "eTJu9mOWVwA", desc: "Leavenworth 2018" },
