@@ -1,0 +1,51 @@
+<script setup lang="ts">
+defineProps<{
+  enabled: boolean;
+  desc?: string;
+}>();
+
+defineEmits<{
+  toggle: [];
+}>();
+</script>
+
+<template>
+  <div class="font-awesome-check" @click="$emit('toggle')">
+    <div
+      :class="{
+        enabled: enabled,
+        disabled: !enabled,
+      }"
+    >
+      <i
+        :class="[
+          'far',
+          {
+            'fa-check-square': enabled,
+            'fa-window-close': !enabled,
+          },
+        ]"
+      ></i>
+      {{ desc }}
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.font-awesome-check {
+  margin-left: 5%;
+  i {
+    width: 16px;
+  }
+  cursor: pointer;
+  .enabled {
+    color: green;
+  }
+  .disabled {
+    color: gray;
+    &:hover {
+      color: rgb(131, 130, 74);
+    }
+  }
+}
+</style>

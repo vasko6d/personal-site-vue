@@ -23,4 +23,14 @@ export default defineConfigWithVueTs(
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
   skipFormatting,
+
+  {
+    name: 'app/views-single-word-name',
+    files: ['src/views/**/*.vue'],
+    rules: {
+      // route-level view components are never used as custom elements in a
+      // template, so the multi-word-name collision-avoidance rule doesn't apply
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 )
