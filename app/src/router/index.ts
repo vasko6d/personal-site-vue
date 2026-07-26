@@ -144,7 +144,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/crossword/search",
         name: "Crossword",
-        component: () => import("../views/ComingSoon.vue"),
+        component: () => import("../views/crossword/XwordSearch.vue"),
       },
     ],
   },
@@ -155,7 +155,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/crossword/:xwordId",
     name: "crossword",
-    component: () => import("../views/ComingSoon.vue"),
+    component: () => import("../views/crossword/XwordSolver.vue"),
     props: true,
   },
   {
