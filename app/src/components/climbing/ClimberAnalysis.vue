@@ -386,6 +386,9 @@ function ascentAnalysis(stat: Stat, ntop = 10) {
 function defaultChartOpts(): Record<string, unknown> {
   return {
     responsive: true,
+    // fills the chart-canvas-box container's height (see ChartView.vue)
+    // instead of Chart.js's default width/aspectRatio-derived height
+    maintainAspectRatio: false,
     plugins: {
       title: { display: false },
       legend: { display: true },

@@ -12,5 +12,16 @@ defineProps<{
 </script>
 
 <template>
-  <Doughnut :data="chartData" :options="options ?? {}" />
+  <div class="chart-canvas-wrapper">
+    <Doughnut :data="chartData" :options="options ?? {}" />
+  </div>
 </template>
+
+<style scoped>
+/* see BarGraph.vue for why this wrapper exists */
+.chart-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+</style>
