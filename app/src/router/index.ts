@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from "vue-router";
 import { h } from "vue";
 import NestedViewer from "@/components/NestedViewer.vue";
 
@@ -13,9 +13,17 @@ declare module "vue-router" {
 }
 
 // Pass-through parent route: just renders its matched child route.
+//
+// NOTE: must pass the RouterView component itself to h(), not the string
+// "router-view". Vue 2's h("router-view") auto-resolved string tags against
+// the global component registry even in hand-written render functions, so
+// this worked without an import. Vue 3 removed that automatic string
+// resolution from h() - a string tag now always creates a literal, unknown
+// custom element instead of resolving to a registered component - so the
+// component reference must be passed explicitly.
 const routerViewPassthrough = {
   render() {
-    return h("router-view");
+    return h(RouterView);
   },
 };
 
