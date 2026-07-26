@@ -162,6 +162,12 @@ const routes: RouteRecordRaw[] = [
     path: "/dev/data-table-demo",
     component: () => import("../views/dev/DataTableDemo.vue"),
   },
+  // TEMPORARY Phase 4 verification route - remove once Phase 6 wires these
+  // chart wrappers into the real ChartView.vue/TimeSeriesChart.vue consumers.
+  {
+    path: "/dev/chart-demo",
+    component: () => import("../views/dev/ChartDemo.vue"),
+  },
   {
     path: "/:pathMatch(.*)*",
     component: () => import("../components/NotFound.vue"),
