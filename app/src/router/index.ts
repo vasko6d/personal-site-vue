@@ -156,6 +156,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("../views/ComingSoon.vue"),
     props: true,
   },
+  // TEMPORARY Phase 3 verification route - remove once Phase 6 wires
+  // DataTable into the real ClimberAscentTable.vue consumer.
+  {
+    path: "/dev/data-table-demo",
+    component: () => import("../views/dev/DataTableDemo.vue"),
+  },
   {
     path: "/:pathMatch(.*)*",
     component: () => import("../components/NotFound.vue"),
