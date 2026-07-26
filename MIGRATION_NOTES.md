@@ -16,7 +16,7 @@ follow-up effort after the migration/cutover is done.
 
 **Root cause is structural, not a migration regression** — the original Vue 2 code has the same algorithm/shape (one big computed property building every chart, no caching in `Stat`). The migration ported it faithfully rather than redesigning it, per the migration's own scope.
 
-**Likely also affects the crossword feature (Phase 7 — not yet ported at the time this note was written):** `XwordStatBanner.vue` calls `Utils.generateTimeSeries`/`buildXwordChartData`, the same `Stat`-based aggregation path. Worth checking data volume there once ported (crossword ascent-equivalent data — cell counts, timer state — is probably much smaller than 3,413 ascents, but the same lazy-uncached-tree-walk pattern applies if `Stat` is used similarly).
+**Update after Phase 7 (crossword) landed:** `XwordStatBanner.vue` does use the same `Stat`-based aggregation path (`buildXwordChartData`), but its input is `statData.timeSeries` — one entry per state-changing keystroke in a single puzzle, not thousands of ascents. Data volume there is small; this perf issue is specific to the climbing feature and not expected to be meaningful in crossword.
 
 **Fix direction for the follow-up effort (not implemented yet):**
 - Compute each chart's data independently/lazily (e.g. per-chart computed refs keyed off only what that chart needs) instead of one `computedCharts` loop rebuilding all 6 on every dependency change.
@@ -28,3 +28,10 @@ follow-up effort after the migration/cutover is done.
 **Where:** `app/src/components/crossword/Xword.ts` (once ported in Phase 7 — was `src/components/crossword/Xword.js` pre-migration).
 
 Flagged during migration planning: `Xword` is a large stateful class instantiated once and threaded via props/refs across ~10 sibling components (`XwordClueContext`, `XwordCluePanel`, `XwordClues`, `XwordCurrentClue`, `XwordHeader`, `XwordHelp`, `XwordKeyboard`, `XwordSettings`, `XwordStatBanner`, `XwordTools`). Strong Pinia-store candidate for a later effort — would eliminate the prop/ref plumbing and let each sibling read/mutate solver state directly. Phase 7 intentionally ports it to a typed TS class only, preserving the existing prop/ref-passing shape — **not acted on now**, scope stays: get Vue 3 + TS working, not redesign state architecture.
+
+## Discovered pre-existing dead code / latent bugs in the crossword feature (Phase 7)
+
+Found while porting, not fixed — these are behavior changes outside a faithful port's scope, left for the user to decide on separately:
+
+- **`XwordPuzzle.vue`'s `calcWrong()`/`isSpecialInput()` methods are dead code.** Never called from the template — the "wrong" CSS class is computed inline (`showErrors && cell.wrong && cell.entry`) instead of via `calcWrong()`, which is the *only* place that was supposed to emit `updateShownWrong` (feeding `Xword.updateShownErrorFlag()`). Net effect: the "Shown Error" stat shown in `XwordStatBanner.vue` never actually increments during normal play — it's permanently stuck near 0 regardless of how many wrong answers get shown in red. If the "Shown Error" stat matters, wiring `calcWrong()` back into the template's `:class` binding (calling it instead of the inline expression) would fix it.
+- **`XwordSearch.vue`'s old `statusSort()` method** and **`XwordPuzzle.vue`'s `@specialKeyboard` listener** (declared by the parent `XwordSolver.vue`, never emitted by the child) were similarly unreferenced dead code — dropped during the port since they had zero effect either way.
