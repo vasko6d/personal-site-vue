@@ -494,7 +494,7 @@ export interface PieChartOpts {
   sortByName?: boolean;
   sortFxn?: (a: PieChartRow, b: PieChartRow) => number;
   limit?: number;
-  splitStat?: string;
+  splitStat?: string | null;
   splitLimit?: number;
 }
 

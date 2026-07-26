@@ -37,25 +37,25 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/climbing/videos",
         name: "Videos",
-        component: () => import("../views/ComingSoon.vue"),
+        component: () => import("../views/climbing/ClimbingVideos.vue"),
       },
       {
         path: "/climbing/ticklist",
         name: "Ticklist",
-        component: () => import("../views/ComingSoon.vue"),
+        component: () => import("../views/climbing/SandboxTicklist.vue"),
       },
       {
         path: "/climbing/analytics/:sandboxId",
         name: "Analysis",
         meta: { defaultPath: "/climbing/analytics/david-vasko" },
-        component: () => import("../views/ComingSoon.vue"),
+        component: () => import("../views/climbing/SandboxAnalysis.vue"),
         props: true,
       },
       {
         path: "/climbing/topos/:topoId",
         name: "Topos",
         meta: { defaultPath: "/climbing/topos/rpc" },
-        component: () => import("../views/ComingSoon.vue"),
+        component: () => import("../views/climbing/ClimbingTopos.vue"),
         props: true,
       },
     ],
@@ -142,7 +142,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/climbing/topos",
-    component: () => import("../views/ComingSoon.vue"),
+    component: () => import("../views/climbing/ClimbingTopos.vue"),
   },
   {
     path: "/crossword/:xwordId",
@@ -153,20 +153,8 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/climbing/import/analytics",
     name: "Import Analysis",
-    component: () => import("../views/ComingSoon.vue"),
+    component: () => import("../views/climbing/ClimbingImportAnalysis.vue"),
     props: true,
-  },
-  // TEMPORARY Phase 3 verification route - remove once Phase 6 wires
-  // DataTable into the real ClimberAscentTable.vue consumer.
-  {
-    path: "/dev/data-table-demo",
-    component: () => import("../views/dev/DataTableDemo.vue"),
-  },
-  // TEMPORARY Phase 4 verification route - remove once Phase 6 wires these
-  // chart wrappers into the real ChartView.vue/TimeSeriesChart.vue consumers.
-  {
-    path: "/dev/chart-demo",
-    component: () => import("../views/dev/ChartDemo.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
