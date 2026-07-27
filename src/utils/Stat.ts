@@ -1,3 +1,5 @@
+import { markRaw } from 'vue'
+
 // Object keys used throughout the climbing stat tree - ascent field values
 // (grade, year, recommend, etc) end up here, and JS coerces all of them to
 // string when used as object keys, so we do that coercion explicitly.
@@ -23,6 +25,12 @@ export default class Stat {
   ignore: Set<string>
 
   constructor(name: StatKey, ignore: Iterable<string> = []) {
+    // Stat instances are large, deeply mutable trees that get assigned into
+    // Pinia/Vue reactive state (see the climbing stores) - markRaw keeps Vue
+    // from wrapping them (and every recursive subStat) in a reactive Proxy,
+    // which would otherwise tax every read/write in goDeeper()'s hot loop and
+    // every later tree traversal. See MIGRATION_NOTES.md for the full story.
+    markRaw(this)
     this.name = name
     this.count = 0
     this.ready = false

@@ -16,7 +16,7 @@ follow-up effort after the migration/cutover is done.
 
 **Root cause is structural, not a migration regression** — the original Vue 2 code has the same algorithm/shape (one big computed property building every chart, no caching in `Stat`). The migration ported it faithfully rather than redesigning it, per the migration's own scope.
 
-**Update after Phase 7 (crossword) landed:** `XwordStatBanner.vue` does use the same `Stat`-based aggregation path (`buildXwordChartData`), but its input is `statData.timeSeries` — one entry per state-changing keystroke in a single puzzle, not thousands of ascents. Data volume there is small; this perf issue is specific to the climbing feature and not expected to be meaningful in crossword.
+**Update after Phase 7 (crossword) landed:** `XwordStatBanner.vue`'s `buildXwordChartData()` (`src/utils/Utils.ts`) is a separate, unrelated implementation — plain arrays in, no `Stat` class involved. (Correcting an earlier note here that said otherwise; confirmed by grep, `Stat` has zero consumers outside the climbing feature.) This perf issue is specific to climbing and doesn't affect crossword either way.
 
 **Fix direction for the follow-up effort (not implemented yet):**
 - Compute each chart's data independently/lazily (e.g. per-chart computed refs keyed off only what that chart needs) instead of one `computedCharts` loop rebuilding all 6 on every dependency change.
