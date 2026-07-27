@@ -1,81 +1,87 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from "vue";
-import Stat, { type StatKey } from "@/utils/Stat";
-import Aggregate, { type AggregatorName } from "@/utils/Aggregate";
-import { prettyCapitalize } from "@/utils/Utils";
-import type { Chart } from "../types";
+import { computed, ref, onMounted } from 'vue'
+import Stat, { type StatKey } from '@/utils/Stat'
+import Aggregate, { type AggregatorName } from '@/utils/Aggregate'
+import { prettyCapitalize } from '@/utils/Utils'
+import type { Chart } from '../types'
 
 const props = defineProps<{
-  chart: Chart;
-  stats: Stat;
-}>();
+  chart: Chart
+  stats: Stat
+}>()
 
 const emit = defineEmits<{
-  changeChartType: [type: string];
-  changeSortOrder: [sortByName: boolean];
-  changeLimit: [limit: number];
-  changeBaseStat: [statBase: string];
-  changeSplitStat: [splitStat: string | null];
-  changeSplitLimit: [splitLimit: number];
-  changeAggregator: [opts: { aggregator: AggregatorName | null; catagory: string | null; value: StatKey | null }];
-}>();
+  changeChartType: [type: string]
+  changeSortOrder: [sortByName: boolean]
+  changeLimit: [limit: number]
+  changeBaseStat: [statBase: string]
+  changeSplitStat: [splitStat: string | null]
+  changeSplitLimit: [splitLimit: number]
+  changeAggregator: [
+    opts: { aggregator: AggregatorName | null; catagory: string | null; value: StatKey | null },
+  ]
+}>()
 
-const aggregator = ref<AggregatorName | null>(null);
-const catToAggregate = ref<string | null>(null);
-const valToAggregate = ref<StatKey | null>(null);
-const splitLimitOpts = [1, 2, 3, 4];
+const aggregator = ref<AggregatorName | null>(null)
+const catToAggregate = ref<string | null>(null)
+const valToAggregate = ref<StatKey | null>(null)
+const splitLimitOpts = [1, 2, 3, 4]
 
-const aggregateOpts = computed(() => (aggregator.value ? Aggregate.compatibility[aggregator.value] : []));
-const needsSubValue = computed(() => (aggregator.value ? Aggregate.needsSubValue[aggregator.value] : false));
-const aggregators = computed(() => Aggregate.names);
+const aggregateOpts = computed(() =>
+  aggregator.value ? Aggregate.compatibility[aggregator.value] : [],
+)
+const needsSubValue = computed(() =>
+  aggregator.value ? Aggregate.needsSubValue[aggregator.value] : false,
+)
+const aggregators = computed(() => Aggregate.names)
 const allowedSplitStats = computed(() =>
-  ["area", "dayOfWeek", "grade", "month", "flags", "rating", "year"].filter(
+  ['area', 'dayOfWeek', 'grade', 'month', 'flags', 'rating', 'year'].filter(
     (s) => s != props.chart.statBase,
   ),
-);
+)
 
 function changeChartType() {
-  emit("changeChartType", props.chart.type);
+  emit('changeChartType', props.chart.type)
 }
 function changeSortOrder() {
-  emit("changeSortOrder", !!props.chart.opts.sortByName);
+  emit('changeSortOrder', !!props.chart.opts.sortByName)
 }
 function changeLimit(limit?: number) {
-  emit("changeLimit", limit != null ? limit : (props.chart.opts.limit ?? 0));
+  emit('changeLimit', limit != null ? limit : (props.chart.opts.limit ?? 0))
 }
 function changeBaseStat() {
-  emit("changeBaseStat", props.chart.statBase);
+  emit('changeBaseStat', props.chart.statBase)
 }
 function changeSplitStat() {
-  emit("changeSplitStat", props.chart.opts.splitStat ?? null);
+  emit('changeSplitStat', props.chart.opts.splitStat ?? null)
 }
 function changeAggregator(emptyValue = false) {
   if (emptyValue) {
-    valToAggregate.value = null;
+    valToAggregate.value = null
   }
   if (
     aggregator.value === null ||
     (catToAggregate.value != null && (!needsSubValue.value || valToAggregate.value))
   ) {
-    emit("changeAggregator", {
+    emit('changeAggregator', {
       aggregator: aggregator.value,
       catagory: catToAggregate.value,
       value: valToAggregate.value,
-    });
+    })
   }
 }
 function emptyCatVal() {
-  catToAggregate.value = null;
-  valToAggregate.value = null;
+  catToAggregate.value = null
+  valToAggregate.value = null
 }
 
 onMounted(() => {
   if (props.chart.opts.aggOpts) {
-    aggregator.value = props.chart.opts.aggOpts.aggregator;
-    catToAggregate.value = props.chart.opts.aggOpts.catagory;
-    valToAggregate.value = props.chart.opts.aggOpts.value;
+    aggregator.value = props.chart.opts.aggOpts.aggregator
+    catToAggregate.value = props.chart.opts.aggOpts.catagory
+    valToAggregate.value = props.chart.opts.aggOpts.value
   }
-});
+})
 </script>
 
 <template>
@@ -99,9 +105,13 @@ onMounted(() => {
           <td class="b">"Split By" Stat</td>
           <td>
             <!-- eslint-disable vue/no-mutating-props -->
-            <select v-model="chart.opts.splitStat" @change="changeSplitStat()" class="setting-select">
+            <select
+              v-model="chart.opts.splitStat"
+              @change="changeSplitStat()"
+              class="setting-select"
+            >
               <option :value="null">
-                {{ chart.opts.splitStat == null ? "Select a split stat" : "none" }}
+                {{ chart.opts.splitStat == null ? 'Select a split stat' : 'none' }}
               </option>
               <option v-for="cname in allowedSplitStats" :value="cname" :key="cname">
                 {{ prettyCapitalize(cname) }}
@@ -141,7 +151,11 @@ onMounted(() => {
           <td class="b">Sort order</td>
           <td>
             <!-- eslint-disable vue/no-mutating-props -->
-            <select v-model="chart.opts.sortByName" @change="changeSortOrder()" class="setting-select">
+            <select
+              v-model="chart.opts.sortByName"
+              @change="changeSortOrder()"
+              class="setting-select"
+            >
               <option :value="true">Sort by name</option>
               <option :value="false">Sort by value</option>
             </select>
@@ -152,9 +166,13 @@ onMounted(() => {
           <td class="b">Aggregate Function</td>
           <td>
             <div>
-              <select v-model="aggregator" class="setting-select" @change="(emptyCatVal(), changeAggregator())">
+              <select
+                v-model="aggregator"
+                class="setting-select"
+                @change="(emptyCatVal(), changeAggregator())"
+              >
                 <option :value="null">
-                  {{ aggregator === null ? "Select function" : "none" }}
+                  {{ aggregator === null ? 'Select function' : 'none' }}
                 </option>
                 <option v-for="aKey in Object.keys(aggregators)" :value="aKey" :key="aKey">
                   {{ aggregators[aKey as AggregatorName] }}
@@ -162,7 +180,11 @@ onMounted(() => {
               </select>
             </div>
             <div v-show="aggregator != null">
-              <select v-model="catToAggregate" @change="changeAggregator(true)" class="setting-select">
+              <select
+                v-model="catToAggregate"
+                @change="changeAggregator(true)"
+                class="setting-select"
+              >
                 <option :value="null">Select stat</option>
                 <option v-for="aOpt in aggregateOpts" :value="aOpt" :key="aOpt">
                   {{ prettyCapitalize(aOpt) }}
@@ -194,9 +216,17 @@ onMounted(() => {
               </span>
               &nbsp;
               <span>
-                <i class="fas fa-check icn filter-txt" v-tooltip="'Apply Limit'" @click="changeLimit()"></i>
+                <i
+                  class="fas fa-check icn filter-txt"
+                  v-tooltip="'Apply Limit'"
+                  @click="changeLimit()"
+                ></i>
                 &nbsp;
-                <i class="fas fa-trash icn filter-txt" v-tooltip="'Remove Limit'" @click="changeLimit(0)"></i>
+                <i
+                  class="fas fa-trash icn filter-txt"
+                  v-tooltip="'Remove Limit'"
+                  @click="changeLimit(0)"
+                ></i>
               </span>
             </div>
           </td>

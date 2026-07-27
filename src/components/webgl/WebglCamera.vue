@@ -1,6 +1,12 @@
 <template>
   <div id="webgl-camera-ctrls" class="bg1">
-    <ControlHelpModal v-if="showModal" @close="modalToggle(false)" title="Camera Control Help" :ctrls="ctrls" :depth="2" />
+    <ControlHelpModal
+      v-if="showModal"
+      @close="modalToggle(false)"
+      title="Camera Control Help"
+      :ctrls="ctrls"
+      :depth="2"
+    />
     <div class="crtl-container">
       <div class="h-item">
         <div>
@@ -8,8 +14,14 @@
           <i class="fas fa-question-circle icn" @click="modalToggle(true)"></i>
         </div>
       </div>
-      <SwitchButton :isEnabled="kbToggle" class="main-tr" @toggle="kbToggle = !kbToggle">Show Keyboard Binds</SwitchButton>
-      <div v-for="cType in Object.keys(gridLayout)" :class="['udlr-group', gridLayout[cType]!.gClass]" :key="cType">
+      <SwitchButton :isEnabled="kbToggle" class="main-tr" @toggle="kbToggle = !kbToggle"
+        >Show Keyboard Binds</SwitchButton
+      >
+      <div
+        v-for="cType in Object.keys(gridLayout)"
+        :class="['udlr-group', gridLayout[cType]!.gClass]"
+        :key="cType"
+      >
         <div class="h2-item">{{ gridLayout[cType]!.gTitle }}</div>
         <!-- eslint-disable vue/no-mutating-props -->
         <div
@@ -22,7 +34,7 @@
           @touchend="ctrls[cType]![btn.ctrlName]!.updateFlag = false"
         >
           <i :class="kbToggle ? '' : ctrls[cType]![btn.ctrlName]!.icon">
-            {{ kbToggle ? ctrls[cType]![btn.ctrlName]!.keybind : "" }}
+            {{ kbToggle ? ctrls[cType]![btn.ctrlName]!.keybind : '' }}
           </i>
         </div>
         <!-- eslint-enable vue/no-mutating-props -->
@@ -32,66 +44,69 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import SwitchButton from "@/components/SwitchButton.vue";
-import ControlHelpModal from "@/components/webgl/ControlHelpModal.vue";
-import type { CameraCtrlMap } from "@/utils/webgl/types";
+import { ref } from 'vue'
+import SwitchButton from '@/components/SwitchButton.vue'
+import ControlHelpModal from '@/components/webgl/ControlHelpModal.vue'
+import type { CameraCtrlMap } from '@/utils/webgl/types'
 
 defineProps<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  camera: any;
-  ctrls: CameraCtrlMap;
-}>();
+  camera: any
+  ctrls: CameraCtrlMap
+}>()
 
-const btnClassList1 = ["cbtn", "prm", "bg1-hvr", "bg1-txt-hvr"];
-const btnClassList2 = ["cbtn", "scnd", "bg1-txt-hvr"];
+const btnClassList1 = ['cbtn', 'prm', 'bg1-hvr', 'bg1-txt-hvr']
+const btnClassList2 = ['cbtn', 'scnd', 'bg1-txt-hvr']
 
-const kbToggle = ref(false);
-const showModal = ref(false);
+const kbToggle = ref(false)
+const showModal = ref(false)
 
-const gridLayout: Record<string, { gClass: string; gTitle: string; gKeys: { cls: string[]; ctrlName: string }[] }> = {
+const gridLayout: Record<
+  string,
+  { gClass: string; gTitle: string; gKeys: { cls: string[]; ctrlName: string }[] }
+> = {
   move: {
-    gClass: "ml",
-    gTitle: "Move",
+    gClass: 'ml',
+    gTitle: 'Move',
     gKeys: [
-      { cls: ["u-item"].concat(btnClassList1), ctrlName: "forward" },
-      { cls: ["d-item"].concat(btnClassList1), ctrlName: "backward" },
-      { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
-      { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
-      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "up" },
-      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "down" },
+      { cls: ['u-item'].concat(btnClassList1), ctrlName: 'forward' },
+      { cls: ['d-item'].concat(btnClassList1), ctrlName: 'backward' },
+      { cls: ['l-item'].concat(btnClassList1), ctrlName: 'left' },
+      { cls: ['r-item'].concat(btnClassList1), ctrlName: 'right' },
+      { cls: ['ul-item'].concat(btnClassList2), ctrlName: 'up' },
+      { cls: ['ul-item'].concat(btnClassList2), ctrlName: 'down' },
     ],
   },
   look: {
-    gClass: "mr",
-    gTitle: "Look",
+    gClass: 'mr',
+    gTitle: 'Look',
     gKeys: [
-      { cls: ["u-item"].concat(btnClassList1), ctrlName: "up" },
-      { cls: ["d-item"].concat(btnClassList1), ctrlName: "down" },
-      { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
-      { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
-      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomin" },
-      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomout" },
+      { cls: ['u-item'].concat(btnClassList1), ctrlName: 'up' },
+      { cls: ['d-item'].concat(btnClassList1), ctrlName: 'down' },
+      { cls: ['l-item'].concat(btnClassList1), ctrlName: 'left' },
+      { cls: ['r-item'].concat(btnClassList1), ctrlName: 'right' },
+      { cls: ['ul-item'].concat(btnClassList2), ctrlName: 'zoomin' },
+      { cls: ['ul-item'].concat(btnClassList2), ctrlName: 'zoomout' },
     ],
   },
-};
+}
 
 function modalToggle(b: boolean) {
-  showModal.value = b;
-  document.documentElement.style.overflow = b ? "hidden" : "auto";
+  showModal.value = b
+  document.documentElement.style.overflow = b ? 'hidden' : 'auto'
 }
 </script>
 <style lang="scss">
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 #webgl-camera-ctrls {
   user-select: none;
   .crtl-container {
     display: grid;
     grid-template-areas:
-      ".  .  h  h  kt kt"
-      "ml ml ml mr mr mr"
-      "ml ml ml mr mr mr"
-      "ml ml ml mr mr mr";
+      '.  .  h  h  kt kt'
+      'ml ml ml mr mr mr'
+      'ml ml ml mr mr mr'
+      'ml ml ml mr mr mr';
     grid-template-columns: repeat(6, 1fr);
     .h-item {
       grid-area: h;
@@ -122,9 +137,9 @@ function modalToggle(b: boolean) {
       display: grid;
       justify-content: center;
       grid-template-areas:
-        " h2 h2 h2"
-        " .  u  . "
-        " l  d  r ";
+        ' h2 h2 h2'
+        ' .  u  . '
+        ' l  d  r ';
       .h2-item {
         grid-area: h2;
         font-size: 14px;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Line } from "vue-chartjs";
+import { Line } from 'vue-chartjs'
 import {
   Chart as ChartJS,
   LineElement,
@@ -11,11 +11,11 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from "chart.js";
-import type { ChartData, ChartOptions } from "chart.js";
-import zoomPlugin from "chartjs-plugin-zoom";
+} from 'chart.js'
+import type { ChartData, ChartOptions } from 'chart.js'
+import zoomPlugin from 'chartjs-plugin-zoom'
 // registers Chart.js's date adapter, needed for TimeScale (used by TimeSeriesChart)
-import "chartjs-adapter-date-fns";
+import 'chartjs-adapter-date-fns'
 
 ChartJS.register(
   LineElement,
@@ -28,12 +28,12 @@ ChartJS.register(
   Legend,
   Filler,
   zoomPlugin,
-);
+)
 
 defineProps<{
-  chartData: ChartData<"line">;
-  options?: ChartOptions<"line">;
-}>();
+  chartData: ChartData<'line'>
+  options?: ChartOptions<'line'>
+}>()
 </script>
 
 <template>

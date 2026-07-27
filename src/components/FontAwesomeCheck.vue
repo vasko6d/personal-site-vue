@@ -1,12 +1,12 @@
 <script setup lang="ts">
 defineProps<{
-  enabled: boolean;
-  desc?: string;
-}>();
+  enabled: boolean
+  desc?: string
+}>()
 
 defineEmits<{
-  toggle: [];
-}>();
+  toggle: []
+}>()
 </script>
 
 <template>

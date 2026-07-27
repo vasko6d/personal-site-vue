@@ -1,89 +1,89 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import Stat from "@/utils/Stat";
-import { mapGrade, mapName, prettyCapitalize } from "@/utils/Utils";
-import type { StatFilterMap } from "./types";
+import { ref, computed, onMounted } from 'vue'
+import Stat from '@/utils/Stat'
+import { mapGrade, mapName, prettyCapitalize } from '@/utils/Utils'
+import type { StatFilterMap } from './types'
 
 const props = withDefaults(
   defineProps<{
-    currentFilters: StatFilterMap;
-    stats: Stat;
-    startExpanded?: boolean;
+    currentFilters: StatFilterMap
+    stats: Stat
+    startExpanded?: boolean
   }>(),
   {
     startExpanded: true,
   },
-);
+)
 
 const emit = defineEmits<{
-  clearFilters: [category?: string];
-}>();
+  clearFilters: [category?: string]
+}>()
 
-const showFilters = ref(true);
-const addingFilter = ref(false);
-const filterToAdd = ref<string | null>(null);
+const showFilters = ref(true)
+const addingFilter = ref(false)
+const filterToAdd = ref<string | null>(null)
 
-const currentFilteredStat = computed(() => props.stats.getFiltered(undefined, props.currentFilters));
+const currentFilteredStat = computed(() => props.stats.getFiltered(undefined, props.currentFilters))
 
 const addableFilters = computed(() => {
-  const ret: string[] = [];
+  const ret: string[] = []
   for (const cat of Object.keys(props.currentFilters)) {
     if (!props.currentFilters[cat]!.show) {
-      ret.push(cat);
+      ret.push(cat)
     }
   }
-  return ret;
-});
+  return ret
+})
 
 interface FilterOption {
-  raw: string;
-  label: string;
+  raw: string
+  label: string
 }
 
 const filterOpts = computed(() => {
-  const ret: Record<string, FilterOption[]> = {};
+  const ret: Record<string, FilterOption[]> = {}
   for (const cat of Object.keys(props.currentFilters)) {
-    const limitOpts = props.currentFilters[cat]!.val != null;
-    const s = limitOpts ? props.stats : currentFilteredStat.value;
-    const choices: FilterOption[] = [];
-    const rawNames = Object.keys(s.get(cat).subStats);
-    if (cat === "grade") {
-      rawNames.sort((a, b) => (mapGrade(a) as number) - (mapGrade(b) as number));
+    const limitOpts = props.currentFilters[cat]!.val != null
+    const s = limitOpts ? props.stats : currentFilteredStat.value
+    const choices: FilterOption[] = []
+    const rawNames = Object.keys(s.get(cat).subStats)
+    if (cat === 'grade') {
+      rawNames.sort((a, b) => (mapGrade(a) as number) - (mapGrade(b) as number))
     } else {
-      rawNames.sort();
+      rawNames.sort()
     }
     for (const rawName of rawNames) {
       choices.push({
         raw: rawName,
         label: truncateString(mapName(cat, rawName) ?? rawName, 15),
-      });
+      })
     }
-    ret[cat] = choices;
+    ret[cat] = choices
   }
-  return ret;
-});
+  return ret
+})
 
 function truncateString(str: string, num: number): string {
   if (str.length <= num) {
-    return str;
+    return str
   }
-  return str.slice(0, num) + "...";
+  return str.slice(0, num) + '...'
 }
 
 function addFilter() {
   if (filterToAdd.value != null) {
-    props.currentFilters[filterToAdd.value]!.show = true;
+    props.currentFilters[filterToAdd.value]!.show = true
   }
 }
 
 function deleteFitler(catToDelete: string) {
-  props.currentFilters[catToDelete]!.show = false;
-  props.currentFilters[catToDelete]!.val = null;
+  props.currentFilters[catToDelete]!.show = false
+  props.currentFilters[catToDelete]!.val = null
 }
 
 onMounted(() => {
-  showFilters.value = props.startExpanded;
-});
+  showFilters.value = props.startExpanded
+})
 </script>
 
 <template>

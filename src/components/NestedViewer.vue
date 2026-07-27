@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { useRoute, useRouter, type RouteRecordRaw } from "vue-router";
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter, type RouteRecordRaw } from 'vue-router'
 
 const props = defineProps<{
-  childrenPath: string[];
-  routePrefix: string;
-  title: string;
-}>();
+  childrenPath: string[]
+  routePrefix: string
+  title: string
+}>()
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const children = ref<readonly RouteRecordRaw[]>([]);
-const isOpen = ref(false);
+const children = ref<readonly RouteRecordRaw[]>([])
+const isOpen = ref(false)
 
 onMounted(() => {
-  let rs: readonly RouteRecordRaw[] | undefined = router.options.routes;
+  let rs: readonly RouteRecordRaw[] | undefined = router.options.routes
   for (const path of props.childrenPath) {
-    rs = rs?.find((r) => r.path === path)?.children;
+    rs = rs?.find((r) => r.path === path)?.children
   }
-  children.value = rs ?? [];
-});
+  children.value = rs ?? []
+})
 
 function onClose() {
-  isOpen.value = false;
+  isOpen.value = false
 }
 </script>
 
@@ -66,7 +66,7 @@ function onClose() {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 #app {
   .wrapper {
     .nested-viewer {

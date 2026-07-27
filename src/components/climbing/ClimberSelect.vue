@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { importedClimbers } from "@/data/importedClimbers";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { importedClimbers } from '@/data/importedClimbers'
 
 defineProps<{
-  baseURL: string;
-  linkToJsonAnalysis?: boolean;
-}>();
+  baseURL: string
+  linkToJsonAnalysis?: boolean
+}>()
 
-const router = useRouter();
-const showClimbers = ref(false);
+const router = useRouter()
+const showClimbers = ref(false)
 
 function navigate(fullPath: string) {
-  router.push(fullPath);
+  router.push(fullPath)
 }
 </script>
 
@@ -43,7 +43,11 @@ function navigate(fullPath: string) {
           {{ climber.name }}
         </li>
         <li v-if="linkToJsonAnalysis">...</li>
-        <li v-if="linkToJsonAnalysis" class="icn" @click="router.push('/climbing/import/analytics')">
+        <li
+          v-if="linkToJsonAnalysis"
+          class="icn"
+          @click="router.push('/climbing/import/analytics')"
+        >
           Import Json File
         </li>
       </ul>

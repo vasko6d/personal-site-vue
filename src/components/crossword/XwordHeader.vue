@@ -1,88 +1,88 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import Timer from "@/utils/webgl/Timer";
-import XwordHelp from "@/components/crossword/XwordHelp.vue";
-import XwordSettings from "@/components/crossword/XwordSettings.vue";
-import XwordTools from "@/components/crossword/XwordTools.vue";
-import type { SetOptionPayload, XwordOpts } from "./types";
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import Timer from '@/utils/webgl/Timer'
+import XwordHelp from '@/components/crossword/XwordHelp.vue'
+import XwordSettings from '@/components/crossword/XwordSettings.vue'
+import XwordTools from '@/components/crossword/XwordTools.vue'
+import type { SetOptionPayload, XwordOpts } from './types'
 
 const props = defineProps<{
-  title: string;
-  author: string;
-  note?: string;
-  themeExp?: string;
-  completed: boolean;
-  nativeKeyboardEnabled: boolean;
-  publishDate: Date;
-  opts: XwordOpts;
-  timer: Timer;
-}>();
+  title: string
+  author: string
+  note?: string
+  themeExp?: string
+  completed: boolean
+  nativeKeyboardEnabled: boolean
+  publishDate: Date
+  opts: XwordOpts
+  timer: Timer
+}>()
 
 const emit = defineEmits<{
-  flagCell: [];
-  specialEdit: [];
-  toggleNativeKeyboard: [];
-  setOption: [payload: SetOptionPayload];
-  disableNativeKeyboard: [];
-  defaultSettings: [];
-  clear: [type: "flags" | "wrong" | "clue" | "puzzle"];
-  solve: [type: "cell" | "clue" | "puzzle"];
-  saveProgress: [];
-}>();
+  flagCell: []
+  specialEdit: []
+  toggleNativeKeyboard: []
+  setOption: [payload: SetOptionPayload]
+  disableNativeKeyboard: []
+  defaultSettings: []
+  clear: [type: 'flags' | 'wrong' | 'clue' | 'puzzle']
+  solve: [type: 'cell' | 'clue' | 'puzzle']
+  saveProgress: []
+}>()
 
-const hours = ref(0);
-const minutes = ref(0);
-const seconds = ref(0);
-const showNote = ref(false);
-const showTheme = ref(false);
-const showHelp = ref(false);
-const showSettings = ref(false);
-const showTools = ref(false);
+const hours = ref(0)
+const minutes = ref(0)
+const seconds = ref(0)
+const showNote = ref(false)
+const showTheme = ref(false)
+const showHelp = ref(false)
+const showSettings = ref(false)
+const showTools = ref(false)
 
 const formattedTime = computed(() => {
-  const hh = (hours.value < 10 ? "0" : "") + hours.value.toString();
-  const mm = (minutes.value < 10 ? "0" : "") + minutes.value.toString();
-  const ss = (seconds.value < 10 ? "0" : "") + seconds.value.toString();
-  return hh + ":" + mm + ":" + ss;
-});
+  const hh = (hours.value < 10 ? '0' : '') + hours.value.toString()
+  const mm = (minutes.value < 10 ? '0' : '') + minutes.value.toString()
+  const ss = (seconds.value < 10 ? '0' : '') + seconds.value.toString()
+  return hh + ':' + mm + ':' + ss
+})
 
 function calcTime() {
-  const sec = props.timer.getTimeSec(true);
-  hours.value = Math.floor(sec / (60 * 24)) % 100;
-  minutes.value = Math.floor(sec / 60) % 60;
-  seconds.value = sec % 60;
+  const sec = props.timer.getTimeSec(true)
+  hours.value = Math.floor(sec / (60 * 24)) % 100
+  minutes.value = Math.floor(sec / 60) % 60
+  seconds.value = sec % 60
 }
 
-let interval: ReturnType<typeof setInterval> | undefined;
+let interval: ReturnType<typeof setInterval> | undefined
 onMounted(() => {
   interval = setInterval(() => {
-    calcTime();
-  }, 1000);
-});
+    calcTime()
+  }, 1000)
+})
 onUnmounted(() => {
-  clearInterval(interval);
-});
+  clearInterval(interval)
+})
 
 function setOption(payload: SetOptionPayload) {
-  emit("setOption", payload);
+  emit('setOption', payload)
 }
 function setNativeKeyboardOption(payload: SetOptionPayload) {
-  emit("setOption", payload);
-  emit("disableNativeKeyboard");
+  emit('setOption', payload)
+  emit('disableNativeKeyboard')
 }
-function clear(payload: "flags" | "wrong" | "clue" | "puzzle") {
-  modalToggle(false, "showTools");
-  emit("clear", payload);
+function clear(payload: 'flags' | 'wrong' | 'clue' | 'puzzle') {
+  modalToggle(false, 'showTools')
+  emit('clear', payload)
 }
-function solve(payload: "cell" | "clue" | "puzzle") {
-  modalToggle(false, "showTools");
-  emit("solve", payload);
+function solve(payload: 'cell' | 'clue' | 'puzzle') {
+  modalToggle(false, 'showTools')
+  emit('solve', payload)
 }
-function modalToggle(b: boolean, propName: "showTools" | "showSettings" | "showHelp") {
-  if (propName === "showTools") showTools.value = b;
-  else if (propName === "showSettings") showSettings.value = b;
-  else showHelp.value = b;
-  document.documentElement.style.overflow = b ? "hidden" : "auto";
+function modalToggle(b: boolean, propName: 'showTools' | 'showSettings' | 'showHelp') {
+  if (propName === 'showTools') showTools.value = b
+  else if (propName === 'showSettings') showSettings.value = b
+  else showHelp.value = b
+  document.documentElement.style.overflow = b ? 'hidden' : 'auto'
 }
 </script>
 
@@ -104,7 +104,7 @@ function modalToggle(b: boolean, propName: "showTools" | "showSettings" | "showH
       @solve="solve"
       @saveProgress="
         $emit('saveProgress');
-        modalToggle(false, 'showTools');
+        modalToggle(false, 'showTools')
       "
     />
     <div class="info-nav">
@@ -211,7 +211,7 @@ function modalToggle(b: boolean, propName: "showTools" | "showSettings" | "showH
     }
   }
   .left-timer {
-    font-family: "Lucida Console", Monaco, monospace;
+    font-family: 'Lucida Console', Monaco, monospace;
   }
 }
 </style>

@@ -1,84 +1,87 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import DataTable from "@/components/shared/DataTable.vue";
-import LoadingSpinner from "@/components/shared/LoadingSpinner.vue";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import DataTable from '@/components/shared/DataTable.vue'
+import LoadingSpinner from '@/components/shared/LoadingSpinner.vue'
 
 interface XwordHeader {
-  id: string;
-  title: string;
-  author: string;
-  difficulty: string;
-  dimension: string;
-  createDate: string;
-  [key: string]: unknown;
+  id: string
+  title: string
+  author: string
+  difficulty: string
+  dimension: string
+  createDate: string
+  [key: string]: unknown
 }
 
-const router = useRouter();
+const router = useRouter()
 
-const loadingMessage = ref<string | undefined>("Fetching Crosswords...");
-const columns = ["title", "author", "difficulty", "dimension", "createDate", "status"];
-const xwordHeaders = ref<XwordHeader[]>([]);
+const loadingMessage = ref<string | undefined>('Fetching Crosswords...')
+const columns = ['title', 'author', 'difficulty', 'dimension', 'createDate', 'status']
+const xwordHeaders = ref<XwordHeader[]>([])
 
 const headings: Record<string, string> = {
-  name: "Title",
-  code: "Author",
-  difficulty: "Difficulty",
-  dimension: "Size",
-  createDate: "Date",
-  status: "Status",
-};
+  name: 'Title',
+  code: 'Author',
+  difficulty: 'Difficulty',
+  dimension: 'Size',
+  createDate: 'Date',
+  status: 'Status',
+}
 
-const sortable = ["title", "author", "difficulty", "dimension", "createDate", "status"];
-const filterable = ["title", "author", "difficulty", "dimension", "status"];
+const sortable = ['title', 'author', 'difficulty', 'dimension', 'createDate', 'status']
+const filterable = ['title', 'author', 'difficulty', 'dimension', 'status']
 
 const statusMap: Record<string, number> = {
   Completed: 2,
   Started: 1,
-  "Not Started": 0,
-};
-
-function getStatus(id: string): string {
-  const lsKey = "xword:" + id;
-  if (localStorage[lsKey]) {
-    const xword = JSON.parse(localStorage[lsKey]);
-    if (xword.completed) {
-      return "Completed";
-    }
-    return "Started";
-  }
-  return "Not Started";
+  'Not Started': 0,
 }
 
-const customSorting: Record<string, (ascending: boolean) => (a: XwordHeader, b: XwordHeader) => number> = {
-  status: (ascending) => (a, b) => {
-    const sa = getStatus(a.id);
-    const sb = getStatus(b.id);
-    if (ascending) {
-      return statusMap[sa]! > statusMap[sb]! ? 1 : -1;
+function getStatus(id: string): string {
+  const lsKey = 'xword:' + id
+  if (localStorage[lsKey]) {
+    const xword = JSON.parse(localStorage[lsKey])
+    if (xword.completed) {
+      return 'Completed'
     }
-    return statusMap[sa]! <= statusMap[sb]! ? 1 : -1;
+    return 'Started'
+  }
+  return 'Not Started'
+}
+
+const customSorting: Record<
+  string,
+  (ascending: boolean) => (a: XwordHeader, b: XwordHeader) => number
+> = {
+  status: (ascending) => (a, b) => {
+    const sa = getStatus(a.id)
+    const sb = getStatus(b.id)
+    if (ascending) {
+      return statusMap[sa]! > statusMap[sb]! ? 1 : -1
+    }
+    return statusMap[sa]! <= statusMap[sb]! ? 1 : -1
   },
   dimension: (ascending) => (a, b) => {
-    const da = a.dimension.split("x").map((d) => parseInt(d));
-    const db = b.dimension.split("x").map((d) => parseInt(d));
+    const da = a.dimension.split('x').map((d) => parseInt(d))
+    const db = b.dimension.split('x').map((d) => parseInt(d))
     if (ascending) {
-      return da[0]! > db[0]! ? 1 : -1;
+      return da[0]! > db[0]! ? 1 : -1
     }
-    return da[0]! <= db[0]! ? 1 : -1;
+    return da[0]! <= db[0]! ? 1 : -1
   },
-};
+}
 
 function toDateString(yyyymmdd: string): string {
   return new Date(
     parseInt(yyyymmdd.substring(0, 4)),
     parseInt(yyyymmdd.substring(4, 6)) - 1,
     parseInt(yyyymmdd.substring(6, 8)),
-  ).toDateString();
+  ).toDateString()
 }
 
 function rowClick(row: XwordHeader) {
-  router.push("" + row.id);
+  router.push('' + row.id)
 }
 
 function fetchXwordHeaders() {
@@ -86,16 +89,16 @@ function fetchXwordHeaders() {
     .then((response) => {
       response.json().then((json: { headers: XwordHeader[] }) => {
         setTimeout(() => {
-          xwordHeaders.value = json.headers;
-          console.log("Xword Headres: ", json);
-          loadingMessage.value = undefined;
-        }, 100);
-      });
+          xwordHeaders.value = json.headers
+          console.log('Xword Headres: ', json)
+          loadingMessage.value = undefined
+        }, 100)
+      })
     })
-    .catch((e) => console.error(e));
+    .catch((e) => console.error(e))
 }
 
-fetchXwordHeaders();
+fetchXwordHeaders()
 </script>
 
 <template>
@@ -126,6 +129,6 @@ fetchXwordHeaders();
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/wrapper.scss";
-@import "@/assets/styles/table-container.scss";
+@import '@/assets/styles/wrapper.scss';
+@import '@/assets/styles/table-container.scss';
 </style>

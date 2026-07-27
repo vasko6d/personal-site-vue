@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { ColumnDef } from "./types";
+import { ref } from 'vue'
+import type { ColumnDef } from './types'
 
 defineProps<{
-  columns: ColumnDef[];
-  labelMap: Record<string, string>;
-}>();
+  columns: ColumnDef[]
+  labelMap: Record<string, string>
+}>()
 
 const emit = defineEmits<{
-  toggleActive: [payload: { index: number; column: ColumnDef }];
-}>();
+  toggleActive: [payload: { index: number; column: ColumnDef }]
+}>()
 
-const showColumnFlags = ref(false);
+const showColumnFlags = ref(false)
 </script>
 
 <template>

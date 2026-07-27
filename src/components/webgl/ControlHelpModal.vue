@@ -18,7 +18,11 @@
               <template v-if="depth === 2">
                 <div v-for="tKey in Object.keys(ctrls)" :key="tKey">
                   <h3>{{ tKey.replace(/^\w/, (c) => c.toUpperCase()) }}</h3>
-                  <div class="help-li" v-for="cKey in Object.keys((ctrls as CameraCtrlMap)[tKey]!)" :key="cKey">
+                  <div
+                    class="help-li"
+                    v-for="cKey in Object.keys((ctrls as CameraCtrlMap)[tKey]!)"
+                    :key="cKey"
+                  >
                     <span class="help-itm-title">
                       <i :class="(ctrls as CameraCtrlMap)[tKey]![cKey]!.icon"></i>
                       :&nbsp;
@@ -33,7 +37,11 @@
                 </div>
               </template>
               <template v-else>
-                <div class="help-li" v-for="cKey in Object.keys(ctrls as ActionCtrlMap)" :key="cKey">
+                <div
+                  class="help-li"
+                  v-for="cKey in Object.keys(ctrls as ActionCtrlMap)"
+                  :key="cKey"
+                >
                   <span class="help-itm-title">
                     <i :class="(ctrls as ActionCtrlMap)[cKey]!.icon"></i>
                     :&nbsp;
@@ -63,19 +71,19 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionCtrlMap, CameraCtrlMap } from "@/utils/webgl/types";
+import type { ActionCtrlMap, CameraCtrlMap } from '@/utils/webgl/types'
 
 defineProps<{
-  title: string;
-  ctrls: ActionCtrlMap | CameraCtrlMap;
-  depth: number;
-}>();
+  title: string
+  ctrls: ActionCtrlMap | CameraCtrlMap
+  depth: number
+}>()
 
 defineEmits<{
-  close: [];
-}>();
+  close: []
+}>()
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/modal-shared.scss";
+@import '@/assets/styles/modal-shared.scss';
 </style>

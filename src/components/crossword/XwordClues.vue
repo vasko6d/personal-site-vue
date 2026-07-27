@@ -1,69 +1,69 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import XwordClueContext from "@/components/crossword/XwordClueContext.vue";
-import type { Clue, ClueMap } from "./Xword";
+import { computed, ref } from 'vue'
+import XwordClueContext from '@/components/crossword/XwordClueContext.vue'
+import type { Clue, ClueMap } from './Xword'
 
 const props = defineProps<{
-  clueObj: ClueMap;
-  r: number;
-  c: number;
-  acrossNum: number | null;
-  downNum: number | null;
-  direction: string;
-  curCellValue?: string;
-  contextOpt: string;
-  hideClueOpt: string;
-  showContextKey?: string;
-  curCellFlag?: boolean;
-  puzzleIsHoriz: boolean;
-  showErrors: boolean;
-}>();
+  clueObj: ClueMap
+  r: number
+  c: number
+  acrossNum: number | null
+  downNum: number | null
+  direction: string
+  curCellValue?: string
+  contextOpt: string
+  hideClueOpt: string
+  showContextKey?: string
+  curCellFlag?: boolean
+  puzzleIsHoriz: boolean
+  showErrors: boolean
+}>()
 
 const emit = defineEmits<{
-  executePress: [ch: string, opts?: Record<string, unknown>];
-}>();
+  executePress: [ch: string, opts?: Record<string, unknown>]
+}>()
 
-const showClues = ref(false);
+const showClues = ref(false)
 
-const clueHead = computed(() => props.direction.charAt(0).toUpperCase() + props.direction.slice(1));
+const clueHead = computed(() => props.direction.charAt(0).toUpperCase() + props.direction.slice(1))
 
 function isActive(num: string): boolean {
   return props.puzzleIsHoriz
-    ? props.direction === "across" && props.acrossNum == Number(num)
-    : props.direction === "down" && props.downNum == Number(num);
+    ? props.direction === 'across' && props.acrossNum == Number(num)
+    : props.direction === 'down' && props.downNum == Number(num)
 }
 function contextClick(r: number, c: number) {
-  emit("executePress", "$SETPOSITION", { r: r, c: c, forceSpecialKeyboard: true });
-  emit("executePress", "$SETDIRECTION", {
-    direction: props.direction === "across",
+  emit('executePress', '$SETPOSITION', { r: r, c: c, forceSpecialKeyboard: true })
+  emit('executePress', '$SETDIRECTION', {
+    direction: props.direction === 'across',
     forceSpecialKeyboard: true,
-  });
+  })
 }
 function showClue(clue: Clue): boolean {
-  let ret = props.hideClueOpt === "never";
-  ret = ret || (props.hideClueOpt === "onFill" && !clue.filled);
-  ret = ret || (props.hideClueOpt === "onCorrect" && !clue.correct);
-  return ret;
+  let ret = props.hideClueOpt === 'never'
+  ret = ret || (props.hideClueOpt === 'onFill' && !clue.filled)
+  ret = ret || (props.hideClueOpt === 'onCorrect' && !clue.correct)
+  return ret
 }
 function relevantClueCount(): string {
-  const numClues = Object.keys(props.clueObj).length;
-  let ret = numClues.toString() + " total";
-  if (props.hideClueOpt != "never") {
-    let cnt = 0;
-    let suffix = " filled";
-    if (props.hideClueOpt === "onFill") {
+  const numClues = Object.keys(props.clueObj).length
+  let ret = numClues.toString() + ' total'
+  if (props.hideClueOpt != 'never') {
+    let cnt = 0
+    let suffix = ' filled'
+    if (props.hideClueOpt === 'onFill') {
       for (const k of Object.keys(props.clueObj)) {
-        cnt += props.clueObj[k]!.filled ? 1 : 0;
+        cnt += props.clueObj[k]!.filled ? 1 : 0
       }
-    } else if (props.hideClueOpt == "onCorrect") {
+    } else if (props.hideClueOpt == 'onCorrect') {
       for (const k of Object.keys(props.clueObj)) {
-        cnt += props.clueObj[k]!.correct ? 1 : 0;
+        cnt += props.clueObj[k]!.correct ? 1 : 0
       }
-      suffix = " correct";
+      suffix = ' correct'
     }
-    ret = cnt.toString() + "/" + numClues.toString() + suffix;
+    ret = cnt.toString() + '/' + numClues.toString() + suffix
   }
-  return ret;
+  return ret
 }
 </script>
 
@@ -86,7 +86,9 @@ function relevantClueCount(): string {
             <div>{{ num }}.</div>
             <div
               class="clue-txt"
-              @click="emit('executePress', '$TOGGLESHOWCONTEXT', { direction: direction, number: num })"
+              @click="
+                emit('executePress', '$TOGGLESHOWCONTEXT', { direction: direction, number: num })
+              "
             >
               {{ clue.txt }}
             </div>
@@ -112,7 +114,7 @@ function relevantClueCount(): string {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 .clues {
   text-align: left;
   max-width: 650px;

@@ -1,7 +1,9 @@
 <template>
   <div id="cubert">
     <div>
-      <canvas id="gl-canvas" width="650px" height="650px">Oops ... your browser doesn't support the HTML5 canvas element</canvas>
+      <canvas id="gl-canvas" width="650px" height="650px"
+        >Oops ... your browser doesn't support the HTML5 canvas element</canvas
+      >
     </div>
     <div class="blk-container">
       <WebglCamera :camera="av.camera" :ctrls="cameraCtrls" />
@@ -10,16 +12,16 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive } from "vue";
-import * as mv from "@/utils/webgl/MatrixMath";
-import type { Vec, Mat } from "@/utils/webgl/MatrixMath";
-import * as wglu from "@/utils/webgl/WebGLUtils";
-import * as wglc from "@/utils/webgl/Camera";
-import type { BufferIndexer } from "@/utils/webgl/WebGLUtils";
-import WebglCamera from "@/components/webgl/WebglCamera.vue";
-import ActionControls from "@/components/webgl/ActionControls.vue";
-import Timer from "@/utils/webgl/Timer";
-import type { ActionCtrlMap, CameraCtrlMap, Camera } from "@/utils/webgl/types";
+import { onMounted, onUnmounted, reactive } from 'vue'
+import * as mv from '@/utils/webgl/MatrixMath'
+import type { Vec, Mat } from '@/utils/webgl/MatrixMath'
+import * as wglu from '@/utils/webgl/WebGLUtils'
+import * as wglc from '@/utils/webgl/Camera'
+import type { BufferIndexer } from '@/utils/webgl/WebGLUtils'
+import WebglCamera from '@/components/webgl/WebglCamera.vue'
+import ActionControls from '@/components/webgl/ActionControls.vue'
+import Timer from '@/utils/webgl/Timer'
+import type { ActionCtrlMap, CameraCtrlMap, Camera } from '@/utils/webgl/types'
 
 const vertexShaderSrc = `
   attribute  vec3 vPos;
@@ -30,7 +32,7 @@ const vertexShaderSrc = `
   {
       gl_Position = pMat * vMat * mMat * vec4(vPos, 1);
   }
-`;
+`
 const fragmentShaderSrc = `
   precision mediump float;
   uniform vec4 color;
@@ -38,34 +40,38 @@ const fragmentShaderSrc = `
   {
       gl_FragColor = color;
   }
-`;
+`
 
 interface CubeScalar {
-  mag: number | number[];
-  sinMag: number | number[];
-  omega: number | number[];
-  phase: number | number[];
+  mag: number | number[]
+  sinMag: number | number[]
+  omega: number | number[]
+  phase: number | number[]
 }
 interface CubeRotation {
-  omega: number;
-  axis: number[];
+  omega: number
+  axis: number[]
 }
 interface Cube {
-  position: Vec;
-  scalar: CubeScalar;
-  rotation?: CubeRotation;
+  position: Vec
+  scalar: CubeScalar
+  rotation?: CubeRotation
 }
 
 interface Av {
-  timer: Timer;
-  cIndex: number;
-  showCrosshair: boolean;
-  camera: Camera;
-  cubes: Cube[];
-  numInitialCubes: number;
+  timer: Timer
+  cIndex: number
+  showCrosshair: boolean
+  camera: Camera
+  cubes: Cube[]
+  numInitialCubes: number
 }
 
-function cube(position: number[], scalarValues: false | (number | number[])[], rotationValues: false | [number, number[]]): Cube {
+function cube(
+  position: number[],
+  scalarValues: false | (number | number[])[],
+  rotationValues: false | [number, number[]],
+): Cube {
   // Cube object has a position and optionaly a scaling object and a rotation object
   const c: Cube = {
     position: mv.vec3(position),
@@ -76,24 +82,24 @@ function cube(position: number[], scalarValues: false | (number | number[])[], r
       omega: 0,
       phase: 0,
     },
-  };
+  }
 
   // Set up Scalar Object if values were passed
   // * uniform scaling defined by equation: mag (1 + sinMag * Sin( omega * time + phase)
   // * Each value can be a single number for uniform scalaing in each direction or an array of 3
   if (scalarValues) {
-    c.scalar.mag = scalarValues[0]!;
+    c.scalar.mag = scalarValues[0]!
     if (Array.isArray(c.scalar.mag)) {
-      c.scalar.sinMag = [0, 0, 0];
-      c.scalar.omega = [0, 0, 0];
-      c.scalar.phase = [0, 0, 0];
+      c.scalar.sinMag = [0, 0, 0]
+      c.scalar.omega = [0, 0, 0]
+      c.scalar.phase = [0, 0, 0]
     }
     if (scalarValues.length > 1) {
-      c.scalar.sinMag = scalarValues[1]!;
+      c.scalar.sinMag = scalarValues[1]!
       if (scalarValues.length > 2) {
-        c.scalar.omega = scalarValues[2]!;
+        c.scalar.omega = scalarValues[2]!
         if (scalarValues.length > 3) {
-          c.scalar.phase = scalarValues[3]!;
+          c.scalar.phase = scalarValues[3]!
         }
       }
     }
@@ -105,21 +111,21 @@ function cube(position: number[], scalarValues: false | (number | number[])[], r
     c.rotation = {
       omega: rotationValues[0],
       axis: rotationValues[1],
-    };
+    }
   }
-  return c;
+  return c
 }
 
 // Web Gl Variables
-let gl: WebGLRenderingContext; // [g]raphics [l]ibrary
-let p: WebGLProgram; // Shader [p]rogram
+let gl: WebGLRenderingContext // [g]raphics [l]ibrary
+let p: WebGLProgram // Shader [p]rogram
 
 interface UniformLocs {
-  pMat: WebGLUniformLocation | null; // projection matrix
-  vMat: WebGLUniformLocation | null; // view matrix
-  mMat: WebGLUniformLocation | null; // model matrix
-  color: WebGLUniformLocation | null; // RGBA color for the shape
-  [key: string]: WebGLUniformLocation | null;
+  pMat: WebGLUniformLocation | null // projection matrix
+  vMat: WebGLUniformLocation | null // view matrix
+  mMat: WebGLUniformLocation | null // model matrix
+  color: WebGLUniformLocation | null // RGBA color for the shape
+  [key: string]: WebGLUniformLocation | null
 }
 
 // Location to the variables used in the shader programs
@@ -136,14 +142,14 @@ const loc = {
     pos: 0, // Position (declared, unused - vPos is what actually gets set below)
     vPos: 0,
   },
-};
+}
 
 // Buffer Data
-const buf: { pos: WebGLBuffer | null } = { pos: null };
-const dat: { pos: Vec[] } = { pos: [] };
+const buf: { pos: WebGLBuffer | null } = { pos: null }
+const dat: { pos: Vec[] } = { pos: [] }
 const bufIdx: BufferIndexer = {
   lastEnd: 0,
-};
+}
 
 // Data Variables
 const color: Vec[] = [
@@ -156,7 +162,7 @@ const color: Vec[] = [
   mv.vec4(0.0, 1.0, 1.0, 1.0), // cyan
   mv.vec4(1.0, 1.0, 1.0, 1.0), // white
   mv.vec4(0.803, 0.592, 0.278), // brown
-];
+]
 const crosshair = {
   near: -15,
   far: 15,
@@ -164,7 +170,7 @@ const crosshair = {
   right: 15.0,
   top: 15.0,
   bottom: -15.0,
-};
+}
 
 // [A]ction affected [V]ariables
 const av: Av = reactive({
@@ -204,88 +210,93 @@ const av: Av = reactive({
     cube([500, 60, 0], [10, 1, 1, 4.3], [2, [-1, -1, -1]]),
   ],
   numInitialCubes: 0,
-});
+})
 
 // Camera Keybind variables
-const cameraCtrls: CameraCtrlMap<Av> = reactive(wglc.defaultControls() as unknown as CameraCtrlMap<Av>);
-let invCameraCtrls: Record<string, string[]> = {}; // initialize during mount
+const cameraCtrls: CameraCtrlMap<Av> = reactive(
+  wglc.defaultControls() as unknown as CameraCtrlMap<Av>,
+)
+let invCameraCtrls: Record<string, string[]> = {} // initialize during mount
 
 // Other Keybind Variables
 const actionCtrls = reactive<ActionCtrlMap<Av>>({
   toggleChrosshair: {
-    keybind: "r",
-    icon: "fas fa-crosshairs",
-    desc: "Toggle Crosshair On/Off",
+    keybind: 'r',
+    icon: 'fas fa-crosshairs',
+    desc: 'Toggle Crosshair On/Off',
     holdable: false,
     framesActive: 0,
     updateFlag: false,
     updateFxn: function (av) {
-      av.showCrosshair = !av.showCrosshair;
+      av.showCrosshair = !av.showCrosshair
     },
   },
   goToStart: {
-    keybind: "t",
-    icon: "fas fa-map-marked",
-    desc: "Warp to starting position",
+    keybind: 't',
+    icon: 'fas fa-map-marked',
+    desc: 'Warp to starting position',
     holdable: false,
     framesActive: 0,
     updateFlag: false,
     updateFxn: function (av) {
-      av.camera = wglc.initCamera(av.camera.initialProps);
+      av.camera = wglc.initCamera(av.camera.initialProps)
     },
   },
   toggleTime: {
-    keybind: "p",
-    icon: "fas fa-pause",
-    desc: "Stop/start the rotation/scaling of cubes",
+    keybind: 'p',
+    icon: 'fas fa-pause',
+    desc: 'Stop/start the rotation/scaling of cubes',
     holdable: false,
     framesActive: 0,
     updateFlag: false,
     updateFxn: function (av) {
-      av.timer.toggleTimer();
+      av.timer.toggleTimer()
     },
   },
   changeColor: {
-    keybind: "f",
-    icon: "fas fa-palette",
-    desc: "Change Color of Cubes",
+    keybind: 'f',
+    icon: 'fas fa-palette',
+    desc: 'Change Color of Cubes',
     holdable: false,
     framesActive: 0,
     updateFlag: false,
     updateFxn: function (av) {
-      av.cIndex = (av.cIndex + 1) % 8;
+      av.cIndex = (av.cIndex + 1) % 8
     },
   },
   addCube: {
-    keybind: "g",
-    icon: "fas fa-plus",
-    desc: "Add new cube infront of current view",
+    keybind: 'g',
+    icon: 'fas fa-plus',
+    desc: 'Add new cube infront of current view',
     holdable: false,
     framesActive: 0,
     updateFlag: false,
     updateFxn: (av) => {
-      const newCubePos = mv.add(av.camera.position, mv.scale(10, wglc.atVector(av.camera)) as Vec) as Vec;
-      av.cubes.push(cube(newCubePos, false, false));
+      const newCubePos = mv.add(
+        av.camera.position,
+        mv.scale(10, wglc.atVector(av.camera)) as Vec,
+      ) as Vec
+      av.cubes.push(cube(newCubePos, false, false))
     },
   },
   revert: {
-    keybind: "z",
-    icon: "fas fa-trash",
-    desc: "Revert to Original State, disregarding changes",
+    keybind: 'z',
+    icon: 'fas fa-trash',
+    desc: 'Revert to Original State, disregarding changes',
     holdable: false,
     framesActive: 0,
     updateFlag: false,
     updateFxn: function (av) {
-      av.camera = wglc.initCamera(av.camera.initialProps);
-      av.cIndex = 0;
-      av.showCrosshair = false;
-      av.timer.reset();
-      av.timer.resume();
-      av.cubes = av.cubes.slice(0, av.numInitialCubes);
+      av.camera = wglc.initCamera(av.camera.initialProps)
+      av.cIndex = 0
+      av.showCrosshair = false
+      av.timer.reset()
+      av.timer.resume()
+      av.cubes = av.cubes.slice(0, av.numInitialCubes)
     },
   },
-});
-let invActionCtrls: Record<string, string[]> = {}; // initialize during mount
+})
+let invActionCtrls: Record<string, string[]> = {} // initialize during mount
 
 function generateCubeVertices(sz = 1) {
   // Ideal Triangle Strip: 3 2 6 7 4 2 0 3 1 6 5 4 1 0
@@ -299,185 +310,205 @@ function generateCubeVertices(sz = 1) {
     mv.vec3(-sz, sz, sz), // 5
     mv.vec3(-sz, sz, -sz), // 6
     mv.vec3(sz, sz, -sz), // 7
-  ];
+  ]
 
   // stripArray has all the vertices of a cube in the correct order to use just 1 triangle strip
-  const stripArray: Vec[] = [];
-  stripArray.push(verts[3]!);
-  stripArray.push(verts[2]!);
-  stripArray.push(verts[6]!);
-  stripArray.push(verts[7]!);
-  stripArray.push(verts[4]!);
-  stripArray.push(verts[2]!);
-  stripArray.push(verts[0]!);
-  stripArray.push(verts[3]!);
-  stripArray.push(verts[1]!);
-  stripArray.push(verts[6]!);
-  stripArray.push(verts[5]!);
-  stripArray.push(verts[4]!);
-  stripArray.push(verts[1]!);
-  stripArray.push(verts[0]!);
+  const stripArray: Vec[] = []
+  stripArray.push(verts[3]!)
+  stripArray.push(verts[2]!)
+  stripArray.push(verts[6]!)
+  stripArray.push(verts[7]!)
+  stripArray.push(verts[4]!)
+  stripArray.push(verts[2]!)
+  stripArray.push(verts[0]!)
+  stripArray.push(verts[3]!)
+  stripArray.push(verts[1]!)
+  stripArray.push(verts[6]!)
+  stripArray.push(verts[5]!)
+  stripArray.push(verts[4]!)
+  stripArray.push(verts[1]!)
+  stripArray.push(verts[0]!)
 
   // Add strip array to our data object and add entry to buffer index
-  Array.prototype.push.apply(dat.pos, stripArray);
-  wglu.updateBufferIndex(bufIdx, "cube", stripArray.length);
+  Array.prototype.push.apply(dat.pos, stripArray)
+  wglu.updateBufferIndex(bufIdx, 'cube', stripArray.length)
 }
 
 function generateCrosshairVertices(stepSize: number) {
   // First add points that make a circle.
-  let verts: Vec[] = [];
+  let verts: Vec[] = []
   for (let alpha = 0; alpha < 6.28; alpha = alpha + stepSize) {
-    verts.push(mv.vec3(5 * Math.cos(alpha), 5 * Math.sin(alpha), 14.9));
+    verts.push(mv.vec3(5 * Math.cos(alpha), 5 * Math.sin(alpha), 14.9))
   }
-  Array.prototype.push.apply(dat.pos, verts);
-  wglu.updateBufferIndex(bufIdx, "circle", verts.length);
+  Array.prototype.push.apply(dat.pos, verts)
+  wglu.updateBufferIndex(bufIdx, 'circle', verts.length)
 
   // now add plus sign to complete crosshair
-  verts = [];
-  verts.push(mv.vec3(7, 0, 14.9));
-  verts.push(mv.vec3(-7, 0, 14.9));
-  verts.push(mv.vec3(0, 7, 14.9));
-  verts.push(mv.vec3(0, -7, 14.9));
-  Array.prototype.push.apply(dat.pos, verts);
-  wglu.updateBufferIndex(bufIdx, "plus", verts.length);
+  verts = []
+  verts.push(mv.vec3(7, 0, 14.9))
+  verts.push(mv.vec3(-7, 0, 14.9))
+  verts.push(mv.vec3(0, 7, 14.9))
+  verts.push(mv.vec3(0, -7, 14.9))
+  Array.prototype.push.apply(dat.pos, verts)
+  wglu.updateBufferIndex(bufIdx, 'plus', verts.length)
 }
 
 function sclEqn(mag: number, sinMag: number, omega: number, phase: number): number {
-  return mag * (1 + sinMag * Math.sin(av.timer.getTimeSec() * omega + phase));
+  return mag * (1 + sinMag * Math.sin(av.timer.getTimeSec() * omega + phase))
 }
 
 function cubeScaleMatrix(s: CubeScalar): Mat {
   if (Array.isArray(s.mag)) {
-    const sinMag = s.sinMag as number[];
-    const omega = s.omega as number[];
-    const phase = s.phase as number[];
+    const sinMag = s.sinMag as number[]
+    const omega = s.omega as number[]
+    const phase = s.phase as number[]
     return mv.scalarMatrix(
       sclEqn(s.mag[0]!, sinMag[0]!, omega[0]!, phase[0]!),
       sclEqn(s.mag[1]!, sinMag[1]!, omega[1]!, phase[1]!),
       sclEqn(s.mag[2]!, sinMag[2]!, omega[2]!, phase[2]!),
-    );
+    )
   } else {
-    return mv.scalarMatrix(sclEqn(s.mag, s.sinMag as number, s.omega as number, s.phase as number));
+    return mv.scalarMatrix(sclEqn(s.mag, s.sinMag as number, s.omega as number, s.phase as number))
   }
 }
 
 function configureWebGL() {
-  [gl, p] = wglu.baseWebGL("gl-canvas", "vertex-shader", "fragment-shader", [0.235, 0.482, 0.827, 1]);
+  ;[gl, p] = wglu.baseWebGL(
+    'gl-canvas',
+    'vertex-shader',
+    'fragment-shader',
+    [0.235, 0.482, 0.827, 1],
+  )
 
   // Set Up Buffers
-  buf.pos = wglu.buffer(gl, dat.pos);
+  buf.pos = wglu.buffer(gl, dat.pos)
 
   // Set up Shader Variables
-  loc.a.vPos = wglu.attrib(gl, p, "vPos", 3, buf.pos);
+  loc.a.vPos = wglu.attrib(gl, p, 'vPos', 3, buf.pos)
 
   // Set up Uniform Locations
   for (const uName of Object.keys(loc.u)) {
-    loc.u[uName] = gl.getUniformLocation(p, uName);
+    loc.u[uName] = gl.getUniformLocation(p, uName)
   }
 }
 
 function renderCube(num: number) {
   // Set the Cube Color
-  const ci = (num + av.cIndex) % color.length;
-  const c = color[ci]!;
-  gl.uniform4f(loc.u.color, c[0]!, c[1]!, c[2]!, c[3]!);
+  const ci = (num + av.cIndex) % color.length
+  const c = color[ci]!
+  gl.uniform4f(loc.u.color, c[0]!, c[1]!, c[2]!, c[3]!)
 
   // Individually transalte and optionally Scale/Rotate each Cube
-  const cubert = av.cubes[num]!;
-  const t = mv.translationMatrix(cubert.position);
-  let sr = cubeScaleMatrix(cubert.scalar);
+  const cubert = av.cubes[num]!
+  const t = mv.translationMatrix(cubert.position)
+  let sr = cubeScaleMatrix(cubert.scalar)
   if (cubert.rotation) {
-    sr = mv.mult(sr, mv.rotationMatrix(mv.deg(av.timer.getTimeSec()) * cubert.rotation.omega, cubert.rotation.axis)) as Mat;
+    sr = mv.mult(
+      sr,
+      mv.rotationMatrix(
+        mv.deg(av.timer.getTimeSec()) * cubert.rotation.omega,
+        cubert.rotation.axis,
+      ),
+    ) as Mat
   }
-  const mMat = mv.mult(t, sr) as Mat;
+  const mMat = mv.mult(t, sr) as Mat
 
   // Actually set the WebGl values
-  gl.uniformMatrix4fv(loc.u.mMat, false, mv.flatten(mMat));
-  wglu.draw(gl, gl.TRIANGLE_STRIP, bufIdx, "cube");
+  gl.uniformMatrix4fv(loc.u.mMat, false, mv.flatten(mMat))
+  wglu.draw(gl, gl.TRIANGLE_STRIP, bufIdx, 'cube')
 }
 
 function renderCrosshair() {
   if (av.showCrosshair) {
     // color is Red
-    const c = color[1]!;
-    gl.uniform4f(loc.u.color, c[0]!, c[1]!, c[2]!, c[3]!);
-    gl.uniformMatrix4fv(loc.u.vMat, false, mv.flatten(mv.mat4()));
-    gl.uniformMatrix4fv(loc.u.mMat, false, mv.flatten(mv.mat4()));
+    const c = color[1]!
+    gl.uniform4f(loc.u.color, c[0]!, c[1]!, c[2]!, c[3]!)
+    gl.uniformMatrix4fv(loc.u.vMat, false, mv.flatten(mv.mat4()))
+    gl.uniformMatrix4fv(loc.u.mMat, false, mv.flatten(mv.mat4()))
     gl.uniformMatrix4fv(
       loc.u.pMat,
       false,
-      mv.flatten(mv.ortho(crosshair.left, crosshair.right, crosshair.bottom, crosshair.top, crosshair.near, crosshair.far)),
-    );
-    wglu.draw(gl, gl.LINE_LOOP, bufIdx, "circle");
-    wglu.draw(gl, gl.LINES, bufIdx, "plus");
+      mv.flatten(
+        mv.ortho(
+          crosshair.left,
+          crosshair.right,
+          crosshair.bottom,
+          crosshair.top,
+          crosshair.near,
+          crosshair.far,
+        ),
+      ),
+    )
+    wglu.draw(gl, gl.LINE_LOOP, bufIdx, 'circle')
+    wglu.draw(gl, gl.LINES, bufIdx, 'plus')
   }
 }
 
 let render: () => void = () => {
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
   // Action Updates
-  wglu.executeActions(cameraCtrls.move!, av);
-  wglu.executeActions(cameraCtrls.look!, av);
-  wglu.executeActions(actionCtrls, av);
+  wglu.executeActions(cameraCtrls.move!, av)
+  wglu.executeActions(cameraCtrls.look!, av)
+  wglu.executeActions(actionCtrls, av)
 
   // Take into account camera
-  const vMat = wglc.viewMatrix(av.camera);
-  const pMat = wglc.perspectiveMatrix(av.camera);
-  gl.uniformMatrix4fv(loc.u.vMat, false, mv.flatten(vMat));
-  gl.uniformMatrix4fv(loc.u.pMat, false, mv.flatten(pMat));
+  const vMat = wglc.viewMatrix(av.camera)
+  const pMat = wglc.perspectiveMatrix(av.camera)
+  gl.uniformMatrix4fv(loc.u.vMat, false, mv.flatten(vMat))
+  gl.uniformMatrix4fv(loc.u.pMat, false, mv.flatten(pMat))
 
   for (let i = 0; i < av.cubes.length; ++i) {
-    renderCube(i);
+    renderCube(i)
   }
-  renderCrosshair(); // Crosshair has no view or model transofrmations
+  renderCrosshair() // Crosshair has no view or model transofrmations
 
-  wglu.requestAnimFrame()(render);
-};
+  wglu.requestAnimFrame()(render)
+}
 
 onMounted(() => {
   // Generate Vetex Dat and set up web gl
-  generateCubeVertices();
-  generateCrosshairVertices(0.1);
-  av.numInitialCubes = av.cubes.length;
-  wglu.injectShaderScript("vertex-shader", "x-shader/x-vertex", vertexShaderSrc);
-  wglu.injectShaderScript("fragment-shader", "x-shader/x-fragment", fragmentShaderSrc);
-  configureWebGL();
+  generateCubeVertices()
+  generateCrosshairVertices(0.1)
+  av.numInitialCubes = av.cubes.length
+  wglu.injectShaderScript('vertex-shader', 'x-shader/x-vertex', vertexShaderSrc)
+  wglu.injectShaderScript('fragment-shader', 'x-shader/x-fragment', fragmentShaderSrc)
+  configureWebGL()
 
   // Set up the inverted controls adn window events
   invCameraCtrls = {
-    ...wglu.getInvertedControlObject(cameraCtrls.move!, "move"),
-    ...wglu.getInvertedControlObject(cameraCtrls.look!, "look"),
-  };
-  invActionCtrls = wglu.getInvertedControlObject(actionCtrls);
-  window.addEventListener("keydown", (e) => {
-    const ch = String.fromCharCode(e.keyCode).toLowerCase();
+    ...wglu.getInvertedControlObject(cameraCtrls.move!, 'move'),
+    ...wglu.getInvertedControlObject(cameraCtrls.look!, 'look'),
+  }
+  invActionCtrls = wglu.getInvertedControlObject(actionCtrls)
+  window.addEventListener('keydown', (e) => {
+    const ch = String.fromCharCode(e.keyCode).toLowerCase()
     if (ch in invActionCtrls) {
-      actionCtrls[invActionCtrls[ch]![0]!]!.updateFlag = true;
+      actionCtrls[invActionCtrls[ch]![0]!]!.updateFlag = true
     }
     if (ch in invCameraCtrls) {
-      const invCC = invCameraCtrls[ch]!;
-      cameraCtrls[invCC[0]!]![invCC[1]!]!.updateFlag = true;
+      const invCC = invCameraCtrls[ch]!
+      cameraCtrls[invCC[0]!]![invCC[1]!]!.updateFlag = true
     }
-  });
-  window.addEventListener("keyup", (e) => {
-    const ch = String.fromCharCode(e.keyCode).toLowerCase();
+  })
+  window.addEventListener('keyup', (e) => {
+    const ch = String.fromCharCode(e.keyCode).toLowerCase()
     if (ch in invActionCtrls) {
-      actionCtrls[invActionCtrls[ch]![0]!]!.updateFlag = false;
+      actionCtrls[invActionCtrls[ch]![0]!]!.updateFlag = false
     }
     if (ch in invCameraCtrls) {
-      const invCC = invCameraCtrls[ch]!;
-      cameraCtrls[invCC[0]!]![invCC[1]!]!.updateFlag = false;
+      const invCC = invCameraCtrls[ch]!
+      cameraCtrls[invCC[0]!]![invCC[1]!]!.updateFlag = false
     }
-  });
+  })
 
   // begin render loop
-  render();
-});
+  render()
+})
 
 onUnmounted(() => {
-  render = () => {};
-  wglu.removeShaderScript("vertex-shader");
-  wglu.removeShaderScript("fragment-shader");
-});
+  render = () => {}
+  wglu.removeShaderScript('vertex-shader')
+  wglu.removeShaderScript('fragment-shader')
+})
 </script>

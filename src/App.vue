@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import FooterLinks from "@/components/FooterLinks.vue";
-import { useThemeStore, type Theme } from "@/stores/theme";
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import FooterLinks from '@/components/FooterLinks.vue'
+import { useThemeStore, type Theme } from '@/stores/theme'
 
 interface NavChild {
-  name: string;
-  path: string;
+  name: string
+  path: string
 }
 interface NavItem {
-  path: string;
-  name: string;
-  children?: NavChild[];
-  isOpen?: boolean;
+  path: string
+  name: string
+  children?: NavChild[]
+  isOpen?: boolean
 }
 
-const router = useRouter();
-const themeStore = useThemeStore();
+const router = useRouter()
+const themeStore = useThemeStore()
 
-const navList = ref<NavItem[]>([]);
+const navList = ref<NavItem[]>([])
 
-const isBlue = computed(() => themeStore.themeMatches("blue"));
-const isDark = computed(() => themeStore.themeMatches("dark"));
-const isLight = computed(() => themeStore.themeMatches("light"));
-const isPink = computed(() => themeStore.themeMatches("pink"));
+const isBlue = computed(() => themeStore.themeMatches('blue'))
+const isDark = computed(() => themeStore.themeMatches('dark'))
+const isLight = computed(() => themeStore.themeMatches('light'))
+const isPink = computed(() => themeStore.themeMatches('pink'))
 
 function setTheme(theme: Theme) {
-  themeStore.setTheme(theme);
+  themeStore.setTheme(theme)
 }
 
-function onClose(closeItem = "all") {
+function onClose(closeItem = 'all') {
   for (const item of navList.value) {
-    if (item.children && (closeItem === "all" || item.name === closeItem)) {
-      item.isOpen = false;
+    if (item.children && (closeItem === 'all' || item.name === closeItem)) {
+      item.isOpen = false
     }
   }
 }
@@ -43,22 +43,22 @@ onMounted(() => {
       const navItem: NavItem = {
         path: route.meta?.defaultPath || route.path,
         name: String(route.name),
-      };
+      }
       if (route.children?.length) {
         navItem.children = route.children.map((child) => ({
           name: String(child.name),
           path: child.meta?.defaultPath || child.path,
-        }));
-        navItem.isOpen = false;
+        }))
+        navItem.isOpen = false
       }
-      navList.value.push(navItem);
+      navList.value.push(navItem)
     }
   }
-  const savedTheme = localStorage.theme as Theme | undefined;
+  const savedTheme = localStorage.theme as Theme | undefined
   if (savedTheme) {
-    themeStore.setTheme(savedTheme);
+    themeStore.setTheme(savedTheme)
   }
-});
+})
 </script>
 
 <template>
@@ -98,9 +98,7 @@ onMounted(() => {
                 >
                   <ul>
                     <li v-for="{ path, name } in item.children" :key="name" @click="onClose()">
-                      <router-link class="bg1-hvr bg1-txt-hvr" :to="path">{{
-                        name
-                      }}</router-link>
+                      <router-link class="bg1-hvr bg1-txt-hvr" :to="path">{{ name }}</router-link>
                     </li>
                   </ul>
                 </div>
@@ -127,7 +125,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-@import "./assets/styles/wrapper.scss";
+@import './assets/styles/wrapper.scss';
 
 *,
 ::before,
@@ -150,7 +148,7 @@ onMounted(() => {
         font-size: 15px;
       }
     }
-    input[type="text"],
+    input[type='text'],
     select {
       padding: 5px;
       margin: 8px 5px;
@@ -219,12 +217,14 @@ onMounted(() => {
     padding-top: 2em;
     padding-bottom: 2em;
     min-height: 100vh;
-    background-position: 0 0, 5px 5px;
+    background-position:
+      0 0,
+      5px 5px;
     background-size: 5px 5px;
 
     text-align: center;
     font: {
-      family: "Raleway", sans-serif;
+      family: 'Raleway', sans-serif;
       size: 16px;
       weight: 500;
     }

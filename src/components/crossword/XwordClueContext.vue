@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import type { PuzzleCell } from "./Xword";
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import type { PuzzleCell } from './Xword'
 
 defineProps<{
-  context: PuzzleCell[];
-  xr: number;
-  xc: number;
-  xAcrossNum: number;
-  xDownNum: number;
-  xIsHoriz: boolean;
-  curCellFlag?: boolean;
-  curCellValue?: string;
-  showContextKey?: string;
-  showErrors: boolean;
-}>();
+  context: PuzzleCell[]
+  xr: number
+  xc: number
+  xAcrossNum: number
+  xDownNum: number
+  xIsHoriz: boolean
+  curCellFlag?: boolean
+  curCellValue?: string
+  showContextKey?: string
+  showErrors: boolean
+}>()
 
 const emit = defineEmits<{
-  contextClick: [r: number, c: number];
-}>();
+  contextClick: [r: number, c: number]
+}>()
 
-const halfSecs = ref(0);
+const halfSecs = ref(0)
 
-const flashDash = computed(() => (halfSecs.value % 2 === 0 ? "_" : "&nbsp;"));
+const flashDash = computed(() => (halfSecs.value % 2 === 0 ? '_' : '&nbsp;'))
 
-let interval: ReturnType<typeof setInterval> | undefined;
+let interval: ReturnType<typeof setInterval> | undefined
 onMounted(() => {
   interval = setInterval(() => {
-    halfSecs.value = (halfSecs.value + 1) % 100;
-  }, 500);
-});
+    halfSecs.value = (halfSecs.value + 1) % 100
+  }, 500)
+})
 onUnmounted(() => {
-  clearInterval(interval);
-});
+  clearInterval(interval)
+})
 
 function clickFxn(r: number, c: number) {
-  emit("contextClick", r, c);
+  emit('contextClick', r, c)
 }
 </script>
 
@@ -90,7 +90,7 @@ function clickFxn(r: number, c: number) {
 
 <style lang="scss" scoped>
 .clue-ctx {
-  @import "@/assets/styles/xword-puzzle.scss";
+  @import '@/assets/styles/xword-puzzle.scss';
   .p-row {
     .p-cell {
       flex-grow: 1;

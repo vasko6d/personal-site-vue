@@ -27,7 +27,7 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 #footer-links {
   margin: 15px 0px;
   a {

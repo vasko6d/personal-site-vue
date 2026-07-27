@@ -1,24 +1,20 @@
 <script setup lang="ts">
 defineProps<{
-  isEnabled: boolean;
-}>();
+  isEnabled: boolean
+}>()
 
 const emit = defineEmits<{
-  toggle: [value: boolean];
-}>();
+  toggle: [value: boolean]
+}>()
 
 function toggle(isEnabled: boolean) {
-  emit("toggle", !isEnabled);
+  emit('toggle', !isEnabled)
 }
 </script>
 
 <template>
   <div class="switch-button-control">
-    <div
-      class="switch-button"
-      :class="{ enabled: isEnabled }"
-      @click="toggle(isEnabled)"
-    >
+    <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle(isEnabled)">
       <div class="button"></div>
     </div>
     <div class="switch-button-label">
@@ -28,11 +24,11 @@ function toggle(isEnabled: boolean) {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 .switch-button-control {
   display: grid;
   justify-content: right;
-  grid-template-areas: "sb sbl";
+  grid-template-areas: 'sb sbl';
 
   .switch-button {
     grid-area: sb;
@@ -48,9 +44,7 @@ function toggle(isEnabled: boolean) {
 
     transition: $switch-transition;
 
-    $button-side-length: calc(
-      #{$switch-button-height} - (2 * #{$switch-button-border-thickness})
-    );
+    $button-side-length: calc(#{$switch-button-height} - (2 * #{$switch-button-border-thickness}));
 
     cursor: pointer;
 

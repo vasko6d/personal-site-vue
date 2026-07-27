@@ -1,51 +1,51 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import type { PuzzleCell } from "./Xword";
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import type { PuzzleCell } from './Xword'
 
 const props = defineProps<{
-  puzzle: PuzzleCell[][];
-  r: number;
-  c: number;
-  isHoriz: boolean;
-  acrossNum: number | null;
-  downNum: number | null;
-  showErrors: boolean;
-}>();
+  puzzle: PuzzleCell[][]
+  r: number
+  c: number
+  isHoriz: boolean
+  acrossNum: number | null
+  downNum: number | null
+  showErrors: boolean
+}>()
 
 const emit = defineEmits<{
-  executePress: [ch: string, opts?: Record<string, unknown>];
-  updateShownWrong: [cell: PuzzleCell];
-}>();
+  executePress: [ch: string, opts?: Record<string, unknown>]
+  updateShownWrong: [cell: PuzzleCell]
+}>()
 
-const halfSecs = ref(0);
+const halfSecs = ref(0)
 
-const flashDash = computed(() => (halfSecs.value % 2 === 0 ? "_" : "&nbsp"));
+const flashDash = computed(() => (halfSecs.value % 2 === 0 ? '_' : '&nbsp'))
 
-let interval: ReturnType<typeof setInterval> | undefined;
+let interval: ReturnType<typeof setInterval> | undefined
 onMounted(() => {
   interval = setInterval(() => {
-    halfSecs.value = (halfSecs.value + 1) % 100;
-  }, 500);
-});
+    halfSecs.value = (halfSecs.value + 1) % 100
+  }, 500)
+})
 onUnmounted(() => {
-  clearInterval(interval);
-});
+  clearInterval(interval)
+})
 
 function isInput(color: string): boolean {
-  return color != "black";
+  return color != 'black'
 }
 function isActive(cell: PuzzleCell): boolean {
-  return props.isHoriz ? props.acrossNum === cell.acrossNum : props.downNum === cell.downNum;
+  return props.isHoriz ? props.acrossNum === cell.acrossNum : props.downNum === cell.downNum
 }
 function isExact(r: number, c: number): boolean {
-  return r === props.r && c == props.c;
+  return r === props.r && c == props.c
 }
 function clickFxn(r: number, c: number, color: string) {
   if (isInput(color)) {
     if (isExact(r, c)) {
-      emit("executePress", "$SWITCHDIRECTION");
+      emit('executePress', '$SWITCHDIRECTION')
     } else {
-      emit("executePress", "$SETPOSITION", { r: r, c: c });
+      emit('executePress', '$SETPOSITION', { r: r, c: c })
     }
   }
 }
@@ -101,7 +101,7 @@ function clickFxn(r: number, c: number, color: string) {
 
 <style lang="scss" scoped>
 #puzzle {
-  @import "@/assets/styles/xword-puzzle.scss";
+  @import '@/assets/styles/xword-puzzle.scss';
   margin-bottom: 0.5em;
 }
 </style>

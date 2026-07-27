@@ -93,3 +93,15 @@ Confirmed no compiler error and normal route resolution (200) for all five WebGL
 Both are out of date relative to what's actually required: the root `package.json`'s own `engines` field says `>=22`, and `app/package.json` (the create-vue scaffold, Phase 0) says `engines: "^22.18.0 || >=24.12.0"` — stricter still, and doesn't include 20. Type-check/lint/build were spot-verified clean under both Node 20 and Node 22 during Phase 8, so nothing in the port actually depends on the wrong version — this is a docs/config drift issue, not a functional one.
 
 **Fix direction:** when `app/`'s contents move to repo root during Phase 12 cutover, `app/package.json` (with the correct `engines`) replaces the root one anyway — update root `.nvmrc` to match at that point and correct CLAUDE.md's Node version line. Until then, local tooling commands (`type-check`/`lint`/`build`) should be run with `nvm use 22` (or higher), not the `.nvmrc`-indicated 20.
+
+**Resolved in Phase 12:** `.nvmrc` bumped to `22`; `CLAUDE.md`'s Node version line corrected.
+
+## Pre-existing `<tr>` not nested in `<thead>`/`<tbody>` (Vue 3 dev-server warning, not a migration regression)
+
+**Where:** `src/components/climbing/charts/SettingView.vue` — a `<table class="basic-table">` with several `<tr>` elements as direct children of `<table>`, with no intervening `<tbody>`.
+
+**Symptom:** Vite dev server logs `<tr> cannot be child of <table>, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.` when the component compiles. Confirmed via a side-by-side dev-server check that this fires identically before and after Phase 12's `npm run format` pass — not something the reformat introduced.
+
+**Not a migration regression** — this is invalid-but-browser-tolerated HTML (browsers auto-insert an implicit `<tbody>` at parse time, so it renders correctly) that was already present in the original Vue 2 `SettingView.vue`; Vue 2 just didn't have this particular compiler warning. No functional impact observed; not fixed here as it's outside Phase 12's scope.
+
+**Fix direction:** wrap the `<tr>` elements in a `<tbody>` (and split header rows into a `<thead>` if any are header rows) to match valid HTML table structure.

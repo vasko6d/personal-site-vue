@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import DoughnutChart from "@/components/charts/DoughnutChart.vue";
-import BarGraph from "@/components/charts/BarGraph.vue";
-import type { Chart } from "../types";
+import DoughnutChart from '@/components/charts/DoughnutChart.vue'
+import BarGraph from '@/components/charts/BarGraph.vue'
+import type { Chart } from '../types'
 
 defineProps<{
-  chart: Chart;
-}>();
+  chart: Chart
+}>()
 </script>
 
 <template>

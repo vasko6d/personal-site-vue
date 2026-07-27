@@ -1,10 +1,10 @@
 <script setup lang="ts">
 defineEmits<{
-  close: [];
-  saveProgress: [];
-  clear: [type: "flags" | "wrong" | "clue" | "puzzle"];
-  solve: [type: "cell" | "clue" | "puzzle"];
-}>();
+  close: []
+  saveProgress: []
+  clear: [type: 'flags' | 'wrong' | 'clue' | 'puzzle']
+  solve: [type: 'cell' | 'clue' | 'puzzle']
+}>()
 </script>
 
 <template>
@@ -89,7 +89,7 @@ defineEmits<{
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/modal-shared.scss";
+@import '@/assets/styles/modal-shared.scss';
 #xword-tools {
   .modal-body {
     text-align: left;

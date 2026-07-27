@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import FontAwesomeCheck from "@/components/FontAwesomeCheck.vue";
-import type { SetOptionPayload, XwordOpts } from "./types";
+import FontAwesomeCheck from '@/components/FontAwesomeCheck.vue'
+import type { SetOptionPayload, XwordOpts } from './types'
 
 defineProps<{
-  opts: XwordOpts;
-}>();
+  opts: XwordOpts
+}>()
 
 defineEmits<{
-  close: [];
-  defaultSettings: [];
-  setOption: [payload: SetOptionPayload];
-  setNativeKeyboardOption: [payload: SetOptionPayload];
-}>();
+  close: []
+  defaultSettings: []
+  setOption: [payload: SetOptionPayload]
+  setNativeKeyboardOption: [payload: SetOptionPayload]
+}>()
 </script>
 
 <template>
@@ -97,7 +97,12 @@ defineEmits<{
                         <FontAwesomeCheck
                           :enabled="opt.val === opts.clues.contextOpt"
                           :desc="opt.name"
-                          @toggle="$emit('setOption', { optionPath: ['clues', 'contextOpt'], value: opt.val })"
+                          @toggle="
+                            $emit('setOption', {
+                              optionPath: ['clues', 'contextOpt'],
+                              value: opt.val,
+                            })
+                          "
                         />
                       </div>
                     </div>
@@ -107,7 +112,12 @@ defineEmits<{
                         <FontAwesomeCheck
                           :enabled="opt.val === opts.clues.hideClueOpt"
                           :desc="opt.name"
-                          @toggle="$emit('setOption', { optionPath: ['clues', 'hideClueOpt'], value: opt.val })"
+                          @toggle="
+                            $emit('setOption', {
+                              optionPath: ['clues', 'hideClueOpt'],
+                              value: opt.val,
+                            })
+                          "
                         />
                       </div>
                     </div>
@@ -120,7 +130,9 @@ defineEmits<{
                     <FontAwesomeCheck
                       :enabled="opt.val === opts.currentClue.loc"
                       :desc="opt.name"
-                      @toggle="$emit('setOption', { optionPath: ['currentClue', 'loc'], value: opt.val })"
+                      @toggle="
+                        $emit('setOption', { optionPath: ['currentClue', 'loc'], value: opt.val })
+                      "
                     />
                   </div>
                 </div>
@@ -142,7 +154,7 @@ defineEmits<{
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/modal-shared.scss";
+@import '@/assets/styles/modal-shared.scss';
 #xword-opts {
   .modal-body {
     text-align: left;

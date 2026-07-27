@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Bar } from "vue-chartjs";
+import { Bar } from 'vue-chartjs'
 import {
   Chart as ChartJS,
   BarElement,
@@ -8,9 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import type { ChartData, ChartOptions } from "chart.js";
-import { SortStackedBarByValue } from "@/charts/plugins/SortStackedBarByValuePlugin";
+} from 'chart.js'
+import type { ChartData, ChartOptions } from 'chart.js'
+import { SortStackedBarByValue } from '@/charts/plugins/SortStackedBarByValuePlugin'
 
 ChartJS.register(
   BarElement,
@@ -20,12 +20,12 @@ ChartJS.register(
   Tooltip,
   Legend,
   SortStackedBarByValue,
-);
+)
 
 defineProps<{
-  chartData: ChartData<"bar">;
-  options?: ChartOptions<"bar">;
-}>();
+  chartData: ChartData<'bar'>
+  options?: ChartOptions<'bar'>
+}>()
 </script>
 
 <template>

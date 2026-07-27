@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = defineProps<{
-  youTubeId?: string;
-  videoUrl?: string;
-  imgUrl?: string;
-  videoDesc?: string;
-}>();
+  youTubeId?: string
+  videoUrl?: string
+  imgUrl?: string
+  videoDesc?: string
+}>()
 
 const trueVideoUrl = computed(() => {
   if (props.youTubeId) {
-    return "https://youtu.be/" + props.youTubeId;
+    return 'https://youtu.be/' + props.youTubeId
   }
-  return props.videoUrl;
-});
+  return props.videoUrl
+})
 
 const trueImgUrl = computed(() => {
   if (props.youTubeId) {
-    return "https://img.youtube.com/vi/" + props.youTubeId + "/mqdefault.jpg";
+    return 'https://img.youtube.com/vi/' + props.youTubeId + '/mqdefault.jpg'
   }
-  return props.imgUrl;
-});
+  return props.imgUrl
+})
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const trueImgUrl = computed(() => {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 
 .climbing-video-item {
   margin: 5px;

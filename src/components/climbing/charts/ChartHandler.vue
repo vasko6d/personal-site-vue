@@ -1,39 +1,41 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import Stat from "@/utils/Stat";
-import ChartView from "./ChartView.vue";
-import SettingView from "./SettingView.vue";
-import AscentView from "./AscentView.vue";
-import type { AggOpts, Chart } from "../types";
+import { computed, ref } from 'vue'
+import Stat from '@/utils/Stat'
+import ChartView from './ChartView.vue'
+import SettingView from './SettingView.vue'
+import AscentView from './AscentView.vue'
+import type { AggOpts, Chart } from '../types'
 
 const props = defineProps<{
-  chart: Chart;
-  stats: Stat;
-}>();
+  chart: Chart
+  stats: Stat
+}>()
 
 const emit = defineEmits<{
-  close: [];
-  changeChartType: [type: string];
-  changeAggregator: [opts: AggOpts];
-  changeBaseStat: [statBase: string];
-  changeSplitStat: [splitStat: string | null];
-  changeSplitLimit: [splitLimit: number];
-  changeSortOrder: [sortByName: boolean];
-  changeLimit: [limit: number];
-}>();
+  close: []
+  changeChartType: [type: string]
+  changeAggregator: [opts: AggOpts]
+  changeBaseStat: [statBase: string]
+  changeSplitStat: [splitStat: string | null]
+  changeSplitLimit: [splitLimit: number]
+  changeSortOrder: [sortByName: boolean]
+  changeLimit: [limit: number]
+}>()
 
-const viewType = ref<"chart" | "settings" | "ascents">("chart");
+const viewType = ref<'chart' | 'settings' | 'ascents'>('chart')
 
 const showChart = computed(() => {
-  const opts = props.chart.opts;
+  const opts = props.chart.opts
   return !(
-    (opts.filters && opts.filters[props.chart.statBase] && opts.filters[props.chart.statBase]!.val) ||
+    (opts.filters &&
+      opts.filters[props.chart.statBase] &&
+      opts.filters[props.chart.statBase]!.val) ||
     opts.hideChart
-  );
-});
+  )
+})
 
 function chartView() {
-  viewType.value = "chart";
+  viewType.value = 'chart'
 }
 </script>
 

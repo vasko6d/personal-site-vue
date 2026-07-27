@@ -1,12 +1,12 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    size?: number;
+    size?: number
   }>(),
   {
     size: 64,
   },
-);
+)
 </script>
 
 <template>

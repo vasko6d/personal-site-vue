@@ -4,14 +4,14 @@ export default class Timer {
    * as well as elapsed from since last check.
    * @constructor
    */
-  lastStartTime: number;
-  totalTime: number;
-  keepTime: boolean;
+  lastStartTime: number
+  totalTime: number
+  keepTime: boolean
 
   constructor(keepTime = false) {
-    this.lastStartTime = this.getTrueTime(); // Last start time
-    this.totalTime = 0; // Total time elapsed while not paused
-    this.keepTime = keepTime; // whether timer is paused or not
+    this.lastStartTime = this.getTrueTime() // Last start time
+    this.totalTime = 0 // Total time elapsed while not paused
+    this.keepTime = keepTime // whether timer is paused or not
   }
 
   /**
@@ -19,9 +19,9 @@ export default class Timer {
    */
   pause() {
     if (this.keepTime) {
-      this.totalTime += this.getTrueTime() - this.lastStartTime;
+      this.totalTime += this.getTrueTime() - this.lastStartTime
     }
-    this.keepTime = false;
+    this.keepTime = false
   }
 
   /**
@@ -29,18 +29,18 @@ export default class Timer {
    */
   resume() {
     if (!this.keepTime) {
-      this.lastStartTime = this.getTrueTime();
+      this.lastStartTime = this.getTrueTime()
     }
-    this.keepTime = true;
+    this.keepTime = true
   }
 
   /**
    * reset timer
    */
   reset() {
-    this.totalTime = 0;
-    this.keepTime = false;
-    this.lastStartTime = this.getTrueTime();
+    this.totalTime = 0
+    this.keepTime = false
+    this.lastStartTime = this.getTrueTime()
   }
 
   /**
@@ -48,9 +48,9 @@ export default class Timer {
    */
   toggleTimer() {
     if (this.keepTime) {
-      this.pause();
+      this.pause()
     } else {
-      this.resume();
+      this.resume()
     }
   }
 
@@ -58,7 +58,7 @@ export default class Timer {
    * is the timer active?
    */
   isActive(): boolean {
-    return this.keepTime;
+    return this.keepTime
   }
 
   /**
@@ -67,10 +67,10 @@ export default class Timer {
    */
   getTime(): number {
     if (this.keepTime) {
-      this.pause();
-      this.resume();
+      this.pause()
+      this.resume()
     }
-    return this.totalTime;
+    return this.totalTime
   }
 
   /**
@@ -78,11 +78,11 @@ export default class Timer {
    * @return {number} current time.
    */
   getTimeSec(discardDecimal = false): number {
-    let s = this.getTime() / 1000;
+    let s = this.getTime() / 1000
     if (discardDecimal) {
-      s = Math.floor(s);
+      s = Math.floor(s)
     }
-    return s;
+    return s
   }
 
   /**
@@ -90,14 +90,14 @@ export default class Timer {
    * @return {number} current time.
    */
   getTrueTime(): number {
-    const time = new Date();
-    return time.getTime();
+    const time = new Date()
+    return time.getTime()
   }
 
   /**
    * Function to add time if you ever need.
    */
   addTime(timeToAddInMs: number) {
-    this.totalTime += timeToAddInMs;
+    this.totalTime += timeToAddInMs
   }
 }

@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { fetchData, kebabToCap } from "@/utils/Utils";
-import ClimberAnalysis from "@/components/climbing/ClimberAnalysis.vue";
-import ClimberSelect from "@/components/climbing/ClimberSelect.vue";
-import LoadingSpinner from "@/components/shared/LoadingSpinner.vue";
+import { computed, ref } from 'vue'
+import { fetchData, kebabToCap } from '@/utils/Utils'
+import ClimberAnalysis from '@/components/climbing/ClimberAnalysis.vue'
+import ClimberSelect from '@/components/climbing/ClimberSelect.vue'
+import LoadingSpinner from '@/components/shared/LoadingSpinner.vue'
 
 const props = defineProps<{
-  sandboxId: string;
-}>();
+  sandboxId: string
+}>()
 
-const ascents = ref<Record<string, unknown>[]>([]);
-const loading = ref(true);
+const ascents = ref<Record<string, unknown>[]>([])
+const loading = ref(true)
 
-const climberName = computed(() => kebabToCap(props.sandboxId));
+const climberName = computed(() => kebabToCap(props.sandboxId))
 
 setTimeout(() => {
   fetchData(props.sandboxId)
     .then((result) => {
-      console.log("fetched", result);
-      ascents.value = (result as { ascents: Record<string, unknown>[] }).ascents;
-      loading.value = false;
+      console.log('fetched', result)
+      ascents.value = (result as { ascents: Record<string, unknown>[] }).ascents
+      loading.value = false
     })
     .catch((error) => {
-      window.alert(error.msg || error);
-    });
-}, 250);
+      window.alert(error.msg || error)
+    })
+}, 250)
 </script>
 
 <template>
@@ -45,7 +45,7 @@ setTimeout(() => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 #ticklist-analysis {
   max-width: 1400px;
   display: inline-block;

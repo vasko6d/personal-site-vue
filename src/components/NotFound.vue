@@ -7,14 +7,14 @@
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 #not-found {
   #anim {
     justify-content: center;
     &:after {
       animation: changeLetter 6s linear infinite;
       display: block;
-      content: "404 Not Found";
+      content: '404 Not Found';
       font-size: 30px;
       font-weight: bold;
     }

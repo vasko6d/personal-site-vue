@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import XwordClues from "@/components/crossword/XwordClues.vue";
-import type { ClueMap } from "./Xword";
+import XwordClues from '@/components/crossword/XwordClues.vue'
+import type { ClueMap } from './Xword'
 
 interface CluePanelOpts {
-  clues: { contextOpt: string; hideClueOpt: string };
-  errors: { showErrors: boolean };
+  clues: { contextOpt: string; hideClueOpt: string }
+  errors: { showErrors: boolean }
 }
 
 defineProps<{
-  acrossClueObj: ClueMap;
-  downClueObj: ClueMap;
-  opts: CluePanelOpts;
-  r: number;
-  c: number;
-  acrossNum: number | null;
-  downNum: number | null;
-  curCellValue?: string;
-  showContextKey?: string;
-  curCellFlag?: boolean;
-  puzzleIsHoriz: boolean;
-}>();
+  acrossClueObj: ClueMap
+  downClueObj: ClueMap
+  opts: CluePanelOpts
+  r: number
+  c: number
+  acrossNum: number | null
+  downNum: number | null
+  curCellValue?: string
+  showContextKey?: string
+  curCellFlag?: boolean
+  puzzleIsHoriz: boolean
+}>()
 
 const emit = defineEmits<{
-  executePress: [ch: string, opts?: Record<string, unknown>];
-}>();
+  executePress: [ch: string, opts?: Record<string, unknown>]
+}>()
 
 function executePress(ch: string, opts?: Record<string, unknown>) {
-  emit("executePress", ch, opts);
+  emit('executePress', ch, opts)
 }
 </script>
 
@@ -69,7 +69,7 @@ function executePress(ch: string, opts?: Record<string, unknown>) {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/wrapper.scss";
+@import '@/assets/styles/wrapper.scss';
 #clue-panel {
   #clue-head {
     font-weight: bold;
