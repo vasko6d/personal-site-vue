@@ -104,6 +104,17 @@ export const useClimberAnalysisStore = defineStore('climberAnalysis', () => {
   })
 
   function buildFromAscents(name: string, rawAscents: Record<string, unknown>[]) {
+    // A Pinia store is a singleton, unlike the local component state this
+    // store replaced (which was recreated fresh on every mount, and
+    // App.vue's <router-view :key="$route.path"> remounts on every climber
+    // navigation) - reset per-visit UI state here so switching climbers
+    // doesn't leak the previous climber's filters/columns/charts/initialized
+    // flag into the new one.
+    clearFilters()
+    columns.splice(0, columns.length, ...DEFAULT_COLUMNS.map((c) => ({ ...c })))
+    charts.dynamic.splice(0, charts.dynamic.length)
+    initialized.value = false
+
     climberName.value = name
     ascents.value = rawAscents.map((ascent) => preprocessAscent(ascent as never, name))
     stats.value = buildStatTree(ascents.value)

@@ -41,6 +41,14 @@ export const useClimberTicklistStore = defineStore('climberTicklist', () => {
   const currentFilteredStat = computed(() => stats.value.getFiltered(undefined, currentFilters))
 
   function fetchAll() {
+    // A Pinia store is a singleton, unlike the local component state this
+    // store replaced (which was recreated fresh on every mount, and
+    // App.vue's <router-view :key="$route.path"> remounts on every
+    // navigation) - reset per-visit UI state so revisiting this page doesn't
+    // leak the previous visit's filters/columns into the new fetch.
+    clearFilters()
+    columns.splice(0, columns.length, ...DEFAULT_COLUMNS.map((c) => ({ ...c })))
+
     loading.value = true
     loadingMessage.value = 'Fetching Scorecards...'
     setTimeout(() => {
