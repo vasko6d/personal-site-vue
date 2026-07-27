@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import FooterLinks from '@/components/FooterLinks.vue'
 import { useThemeStore, type Theme } from '@/stores/theme'
@@ -37,7 +37,36 @@ function onClose(closeItem = 'all') {
   }
 }
 
+// Per-nav-item toggle/dropdown elements, populated via function refs (see
+// template) - a plain map keyed by item name, not Vue's $refs, since that
+// approach previously proved fragile (see useClickOutside.ts's comment).
+// One shared listener checks every currently-open item on each click,
+// closing any whose toggle+dropdown elements don't contain the click target.
+const toggleEls: Record<string, HTMLElement | null> = {}
+const dropdownEls: Record<string, HTMLElement | null> = {}
+
+function setToggleRef(name: string, el: Element | null) {
+  toggleEls[name] = el as HTMLElement | null
+}
+function setDropdownRef(name: string, el: Element | null) {
+  dropdownEls[name] = el as HTMLElement | null
+}
+
+function handleOutsideClick(e: Event) {
+  const target = e.target as Node
+  for (const item of navList.value) {
+    if (!item.isOpen) continue
+    const insideToggle = toggleEls[item.name]?.contains(target) ?? false
+    const insideDropdown = dropdownEls[item.name]?.contains(target) ?? false
+    if (!insideToggle && !insideDropdown) {
+      item.isOpen = false
+    }
+  }
+}
+
 onMounted(() => {
+  document.addEventListener('click', handleOutsideClick)
+  document.addEventListener('touchstart', handleOutsideClick)
   for (const route of router.options.routes) {
     if (route.meta?.isMainNav) {
       const navItem: NavItem = {
@@ -59,6 +88,11 @@ onMounted(() => {
     themeStore.setTheme(savedTheme)
   }
 })
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleOutsideClick)
+  document.removeEventListener('touchstart', handleOutsideClick)
+})
 </script>
 
 <template>
@@ -79,22 +113,18 @@ onMounted(() => {
               <template v-if="item.children">
                 <a
                   class="bg1-hvr bg1-txt-hvr"
-                  :ref="item.name"
+                  :ref="(el) => setToggleRef(item.name, el as Element | null)"
                   href="#"
                   :title="item.name"
                   @click="item.isOpen = !item.isOpen"
                 >
                   {{ item.name }}
-                  <i :ref="item.name + '-i'" class="fa fa-angle-down"></i>
+                  <i class="fa fa-angle-down"></i>
                 </a>
                 <div
                   :class="{ isOpen: item.isOpen }"
                   class="dropdown"
-                  v-closable="{
-                    excludeList: [item.name, item.name + '-i'],
-                    handler: 'onClose',
-                    uniqueFxnId: item.name,
-                  }"
+                  :ref="(el) => setDropdownRef(item.name, el as Element | null)"
                 >
                   <ul>
                     <li v-for="{ path, name } in item.children" :key="name" @click="onClose()">

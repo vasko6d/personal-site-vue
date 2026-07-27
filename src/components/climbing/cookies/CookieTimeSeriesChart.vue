@@ -19,10 +19,6 @@ function colorFor(climber: string): string {
   return getDistinctColor(index >= 0 ? index : 0)
 }
 
-// The decay is a hard cliff now, not smooth exponential decay, so `stepped:
-// 'after'` renders each climber's running total as the exact
-// piecewise-constant step function computeCookieTimeSeries computes, rather
-// than a misleading straight line between two very different values.
 const chartData = computed<ChartData<'line'>>(() => ({
   datasets: props.series.map((entry) => {
     const color = colorFor(entry.climber)
@@ -36,7 +32,6 @@ const chartData = computed<ChartData<'line'>>(() => ({
       borderWidth: 2,
       pointRadius: 2,
       fill: false,
-      stepped: 'after',
     }
   }) as unknown as ChartData<'line'>['datasets'],
 }))
@@ -44,6 +39,9 @@ const chartData = computed<ChartData<'line'>>(() => ({
 const options = computed<ChartOptions<'line'>>(() => ({
   responsive: true,
   maintainAspectRatio: false,
+  // 'index' + intersect:false shows every series' value at the hovered
+  // x-position in one combined tooltip, rather than just the nearest point.
+  interaction: { mode: 'index', intersect: false },
   scales: {
     x: {
       type: 'time',
@@ -57,6 +55,7 @@ const options = computed<ChartOptions<'line'>>(() => ({
   },
   plugins: {
     legend: { position: 'bottom' },
+    tooltip: { mode: 'index', intersect: false },
     // No zoom/pan on this chart - chartjs-plugin-zoom is disabled by default
     // for any chart that simply omits the `zoom` plugin key.
   },

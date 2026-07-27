@@ -172,7 +172,9 @@ export function computeLeaderboard(
       entry.sendCount += 1
     }
   }
-  return [...totals.values()].sort((a, b) => b.total - a.total)
+  return [...totals.values()]
+    .filter((entry) => entry.total > 0)
+    .sort((a, b) => b.total - a.total)
 }
 
 export function currentHolder(leaderboard: LeaderboardEntry[]): LeaderboardEntry | undefined {
@@ -242,6 +244,7 @@ export function computeMonthlyLeaderboard(
   if (!climberTallies) return []
   return [...climberTallies.entries()]
     .map(([climber, tally]) => ({ climber, total: tally.points, sendCount: tally.count }))
+    .filter((entry) => entry.total > 0)
     .sort((a, b) => b.total - a.total)
 }
 
