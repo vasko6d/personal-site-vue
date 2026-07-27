@@ -29,7 +29,16 @@ import type {
 // shallowRef (Stat instances also markRaw themselves - see Stat.ts).
 export const useClimberAnalysisStore = defineStore('climberAnalysis', () => {
   const climberName = ref('')
-  const ascents = ref<ProcessedAscent[]>([])
+  // shallowRef, not ref: a plain ref() deep-converts whatever array gets
+  // assigned to .value via Vue's reactive() - meaning every ProcessedAscent
+  // object (and every field on it) would get wrapped in a reactive Proxy on
+  // first access. That array becomes the root Stat's own .values (goDeeper()
+  // does `this.values = rawValues`), and every substat's .values array is
+  // built by pushing the *same* (already-reactive) ascent objects into it -
+  // so the contamination reaches every node in the tree, not just the root,
+  // regardless of Stat's own markRaw(). shallowRef keeps the whole array and
+  // everything in it genuinely raw.
+  const ascents = shallowRef<ProcessedAscent[]>([])
   const stats = shallowRef<Stat>(new Stat('ascents', []))
   const initialized = ref(false)
 
