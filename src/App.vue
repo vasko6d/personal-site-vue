@@ -1,3 +1,66 @@
+<script setup lang="ts">
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import FooterLinks from "@/components/FooterLinks.vue";
+import { useThemeStore, type Theme } from "@/stores/theme";
+
+interface NavChild {
+  name: string;
+  path: string;
+}
+interface NavItem {
+  path: string;
+  name: string;
+  children?: NavChild[];
+  isOpen?: boolean;
+}
+
+const router = useRouter();
+const themeStore = useThemeStore();
+
+const navList = ref<NavItem[]>([]);
+
+const isBlue = computed(() => themeStore.themeMatches("blue"));
+const isDark = computed(() => themeStore.themeMatches("dark"));
+const isLight = computed(() => themeStore.themeMatches("light"));
+const isPink = computed(() => themeStore.themeMatches("pink"));
+
+function setTheme(theme: Theme) {
+  themeStore.setTheme(theme);
+}
+
+function onClose(closeItem = "all") {
+  for (const item of navList.value) {
+    if (item.children && (closeItem === "all" || item.name === closeItem)) {
+      item.isOpen = false;
+    }
+  }
+}
+
+onMounted(() => {
+  for (const route of router.options.routes) {
+    if (route.meta?.isMainNav) {
+      const navItem: NavItem = {
+        path: route.meta?.defaultPath || route.path,
+        name: String(route.name),
+      };
+      if (route.children?.length) {
+        navItem.children = route.children.map((child) => ({
+          name: String(child.name),
+          path: child.meta?.defaultPath || child.path,
+        }));
+        navItem.isOpen = false;
+      }
+      navList.value.push(navItem);
+    }
+  }
+  const savedTheme = localStorage.theme as Theme | undefined;
+  if (savedTheme) {
+    themeStore.setTheme(savedTheme);
+  }
+});
+</script>
+
 <template>
   <div
     id="app"
@@ -12,7 +75,7 @@
       <div class="main-nav-wrapper">
         <div class="navigation">
           <ul>
-            <li v-for="item in navList" :key="item.id">
+            <li v-for="item in navList" :key="item.name">
               <template v-if="item.children">
                 <a
                   class="bg1-hvr bg1-txt-hvr"
@@ -34,11 +97,7 @@
                   }"
                 >
                   <ul>
-                    <li
-                      v-for="{ path, name } in item.children"
-                      :key="name"
-                      @click="onClose()"
-                    >
+                    <li v-for="{ path, name } in item.children" :key="name" @click="onClose()">
                       <router-link class="bg1-hvr bg1-txt-hvr" :to="path">{{
                         name
                       }}</router-link>
@@ -62,80 +121,12 @@
         <span class="icn" @click="setTheme('pink')">pink</span>
       </div>
       <router-view :key="$route.path" />
-      <footer-links />
+      <FooterLinks />
     </div>
   </div>
 </template>
-<script>
-import FooterLinks from "@/components/FooterLinks.vue";
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
-
-export default {
-  name: "app",
-  components: {
-    FooterLinks,
-  },
-  props: ["item"],
-  data() {
-    return {
-      navList: [],
-    };
-  },
-  computed: {
-    ...mapGetters(["themeMatches"]),
-    isBlue() {
-      return this.themeMatches("blue");
-    },
-    isDark() {
-      return this.themeMatches("dark");
-    },
-    isLight() {
-      return this.themeMatches("light");
-    },
-    isPink() {
-      return this.themeMatches("pink");
-    },
-  },
-  mounted() {
-    for (const route of this.$router.options.routes) {
-      if (route.isMainNav) {
-        let mainNavItem = {
-          path: route.defaultPath || route.path,
-          name: route.name,
-        };
-        if (route.children) {
-          mainNavItem["children"] = [];
-          mainNavItem["isOpen"] = false;
-          for (const child of route.children) {
-            mainNavItem["children"].push({
-              name: child.name,
-              path: child.defaultPath || child.path,
-            });
-          }
-        }
-        this.navList.push(mainNavItem);
-      }
-    }
-    if (localStorage.theme) {
-      this.setTheme(localStorage.theme);
-    }
-  },
-  methods: {
-    onClose(closeItem = "all") {
-      for (let item of this.navList) {
-        if (item.children && (closeItem === "all" || item.name === closeItem)) {
-          item.isOpen = false;
-        }
-      }
-    },
-    ...mapActions(["setTheme"]),
-  },
-};
-</script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
 @import "./assets/styles/wrapper.scss";
 
 *,
@@ -270,100 +261,5 @@ export default {
       max-width: 90%;
     }
   }
-}
-
-.tooltip {
-  display: block !important;
-  z-index: 4000;
-  font-family: "Lucida Console", Monaco, monospace;
-}
-
-.tooltip .tooltip-inner {
-  background: rgba(black, 0.7);
-  border: 2px solid black;
-  color: white;
-  border-radius: 16px;
-  padding: 5px 10px 5px;
-}
-
-.tooltip .tooltip-arrow {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  margin: 5px;
-  border-color: black;
-}
-
-.tooltip[x-placement^="top"] {
-  margin-bottom: 0px;
-}
-
-.tooltip[x-placement^="top"] .tooltip-arrow {
-  border-width: 5px 5px 0 5px;
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-bottom-color: transparent !important;
-  bottom: -4px;
-  left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.tooltip[x-placement^="bottom"] {
-  margin-top: 0px;
-}
-
-.tooltip[x-placement^="bottom"] .tooltip-arrow {
-  border-width: 0 5px 5px 5px;
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-top-color: transparent !important;
-  top: -4px;
-  left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.tooltip[x-placement^="right"] {
-  margin-left: 5px;
-}
-
-.tooltip[x-placement^="right"] .tooltip-arrow {
-  border-width: 5px 5px 5px 0;
-  border-left-color: transparent !important;
-  border-top-color: transparent !important;
-  border-bottom-color: transparent !important;
-  left: -5px;
-  top: calc(50% - 5px);
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.tooltip[x-placement^="left"] {
-  margin-right: 5px;
-}
-
-.tooltip[x-placement^="left"] .tooltip-arrow {
-  border-width: 5px 0 5px 5px;
-  border-top-color: transparent !important;
-  border-right-color: transparent !important;
-  border-bottom-color: transparent !important;
-  right: -5px;
-  top: calc(50% - 5px);
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.tooltip[aria-hidden="true"] {
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.15s, visibility 0.15s;
-}
-
-.tooltip[aria-hidden="false"] {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.15s;
 }
 </style>

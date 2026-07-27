@@ -1,3 +1,128 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import DataTable from "@/components/shared/DataTable.vue";
+import { mapGrade } from "@/utils/Utils";
+import type { ProcessedAscent } from "@/utils/Utils";
+
+const props = defineProps<{
+  values: ProcessedAscent[];
+  columns: string[];
+}>();
+
+const showConfirm = ref(false);
+
+const headings: Record<string, string> = {
+  climber: "Climber",
+  date: "Date",
+  type: "Type",
+  grade: "Grade",
+  name: "Name",
+  rating: "Stars",
+  recommend: "Recommend",
+  area: "Area",
+  subArea: "SubArea",
+  flags: "Flags",
+  comment: "Comment",
+};
+
+const sortable = [
+  "climber",
+  "date",
+  "type",
+  "grade",
+  "name",
+  "recommend",
+  "rating",
+  "area",
+  "subArea",
+  "flags",
+  "comment",
+];
+
+const filterable = [
+  "climber",
+  "date",
+  "type",
+  "grade",
+  "name",
+  "rating",
+  "area",
+  "subArea",
+  "flags",
+  "comment",
+];
+
+const customSorting: Record<string, (ascending: boolean) => (a: ProcessedAscent, b: ProcessedAscent) => number> = {
+  grade: (ascending) => (a, b) => {
+    const ga = mapGrade(a.grade) as number;
+    const gb = mapGrade(b.grade) as number;
+    return ascending ? ga - gb : gb - ga;
+  },
+  comment: (ascending) => (a, b) => {
+    return ascending ? a.commentLength - b.commentLength : b.commentLength - a.commentLength;
+  },
+};
+
+function rowClick(row: ProcessedAscent) {
+  const url = `https://www.8a.nu/crags/bouldering/${row.countrySlug}/${row.cragSlug}/sectors/${row.sectorSlug}/routes/${row.zlaggableSlug}`;
+  console.log("Opening external 8a.nu url: ", url);
+  window.open(url, "_blank");
+}
+
+function escapeCSV(value: unknown): string {
+  if (value === undefined || value === null) return "";
+  let str = String(value);
+  // Double quotes inside the field must be doubled
+  str = str.replace(/"/g, '""');
+  // If the field contains a comma, newline, or double quote, wrap it in double quotes
+  if (/[",\n\r]/.test(str)) {
+    str = `"${str}"`;
+  }
+  return str;
+}
+
+function convertToCSV(data: ProcessedAscent[], activeColumnsOnly = true): string {
+  const csvRows: string[] = [];
+  const headers = activeColumnsOnly ? props.columns : Object.keys(data[0] ?? {});
+  csvRows.push(headers.join(","));
+
+  for (const row of data) {
+    const values = headers.map((header) => {
+      let cell = (row as unknown as Record<string, unknown>)[header];
+      if (Array.isArray(cell)) cell = cell.join(", ");
+      return escapeCSV(cell);
+    });
+    csvRows.push(values.join(","));
+  }
+
+  return csvRows.join("\n");
+}
+
+function downloadCSV(data: ProcessedAscent[], activeColumnsOnly = true) {
+  const csv = convertToCSV(data, activeColumnsOnly);
+
+  // Get current datetime in YYYY-MM-DD_HH-mm-ss format
+  const now = new Date();
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const datetime = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(
+    now.getHours(),
+  )}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+  const filename = `ascents_${datetime}.csv`;
+
+  console.log("Downloading CSV: ", filename);
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.setAttribute("href", url);
+  link.setAttribute("download", filename);
+  link.style.visibility = "hidden";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+
 <template>
   <div id="ascent-table">
     <div>
@@ -5,10 +130,7 @@
     </div>
     <div v-if="showConfirm" class="confirm-dialog">
       <div class="confirm-content">
-        <p>
-          Are you sure you want to export these [{{ values.length }}] ascents to
-          CSV?
-        </p>
+        <p>Are you sure you want to export these [{{ values.length }}] ascents to CSV?</p>
         <button
           @click="
             downloadCSV(values);
@@ -29,176 +151,32 @@
       </div>
     </div>
     <div class="table-container">
-      <v-client-table
-        ref="vuetable"
+      <DataTable
         :columns="columns"
         :data="values"
-        :options="options"
+        :headings="headings"
+        :sortable="sortable"
+        :filterable="filterable"
+        :customSorting="customSorting"
+        :orderBy="{ column: 'date', ascending: false }"
+        :perPage="100"
+        :perPageValues="[10, 25, 50, 100, 500, 2000]"
         @row-click="rowClick"
       >
-        <div slot="date" slot-scope="props">
-          {{ props.row.date.replace(/-/g, "&#8209;") }}
-        </div>
-        <div slot="grade" slot-scope="props">V{{ props.row.grade }}</div>
-        <div slot="flags" slot-scope="props">
-          {{ props.row.flags.join(", ") }}
-        </div>
-        <div slot="recommend" slot-scope="props">
-          <i v-if="props.row.recommend" class="fas fa-thumbs-up"></i>
-        </div>
-        <div slot="comment" slot-scope="props">
-          <div class="left" v-html="props.row.comment"></div>
-        </div>
-      </v-client-table>
+        <template #date="{ row }">{{ row.date.replace(/-/g, "&#8209;") }}</template>
+        <template #grade="{ row }">V{{ row.grade }}</template>
+        <template #flags="{ row }">{{ row.flags.join(", ") }}</template>
+        <template #recommend="{ row }">
+          <i v-if="row.recommend" class="fas fa-thumbs-up"></i>
+        </template>
+        <template #comment="{ row }">
+          <div class="left" v-html="row.comment"></div>
+        </template>
+      </DataTable>
     </div>
   </div>
 </template>
 
-<script>
-import Utils from "@/mixins/Utils.js";
-export default {
-  props: {
-    values: Array,
-    columns: Array,
-  },
-  mixins: [Utils],
-  data() {
-    return {
-      showConfirm: false,
-      options: {
-        headings: {
-          climber: "Climber",
-          date: "Date",
-          type: "Type",
-          grade: "Grade",
-          name: "Name",
-          rating: "Stars",
-          recommend: "Recommend",
-          area: "Area",
-          subArea: "SubArea",
-          flags: "Flags",
-          comment: "Comment",
-        },
-        pagination: {
-          chunk: 5,
-        },
-        perPage: 100,
-        perPageValues: [10, 25, 50, 100, 500, 2000],
-        sortable: [
-          "climber",
-          "date",
-          "type",
-          "grade",
-          "name",
-          "recommend",
-          "rating",
-          "area",
-          "subArea",
-          "flags",
-          "comment",
-        ],
-        filterable: [
-          "climber",
-          "date",
-          "type",
-          "grade",
-          "name",
-          "rating",
-          "area",
-          "subArea",
-          "flags",
-          "comment",
-        ],
-        sortIcon: {
-          base: "fas",
-          is: "",
-          up: "fa-caret-up",
-          down: "fa-caret-down",
-        },
-        orderBy: { column: "date", ascending: false },
-        customSorting: {
-          grade: (ascending) => {
-            return (a, b) => {
-              if (ascending) {
-                return this.mapGrade(a.grade) - this.mapGrade(b.grade);
-              }
-              return this.mapGrade(b.grade) - this.mapGrade(a.grade);
-            };
-          },
-          comment: (ascending) => {
-            return (a, b) => {
-              if (ascending) {
-                return a.commentLength - b.commentLength;
-              }
-              return b.commentLength - a.commentLength;
-            };
-          },
-        },
-      },
-    };
-  },
-  methods: {
-    rowClick(e) {
-      const url = `https://www.8a.nu/crags/bouldering/${e.row.countrySlug}/${e.row.cragSlug}/sectors/${e.row.sectorSlug}/routes/${e.row.zlaggableSlug}`;
-      console.log("Opening external 8a.nu url: ", url);
-      window.open(url, "_blank");
-    },
-    convertToCSV(data, activeColumnsOnly = true) {
-      const escapeCSV = (value) => {
-        if (value === undefined || value === null) return "";
-        let str = String(value);
-        // Double quotes inside the field must be doubled
-        str = str.replace(/"/g, '""');
-        // If the field contains a comma, newline, or double quote, wrap it in double quotes
-        if (/[",\n\r]/.test(str)) {
-          str = `"${str}"`;
-        }
-        return str;
-      };
-
-      const csvRows = [];
-      const headers = activeColumnsOnly ? this.columns : Object.keys(data[0]);
-      csvRows.push(headers.join(","));
-
-      for (const row of data) {
-        const values = headers.map((header) => {
-          let cell = row[header];
-          if (Array.isArray(cell)) cell = cell.join(", ");
-          return escapeCSV(cell);
-        });
-        csvRows.push(values.join(","));
-      }
-
-      return csvRows.join("\n");
-    },
-    downloadCSV(data, activeColumnsOnly = true) {
-      const csv = this.convertToCSV(data, activeColumnsOnly);
-
-      // Get current datetime in YYYY-MM-DD_HH-mm-ss format
-      const now = new Date();
-      const pad = (n) => n.toString().padStart(2, "0");
-      const datetime = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
-        now.getDate()
-      )}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(
-        now.getSeconds()
-      )}`;
-      const filename = `ascents_${datetime}.csv`;
-
-      console.log("Downloading CSV: ", filename);
-
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const link = document.createElement("a");
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute("download", filename);
-      link.style.visibility = "hidden";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    },
-  },
-};
-</script>
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";
 @import "@/assets/styles/table-container.scss";

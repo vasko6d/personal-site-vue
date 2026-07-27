@@ -1,7 +1,95 @@
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import Timer from "@/utils/webgl/Timer";
+import XwordHelp from "@/components/crossword/XwordHelp.vue";
+import XwordSettings from "@/components/crossword/XwordSettings.vue";
+import XwordTools from "@/components/crossword/XwordTools.vue";
+import type { SetOptionPayload, XwordOpts } from "./types";
+
+const props = defineProps<{
+  title: string;
+  author: string;
+  note?: string;
+  themeExp?: string;
+  completed: boolean;
+  nativeKeyboardEnabled: boolean;
+  publishDate: Date;
+  opts: XwordOpts;
+  timer: Timer;
+}>();
+
+const emit = defineEmits<{
+  flagCell: [];
+  specialEdit: [];
+  toggleNativeKeyboard: [];
+  setOption: [payload: SetOptionPayload];
+  disableNativeKeyboard: [];
+  defaultSettings: [];
+  clear: [type: "flags" | "wrong" | "clue" | "puzzle"];
+  solve: [type: "cell" | "clue" | "puzzle"];
+  saveProgress: [];
+}>();
+
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
+const showNote = ref(false);
+const showTheme = ref(false);
+const showHelp = ref(false);
+const showSettings = ref(false);
+const showTools = ref(false);
+
+const formattedTime = computed(() => {
+  const hh = (hours.value < 10 ? "0" : "") + hours.value.toString();
+  const mm = (minutes.value < 10 ? "0" : "") + minutes.value.toString();
+  const ss = (seconds.value < 10 ? "0" : "") + seconds.value.toString();
+  return hh + ":" + mm + ":" + ss;
+});
+
+function calcTime() {
+  const sec = props.timer.getTimeSec(true);
+  hours.value = Math.floor(sec / (60 * 24)) % 100;
+  minutes.value = Math.floor(sec / 60) % 60;
+  seconds.value = sec % 60;
+}
+
+let interval: ReturnType<typeof setInterval> | undefined;
+onMounted(() => {
+  interval = setInterval(() => {
+    calcTime();
+  }, 1000);
+});
+onUnmounted(() => {
+  clearInterval(interval);
+});
+
+function setOption(payload: SetOptionPayload) {
+  emit("setOption", payload);
+}
+function setNativeKeyboardOption(payload: SetOptionPayload) {
+  emit("setOption", payload);
+  emit("disableNativeKeyboard");
+}
+function clear(payload: "flags" | "wrong" | "clue" | "puzzle") {
+  modalToggle(false, "showTools");
+  emit("clear", payload);
+}
+function solve(payload: "cell" | "clue" | "puzzle") {
+  modalToggle(false, "showTools");
+  emit("solve", payload);
+}
+function modalToggle(b: boolean, propName: "showTools" | "showSettings" | "showHelp") {
+  if (propName === "showTools") showTools.value = b;
+  else if (propName === "showSettings") showSettings.value = b;
+  else showHelp.value = b;
+  document.documentElement.style.overflow = b ? "hidden" : "auto";
+}
+</script>
+
 <template>
   <div id="x-head" class="bg1">
-    <xword-help v-if="showHelp" @close="modalToggle(false, 'showHelp')" />
-    <xword-settings
+    <XwordHelp v-if="showHelp" @close="modalToggle(false, 'showHelp')" />
+    <XwordSettings
       v-if="showSettings"
       @close="modalToggle(false, 'showSettings')"
       @setOption="setOption"
@@ -9,7 +97,7 @@
       @defaultSettings="$emit('defaultSettings')"
       :opts="opts"
     />
-    <xword-tools
+    <XwordTools
       v-if="showTools"
       @close="modalToggle(false, 'showTools')"
       @clear="clear"
@@ -21,10 +109,7 @@
     />
     <div class="info-nav">
       <div class="right-close">
-        <i
-          class="fas fa-times icn"
-          @click="$router.push('/crossword/search')"
-        ></i>
+        <i class="fas fa-times icn" @click="$router.push('/crossword/search')"></i>
       </div>
       <div class="info">
         <h2>
@@ -55,12 +140,9 @@
               }"
             ></i>
           </strong>
-          <span
-            v-show="showTheme"
-            @click="showTheme = !showTheme"
-            style="cursor: pointer"
-            >{{ themeExp }}</span
-          >
+          <span v-show="showTheme" @click="showTheme = !showTheme" style="cursor: pointer">{{
+            themeExp
+          }}</span>
         </div>
       </div>
     </div>
@@ -72,121 +154,22 @@
       <div class="right">
         <span v-show="opts.keyboard.enableNativeKeyboardToggle">
           <i
-            :class="[
-              'icn',
-              'fas',
-              'fa-keyboard',
-              { enab: nativeKeyboardEnabled },
-            ]"
+            :class="['icn', 'fas', 'fa-keyboard', { enab: nativeKeyboardEnabled }]"
             @click="$emit('toggleNativeKeyboard')"
           ></i
           >|
         </span>
         <i class="icn fas fa-pen-square" @click="$emit('specialEdit')"></i>|
-        <i
-          class="icn fas fa-flag"
-          @click="$emit('flagCell', { flag: 'orange' })"
-        ></i
-        >|
+        <i class="icn fas fa-flag" @click="$emit('flagCell')"></i>|
         <i class="icn fas fa-tools" @click="modalToggle(true, 'showTools')"></i>
         |
-        <i
-          class="icn fas fa-cogs"
-          @click="modalToggle(true, 'showSettings')"
-        ></i>
+        <i class="icn fas fa-cogs" @click="modalToggle(true, 'showSettings')"></i>
         |
-        <i
-          class="icn fas fa-question-circle"
-          @click="modalToggle(true, 'showHelp')"
-        ></i>
+        <i class="icn fas fa-question-circle" @click="modalToggle(true, 'showHelp')"></i>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import Timer from "@/mixins/webgl/Timer.js";
-import XwordHelp from "@/components/crossword/XwordHelp.vue";
-import XwordSettings from "@/components/crossword/XwordSettings.vue";
-import XwordTools from "@/components/crossword/XwordTools.vue";
-export default {
-  props: {
-    title: String,
-    author: String,
-    note: String,
-    themeExp: String,
-    completed: Boolean,
-    nativeKeyboardEnabled: Boolean,
-    publishDate: Date,
-    opts: Object,
-    timer: Timer,
-  },
-  components: {
-    XwordHelp,
-    XwordSettings,
-    XwordTools,
-  },
-  data() {
-    return {
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      interval: "",
-      showNote: false,
-      showTheme: false,
-      // Help Modals
-      showHelp: false,
-      showSettings: false,
-      showTools: false,
-    };
-  },
-  computed: {
-    formattedTime() {
-      let hh = (this.hours < 10 ? "0" : "") + this.hours.toString();
-      let mm = (this.minutes < 10 ? "0" : "") + this.minutes.toString();
-      let ss = (this.seconds < 10 ? "0" : "") + this.seconds.toString();
-      return hh + ":" + mm + ":" + ss;
-    },
-  },
-  mounted() {
-    this.interval = setInterval(() => {
-      this.calcTime();
-    }, 1000);
-  },
-  methods: {
-    setOption(payload) {
-      this.$emit("setOption", payload);
-    },
-    setNativeKeyboardOption(payload) {
-      this.$emit("setOption", payload);
-      this.$emit("disableNativeKeyboard");
-    },
-    clear(payload) {
-      this.modalToggle(false, "showTools");
-      this.$emit("clear", payload);
-    },
-    solve(payload) {
-      this.modalToggle(false, "showTools");
-      this.$emit("solve", payload);
-    },
-    calcTime() {
-      // Time calculations for days, hours, minutes and seconds
-      let sec = this.timer.getTimeSec(true);
-      this.hours = Math.floor((sec / (60 * 24)) % 100);
-      this.minutes = Math.floor(sec / 60) % 60;
-      this.seconds = sec % 60;
-    },
-    modalToggle(b, propName) {
-      this[propName] = b;
-      if (b) {
-        document.documentElement.style.overflow = "hidden";
-      } else {
-        document.documentElement.style.overflow = "auto";
-      }
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 #x-head {

@@ -1,7 +1,167 @@
+<script setup lang="ts">
+import { nextTick, onMounted, onUnmounted, ref } from "vue";
+
+interface KeyBtn {
+  disp: string;
+  val: string;
+  isActive: number;
+  isFA?: boolean;
+}
+
+const emit = defineEmits<{
+  executePress: [ch: string, opts?: Record<string, unknown>];
+}>();
+
+const keyLayout = ref<KeyBtn[][]>([]);
+const invKeyLayout = ref<Record<string, { r: number; c: number }>>({});
+
+function createQwerty(includeBackspace = true): [KeyBtn[][], Record<string, { r: number; c: number }>] {
+  const retArr: KeyBtn[][] = [];
+  const retInv: Record<string, { r: number; c: number }> = {};
+  const qwerty = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
+  for (let i = 0; i < qwerty.length; i++) {
+    const row = qwerty[i]!;
+    const retRow: KeyBtn[] = [];
+    for (let j = 0; j < row.length; j++) {
+      const ch = row[j]!;
+      retRow.push({
+        disp: ch,
+        val: ch,
+        isActive: 0,
+      });
+      retInv[ch] = { r: i, c: j };
+    }
+    retArr.push(retRow);
+  }
+  if (includeBackspace) {
+    retArr[2]!.push({
+      disp: "fas fa-backspace",
+      isFA: true,
+      val: "$BACKSPACE",
+      isActive: 0,
+    });
+    retInv["BACKSPACE"] = { r: 2, c: retArr[2]!.length - 1 };
+  }
+  return [retArr, retInv];
+}
+
+function executePress(ch: string, opts?: Record<string, unknown>) {
+  emit("executePress", ch, opts);
+}
+
+function flashBtn(btn: KeyBtn, activeType = 1) {
+  if (activeType === 2) {
+    btn.isActive = activeType;
+    setTimeout(() => {
+      btn.isActive = 0;
+    }, 200);
+  } else {
+    btn.isActive = 0;
+  }
+}
+
+function startHandler(key: KeyBtn) {
+  return (e: Event) => {
+    e.preventDefault();
+    key.isActive = 1;
+  };
+}
+function abortHandler(key: KeyBtn) {
+  return (e: Event) => {
+    e.preventDefault();
+    key.isActive = 0;
+  };
+}
+function endHandler(key: KeyBtn) {
+  return (e: Event) => {
+    if (key.isActive === 1) {
+      e.preventDefault();
+      flashBtn(key);
+      executePress(key.val);
+    }
+  };
+}
+
+function keydownFxn(e: KeyboardEvent) {
+  const ch = e.key.toUpperCase();
+  if (ch.match(/^[^\s]$/)) {
+    // Because of my 'psuedo-input" i need to disable most defautls
+    // I manually exclude "Ctrl-Shift-J" which brings up browser console
+    // but there is probably a more accepted way to do this.
+    if (!(e.shiftKey && e.ctrlKey && ch === "J")) {
+      e.preventDefault();
+    }
+
+    executePress(ch);
+    if (ch.match(/^[A-Z]$/)) {
+      const pos = invKeyLayout.value[ch]!;
+      flashBtn(keyLayout.value[pos.r]![pos.c]!, 2);
+    }
+  } else {
+    e.preventDefault();
+    switch (ch) {
+      case "ARROWLEFT":
+      case "ARROWRIGHT":
+      case "ARROWDOWN":
+      case "ARROWUP":
+        executePress("$" + ch);
+        break;
+      case "TAB":
+        if (e.shiftKey) {
+          executePress("$!" + ch);
+        } else {
+          executePress("$" + ch);
+        }
+        break;
+      case "ENTER":
+        executePress("$LEAVESPECIALINPUT");
+        break;
+      case "ESCAPE":
+        executePress("$REMOVESPECIALINPUT");
+        break;
+      case " ":
+        executePress("$SWITCHDIRECTION");
+        break;
+      case "BACKSPACE": {
+        executePress("$" + ch);
+        const pos = invKeyLayout.value["BACKSPACE"]!;
+        flashBtn(keyLayout.value[pos.r]![pos.c]!, 2);
+        break;
+      }
+    }
+  }
+}
+
+onMounted(() => {
+  [keyLayout.value, invKeyLayout.value] = createQwerty();
+  window.addEventListener("keydown", keydownFxn);
+  nextTick(() => {
+    const rows = document.getElementsByClassName("key-row");
+    for (let r = 0; r < rows.length; r++) {
+      const row = rows[r]!;
+      const keys = row.getElementsByClassName("key");
+      for (let keynum = 0; keynum < keys.length; keynum++) {
+        const keyel = keys[keynum]!;
+        const keybtn = keyLayout.value[r]![keynum]!;
+        keyel.addEventListener("mousedown", startHandler(keybtn));
+        keyel.addEventListener("touchstart", startHandler(keybtn));
+        keyel.addEventListener("mouseup", endHandler(keybtn));
+        keyel.addEventListener("touchend", endHandler(keybtn));
+        keyel.addEventListener("mouseleave", abortHandler(keybtn));
+        keyel.addEventListener("touchmove", abortHandler(keybtn));
+        keyel.addEventListener("touchcancel", abortHandler(keybtn));
+      }
+    }
+  });
+});
+onUnmounted(() => {
+  window.removeEventListener("keydown", keydownFxn);
+});
+</script>
+
 <template>
   <div class="keyboard-container bg1">
-    <!--div>Keyboard</div-->
-    <div class="key-row" ref="row" v-for="keyRow in keyLayout" :key="keyRow.id">
+    <div class="key-row" ref="row" v-for="(keyRow, rIndex) in keyLayout" :key="rIndex">
       <div
         ref="key"
         :class="[
@@ -12,8 +172,8 @@
             'key-wide': keyBtn.val === '$BACKSPACE',
           },
         ]"
-        v-for="keyBtn in keyRow"
-        :key="keyBtn.id"
+        v-for="(keyBtn, cIndex) in keyRow"
+        :key="cIndex"
       >
         <i :class="keyBtn.isFA ? keyBtn.disp : ''">
           {{ keyBtn.isFA ? "" : keyBtn.disp }}
@@ -22,163 +182,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      keyLayout: [],
-      invKeyLayout: {},
-    };
-  },
-  mounted() {
-    [this.keyLayout, this.invKeyLayout] = this.createQwerty();
-    window.addEventListener("keydown", this.keydownFxn);
-    this.$nextTick(() => {
-      let rows = document.getElementsByClassName("key-row");
-      for (let r = 0; r < rows.length; r++) {
-        let row = rows[r];
-        let keys = row.getElementsByClassName("key");
-        for (let keynum = 0; keynum < keys.length; keynum++) {
-          let keyel = keys[keynum];
-          let keybtn = this.keyLayout[r][keynum];
-          keyel.addEventListener("mousedown", this.startHandler(keybtn));
-          keyel.addEventListener("touchstart", this.startHandler(keybtn));
-          keyel.addEventListener("mouseup", this.endHandler(keybtn));
-          keyel.addEventListener("touchend", this.endHandler(keybtn));
-          keyel.addEventListener("mouseleave", this.abortHandler(keybtn));
-          keyel.addEventListener("touchmove", this.abortHandler(keybtn));
-          keyel.addEventListener("touchcancel", this.abortHandler(keybtn));
-        }
-      }
-    });
-  },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.keydownFxn);
-  },
-  methods: {
-    startHandler(key) {
-      return (e) => {
-        e.preventDefault();
-        key.isActive = 1;
-      };
-    },
-    abortHandler(key) {
-      return (e) => {
-        e.preventDefault();
-        key.isActive = 0;
-      };
-    },
-    endHandler(key) {
-      return (e) => {
-        if (key.isActive === 1) {
-          e.preventDefault();
-          this.flashBtn(key);
-          this.executePress(key.val);
-        }
-      };
-    },
-    keydownFxn(e) {
-      let ch = e.key.toUpperCase();
-      //console.log("|" + ch + "|");
-      if (ch.match(/^[^\s]$/)) {
-        // Because of my 'psuedo-input" i need to disable most defautls
-        // I manually exclude "Ctrl-Shift-J" which brings up browser console
-        // but there is probably a more accepted way to do this.
-        if (!(e.shiftKey && e.ctrlKey && ch === "J")) {
-          e.preventDefault();
-        }
-
-        this.executePress(ch);
-        if (ch.match(/^[A-Z]$/)) {
-          this.flashBtn(
-            this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c],
-            2
-          );
-        }
-      } else {
-        e.preventDefault();
-        switch (ch) {
-          case "ARROWLEFT":
-          // Falls through
-          case "ARROWRIGHT":
-          // Falls through
-          case "ARROWDOWN":
-          // Falls through
-          case "ARROWUP":
-            this.executePress("$" + ch);
-            break;
-          case "TAB":
-            if (e.shiftKey) {
-              this.executePress("$!" + ch);
-            } else {
-              this.executePress("$" + ch);
-            }
-            break;
-          case "ENTER":
-            this.executePress("$LEAVESPECIALINPUT");
-            break;
-          case "ESCAPE":
-            this.executePress("$REMOVESPECIALINPUT");
-            break;
-          case " ":
-            this.executePress("$SWITCHDIRECTION");
-            break;
-          case "BACKSPACE":
-            this.executePress("$" + ch);
-            this.flashBtn(
-              this.keyLayout[this.invKeyLayout[ch].r][this.invKeyLayout[ch].c],
-              2
-            );
-            break;
-        }
-      }
-    },
-    executePress(ch, opts) {
-      this.$emit("executePress", ch, opts);
-    },
-    flashBtn(btn, activeType = 1) {
-      if (activeType === 2) {
-        btn.isActive = activeType;
-        setTimeout(() => {
-          btn.isActive = 0;
-        }, 200);
-      } else {
-        btn.isActive = 0;
-      }
-    },
-    createQwerty(includeBackspace = true) {
-      let retArr = [];
-      let retInv = {};
-      let qwerty = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
-      for (let i = 0; i < qwerty.length; i++) {
-        let row = qwerty[i];
-        let retRow = [];
-        for (let j = 0; j < row.length; j++) {
-          let ch = row[j];
-          retRow.push({
-            disp: ch,
-            val: ch,
-            isActive: 0,
-          });
-          retInv[ch] = { r: i, c: j };
-        }
-        retArr.push(retRow);
-      }
-      if (includeBackspace) {
-        retArr[2].push({
-          disp: "fas fa-backspace",
-          isFA: true,
-          val: "$BACKSPACE",
-          isActive: 0,
-        });
-        retInv["BACKSPACE"] = { r: 2, c: retArr[2].length - 1 };
-      }
-      return [retArr, retInv];
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+defineProps<{
+  enabled: boolean;
+  desc?: string;
+}>();
+
+defineEmits<{
+  toggle: [];
+}>();
+</script>
+
 <template>
   <div class="font-awesome-check" @click="$emit('toggle')">
     <div
@@ -19,16 +30,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "FontAwesomeCheck",
-  props: {
-    enabled: Boolean,
-    desc: String,
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .font-awesome-check {

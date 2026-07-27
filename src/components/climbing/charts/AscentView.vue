@@ -1,16 +1,66 @@
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import Stat from "@/utils/Stat";
+import type { Chart } from "../types";
+
+const props = defineProps<{
+  chart: Chart;
+  stats: Stat;
+}>();
+
+const subCatagory = ref<string | null>(null);
+
+const catStats = computed(() => props.stats.get(props.chart.statBase));
+
+interface AscentChoice {
+  name: string;
+  label: string;
+  datum: number;
+}
+
+const ascentChoices = computed(() => {
+  const choices: AscentChoice[] = [];
+  const chartData = props.chart.chartData;
+  for (let i = 0; i < chartData.labels.length; i++) {
+    let datum = 0;
+    for (const dataset of chartData.datasets) {
+      datum += dataset.data[i] ?? 0;
+    }
+    choices.push({
+      name: String(chartData.names[i]),
+      label: chartData.labels[i]!,
+      datum: datum,
+    });
+  }
+  return choices;
+});
+
+const ascents = computed(() => {
+  let a: Record<string, unknown>[] = [];
+  if (subCatagory.value != null) {
+    if (subCatagory.value === "All") {
+      a = catStats.value.values;
+    } else {
+      a = catStats.value.get(subCatagory.value).values;
+    }
+  }
+  return a as { name: string; grade: string; date: string }[];
+});
+</script>
+
 <template>
   <div>
     <div>Ascents</div>
     <select v-model="subCatagory" class="setting-select">
       <option :value="null">Select {{ chart.statBase }}</option>
       <option value="All">~ALL~</option>
-      <option v-for="cat in ascentChoices" :key="cat.id" :value="cat.name">
+      <option v-for="cat in ascentChoices" :key="cat.name" :value="cat.name">
         {{ cat.label + " (" + cat.datum + ")" }}
       </option>
     </select>
     <div style="margin-left: 5%" v-if="subCatagory != null">
       <ul style="text-align: left">
-        <li v-for="ascent in ascents" :key="ascent.id">
+        <li v-for="(ascent, index) in ascents" :key="index">
           <span class="b">{{ ascent.name }}</span>
           (V{{ ascent.grade }}), {{ ascent.date }}
         </li>
@@ -18,54 +68,5 @@
     </div>
   </div>
 </template>
-
-<script>
-import Stat from "@/mixins/Stat.js";
-import Utils from "@/mixins/Utils.js";
-export default {
-  mixins: [Utils],
-  props: {
-    chart: Object,
-    stats: Stat,
-  },
-  data() {
-    return {
-      // Ascent Variables
-      subCatagory: null,
-    };
-  },
-  computed: {
-    catStats() {
-      return this.stats.get(this.chart.statBase);
-    },
-    ascentChoices() {
-      let choices = [];
-      for (let i = 0; i < this.chart.chartData.labels.length; i++) {
-        let datum = 0;
-        for (let dataset of this.chart.chartData.datasets) {
-          datum += dataset.data[i];
-        }
-        choices.push({
-          name: this.chart.chartData.names[i],
-          label: this.chart.chartData.labels[i],
-          datum: datum,
-        });
-      }
-      return choices;
-    },
-    ascents() {
-      let a = [];
-      if (this.subCatagory != null) {
-        if (this.subCatagory === "All") {
-          a = this.catStats.values;
-        } else {
-          a = this.catStats.get(this.subCatagory).values;
-        }
-      }
-      return a;
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped></style>

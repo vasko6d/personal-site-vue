@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <div id="home">
     <img alt="David Vasko Portrait" src="../assets/img/20210214-david.jpeg" />

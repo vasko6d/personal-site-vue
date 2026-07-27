@@ -1,15 +1,55 @@
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import type { PuzzleCell } from "./Xword";
+
+defineProps<{
+  context: PuzzleCell[];
+  xr: number;
+  xc: number;
+  xAcrossNum: number;
+  xDownNum: number;
+  xIsHoriz: boolean;
+  curCellFlag?: boolean;
+  curCellValue?: string;
+  showContextKey?: string;
+  showErrors: boolean;
+}>();
+
+const emit = defineEmits<{
+  contextClick: [r: number, c: number];
+}>();
+
+const halfSecs = ref(0);
+
+const flashDash = computed(() => (halfSecs.value % 2 === 0 ? "_" : "&nbsp;"));
+
+let interval: ReturnType<typeof setInterval> | undefined;
+onMounted(() => {
+  interval = setInterval(() => {
+    halfSecs.value = (halfSecs.value + 1) % 100;
+  }, 500);
+});
+onUnmounted(() => {
+  clearInterval(interval);
+});
+
+function clickFxn(r: number, c: number) {
+  emit("contextClick", r, c);
+}
+</script>
+
 <template>
   <div class="clue-ctx">
     <div class="c-wrap">
       <div class="p-row">
         <div
           class="p-cell"
-          v-for="cell in context"
-          :key="cell.id"
+          v-for="(cell, index) in context"
+          :key="index"
           @click="clickFxn(cell.r, cell.c)"
           v-tooltip="{
             content: cell.entry + flashDash,
-            show: isExact(cell.r, cell.c) && cell.isSpecialInput,
+            show: xr === cell.r && xc === cell.c && cell.isSpecialInput,
             trigger: 'manual',
           }"
         >
@@ -26,8 +66,8 @@
               <div
                 :class="[
                   {
-                    active: isActive(cell.acrossNum, cell.downNum),
-                    exact: isExact(cell.r, cell.c),
+                    active: xIsHoriz ? xAcrossNum === cell.acrossNum : xDownNum === cell.downNum,
+                    exact: xr === cell.r && xc === cell.c,
                   },
                 ]"
               >
@@ -47,51 +87,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    context: Array,
-    xr: Number,
-    xc: Number,
-    xAcrossNum: Number,
-    xDownNum: Number,
-    xIsHoriz: Boolean,
-    curCellFlag: Boolean,
-    curCellValue: String,
-    showContextKey: String,
-    showErrors: Boolean,
-  },
-  data() {
-    return {
-      halfSecs: 0,
-    };
-  },
-  computed: {
-    flashDash() {
-      return this.halfSecs % 2 === 0 ? "_" : "&nbsp;";
-    },
-  },
-  mounted() {
-    setInterval(() => {
-      this.halfSecs = (this.halfSecs + 1) % 100;
-    }, 500);
-  },
-  methods: {
-    clickFxn(r, c) {
-      this.$emit("contextClick", r, c);
-    },
-    isActive(acrossNum, downNum) {
-      return this.xIsHoriz
-        ? this.xAcrossNum === acrossNum
-        : this.xDownNum === downNum;
-    },
-    isExact(r, c) {
-      return this.xr === r && this.xc === c;
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .clue-ctx {

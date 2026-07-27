@@ -1,3 +1,91 @@
+<script setup lang="ts">
+import { ref, computed, onMounted } from "vue";
+import Stat from "@/utils/Stat";
+import { mapGrade, mapName, prettyCapitalize } from "@/utils/Utils";
+import type { StatFilterMap } from "./types";
+
+const props = withDefaults(
+  defineProps<{
+    currentFilters: StatFilterMap;
+    stats: Stat;
+    startExpanded?: boolean;
+  }>(),
+  {
+    startExpanded: true,
+  },
+);
+
+const emit = defineEmits<{
+  clearFilters: [category?: string];
+}>();
+
+const showFilters = ref(true);
+const addingFilter = ref(false);
+const filterToAdd = ref<string | null>(null);
+
+const currentFilteredStat = computed(() => props.stats.getFiltered(undefined, props.currentFilters));
+
+const addableFilters = computed(() => {
+  const ret: string[] = [];
+  for (const cat of Object.keys(props.currentFilters)) {
+    if (!props.currentFilters[cat]!.show) {
+      ret.push(cat);
+    }
+  }
+  return ret;
+});
+
+interface FilterOption {
+  raw: string;
+  label: string;
+}
+
+const filterOpts = computed(() => {
+  const ret: Record<string, FilterOption[]> = {};
+  for (const cat of Object.keys(props.currentFilters)) {
+    const limitOpts = props.currentFilters[cat]!.val != null;
+    const s = limitOpts ? props.stats : currentFilteredStat.value;
+    const choices: FilterOption[] = [];
+    const rawNames = Object.keys(s.get(cat).subStats);
+    if (cat === "grade") {
+      rawNames.sort((a, b) => (mapGrade(a) as number) - (mapGrade(b) as number));
+    } else {
+      rawNames.sort();
+    }
+    for (const rawName of rawNames) {
+      choices.push({
+        raw: rawName,
+        label: truncateString(mapName(cat, rawName) ?? rawName, 15),
+      });
+    }
+    ret[cat] = choices;
+  }
+  return ret;
+});
+
+function truncateString(str: string, num: number): string {
+  if (str.length <= num) {
+    return str;
+  }
+  return str.slice(0, num) + "...";
+}
+
+function addFilter() {
+  if (filterToAdd.value != null) {
+    props.currentFilters[filterToAdd.value]!.show = true;
+  }
+}
+
+function deleteFitler(catToDelete: string) {
+  props.currentFilters[catToDelete]!.show = false;
+  props.currentFilters[catToDelete]!.val = null;
+}
+
+onMounted(() => {
+  showFilters.value = props.startExpanded;
+});
+</script>
+
 <template>
   <div class="stat-filter">
     <div class="b">
@@ -14,7 +102,7 @@
       <i
         v-show="showFilters"
         class="fas fa-eraser icn"
-        @click="$emit('clearFilters')"
+        @click="emit('clearFilters')"
         v-tooltip="'Clear All Filters'"
       ></i
       >&nbsp;
@@ -40,7 +128,7 @@
         <span class="fstatic topx">
           <i
             class="fas fa-window-close icn"
-            @click="(addingFilter = !addingFilter), (filterToAdd = null)"
+            @click="((addingFilter = !addingFilter), (filterToAdd = null))"
             v-tooltip="'Close'"
           ></i>
         </span>
@@ -48,7 +136,7 @@
       <div>
         <select v-model="filterToAdd" @change="addFilter()">
           <option :value="null">Select Filter</option>
-          <option v-for="fil in addableFilters" :key="fil.id" :value="fil">
+          <option v-for="fil in addableFilters" :key="fil" :value="fil">
             {{ prettyCapitalize(fil) }}
           </option>
         </select>
@@ -57,122 +145,24 @@
     <div v-show="showFilters">
       <div
         v-for="catagory in Object.keys(currentFilters)"
-        :key="catagory.id"
-        v-show="currentFilters[catagory].show"
+        :key="catagory"
+        v-show="currentFilters[catagory]!.show"
       >
         <div class="flex-row">
           <span class="filter-txt">{{ prettyCapitalize(catagory) }} =</span>
-          <!-- eslint-disable-next-line vue/no-mutating-props -->
-          <select class="flex-gs" v-model="currentFilters[catagory].val">
+          <select class="flex-gs" v-model="currentFilters[catagory]!.val">
             <option :value="null">All</option>
-            <option
-              v-for="opt in filterOpts[catagory]"
-              :key="opt.id"
-              :value="opt.raw"
-            >
+            <option v-for="opt in filterOpts[catagory]" :key="opt.raw" :value="opt.raw">
               {{ opt.label }}
             </option>
           </select>
-          <!--<i class="fas fa-cogs icn filter-txt"></i>&nbsp;&nbsp;-->
-          <i
-            class="fas fa-eraser icn filter-txt"
-            @click="$emit('clearFilters', catagory)"
-          ></i>
-          <i
-            class="fas fa-trash icn filter-txt"
-            @click="deleteFitler(catagory)"
-          ></i>
+          <i class="fas fa-eraser icn filter-txt" @click="emit('clearFilters', catagory)"></i>
+          <i class="fas fa-trash icn filter-txt" @click="deleteFitler(catagory)"></i>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import Stat from "@/mixins/Stat.js";
-import Utils from "@/mixins/Utils.js";
-export default {
-  mixins: [Utils],
-  data() {
-    return {
-      showFilters: true,
-      addingFilter: false,
-      filterToAdd: null,
-    };
-  },
-  props: {
-    currentFilters: Object,
-    stats: Stat,
-    startExpanded: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  computed: {
-    currentFilteredStat() {
-      return this.stats.getFiltered(false, this.currentFilters);
-    },
-    addableFilters() {
-      let ret = [];
-      let cats = Object.keys(this.currentFilters);
-      for (let cat of cats) {
-        if (!this.currentFilters[cat].show) {
-          ret.push(cat);
-        }
-      }
-      return ret;
-    },
-    filterOpts() {
-      let ret = {};
-      let cats = Object.keys(this.currentFilters);
-      for (const cat of cats) {
-        let limitOpts = this.currentFilters[cat].val != null;
-        let s = limitOpts ? this.stats : this.currentFilteredStat;
-        let choices = [];
-        let rawNames = Object.keys(s.get(cat).subStats);
-        if (cat === "grade") {
-          rawNames.sort((a, b) => {
-            return this.mapGrade(a) - this.mapGrade(b);
-          });
-        } else {
-          rawNames.sort();
-        }
-        for (let rawName of rawNames) {
-          choices.push({
-            raw: rawName,
-            label: this.truncateString(this.mapName(cat, rawName), 15),
-          });
-        }
-        ret[cat] = choices;
-      }
-      return ret;
-    },
-  },
-  methods: {
-    truncateString(str, num) {
-      if (str.length <= num) {
-        return str;
-      }
-      return str.slice(0, num) + "...";
-    },
-    addFilter() {
-      if (this.filterToAdd != null) {
-        // eslint-disable-next-line vue/no-mutating-props
-        this.currentFilters[this.filterToAdd].show = true;
-      }
-    },
-    deleteFitler(catToDelete) {
-      // eslint-disable-next-line vue/no-mutating-props
-      this.currentFilters[catToDelete].show = false;
-      // eslint-disable-next-line vue/no-mutating-props
-      this.currentFilters[catToDelete].val = null;
-    },
-  },
-  mounted() {
-    this.showFilters = this.startExpanded;
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .filter-txt {

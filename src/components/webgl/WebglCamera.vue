@@ -1,12 +1,6 @@
 <template>
   <div id="webgl-camera-ctrls" class="bg1">
-    <control-help-modal
-      v-if="showModal"
-      @close="modalToggle(false)"
-      title="Camera Control Help"
-      :ctrls="ctrls"
-      :depth="2"
-    />
+    <ControlHelpModal v-if="showModal" @close="modalToggle(false)" title="Camera Control Help" :ctrls="ctrls" :depth="2" />
     <div class="crtl-container">
       <div class="h-item">
         <div>
@@ -14,34 +8,21 @@
           <i class="fas fa-question-circle icn" @click="modalToggle(true)"></i>
         </div>
       </div>
-      <switch-button
-        :isEnabled="kbToggle"
-        class="main-tr"
-        @toggle="kbToggle = !kbToggle"
-        >Show Keyboard Binds</switch-button
-      >
-      <div
-        v-for="cType in Object.keys(gridLayout)"
-        :class="['udlr-group', gridLayout[cType].gClass]"
-        :key="cType.id"
-      >
-        <div class="h2-item">{{ gridLayout[cType].gTitle }}</div>
+      <SwitchButton :isEnabled="kbToggle" class="main-tr" @toggle="kbToggle = !kbToggle">Show Keyboard Binds</SwitchButton>
+      <div v-for="cType in Object.keys(gridLayout)" :class="['udlr-group', gridLayout[cType]!.gClass]" :key="cType">
+        <div class="h2-item">{{ gridLayout[cType]!.gTitle }}</div>
         <!-- eslint-disable vue/no-mutating-props -->
         <div
-          v-for="btn in gridLayout[cType].gKeys"
-          :key="btn.id"
-          :class="
-            btn.cls.concat({
-              pactive: ctrls[cType][btn.ctrlName].updateFlag,
-            })
-          "
-          @mousedown="ctrls[cType][btn.ctrlName].updateFlag = true"
-          @touchstart="ctrls[cType][btn.ctrlName].updateFlag = true"
-          @mouseup="ctrls[cType][btn.ctrlName].updateFlag = false"
-          @touchend="ctrls[cType][btn.ctrlName].updateFlag = false"
+          v-for="btn in gridLayout[cType]!.gKeys"
+          :key="btn.ctrlName"
+          :class="[...btn.cls, { pactive: ctrls[cType]![btn.ctrlName]!.updateFlag }]"
+          @mousedown="ctrls[cType]![btn.ctrlName]!.updateFlag = true"
+          @touchstart="ctrls[cType]![btn.ctrlName]!.updateFlag = true"
+          @mouseup="ctrls[cType]![btn.ctrlName]!.updateFlag = false"
+          @touchend="ctrls[cType]![btn.ctrlName]!.updateFlag = false"
         >
-          <i :class="kbToggle ? '' : ctrls[cType][btn.ctrlName].icon">
-            {{ kbToggle ? ctrls[cType][btn.ctrlName].keybind : "" }}
+          <i :class="kbToggle ? '' : ctrls[cType]![btn.ctrlName]!.icon">
+            {{ kbToggle ? ctrls[cType]![btn.ctrlName]!.keybind : "" }}
           </i>
         </div>
         <!-- eslint-enable vue/no-mutating-props -->
@@ -50,318 +31,55 @@
   </div>
 </template>
 
-<script>
-// Mixin and Class Imports
-import MatrixMath from "@/mixins/webgl/MatrixMath.vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import SwitchButton from "@/components/SwitchButton.vue";
 import ControlHelpModal from "@/components/webgl/ControlHelpModal.vue";
-var mv = MatrixMath.methods;
+import type { CameraCtrlMap } from "@/utils/webgl/types";
+
+defineProps<{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  camera: any;
+  ctrls: CameraCtrlMap;
+}>();
+
 const btnClassList1 = ["cbtn", "prm", "bg1-hvr", "bg1-txt-hvr"];
 const btnClassList2 = ["cbtn", "scnd", "bg1-txt-hvr"];
-export default {
-  name: "WebglCamera",
-  props: {
-    camera: Object,
-    ctrls: Object,
+
+const kbToggle = ref(false);
+const showModal = ref(false);
+
+const gridLayout: Record<string, { gClass: string; gTitle: string; gKeys: { cls: string[]; ctrlName: string }[] }> = {
+  move: {
+    gClass: "ml",
+    gTitle: "Move",
+    gKeys: [
+      { cls: ["u-item"].concat(btnClassList1), ctrlName: "forward" },
+      { cls: ["d-item"].concat(btnClassList1), ctrlName: "backward" },
+      { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
+      { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
+      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "up" },
+      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "down" },
+    ],
   },
-  components: {
-    SwitchButton,
-    ControlHelpModal,
-  },
-  watch: {},
-  data() {
-    return {
-      kbToggle: false,
-      showModal: false,
-      gridLayout: {
-        move: {
-          gClass: "ml",
-          gTitle: "Move",
-          gKeys: [
-            { cls: ["u-item"].concat(btnClassList1), ctrlName: "forward" },
-            { cls: ["d-item"].concat(btnClassList1), ctrlName: "backward" },
-            { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
-            { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
-            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "up" },
-            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "down" },
-          ],
-        },
-        look: {
-          gClass: "mr",
-          gTitle: "Look",
-          gKeys: [
-            { cls: ["u-item"].concat(btnClassList1), ctrlName: "up" },
-            { cls: ["d-item"].concat(btnClassList1), ctrlName: "down" },
-            { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
-            { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
-            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomin" },
-            { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomout" },
-          ],
-        },
-      },
-    };
-  },
-  methods: {
-    modalToggle(b) {
-      this.showModal = b;
-      if (b) {
-        document.documentElement.style.overflow = "hidden";
-      } else {
-        document.documentElement.style.overflow = "auto";
-      }
-    },
-    initCamera(cameraProps) {
-      var camera = {
-        theta: 0.0, // up down angle
-        phi: 0.0, // left right angle
-        alpha: 0.0, // rolling angle
-        dr: mv.rad(1),
-        fovy: 90,
-        aspect: 1,
-        near: 0.1,
-        far: 100,
-        stepSize: 0.25,
-        position: mv.vec3(1, 0, 0), // this is also "eye"
-        initialProps: cameraProps,
-      };
-      this.setProps(camera, cameraProps);
-      return camera;
-    },
-
-    setProps(camera, cameraProps) {
-      for (var prop of Object.keys(camera)) {
-        if (cameraProps[prop]) {
-          camera[prop] = cameraProps[prop];
-        }
-      }
-    },
-
-    defaultControls() {
-      var ctrls = {
-        move: {
-          forward: {
-            keybind: "w",
-            icon: "fas fa-caret-up",
-            desc: "Move forward",
-            holdable: true,
-            updateFlag: false,
-            updateFxn: (vav) => {
-              this.move(vav.camera, 1, 0);
-            },
-          },
-          backward: {
-            keybind: "s",
-            icon: "fas fa-caret-down",
-            desc: "Move backward",
-            holdable: true,
-            updateFlag: false,
-            updateFxn: (vav) => {
-              this.move(vav.camera, -1, 0);
-            },
-          },
-          left: {
-            keybind: "a",
-            icon: "fas fa-caret-left",
-            desc: "Strafe left",
-            holdable: true,
-            updateFlag: false,
-            updateFxn: (vav) => {
-              this.move(vav.camera, -1, 2);
-            },
-          },
-          right: {
-            keybind: "d",
-            icon: "fas fa-caret-right",
-            desc: "Strafe right",
-            holdable: true,
-            updateFlag: false,
-            updateFxn: (vav) => {
-              this.move(vav.camera, 1, 2);
-            },
-          },
-          up: {
-            keybind: "q",
-            icon: "fas fa-arrow-up",
-            desc: "Float upward",
-            holdable: true,
-            updateFlag: false,
-            updateFxn: (vav) => {
-              this.move(vav.camera, 1, 1);
-            },
-          },
-          down: {
-            keybind: "e",
-            icon: "fas fa-arrow-down",
-            desc: "Sink downward",
-            holdable: true,
-            updateFlag: false,
-            updateFxn: (vav) => {
-              this.move(vav.camera, -1, 1);
-            },
-          },
-        },
-        look: {
-          up: {
-            keybind: "u",
-            icon: "fas fa-caret-up",
-            desc: "Look upward",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              if (vav.camera.theta < mv.rad(90)) {
-                vav.camera.theta += vav.camera.dr;
-              }
-            },
-          },
-          down: {
-            keybind: "j",
-            icon: "fas fa-caret-down",
-            desc: "Look downward",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              if (vav.camera.theta > -mv.rad(90)) {
-                vav.camera.theta -= vav.camera.dr;
-              }
-            },
-          },
-          left: {
-            keybind: "h",
-            icon: "fas fa-caret-left",
-            desc: "Look left",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              vav.camera.phi -= vav.camera.dr;
-            },
-          },
-          right: {
-            keybind: "k",
-            icon: "fas fa-caret-right",
-            desc: "Look right",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              vav.camera.phi += vav.camera.dr;
-            },
-          },
-          rollLeft: {
-            keybind: "l",
-            icon: "fas fa-redo",
-            desc: "Roll Camera View Clockwise",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              vav.camera.alpha += vav.camera.dr;
-            },
-          },
-          rollRight: {
-            keybind: "o",
-            icon: "fas fa-redo fa-flip-horizontal",
-            desc: "Roll Camera View Counter-clockwise",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              vav.camera.alpha -= vav.camera.dr;
-            },
-          },
-          zoomin: {
-            keybind: "y",
-            icon: "fas fa-plus",
-            desc: "Narrow field of view",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              vav.camera.fovy -= 1;
-            },
-          },
-          zoomout: {
-            keybind: "i",
-            icon: "fas fa-minus",
-            desc: "Widen field of view",
-            holdable: true,
-            updateFlag: false,
-            updateFxn(vav) {
-              vav.camera.fovy += 1;
-            },
-          },
-        },
-      };
-      return ctrls;
-    },
-
-    viewMatrix(camera) {
-      return mv.lookAt(
-        camera.position,
-        this.atPosition(camera),
-        this.upVector(camera)
-      );
-    },
-
-    perspectiveMatrix(camera) {
-      return mv.perspective(
-        camera.fovy,
-        camera.aspect,
-        camera.near,
-        camera.far
-      );
-    },
-
-    atPosition(camera) {
-      return mv.add(this.atVector(camera), camera.position);
-    },
-
-    atVector(camera) {
-      return mv.vec3(
-        Math.cos(camera.theta) * Math.cos(camera.phi),
-        Math.sin(camera.theta),
-        Math.cos(camera.theta) * Math.sin(camera.phi)
-      );
-    },
-
-    setAt(camera, atPos) {
-      var atVec = mv.normalize(mv.subtract(atPos, camera.position));
-      // phases on arc trig functions are annoying. This may only work in my planets case...
-      // ...will troubleshoot further errors if teh come up
-      var correction = atVec[2] < 0 ? -1 : 1;
-      camera.theta = Math.asin(atVec[1]);
-      camera.phi = Math.acos(atVec[0] / Math.cos(camera.theta)) * correction;
-    },
-
-    upVector(camera) {
-      let cos = {
-        t: Math.cos(camera.theta),
-        p: Math.cos(camera.phi),
-        a: Math.cos(camera.alpha),
-      };
-      let sin = {
-        t: Math.sin(camera.theta),
-        p: Math.sin(camera.phi),
-        a: Math.sin(camera.alpha),
-      };
-      return mv.vec3(
-        -sin.t * cos.p * cos.a - sin.p * sin.a,
-        cos.t * cos.a,
-        -sin.t * sin.p * cos.a + cos.p * sin.a
-      );
-    },
-
-    move(camera, direction, vectorNum) {
-      // create Orthonormal Basis based on camera
-      var up = this.upVector(camera);
-      var forward = this.atVector(camera);
-      var right = mv.normalize(mv.cross(forward, up));
-      var otrhoNormalBasis = [forward, up, right];
-
-      let v = otrhoNormalBasis[vectorNum];
-      let dx = camera.stepSize * direction;
-      camera.position = mv.add(
-        camera.position,
-        mv.vec3(dx * v[0], dx * v[1], dx * v[2])
-      );
-    },
+  look: {
+    gClass: "mr",
+    gTitle: "Look",
+    gKeys: [
+      { cls: ["u-item"].concat(btnClassList1), ctrlName: "up" },
+      { cls: ["d-item"].concat(btnClassList1), ctrlName: "down" },
+      { cls: ["l-item"].concat(btnClassList1), ctrlName: "left" },
+      { cls: ["r-item"].concat(btnClassList1), ctrlName: "right" },
+      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomin" },
+      { cls: ["ul-item"].concat(btnClassList2), ctrlName: "zoomout" },
+    ],
   },
 };
+
+function modalToggle(b: boolean) {
+  showModal.value = b;
+  document.documentElement.style.overflow = b ? "hidden" : "auto";
+}
 </script>
 <style lang="scss">
 @import "@/assets/styles/wrapper.scss";

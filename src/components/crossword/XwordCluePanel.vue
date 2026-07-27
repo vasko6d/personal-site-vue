@@ -1,7 +1,39 @@
+<script setup lang="ts">
+import XwordClues from "@/components/crossword/XwordClues.vue";
+import type { ClueMap } from "./Xword";
+
+interface CluePanelOpts {
+  clues: { contextOpt: string; hideClueOpt: string };
+  errors: { showErrors: boolean };
+}
+
+defineProps<{
+  acrossClueObj: ClueMap;
+  downClueObj: ClueMap;
+  opts: CluePanelOpts;
+  r: number;
+  c: number;
+  acrossNum: number | null;
+  downNum: number | null;
+  curCellValue?: string;
+  showContextKey?: string;
+  curCellFlag?: boolean;
+  puzzleIsHoriz: boolean;
+}>();
+
+const emit = defineEmits<{
+  executePress: [ch: string, opts?: Record<string, unknown>];
+}>();
+
+function executePress(ch: string, opts?: Record<string, unknown>) {
+  emit("executePress", ch, opts);
+}
+</script>
+
 <template>
   <div id="clue-panel" class="bg1">
     <div id="clue-head">Clue Panel</div>
-    <xword-clues
+    <XwordClues
       :clueObj="acrossClueObj"
       :r="r"
       :c="c"
@@ -17,7 +49,7 @@
       :showErrors="opts.errors.showErrors"
       @executePress="executePress"
     />
-    <xword-clues
+    <XwordClues
       :clueObj="downClueObj"
       :r="r"
       :c="c"
@@ -35,33 +67,6 @@
     />
   </div>
 </template>
-
-<script>
-import XwordClues from "@/components/crossword/XwordClues.vue";
-export default {
-  components: {
-    XwordClues,
-  },
-  props: {
-    acrossClueObj: Object,
-    downClueObj: Object,
-    opts: Object,
-    r: Number,
-    c: Number,
-    acrossNum: Number,
-    downNum: Number,
-    curCellValue: String,
-    showContextKey: String,
-    curCellFlag: Boolean,
-    puzzleIsHoriz: Boolean,
-  },
-  methods: {
-    executePress(ch, opts) {
-      this.$emit("executePress", ch, opts);
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";

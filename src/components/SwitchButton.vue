@@ -1,6 +1,24 @@
-<template id="switch-button">
+<script setup lang="ts">
+defineProps<{
+  isEnabled: boolean;
+}>();
+
+const emit = defineEmits<{
+  toggle: [value: boolean];
+}>();
+
+function toggle(isEnabled: boolean) {
+  emit("toggle", !isEnabled);
+}
+</script>
+
+<template>
   <div class="switch-button-control">
-    <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle">
+    <div
+      class="switch-button"
+      :class="{ enabled: isEnabled }"
+      @click="toggle(isEnabled)"
+    >
       <div class="button"></div>
     </div>
     <div class="switch-button-label">
@@ -8,20 +26,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "switch-button",
-  props: {
-    isEnabled: Boolean,
-  },
-  methods: {
-    toggle: function () {
-      this.$emit("toggle", !this.isEnabled);
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";
@@ -39,8 +43,7 @@ export default {
 
     height: $switch-button-height;
     width: calc(#{$switch-button-height} * 2);
-    box-shadow: inset 0px 0px $switch-button-border-thickness 0px
-      rgba(0, 0, 0, 0.33);
+    box-shadow: inset 0px 0px $switch-button-border-thickness 0px rgba(0, 0, 0, 0.33);
     border-radius: if($switch-is-rounded, $switch-button-height, 0);
 
     transition: $switch-transition;

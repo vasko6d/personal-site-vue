@@ -1,4 +1,5 @@
-<template id="modal-template">
+<template>
+  <!-- eslint-disable vue/require-toggle-inside-transition -->
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
@@ -15,40 +16,32 @@
           <div class="modal-body">
             <slot name="body">
               <template v-if="depth === 2">
-                <div v-for="tKey in Object.keys(ctrls)" :key="tKey.id">
+                <div v-for="tKey in Object.keys(ctrls)" :key="tKey">
                   <h3>{{ tKey.replace(/^\w/, (c) => c.toUpperCase()) }}</h3>
-                  <div
-                    class="help-li"
-                    v-for="cKey in Object.keys(ctrls[tKey])"
-                    :key="cKey.id"
-                  >
+                  <div class="help-li" v-for="cKey in Object.keys((ctrls as CameraCtrlMap)[tKey]!)" :key="cKey">
                     <span class="help-itm-title">
-                      <i :class="ctrls[tKey][cKey].icon"></i>
+                      <i :class="(ctrls as CameraCtrlMap)[tKey]![cKey]!.icon"></i>
                       :&nbsp;
                     </span>
                     {{
-                      ctrls[tKey][cKey].desc +
+                      (ctrls as CameraCtrlMap)[tKey]![cKey]!.desc +
                       ". You can also press the ['" +
-                      ctrls[tKey][cKey].keybind +
+                      (ctrls as CameraCtrlMap)[tKey]![cKey]!.keybind +
                       "'] key"
                     }}
                   </div>
                 </div>
               </template>
               <template v-else>
-                <div
-                  class="help-li"
-                  v-for="cKey in Object.keys(ctrls)"
-                  :key="cKey.id"
-                >
+                <div class="help-li" v-for="cKey in Object.keys(ctrls as ActionCtrlMap)" :key="cKey">
                   <span class="help-itm-title">
-                    <i :class="ctrls[cKey].icon"></i>
+                    <i :class="(ctrls as ActionCtrlMap)[cKey]!.icon"></i>
                     :&nbsp;
                   </span>
                   {{
-                    ctrls[cKey].desc +
+                    (ctrls as ActionCtrlMap)[cKey]!.desc +
                     ". You can also press the ['" +
-                    ctrls[cKey].keybind +
+                    (ctrls as ActionCtrlMap)[cKey]!.keybind +
                     "'] key"
                   }}
                 </div>
@@ -66,17 +59,21 @@
       </div>
     </div>
   </transition>
+  <!-- eslint-enable vue/require-toggle-inside-transition -->
 </template>
 
-<script>
-export default {
-  name: "ControlHelpModal",
-  props: {
-    title: String,
-    ctrls: Object,
-    depth: Number,
-  },
-};
+<script setup lang="ts">
+import type { ActionCtrlMap, CameraCtrlMap } from "@/utils/webgl/types";
+
+defineProps<{
+  title: string;
+  ctrls: ActionCtrlMap | CameraCtrlMap;
+  depth: number;
+}>();
+
+defineEmits<{
+  close: [];
+}>();
 </script>
 
 <style lang="scss" scoped>

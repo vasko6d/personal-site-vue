@@ -1,45 +1,139 @@
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import type { ChartOptions } from "chart.js";
+import LineGraph from "@/components/charts/LineGraph.vue";
+import { buildXwordChartData } from "@/utils/Utils";
+import type { XwordStats, XwordStatData } from "./Xword";
+import type { SetOptionPayload } from "./types";
+
+const props = defineProps<{
+  isCompleted: boolean;
+  showErrors: boolean;
+  stats: XwordStats | Record<string, never>;
+  statData: XwordStatData;
+}>();
+
+const emit = defineEmits<{
+  setOption: [payload: SetOptionPayload];
+  clear: [type: "flags" | "wrong" | "clue" | "puzzle"];
+  solve: [type: "cell" | "clue" | "puzzle"];
+}>();
+
+const showFinishHelp = ref(false);
+const showStatHelp = ref(false);
+const showMore = ref(false);
+
+const options: ChartOptions<"line"> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: "Crossword Progress",
+      font: { size: 20 },
+    },
+    legend: {
+      position: "bottom",
+    },
+    zoom: {
+      pan: {
+        enabled: true,
+        mode: "xy",
+      },
+      zoom: {
+        wheel: { enabled: true },
+        pinch: { enabled: true },
+        mode: "xy",
+      },
+    },
+  },
+  scales: {
+    x: {
+      type: "linear",
+      title: { display: true, text: "Time (sec)", font: { size: 14 } },
+    },
+    y: {
+      title: { display: true, text: "Number Cells", font: { size: 14 } },
+    },
+  },
+};
+
+const seriesOpts = [
+  { color: "#6d826c", borderWidth: 2, label: "Filled" },
+  { color: "#32ab2e", borderWidth: 2, label: "Correct" },
+  { color: "#d6b10b", borderWidth: 2, label: "Auto-Solved" },
+  { color: "#cc4027", borderWidth: 2, label: "Shown Wrong" },
+  { color: "#38a0a6", borderWidth: 2, label: "Wrong Cleared" },
+];
+
+const chartData = computed(() => buildXwordChartData(props.statData.timeSeries, seriesOpts));
+
+// only read once isCompleted is true (the v-else template branch), by which
+// point Xword.generateStats() has populated this beyond its initial {}
+const xwordStats = computed(() => props.stats as XwordStats);
+
+const formattedTime = computed(() => {
+  const stats = xwordStats.value;
+  const hours = Math.floor((stats.time / (60 * 24)) % 100);
+  const minutes = Math.floor(stats.time / 60) % 60;
+  const seconds = stats.time % 60;
+  let ret = "";
+  if (hours > 0) {
+    ret += hours + " hour";
+    ret += hours > 1 ? "s, " : ", ";
+  }
+  if (hours > 0 || minutes > 0) {
+    ret += minutes + " minute";
+    ret += minutes > 1 ? "s, " : ", ";
+  }
+  ret += seconds + " second";
+  ret += seconds > 1 ? "s" : "";
+  return ret;
+});
+
+function statWithPercent(stat: number, total: number): string {
+  const perc = Math.round((stat / total) * 100);
+  return stat + " (" + perc + "%)";
+}
+function rickRoll() {
+  window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank")?.focus();
+}
+</script>
+
 <template>
   <div id="x-stat" class="bg1">
     <div class="stat-body">
       <div v-if="!isCompleted">
         <div class="stat-head">
           Finishing Crossword
-          <i
-            class="fas fa-question-circle icn"
-            @click="showFinishHelp = !showFinishHelp"
-          ></i>
+          <i class="fas fa-question-circle icn" @click="showFinishHelp = !showFinishHelp"></i>
         </div>
         <div class="stat-help" v-if="showFinishHelp">
           <ul style="list-style-type: none">
             <li class="help-itm">
-              <strong>[ Submit ]</strong> - Sumbit your current puzzle. All
-              wrong entries will be auto-solved and some basic statistics will
-              be shown.
+              <strong>[ Submit ]</strong> - Sumbit your current puzzle. All wrong entries will be
+              auto-solved and some basic statistics will be shown.
             </li>
             <li class="help-itm">
-              <strong>[ Clear Wrong Answers ]</strong> - All wrong entries will
-              be cleared.
+              <strong>[ Clear Wrong Answers ]</strong> - All wrong entries will be cleared.
             </li>
             <li class="help-itm">
-              <strong>[ Show Errors ]</strong> - Turn on the setting "Show
-              Errors" which will highlight all wrong answers in red. This will
-              only turn on the setting for teh duration of this puzzle.
+              <strong>[ Show Errors ]</strong> - Turn on the setting "Show Errors" which will highlight all
+              wrong answers in red. This will only turn on the setting for teh duration of this puzzle.
             </li>
           </ul>
         </div>
         <div class="btn-wrap">
-          <div class="stat-btn" @click="$emit('solve', 'puzzle')">Submit</div>
+          <div class="stat-btn" @click="emit('solve', 'puzzle')">Submit</div>
         </div>
         <div class="btn-wrap">
-          <div class="stat-btn" @click="$emit('clear', 'wrong')">
-            Clear Wrong Answers
-          </div>
+          <div class="stat-btn" @click="emit('clear', 'wrong')">Clear Wrong Answers</div>
         </div>
         <div class="btn-wrap">
           <div
             class="stat-btn"
             @click="
-              $emit('setOption', {
+              emit('setOption', {
                 optionPath: ['errors', 'showErrors'],
                 value: !showErrors,
                 dontSave: true,
@@ -54,64 +148,48 @@
       <div v-else>
         <div class="stat-head">
           Statistics
-          <i
-            class="fas fa-question-circle icn"
-            @click="showStatHelp = !showStatHelp"
-          ></i>
+          <i class="fas fa-question-circle icn" @click="showStatHelp = !showStatHelp"></i>
         </div>
         <div class="stat-help" v-if="showStatHelp">
           <ul style="list-style-type: none">
             <li class="help-itm">
-              <strong>[ Solve Time ]</strong> - How long the puzzle took to
-              solve. Note that timer starts once crossword is opened and will
-              continue to run while the page is open.
+              <strong>[ Solve Time ]</strong> - How long the puzzle took to solve. Note that timer starts
+              once crossword is opened and will continue to run while the page is open.
             </li>
             <li class="help-itm">
-              <strong>[ Score ]</strong> - The number represents how many cells
-              you manually entered correctly without the direct usage of tools.
-              The percent is calculated as (score / total input cells) * 100
+              <strong>[ Score ]</strong> - The number represents how many cells you manually entered
+              correctly without the direct usage of tools. The percent is calculated as (score / total input
+              cells) * 100
             </li>
             <li class="help-itm">
-              <strong>[ ...more stats ]</strong> - Click this to see more stats
-              including a graph showing your progress over time. Will read as
-              "...less stats" when expanded.
+              <strong>[ ...more stats ]</strong> - Click this to see more stats including a graph showing
+              your progress over time. Will read as "...less stats" when expanded.
+            </li>
+            <li class="help-itm"><strong>[ Total Cells ]</strong> - Total number of cells including black.</li>
+            <li class="help-itm">
+              <strong>[ Input Cells ]</strong> - Total number of input cells. Percent is calculated as (input
+              cells / total cells) * 100
             </li>
             <li class="help-itm">
-              <strong>[ Total Cells ]</strong> - Total number of cells including
-              black.
+              <strong>[ Auto Solved ]</strong> - Total number of cells solved via one of the "solve" tools.
+              The cell in the grid will be highlighted green.
             </li>
             <li class="help-itm">
-              <strong>[ Input Cells ]</strong> - Total number of input cells.
-              Percent is calculated as (input cells / total cells) * 100
+              <strong>[ Shown Error ]</strong> - Total number of cells that were colored red at some point to
+              indicate an error. This will only be non-zero if the setting "Show Errors" is set to true.
             </li>
             <li class="help-itm">
-              <strong>[ Auto Solved ]</strong> - Total number of cells solved
-              via one of the "solve" tools. The cell in the grid will be
-              highlighted green.
+              <strong>[ Wrong Cleared ]</strong> - Total number of cells that were cleared using the tool
+              "Clear wrong entries".
             </li>
             <li class="help-itm">
-              <strong>[ Shown Error ]</strong> - Total number of cells that were
-              colored red at some point to indicate an error. This will only be
-              non-zero if the setting "Show Errors" is set to true.
-            </li>
-            <li class="help-itm">
-              <strong>[ Wrong Cleared ]</strong> - Total number of cells that
-              were cleared using the tool "Clear wrong entries".
-            </li>
-            <li class="help-itm">
-              <strong>[ Crossword Progress ]</strong> - A chart.js graph that
-              shows the above counts over time. Note that you can click the
-              individal entries in the legend to show/hide each individual data
-              series and the graph will rescale dynamically. You can also pan
-              and zoom the chart.
+              <strong>[ Crossword Progress ]</strong> - A chart.js graph that shows the above counts over
+              time. Note that you can click the individal entries in the legend to show/hide each individual
+              data series and the graph will rescale dynamically. You can also pan and zoom the chart.
             </li>
           </ul>
         </div>
-        <div
-          v-show="showStatHelp"
-          class="closer icn"
-          @click="showStatHelp = false"
-        >
+        <div v-show="showStatHelp" class="closer icn" @click="showStatHelp = false">
           ...hide help
           <i class="fas fa-caret-up"></i>
         </div>
@@ -122,7 +200,7 @@
         <div class="stat-row">
           <div class="stat-type">Score :</div>
           <div class="stat-val" @click="rickRoll()">
-            {{ statWithPercent(stats.numTrulySolved, stats.inputCells) }}
+            {{ statWithPercent(xwordStats.numTrulySolved, xwordStats.inputCells) }}
           </div>
         </div>
 
@@ -139,173 +217,40 @@
         <div v-show="showMore">
           <div class="stat-row">
             <div class="stat-type">Total Cells :</div>
-            <div class="stat-val">{{ stats.totalCells }}</div>
+            <div class="stat-val">{{ xwordStats.totalCells }}</div>
           </div>
           <div class="stat-row">
             <div class="stat-type">Input Cells :</div>
             <div class="stat-val">
-              {{ statWithPercent(stats.inputCells, stats.totalCells) }}
+              {{ statWithPercent(xwordStats.inputCells, xwordStats.totalCells) }}
             </div>
           </div>
           <div class="stat-row">
             <div class="stat-type">Auto-Solved :</div>
             <div class="stat-val">
-              {{ statWithPercent(stats.numAutoSolved, stats.inputCells) }}
+              {{ statWithPercent(xwordStats.numAutoSolved, xwordStats.inputCells) }}
             </div>
           </div>
           <div class="stat-row">
             <div class="stat-type">Shown Error :</div>
             <div class="stat-val">
-              {{ statWithPercent(stats.numShownError, stats.inputCells) }}
+              {{ statWithPercent(xwordStats.numShownError, xwordStats.inputCells) }}
             </div>
           </div>
           <div class="stat-row">
             <div class="stat-type">Wrong Cleared :</div>
             <div class="stat-val">
-              {{ statWithPercent(stats.numCleared, stats.inputCells) }}
+              {{ statWithPercent(xwordStats.numCleared, xwordStats.inputCells) }}
             </div>
           </div>
           <div class="bg1 chart-container">
-            <line-graph :chartData="chartData" :options="options" />
+            <LineGraph :chartData="chartData" :options="options" />
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import LineGraph from "@/components/charts/LineGraph.vue";
-import Utils from "@/mixins/Utils.js";
-export default {
-  components: {
-    LineGraph,
-  },
-  mixins: [Utils],
-  props: {
-    isCompleted: Boolean,
-    showErrors: Boolean,
-    stats: Object,
-    statData: Object,
-  },
-  data() {
-    return {
-      showFinishHelp: false,
-      showStatHelp: false,
-      showMore: false,
-      options: {
-        responsive: true,
-        title: {
-          display: true,
-          text: "Crossword Progress",
-          fontSize: 20,
-        },
-        legend: {
-          position: "bottom",
-        },
-        scales: {
-          xAxes: [
-            {
-              type: "linear",
-              scaleLabel: {
-                display: true,
-                labelString: "Time (sec)",
-                fontSize: 14,
-              },
-            },
-          ],
-          yAxes: [
-            {
-              scaleLabel: {
-                display: true,
-                labelString: "Number Cells",
-                fontSize: 14,
-              },
-            },
-          ],
-        },
-        pan: {
-          enabled: true,
-          mode: "xy",
-          speed: 10,
-          threshold: 10,
-        },
-        zoom: {
-          enabled: true,
-          drag: false,
-
-          // Zooming directions. Remove the appropriate direction to disable
-          // Eg. 'y' would only allow zooming in the y direction
-          mode: "xy",
-        },
-      },
-      seriesOpts: [
-        {
-          color: "#6d826c",
-          borderWidth: 2,
-          label: "Filled",
-        },
-        {
-          color: "#32ab2e",
-          borderWidth: 2,
-          label: "Correct",
-        },
-        {
-          color: "#d6b10b",
-          borderWidth: 2,
-          label: "Auto-Solved",
-        },
-        {
-          color: "#cc4027",
-          borderWidth: 2,
-          label: "Shown Wrong",
-        },
-        {
-          color: "#38a0a6",
-          borderWidth: 2,
-          label: "Wrong Cleared",
-        },
-      ],
-    };
-  },
-  computed: {
-    chartData() {
-      return this.buildXwordChartData(
-        this.statData.timeSeries,
-        this.seriesOpts
-      );
-    },
-    formattedTime() {
-      let hours = Math.floor((this.stats.time / (60 * 24)) % 100);
-      let minutes = Math.floor(this.stats.time / 60) % 60;
-      let seconds = this.stats.time % 60;
-      let ret = "";
-      if (hours > 0) {
-        ret += hours + " hour";
-        ret += hours > 1 ? "s, " : ", ";
-      }
-      if (hours > 0 || minutes > 0) {
-        ret += minutes + " minute";
-        ret += minutes > 1 ? "s, " : ", ";
-      }
-      ret += seconds + " second";
-      ret += seconds > 1 ? "s" : "";
-      return ret;
-    },
-  },
-  methods: {
-    statWithPercent(stat, total) {
-      let perc = Math.round((stat / total) * 100);
-      return stat + " (" + perc + "%)";
-    },
-    rickRoll() {
-      window
-        .open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank")
-        .focus();
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 #x-stat {
@@ -356,6 +301,7 @@ export default {
   }
   .chart-container {
     margin: 7px;
+    height: 400px;
   }
   .stat-body {
     padding: 7px;

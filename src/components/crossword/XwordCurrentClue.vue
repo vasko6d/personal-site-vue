@@ -1,41 +1,32 @@
+<script setup lang="ts">
+defineProps<{
+  clue: { num: number | null; txt: string; isAcross: boolean };
+}>();
+
+const emit = defineEmits<{
+  executePress: [ch: string, opts?: Record<string, unknown>];
+}>();
+
+function moveClue(forward: boolean) {
+  emit("executePress", forward ? "$TAB" : "$!TAB");
+}
+function switchDirection() {
+  emit("executePress", "$SWITCHDIRECTION");
+}
+</script>
+
 <template>
   <div id="current-clue">
     <div class="clue-flex">
-      <i
-        class="fas fa-caret-left bg1-hvr bg1-txt-hvr"
-        @click="moveClue(false)"
-      ></i>
+      <i class="fas fa-caret-left bg1-hvr bg1-txt-hvr" @click="moveClue(false)"></i>
       <div class="clue-body bg1-hvr bg1-txt-hvr" @click="switchDirection">
         {{ clue.num }} - {{ clue.isAcross ? "Across" : "Down" }}&nbsp;
         <div class="indent">{{ clue.txt }}</div>
       </div>
-      <i
-        class="fas fa-caret-right bg1-hvr bg1-txt-hvr"
-        @click="moveClue(true)"
-      ></i>
+      <i class="fas fa-caret-right bg1-hvr bg1-txt-hvr" @click="moveClue(true)"></i>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    clue: Object,
-  },
-  methods: {
-    moveClue(forward) {
-      if (forward) {
-        this.$emit("executePress", "$TAB");
-      } else {
-        this.$emit("executePress", "$!TAB");
-      }
-    },
-    switchDirection() {
-      this.$emit("executePress", "$SWITCHDIRECTION");
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";

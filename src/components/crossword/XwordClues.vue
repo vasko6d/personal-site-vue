@@ -1,3 +1,72 @@
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import XwordClueContext from "@/components/crossword/XwordClueContext.vue";
+import type { Clue, ClueMap } from "./Xword";
+
+const props = defineProps<{
+  clueObj: ClueMap;
+  r: number;
+  c: number;
+  acrossNum: number | null;
+  downNum: number | null;
+  direction: string;
+  curCellValue?: string;
+  contextOpt: string;
+  hideClueOpt: string;
+  showContextKey?: string;
+  curCellFlag?: boolean;
+  puzzleIsHoriz: boolean;
+  showErrors: boolean;
+}>();
+
+const emit = defineEmits<{
+  executePress: [ch: string, opts?: Record<string, unknown>];
+}>();
+
+const showClues = ref(false);
+
+const clueHead = computed(() => props.direction.charAt(0).toUpperCase() + props.direction.slice(1));
+
+function isActive(num: string): boolean {
+  return props.puzzleIsHoriz
+    ? props.direction === "across" && props.acrossNum == Number(num)
+    : props.direction === "down" && props.downNum == Number(num);
+}
+function contextClick(r: number, c: number) {
+  emit("executePress", "$SETPOSITION", { r: r, c: c, forceSpecialKeyboard: true });
+  emit("executePress", "$SETDIRECTION", {
+    direction: props.direction === "across",
+    forceSpecialKeyboard: true,
+  });
+}
+function showClue(clue: Clue): boolean {
+  let ret = props.hideClueOpt === "never";
+  ret = ret || (props.hideClueOpt === "onFill" && !clue.filled);
+  ret = ret || (props.hideClueOpt === "onCorrect" && !clue.correct);
+  return ret;
+}
+function relevantClueCount(): string {
+  const numClues = Object.keys(props.clueObj).length;
+  let ret = numClues.toString() + " total";
+  if (props.hideClueOpt != "never") {
+    let cnt = 0;
+    let suffix = " filled";
+    if (props.hideClueOpt === "onFill") {
+      for (const k of Object.keys(props.clueObj)) {
+        cnt += props.clueObj[k]!.filled ? 1 : 0;
+      }
+    } else if (props.hideClueOpt == "onCorrect") {
+      for (const k of Object.keys(props.clueObj)) {
+        cnt += props.clueObj[k]!.correct ? 1 : 0;
+      }
+      suffix = " correct";
+    }
+    ret = cnt.toString() + "/" + numClues.toString() + suffix;
+  }
+  return ret;
+}
+</script>
+
 <template>
   <div class="clues">
     <div class="clue-h icn" @click="showClues = !showClues">
@@ -11,36 +80,24 @@
       ></i>
     </div>
     <div class="clue-list" v-if="showClues">
-      <div
-        v-for="(clue, num) in clueObj"
-        :class="['clue', { active: isActive(num) }]"
-        :key="clue.id"
-      >
+      <div v-for="(clue, num) in clueObj" :class="['clue', { active: isActive(num) }]" :key="num">
         <div v-if="showClue(clue)">
           <div class="clue-num-txt">
             <div>{{ num }}.</div>
             <div
               class="clue-txt"
-              @click="
-                $emit('executePress', '$TOGGLESHOWCONTEXT', {
-                  direction: direction,
-                  number: num,
-                })
-              "
+              @click="emit('executePress', '$TOGGLESHOWCONTEXT', { direction: direction, number: num })"
             >
               {{ clue.txt }}
             </div>
           </div>
-          <xword-clue-context
-            v-if="
-              contextOpt === 'always' ||
-              (contextOpt === 'toggle' && clue.showContext)
-            "
+          <XwordClueContext
+            v-if="contextOpt === 'always' || (contextOpt === 'toggle' && clue.showContext)"
             :context="clue.ctx"
             :xr="r"
             :xc="c"
-            :xAcrossNum="acrossNum"
-            :xDownNum="downNum"
+            :xAcrossNum="acrossNum ?? -1"
+            :xDownNum="downNum ?? -1"
             :xIsHoriz="puzzleIsHoriz"
             :curCellValue="curCellValue"
             :curCellFlag="curCellFlag"
@@ -53,85 +110,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import XwordClueContext from "@/components/crossword/XwordClueContext.vue";
-export default {
-  name: "XwordClues",
-  components: {
-    XwordClueContext,
-  },
-  props: {
-    clueObj: Object,
-    r: Number,
-    c: Number,
-    acrossNum: Number,
-    downNum: Number,
-    direction: String,
-    curCellValue: String,
-    contextOpt: String,
-    hideClueOpt: String,
-    showContextKey: String,
-    curCellFlag: Boolean,
-    puzzleIsHoriz: Boolean,
-    showErrors: Boolean,
-  },
-  data() {
-    return {
-      showClues: false,
-    };
-  },
-  computed: {
-    clueHead() {
-      return this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
-    },
-  },
-  methods: {
-    isActive(num) {
-      return this.puzzleIsHoriz
-        ? this.direction === "across" && this.acrossNum == num
-        : this.direction === "down" && this.downNum == num;
-    },
-    contextClick(r, c) {
-      this.$emit("executePress", "$SETPOSITION", {
-        r: r,
-        c: c,
-        forceSpecialKeyboard: true,
-      });
-      this.$emit("executePress", "$SETDIRECTION", {
-        direction: this.direction === "across",
-        forceSpecialKeyboard: true,
-      });
-    },
-    showClue(clue) {
-      let ret = this.hideClueOpt === "never";
-      ret = ret || (this.hideClueOpt === "onFill" && !clue.filled);
-      ret = ret || (this.hideClueOpt === "onCorrect" && !clue.correct);
-      return ret;
-    },
-    relevantClueCount() {
-      let numClues = Object.keys(this.clueObj).length;
-      let ret = numClues.toString() + " total";
-      if (this.hideClueOpt != "never") {
-        let cnt = 0;
-        let suffix = " filled";
-        if (this.hideClueOpt === "onFill") {
-          for (let k of Object.keys(this.clueObj)) {
-            cnt += this.clueObj[k].filled ? 1 : 0;
-          }
-        } else if (this.hideClueOpt == "onCorrect") {
-          for (let k of Object.keys(this.clueObj)) {
-            cnt += this.clueObj[k].correct ? 1 : 0;
-          }
-          suffix = " correct";
-        }
-        ret = cnt.toString() + "/" + numClues.toString() + suffix;
-      }
-      return ret;
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";

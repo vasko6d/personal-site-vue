@@ -1,5 +1,24 @@
+<script setup lang="ts">
+import FontAwesomeCheck from "@/components/FontAwesomeCheck.vue";
+import type { SetOptionPayload, XwordOpts } from "./types";
+
+defineProps<{
+  opts: XwordOpts;
+}>();
+
+defineEmits<{
+  close: [];
+  defaultSettings: [];
+  setOption: [payload: SetOptionPayload];
+  setNativeKeyboardOption: [payload: SetOptionPayload];
+}>();
+</script>
+
 <template>
   <div id="xword-opts">
+    <!-- toggled by the parent's v-if="showSettings", not a v-if/v-show in here -->
+    <!-- toggled by the parent's v-if="showSettings", not a v-if/v-show in here -->
+    <!-- eslint-disable vue/require-toggle-inside-transition -->
     <transition name="modal">
       <div class="modal-mask">
         <div class="modal-wrapper">
@@ -8,10 +27,7 @@
               <slot name="header">
                 <h2>
                   Settings&nbsp;
-                  <i
-                    class="fas fa-window-close icn"
-                    @click="$emit('close')"
-                  ></i>
+                  <i class="fas fa-window-close icn" @click="$emit('close')"></i>
                 </h2>
               </slot>
             </div>
@@ -22,7 +38,7 @@
                 <div class="tool-btn danger" @click="$emit('defaultSettings')">
                   <i class="far fa-trash-alt"></i>&nbsp;Reset to default
                 </div>
-                <font-awesome-check
+                <FontAwesomeCheck
                   :enabled="opts.errors.showErrors"
                   desc="Show errors"
                   @toggle="
@@ -32,7 +48,7 @@
                     })
                   "
                 />
-                <font-awesome-check
+                <FontAwesomeCheck
                   :enabled="opts.navigation.autoSkipFilledCells"
                   desc="Skip over filled cells when typing"
                   @toggle="
@@ -42,7 +58,7 @@
                     })
                   "
                 />
-                <font-awesome-check
+                <FontAwesomeCheck
                   :enabled="opts.keyboard.showOnPageKeyboard"
                   desc="Show on-page keyboard"
                   @toggle="
@@ -52,7 +68,7 @@
                     })
                   "
                 />
-                <font-awesome-check
+                <FontAwesomeCheck
                   :enabled="opts.keyboard.enableNativeKeyboardToggle"
                   desc="Enable toggle for the native keyboard"
                   @toggle="
@@ -63,7 +79,7 @@
                   "
                 />
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Clue Panel</h4>
-                <font-awesome-check
+                <FontAwesomeCheck
                   :enabled="opts.clues.showCluePanel"
                   desc="Show Clue Panel"
                   @toggle="
@@ -77,31 +93,21 @@
                   <div class="collapse-opts" v-if="opts.clues.showCluePanel">
                     <div class="choice-opt">
                       <h4>Clue Context</h4>
-                      <div v-for="opt in opts.clues.contextOpts" :key="opt.id">
-                        <font-awesome-check
+                      <div v-for="opt in opts.clues.contextOpts" :key="opt.val">
+                        <FontAwesomeCheck
                           :enabled="opt.val === opts.clues.contextOpt"
                           :desc="opt.name"
-                          @toggle="
-                            $emit('setOption', {
-                              optionPath: ['clues', 'contextOpt'],
-                              value: opt.val,
-                            })
-                          "
+                          @toggle="$emit('setOption', { optionPath: ['clues', 'contextOpt'], value: opt.val })"
                         />
                       </div>
                     </div>
                     <div class="choice-opt">
                       <h4>Clue Visibility</h4>
-                      <div v-for="opt in opts.clues.hideClueOpts" :key="opt.id">
-                        <font-awesome-check
+                      <div v-for="opt in opts.clues.hideClueOpts" :key="opt.val">
+                        <FontAwesomeCheck
                           :enabled="opt.val === opts.clues.hideClueOpt"
                           :desc="opt.name"
-                          @toggle="
-                            $emit('setOption', {
-                              optionPath: ['clues', 'hideClueOpt'],
-                              value: opt.val,
-                            })
-                          "
+                          @toggle="$emit('setOption', { optionPath: ['clues', 'hideClueOpt'], value: opt.val })"
                         />
                       </div>
                     </div>
@@ -110,16 +116,11 @@
                 <h4><i class="fas fa-caret-right"></i>&nbsp;Current Clue</h4>
                 <div class="choice-opt">
                   <h4>Location</h4>
-                  <div v-for="opt in opts.currentClue.locOpts" :key="opt.id">
-                    <font-awesome-check
+                  <div v-for="opt in opts.currentClue.locOpts" :key="opt.val">
+                    <FontAwesomeCheck
                       :enabled="opt.val === opts.currentClue.loc"
                       :desc="opt.name"
-                      @toggle="
-                        $emit('setOption', {
-                          optionPath: ['currentClue', 'loc'],
-                          value: opt.val,
-                        })
-                      "
+                      @toggle="$emit('setOption', { optionPath: ['currentClue', 'loc'], value: opt.val })"
                     />
                   </div>
                 </div>
@@ -128,10 +129,7 @@
             <div class="modal-footer">
               <slot name="footer">
                 <h2>
-                  <i
-                    class="fas fa-check-square icn"
-                    @click="$emit('close')"
-                  ></i>
+                  <i class="fas fa-check-square icn" @click="$emit('close')"></i>
                 </h2>
               </slot>
             </div>
@@ -139,21 +137,9 @@
         </div>
       </div>
     </transition>
+    <!-- eslint-enable vue/require-toggle-inside-transition -->
   </div>
 </template>
-
-<script>
-import FontAwesomeCheck from "@/components/FontAwesomeCheck.vue";
-export default {
-  name: "XwordSettingsModal",
-  components: {
-    FontAwesomeCheck,
-  },
-  props: {
-    opts: Object,
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/modal-shared.scss";

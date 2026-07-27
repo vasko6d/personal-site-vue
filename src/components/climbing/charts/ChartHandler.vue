@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import Stat from "@/utils/Stat";
+import ChartView from "./ChartView.vue";
+import SettingView from "./SettingView.vue";
+import AscentView from "./AscentView.vue";
+import type { AggOpts, Chart } from "../types";
+
+const props = defineProps<{
+  chart: Chart;
+  stats: Stat;
+}>();
+
+const emit = defineEmits<{
+  close: [];
+  changeChartType: [type: string];
+  changeAggregator: [opts: AggOpts];
+  changeBaseStat: [statBase: string];
+  changeSplitStat: [splitStat: string | null];
+  changeSplitLimit: [splitLimit: number];
+  changeSortOrder: [sortByName: boolean];
+  changeLimit: [limit: number];
+}>();
+
+const viewType = ref<"chart" | "settings" | "ascents">("chart");
+
+const showChart = computed(() => {
+  const opts = props.chart.opts;
+  return !(
+    (opts.filters && opts.filters[props.chart.statBase] && opts.filters[props.chart.statBase]!.val) ||
+    opts.hideChart
+  );
+});
+
+function chartView() {
+  viewType.value = "chart";
+}
+</script>
+
 <template>
   <div class="chart bg1" v-if="showChart">
     <div>
@@ -5,9 +44,7 @@
         <span>
           <i
             class="fas fa-mountain icn"
-            :class="{
-              'icn-a': viewType === 'ascents',
-            }"
+            :class="{ 'icn-a': viewType === 'ascents' }"
             @click="viewType = 'ascents'"
             v-tooltip="'Show Ascents'"
           ></i
@@ -16,9 +53,7 @@
         <span v-if="chart.type != 'grade'">
           <i
             class="fas fa-cogs icn"
-            :class="{
-              'icn-a': viewType === 'settings',
-            }"
+            :class="{ 'icn-a': viewType === 'settings' }"
             @click="viewType = 'settings'"
             v-tooltip="'Settings'"
           ></i
@@ -38,76 +73,26 @@
           ></i>
         </span>
         <span class="middle"></span>
-        <i
-          class="fas fa-window-close icn"
-          @click="$emit('close')"
-          v-tooltip="'Discard Chart'"
-        ></i>
+        <i class="fas fa-window-close icn" @click="emit('close')" v-tooltip="'Discard Chart'"></i>
       </div>
     </div>
     <h2>{{ chart.title }}</h2>
-    <chart-view v-show="viewType === 'chart'" :chart="chart" />
-    <setting-view
+    <ChartView v-show="viewType === 'chart'" :chart="chart" />
+    <SettingView
       v-if="viewType === 'settings'"
       :chart="chart"
       :stats="stats"
-      @changeChartType="$emit('changeChartType', $event), chartView()"
-      @changeAggregator="$emit('changeAggregator', $event), chartView()"
-      @changeBaseStat="$emit('changeBaseStat', $event), chartView()"
-      @changeSplitStat="$emit('changeSplitStat', $event), chartView()"
-      @changeSplitLimit="$emit('changeSplitLimit', $event), chartView()"
-      @changeSortOrder="$emit('changeSortOrder', $event), chartView()"
-      @changeLimit="$emit('changeLimit', $event), chartView()"
+      @changeChartType="(emit('changeChartType', $event), chartView())"
+      @changeAggregator="(emit('changeAggregator', $event), chartView())"
+      @changeBaseStat="(emit('changeBaseStat', $event), chartView())"
+      @changeSplitStat="(emit('changeSplitStat', $event), chartView())"
+      @changeSplitLimit="(emit('changeSplitLimit', $event), chartView())"
+      @changeSortOrder="(emit('changeSortOrder', $event), chartView())"
+      @changeLimit="(emit('changeLimit', $event), chartView())"
     />
-    <ascent-view
-      v-else-if="viewType === 'ascents'"
-      :chart="chart"
-      :stats="stats"
-    />
+    <AscentView v-else-if="viewType === 'ascents'" :chart="chart" :stats="stats" />
   </div>
 </template>
-
-<script>
-import Stat from "@/mixins/Stat.js";
-import Utils from "@/mixins/Utils.js";
-import ChartView from "./ChartView.vue";
-import SettingView from "./SettingView.vue";
-import AscentView from "./AscentView.vue";
-export default {
-  mixins: [Utils],
-  components: {
-    ChartView,
-    SettingView,
-    AscentView,
-  },
-  props: {
-    chart: Object,
-    stats: Stat,
-  },
-  data() {
-    return {
-      // chart, settings, ascents
-      viewType: "chart",
-    };
-  },
-  computed: {
-    showChart() {
-      return !(
-        (this.chart.opts &&
-          this.chart.opts.filters &&
-          this.chart.opts.filters[this.chart.statBase] &&
-          this.chart.opts.filters[this.chart.statBase].val) ||
-        this.chart.opts.hideChart
-      );
-    },
-  },
-  methods: {
-    chartView() {
-      this.viewType = "chart";
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .chart-header {

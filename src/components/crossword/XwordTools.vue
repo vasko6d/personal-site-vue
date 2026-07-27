@@ -1,5 +1,17 @@
+<script setup lang="ts">
+defineEmits<{
+  close: [];
+  saveProgress: [];
+  clear: [type: "flags" | "wrong" | "clue" | "puzzle"];
+  solve: [type: "cell" | "clue" | "puzzle"];
+}>();
+</script>
+
 <template>
   <div id="xword-tools">
+    <!-- toggled by the parent's v-if="showTools", not a v-if/v-show in here -->
+    <!-- toggled by the parent's v-if="showTools", not a v-if/v-show in here -->
+    <!-- eslint-disable vue/require-toggle-inside-transition -->
     <transition name="modal">
       <div class="modal-mask">
         <div class="modal-wrapper">
@@ -8,10 +20,7 @@
               <slot name="header">
                 <h2>
                   Tools&nbsp;
-                  <i
-                    class="fas fa-window-close icn"
-                    @click="$emit('close')"
-                  ></i>
+                  <i class="fas fa-window-close icn" @click="$emit('close')"></i>
                 </h2>
               </slot>
             </div>
@@ -42,10 +51,7 @@
                   </div>
                 </div>
                 <div>
-                  <div
-                    class="tool-btn danger"
-                    @click="$emit('clear', 'puzzle')"
-                  >
+                  <div class="tool-btn danger" @click="$emit('clear', 'puzzle')">
                     <i class="far fa-trash-alt"></i>&nbsp;Clear entire puzzle
                   </div>
                 </div>
@@ -70,10 +76,7 @@
             <div class="modal-footer">
               <slot name="footer">
                 <h2>
-                  <i
-                    class="fas fa-check-square icn"
-                    @click="$emit('close')"
-                  ></i>
+                  <i class="fas fa-check-square icn" @click="$emit('close')"></i>
                 </h2>
               </slot>
             </div>
@@ -81,14 +84,9 @@
         </div>
       </div>
     </transition>
+    <!-- eslint-enable vue/require-toggle-inside-transition -->
   </div>
 </template>
-
-<script>
-export default {
-  name: "XwordToolModal",
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/modal-shared.scss";

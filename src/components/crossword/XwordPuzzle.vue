@@ -1,10 +1,63 @@
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import type { PuzzleCell } from "./Xword";
+
+const props = defineProps<{
+  puzzle: PuzzleCell[][];
+  r: number;
+  c: number;
+  isHoriz: boolean;
+  acrossNum: number | null;
+  downNum: number | null;
+  showErrors: boolean;
+}>();
+
+const emit = defineEmits<{
+  executePress: [ch: string, opts?: Record<string, unknown>];
+  updateShownWrong: [cell: PuzzleCell];
+}>();
+
+const halfSecs = ref(0);
+
+const flashDash = computed(() => (halfSecs.value % 2 === 0 ? "_" : "&nbsp"));
+
+let interval: ReturnType<typeof setInterval> | undefined;
+onMounted(() => {
+  interval = setInterval(() => {
+    halfSecs.value = (halfSecs.value + 1) % 100;
+  }, 500);
+});
+onUnmounted(() => {
+  clearInterval(interval);
+});
+
+function isInput(color: string): boolean {
+  return color != "black";
+}
+function isActive(cell: PuzzleCell): boolean {
+  return props.isHoriz ? props.acrossNum === cell.acrossNum : props.downNum === cell.downNum;
+}
+function isExact(r: number, c: number): boolean {
+  return r === props.r && c == props.c;
+}
+function clickFxn(r: number, c: number, color: string) {
+  if (isInput(color)) {
+    if (isExact(r, c)) {
+      emit("executePress", "$SWITCHDIRECTION");
+    } else {
+      emit("executePress", "$SETPOSITION", { r: r, c: c });
+    }
+  }
+}
+</script>
+
 <template>
   <div id="puzzle">
-    <div class="p-row" v-for="(row, r) in puzzle" :key="row.id">
+    <div class="p-row" v-for="(row, r) in puzzle" :key="r">
       <div
         class="p-cell"
         v-for="(cell, c) in row"
-        :key="cell.id"
+        :key="c"
         @click="clickFxn(r, c, cell.color)"
         v-tooltip="{
           content: cell.entry + flashDash,
@@ -45,68 +98,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    puzzle: Array,
-    r: Number,
-    c: Number,
-    isHoriz: Boolean,
-    acrossNum: Number,
-    downNum: Number,
-    showErrors: Boolean,
-  },
-  data() {
-    return {
-      halfSecs: 0,
-    };
-  },
-  computed: {
-    flashDash() {
-      return this.halfSecs % 2 === 0 ? "_" : "&nbsp";
-    },
-  },
-  mounted() {
-    setInterval(() => {
-      this.halfSecs = (this.halfSecs + 1) % 100;
-    }, 500);
-  },
-  methods: {
-    isInput(color) {
-      return color != "black";
-    },
-    isSpecialInput(entry) {
-      return entry && !entry.match(/^[A-Z]$/);
-    },
-    isActive(cell) {
-      return this.isHoriz
-        ? this.acrossNum === cell.acrossNum
-        : this.downNum === cell.downNum;
-    },
-    isExact(r, c) {
-      return r === this.r && c == this.c;
-    },
-    clickFxn(r, c, color) {
-      if (this.isInput(color)) {
-        if (this.isExact(r, c)) {
-          this.$emit("executePress", "$SWITCHDIRECTION");
-        } else {
-          this.$emit("executePress", "$SETPOSITION", { r: r, c: c });
-        }
-      }
-    },
-    calcWrong(cell) {
-      // this is the ONE place that shown wrong us updated... dangerous
-      let shownWrong = this.showErrors && cell.wrong && cell.entry;
-      if (!cell.wasShownWrong && shownWrong) {
-        this.$emit("updateShownWrong", cell);
-      }
-      return shownWrong;
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 #puzzle {

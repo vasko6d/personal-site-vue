@@ -1,14 +1,10 @@
+<script setup lang="ts"></script>
+
 <template>
   <div id="not-found">
     <div id="anim"></div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "NotFound",
-};
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/wrapper.scss";
