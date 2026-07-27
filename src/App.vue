@@ -125,7 +125,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-@import './assets/styles/wrapper.scss';
+@use './assets/styles/wrapper';
 
 *,
 ::before,
@@ -194,7 +194,12 @@ onMounted(() => {
         margin-top: 0.55em;
         transform-origin: 0 0;
         border-radius: 0.35em;
-        background-color: rgba($nav-bg, 0.5);
+        // $nav-bg isn't in scope here (theme mixins are include-only, not module
+        // variables) - under the old @import, this always statically resolved to
+        // dark-theme's $nav-bg regardless of the active theme class, since it's
+        // the only unscoped (non-.dark/.blue/.light/.pink-nested) theme import in
+        // the chain. Hardcoded to match that existing compiled behavior exactly.
+        background-color: rgba(#444, 0.5);
         transition: all 200ms linear;
 
         ul {

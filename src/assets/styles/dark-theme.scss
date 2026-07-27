@@ -1,10 +1,14 @@
-$nav-bg: #444;
-$nav-txt: #9dad7f;
-$bg-clr: #000000;
-$bg-clr-2: #2d3029;
+@use 'style-base';
 
-$brdr: #abb698;
+@mixin dark-theme {
+  $nav-bg: #444;
+  $nav-txt: #9dad7f;
+  $bg-clr: #000000;
+  $bg-clr-2: #2d3029;
 
-$shadow-clr: #535353;
+  $brdr: #abb698;
 
-@import 'style-base.scss';
+  $shadow-clr: #535353;
+
+  @include style-base.base-styles($nav-bg, $nav-txt, $bg-clr, $bg-clr-2, $brdr, $shadow-clr);
+}

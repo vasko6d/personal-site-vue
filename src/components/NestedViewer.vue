@@ -66,7 +66,7 @@ function onClose() {
 </template>
 
 <style lang="scss">
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 #app {
   .wrapper {
     .nested-viewer {

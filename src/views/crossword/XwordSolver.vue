@@ -389,6 +389,7 @@ fetchXword().then((raw) => {
           purpose="To trick the phone into bringing up its keyboard"
         />
       </div>
+      <!-- prettier-ignore -->
       <XwordHeader
         :title="xword.title"
         :author="xword.author"

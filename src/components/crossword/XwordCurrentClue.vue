@@ -29,7 +29,7 @@ function switchDirection() {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 #current-clue {
   .clue-flex {
     display: flex;

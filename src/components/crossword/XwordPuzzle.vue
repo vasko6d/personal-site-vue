@@ -101,8 +101,10 @@ function clickFxn(r: number, c: number, color: string) {
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/xword-puzzle';
+
 #puzzle {
-  @import '@/assets/styles/xword-puzzle.scss';
+  @include xword-puzzle.puzzle-grid-styles;
   margin-bottom: 0.5em;
 }
 </style>

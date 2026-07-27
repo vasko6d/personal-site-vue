@@ -186,7 +186,7 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 .keyboard-container {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   user-select: none;

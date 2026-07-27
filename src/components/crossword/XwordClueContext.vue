@@ -90,8 +90,10 @@ function clickFxn(r: number, c: number) {
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/xword-puzzle';
+
 .clue-ctx {
-  @import '@/assets/styles/xword-puzzle.scss';
+  @include xword-puzzle.puzzle-grid-styles;
   .p-row {
     .p-cell {
       flex-grow: 1;

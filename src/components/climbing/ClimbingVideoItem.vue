@@ -31,7 +31,7 @@ const trueImgUrl = computed(() => {
 </template>
 
 <style lang="scss">
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 
 .climbing-video-item {
   margin: 5px;

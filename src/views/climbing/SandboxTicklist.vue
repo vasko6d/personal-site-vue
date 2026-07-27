@@ -141,8 +141,8 @@ fetchAllData()
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
-@import '@/assets/styles/table-container.scss';
+@use '@/assets/styles/wrapper';
+@use '@/assets/styles/table-container';
 #boulder-scorecard {
   display: inline-block;
   max-width: 1400px;

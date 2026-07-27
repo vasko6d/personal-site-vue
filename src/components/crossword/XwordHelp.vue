@@ -280,6 +280,6 @@ defineEmits<{
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/modal-shared.scss';
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/modal-shared';
+@use '@/assets/styles/wrapper';
 </style>

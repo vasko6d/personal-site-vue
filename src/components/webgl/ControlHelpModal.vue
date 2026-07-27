@@ -85,5 +85,5 @@ defineEmits<{
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/modal-shared.scss';
+@use '@/assets/styles/modal-shared';
 </style>

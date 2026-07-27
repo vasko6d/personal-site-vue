@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 #not-found {
   #anim {
     justify-content: center;

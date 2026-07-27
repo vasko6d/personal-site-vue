@@ -152,7 +152,7 @@ function validateJson(
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/table-container.scss';
+@use '@/assets/styles/table-container';
 #import-analysis {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 .modal-mask {
   position: fixed;
   z-index: 9998;

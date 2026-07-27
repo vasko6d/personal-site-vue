@@ -134,6 +134,7 @@ function downloadCSV(data: ProcessedAscent[], activeColumnsOnly = true) {
     <div v-if="showConfirm" class="confirm-dialog">
       <div class="confirm-content">
         <p>Are you sure you want to export these [{{ values.length }}] ascents to CSV?</p>
+        <!-- prettier-ignore -->
         <button
           @click="
             downloadCSV(values);
@@ -142,6 +143,7 @@ function downloadCSV(data: ProcessedAscent[], activeColumnsOnly = true) {
         >
           Current Columns
         </button>
+        <!-- prettier-ignore -->
         <button
           @click="
             downloadCSV(values, false);
@@ -181,8 +183,8 @@ function downloadCSV(data: ProcessedAscent[], activeColumnsOnly = true) {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
-@import '@/assets/styles/table-container.scss';
+@use '@/assets/styles/wrapper';
+@use '@/assets/styles/table-container';
 #ascent-table {
   display: inline-block;
   max-width: 1400px;

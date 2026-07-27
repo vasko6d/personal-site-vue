@@ -69,7 +69,7 @@ function executePress(ch: string, opts?: Record<string, unknown>) {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 #clue-panel {
   #clue-head {
     font-weight: bold;

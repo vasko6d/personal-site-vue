@@ -154,7 +154,7 @@ defineEmits<{
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/modal-shared.scss';
+@use '@/assets/styles/modal-shared';
 #xword-opts {
   .modal-body {
     text-align: left;

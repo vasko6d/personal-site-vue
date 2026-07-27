@@ -97,6 +97,7 @@ function modalToggle(b: boolean, propName: 'showTools' | 'showSettings' | 'showH
       @defaultSettings="$emit('defaultSettings')"
       :opts="opts"
     />
+    <!-- prettier-ignore -->
     <XwordTools
       v-if="showTools"
       @close="modalToggle(false, 'showTools')"

@@ -1,11 +1,15 @@
-$nav-bg: #f194d2;
-$nav-txt: #0c0436;
+@use 'style-base';
 
-$bg-clr: #f194d2;
-$bg-clr-2: #263b3f;
+@mixin pink-theme {
+  $nav-bg: #f194d2;
+  $nav-txt: #0c0436;
 
-$brdr: #5fa3b1;
+  $bg-clr: #f194d2;
+  $bg-clr-2: #263b3f;
 
-$shadow-clr: #6740a7;
+  $brdr: #5fa3b1;
 
-@import 'style-base.scss';
+  $shadow-clr: #6740a7;
+
+  @include style-base.base-styles($nav-bg, $nav-txt, $bg-clr, $bg-clr-2, $brdr, $shadow-clr);
+}

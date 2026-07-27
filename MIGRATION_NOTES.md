@@ -109,3 +109,13 @@ Both are out of date relative to what's actually required: the root `package.jso
 ## Migration complete (Phase 12)
 
 The Vue 2 → 3 / JavaScript → TypeScript migration (Phases 0–12) is done: `app/`'s contents have been promoted to repo root, the old Vue 2 codebase and vue-cli tooling removed, and this branch is ready to merge into `master`. The entries above remain open — nothing on this list was acted on as part of the migration itself, per its scope (faithful port, not a redesign). Treat this file as the starting punch list for the first follow-up effort; the biggest item is the climbing-analytics performance work at the top of this file, followed by the `Xword` → Pinia store candidate.
+
+## `npm run format` will silently break inline multi-statement event handlers unless guarded — now guarded
+
+**Where:** any `@event="statementOne(); statementTwo()"` Vue template binding that Prettier line-wraps because it's too long for one line. Currently 5 such bindings, in `src/components/climbing/ClimberAscentTable.vue` (x2), `src/components/crossword/XwordHeader.vue` (x1), `src/views/crossword/XwordSolver.vue` (x2).
+
+**Root cause:** Vue's template compiler requires an explicit `;` between statements in an inline event handler (it doesn't apply JS's automatic-semicolon-insertion the way a real function body does). This project's `.prettierrc.json` has `semi: false`. When Prettier reformats one of these bindings across multiple lines (because the single-line version exceeds `printWidth`), it drops the semicolon between the two statements as part of its normal "omit unnecessary semicolons" behavior — not realizing it's *necessary* here — producing a hard Vue template parse error (`Unexpected token, expected ","`) on the next build. This first surfaced during Phase 12's `npm run format` pass and was fixed by hand; **it recurred identically the next time `npm run format` was run** (during the Sass `@import`→`@use` cleanup), confirming it's not a one-off but a standing hazard any time these 5 bindings get reformatted again.
+
+**Fix:** re-added the semicolons, and added `<!-- prettier-ignore -->` immediately before each of the 5 affected elements so Prettier can no longer touch (and re-break) them. Verified idempotent — a subsequent `npm run format` run reports zero modified files.
+
+**If you add a new multi-statement inline handler:** either keep it short enough to stay on one line (safe either way), or if it needs to wrap, add `<!-- prettier-ignore -->` above the element up front rather than discovering the break at build time.

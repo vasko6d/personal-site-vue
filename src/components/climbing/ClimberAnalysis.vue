@@ -612,7 +612,7 @@ setTimeout(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 #climber-analysis {
   max-width: 1400px;
   display: inline-block;

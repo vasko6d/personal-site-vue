@@ -63,7 +63,7 @@ function modalToggle(b: boolean) {
 }
 </script>
 <style lang="scss">
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 #action-ctrls {
   user-select: none;
   .crtl-container {

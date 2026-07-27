@@ -1,13 +1,18 @@
-@import '@/assets/styles/dark-theme.scss';
+@use '@/assets/styles/dark-theme';
+@use '@/assets/styles/blue-theme';
+@use '@/assets/styles/light-theme';
+@use '@/assets/styles/pink-theme';
+
+@include dark-theme.dark-theme;
 .blue {
-  @import '@/assets/styles/blue-theme.scss';
+  @include blue-theme.blue-theme;
 }
 .dark {
-  @import '@/assets/styles/dark-theme.scss';
+  @include dark-theme.dark-theme;
 }
 .light {
-  @import '@/assets/styles/light-theme.scss';
+  @include light-theme.light-theme;
 }
 .pink {
-  @import '@/assets/styles/pink-theme.scss';
+  @include pink-theme.pink-theme;
 }

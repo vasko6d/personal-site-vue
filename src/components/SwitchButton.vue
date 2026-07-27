@@ -24,7 +24,7 @@ function toggle(isEnabled: boolean) {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 .switch-button-control {
   display: grid;
   justify-content: right;
@@ -40,7 +40,7 @@ function toggle(isEnabled: boolean) {
     height: $switch-button-height;
     width: calc(#{$switch-button-height} * 2);
     box-shadow: inset 0px 0px $switch-button-border-thickness 0px rgba(0, 0, 0, 0.33);
-    border-radius: if($switch-is-rounded, $switch-button-height, 0);
+    border-radius: if(sass($switch-is-rounded): $switch-button-height; else: 0);
 
     transition: $switch-transition;
 
@@ -51,7 +51,7 @@ function toggle(isEnabled: boolean) {
     .button {
       height: $button-side-length;
       width: $button-side-length;
-      border-radius: if($switch-is-rounded, $button-side-length, 0);
+      border-radius: if(sass($switch-is-rounded): $button-side-length; else: 0);
 
       transition: $switch-transition;
     }

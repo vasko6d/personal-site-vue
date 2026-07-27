@@ -1,11 +1,15 @@
-$nav-bg: #ffffff;
-$nav-txt: #093e47;
+@use 'style-base';
 
-$bg-clr: #51afc0;
-$bg-clr-2: #dbe5e7;
+@mixin blue-theme {
+  $nav-bg: #ffffff;
+  $nav-txt: #093e47;
 
-$brdr: #8ac3cf;
+  $bg-clr: #51afc0;
+  $bg-clr-2: #dbe5e7;
 
-$shadow-clr: #1e5058;
+  $brdr: #8ac3cf;
 
-@import 'style-base.scss';
+  $shadow-clr: #1e5058;
+
+  @include style-base.base-styles($nav-bg, $nav-txt, $bg-clr, $bg-clr-2, $brdr, $shadow-clr);
+}

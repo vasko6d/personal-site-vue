@@ -114,7 +114,7 @@ function relevantClueCount(): string {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/wrapper.scss';
+@use '@/assets/styles/wrapper';
 .clues {
   text-align: left;
   max-width: 650px;
