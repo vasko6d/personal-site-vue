@@ -170,6 +170,17 @@ function openClimberDetail(climber: string) {
       align-items: start;
     }
   }
+  // min-width: 0 overrides the grid item default of min-width: auto (which
+  // refuses to shrink below content's intrinsic min-content size, e.g. a
+  // wide table or chart canvas) - without it, shrinking the viewport after
+  // starting wide can leave a track wider than the available space instead
+  // of letting the internal scrollbars below do their job.
+  .area-banner,
+  .area-leaderboard,
+  .area-timeseries,
+  .area-calendar {
+    min-width: 0;
+  }
   .area-banner {
     grid-area: banner;
   }

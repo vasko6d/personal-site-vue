@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter, type RouteRecordRaw } from 'vue-router'
+import { useClickOutside } from '@/composables/useClickOutside'
 
 const props = defineProps<{
   childrenPath: string[]
@@ -13,6 +14,12 @@ const router = useRouter()
 
 const children = ref<readonly RouteRecordRaw[]>([])
 const isOpen = ref(false)
+const toggleRef = ref<HTMLElement | null>(null)
+const dropdownRef = ref<HTMLElement | null>(null)
+
+useClickOutside([toggleRef, dropdownRef], () => {
+  isOpen.value = false
+})
 
 onMounted(() => {
   let rs: readonly RouteRecordRaw[] | undefined = router.options.routes
@@ -32,21 +39,13 @@ function onClose() {
     <div class="blk-container">
       <h2>{{ title }}</h2>
       <div class="navigation">
-        <a class="bg1-hvr bg1-txt-hvr" ref="ref-a" href="#" @click="isOpen = !isOpen">
-          <h3 ref="ref-h3">
+        <a class="bg1-hvr bg1-txt-hvr" ref="toggleRef" href="#" @click="isOpen = !isOpen">
+          <h3>
             {{ route.name }}
-            <i ref="ref-i" class="fa fa-angle-down"></i>
+            <i class="fa fa-angle-down"></i>
           </h3>
         </a>
-        <div
-          :class="{ isOpen }"
-          class="dropdown"
-          v-closable="{
-            excludeList: ['ref-a', 'ref-h3', 'ref-i'],
-            handler: 'onClose',
-            uniqueFxnId: route.path,
-          }"
-        >
+        <div :class="{ isOpen }" class="dropdown" ref="dropdownRef">
           <ul>
             <li v-for="child in children" :key="child.path" @click="onClose()">
               <router-link
