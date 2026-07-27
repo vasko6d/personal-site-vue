@@ -8,7 +8,10 @@ import {
   computeLeaderboard,
   currentHolder,
   computeMonthlyWinners,
+  computeCookieTimeSeries,
   type CookieSend,
+  type ClimberCurrentLevel,
+  type ClimberCookieHistory,
 } from '@/utils/Cookies'
 
 // Backs SendCookies.vue - fetches every climber's scorecard (same fetch-all
@@ -21,17 +24,28 @@ export const useSendCookiesStore = defineStore('sendCookies', () => {
   const loading = ref(true)
   const loadingMessage = ref('Fetching Scorecards...')
   const allSends = shallowRef<CookieSend[]>([])
+  const currentLevels = shallowRef<Map<string, ClimberCurrentLevel>>(new Map())
   const asOf = ref(new Date())
 
   const leaderboard = computed(() => computeLeaderboard(allSends.value, asOf.value))
   const holder = computed(() => currentHolder(leaderboard.value))
   const monthlyWinners = computed(() => computeMonthlyWinners(allSends.value))
+  const topClimberNames = computed(() => leaderboard.value.slice(0, 10).map((e) => e.climber))
+  const timeSeries = computed(() =>
+    computeCookieTimeSeries(allSends.value, topClimberNames.value, asOf.value, 12),
+  )
 
   function fetchAll() {
+    // Snapshot "now" once, before any climber's history is scored, so a
+    // climber's currentLevel and the leaderboard's active/expired boolean
+    // (a hard cliff, not a smooth decay) are always evaluated against the
+    // exact same instant - otherwise a send right on the boundary could read
+    // as active in one place and expired in another.
+    const snapshotAsOf = new Date()
     loading.value = true
     loadingMessage.value = 'Fetching Scorecards...'
     setTimeout(() => {
-      const promises: Promise<CookieSend[]>[] = []
+      const promises: Promise<ClimberCookieHistory>[] = []
       let fetchCount = 0
       importedClimbers.forEach((climber) => {
         promises.push(
@@ -41,15 +55,18 @@ export const useSendCookiesStore = defineStore('sendCookies', () => {
             )
             fetchCount++
             loadingMessage.value = `Fetching Scorecards ( ${fetchCount} / ${importedClimbers.length} )...`
-            return computeClimberCookieHistory(ascents as unknown as ProcessedAscent[])
+            return computeClimberCookieHistory(ascents as unknown as ProcessedAscent[], snapshotAsOf)
           }),
         )
       })
-      Promise.all(promises).then((perClimberSends) => {
+      Promise.all(promises).then((perClimberResults) => {
         loadingMessage.value = 'Counting Cookies...'
         setTimeout(() => {
-          allSends.value = ([] as CookieSend[]).concat(...perClimberSends)
-          asOf.value = new Date()
+          allSends.value = ([] as CookieSend[]).concat(...perClimberResults.map((r) => r.sends))
+          currentLevels.value = new Map(
+            importedClimbers.map((climber, i) => [climber.name, perClimberResults[i]!.currentLevel]),
+          )
+          asOf.value = snapshotAsOf
           loading.value = false
         }, 100)
       })
@@ -60,10 +77,13 @@ export const useSendCookiesStore = defineStore('sendCookies', () => {
     loading,
     loadingMessage,
     allSends,
+    currentLevels,
     asOf,
     leaderboard,
     holder,
     monthlyWinners,
+    topClimberNames,
+    timeSeries,
     fetchAll,
   }
 })

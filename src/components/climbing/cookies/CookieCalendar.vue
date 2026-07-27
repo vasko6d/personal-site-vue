@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import ClimberAvatar from './ClimberAvatar.vue'
-import { monthRange } from '@/utils/Cookies'
 import type { MonthlyWinner } from '@/utils/Cookies'
 import { mapName } from '@/utils/Utils'
 
 const props = defineProps<{
   winners: MonthlyWinner[]
+  defaultYear?: string
+  activeYearMonth?: string
+}>()
+
+const emit = defineEmits<{
+  'month-click': [yearMonth: string]
 }>()
 
 const winnerMap = computed(() => {
@@ -15,19 +20,32 @@ const winnerMap = computed(() => {
   return map
 })
 
-// monthRange fills in every month between the first and last winner - months
-// with zero sends across all climbers render as an empty tile below rather
-// than being skipped.
-const months = computed(() => monthRange(props.winners))
+const availableYears = computed(() =>
+  [...new Set(props.winners.map((w) => w.yearMonth.slice(0, 4)))].sort(),
+)
 
-const years = computed(() => {
-  const byYear = new Map<string, string[]>()
-  for (const yearMonth of months.value) {
-    const year = yearMonth.split('-')[0]!
-    if (!byYear.has(year)) byYear.set(year, [])
-    byYear.get(year)!.push(yearMonth)
+function pickDefaultYear(): string | undefined {
+  if (props.defaultYear && availableYears.value.includes(props.defaultYear)) {
+    return props.defaultYear
   }
-  return [...byYear.entries()]
+  const currentYear = String(new Date().getFullYear())
+  if (availableYears.value.includes(currentYear)) return currentYear
+  return availableYears.value[availableYears.value.length - 1]
+}
+
+const selectedYear = ref(pickDefaultYear())
+
+// winners loads asynchronously (the store fetches every scorecard first), so
+// availableYears starts empty - re-derive the default once real data (or a
+// new defaultYear from route navigation) arrives instead of getting stuck.
+watch([availableYears, () => props.defaultYear], () => {
+  selectedYear.value = pickDefaultYear()
+})
+
+const monthsOfYear = computed(() => {
+  if (!selectedYear.value) return []
+  const year = selectedYear.value
+  return Array.from({ length: 12 }, (_, i) => `${year}-${String(i + 1).padStart(2, '0')}`)
 })
 
 function monthLabel(yearMonth: string): string {
@@ -38,14 +56,20 @@ function monthLabel(yearMonth: string): string {
 
 <template>
   <div class="cookie-calendar">
-    <div v-for="[year, yearMonths] in years" :key="year" class="calendar-year bg1">
-      <div class="year-label b">{{ year }}</div>
+    <div class="calendar-year bg1">
+      <div class="year-select-row">
+        <select v-if="availableYears.length" v-model="selectedYear" class="year-select b">
+          <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+        </select>
+        <span v-else class="year-label b">No sends yet</span>
+      </div>
       <div class="year-grid">
         <div
-          v-for="yearMonth in yearMonths"
+          v-for="yearMonth in monthsOfYear"
           :key="yearMonth"
           class="month-tile"
-          :class="{ empty: !winnerMap.get(yearMonth) }"
+          :class="{ empty: !winnerMap.get(yearMonth), active: yearMonth === activeYearMonth }"
+          @click="winnerMap.get(yearMonth) && emit('month-click', yearMonth)"
         >
           <div class="month-name">{{ monthLabel(yearMonth) }}</div>
           <template v-if="winnerMap.get(yearMonth)">
@@ -67,9 +91,11 @@ function monthLabel(yearMonth: string): string {
   gap: 1em;
   .calendar-year {
     padding: 1em;
-    .year-label {
-      font-size: 1.2em;
+    .year-select-row {
       margin-bottom: 0.5em;
+    }
+    .year-select {
+      font-size: 1.2em;
     }
     .year-grid {
       display: grid;
@@ -85,6 +111,12 @@ function monthLabel(yearMonth: string): string {
       background: rgba(128, 128, 128, 0.15);
       &.empty {
         opacity: 0.4;
+      }
+      &:not(.empty) {
+        cursor: pointer;
+      }
+      &.active {
+        outline: 2px solid currentColor;
       }
       .month-name {
         font-size: 0.8em;

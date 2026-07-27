@@ -8,7 +8,7 @@ import type { ProcessedAscent } from './Utils'
 export const COOKIE_TOP_K = 5
 export const COOKIE_DECAY_PER_YEAR = 1.0
 export const COOKIE_BASE_MULTIPLIER = 5
-export const COOKIE_HALF_LIFE_DAYS = 30
+export const COOKIE_ACTIVE_MONTHS = 1
 export const COOKIE_MAX_PER_SEND = 100
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24
@@ -47,6 +47,10 @@ function decayedValue(entry: GradeWindowEntry, asOfDate: string): number {
 // window-of-raw-(grade,date)-pairs approach below correct: we don't need to
 // track every ascent forever, just the current top K, re-decaying them fresh
 // against whatever date they're being evaluated against.
+//
+// The returned average is deliberately unrounded - callers decide whether
+// they need the raw value (e.g. for display) or the floored whole-number
+// "official" level used for scoring (see computeClimberCookieHistory).
 function levelFromWindow(window: GradeWindowEntry[], asOfDate: string): number {
   if (window.length === 0) return 0
   const sum = window.reduce((total, entry) => total + decayedValue(entry, asOfDate), 0)
@@ -72,17 +76,33 @@ function updateWindow(window: GradeWindowEntry[], entry: GradeWindowEntry, refer
   window.sort((a, b) => rank(b) - rank(a))
 }
 
+export interface ClimberCurrentLevel {
+  raw: number
+  rounded: number
+}
+
+export interface ClimberCookieHistory {
+  sends: CookieSend[]
+  currentLevel: ClimberCurrentLevel
+}
+
 // Single chronological pass over one climber's ascents: for each send,
 // scores it against the climber's level *at that time* (computed from only
-// their strictly-earlier ascents), then folds it into the running top-K
-// window. Never mutates the caller's array.
-export function computeClimberCookieHistory(ascents: ProcessedAscent[]): CookieSend[] {
+// their strictly-earlier ascents, floored to a whole number - the top-K
+// window itself still ranks by continuous decayed values, only the consumed
+// average gets floored), then folds it into the running top-K window. Also
+// returns the climber's *current* level (as of asOfDate) in both raw and
+// floored form, for display. Never mutates the caller's array.
+export function computeClimberCookieHistory(
+  ascents: ProcessedAscent[],
+  asOfDate: Date = new Date(),
+): ClimberCookieHistory {
   const sorted = [...ascents].sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0))
   const window: GradeWindowEntry[] = []
   const sends: CookieSend[] = []
   for (const ascent of sorted) {
     const grade = mapGrade(ascent.grade, 0) as number
-    const levelAtTime = levelFromWindow(window, ascent.date)
+    const levelAtTime = Math.floor(levelFromWindow(window, ascent.date))
     const diff = grade - levelAtTime
     const cookiesEarned = Math.min(
       COOKIE_MAX_PER_SEND,
@@ -91,15 +111,36 @@ export function computeClimberCookieHistory(ascents: ProcessedAscent[]): CookieS
     sends.push({ ascent, levelAtTime, cookiesEarned, climber: ascent.climber, date: ascent.date })
     updateWindow(window, { grade, date: ascent.date }, ascent.date)
   }
-  return sends
+  const raw = levelFromWindow(window, asOfDate.toISOString().slice(0, 10))
+  return { sends, currentLevel: { raw, rounded: Math.floor(raw) } }
 }
 
-// A send's cookie value decays with a fixed half-life from its own date -
-// used both for the live leaderboard total and any future per-send display.
+// A send stays fully active for COOKIE_ACTIVE_MONTHS calendar months from its
+// own date, then drops to exactly 0 - a hard cliff rather than smooth decay,
+// so the running total lines up with "did this contribute to a monthly
+// prize" cleanly. Note: calendar-month arithmetic via Date#setMonth means a
+// send on e.g. Jan 31 expires "Mar 3" (Feb is short) rather than Feb 28/29 -
+// an accepted quirk of using real calendar months, not a bug.
+function addCalendarMonths(date: Date, months: number): Date {
+  const result = new Date(date.getTime())
+  result.setMonth(result.getMonth() + months)
+  return result
+}
+
+function expiryDate(send: CookieSend): Date {
+  return addCalendarMonths(new Date(send.date + 'T12:00:00Z'), COOKIE_ACTIVE_MONTHS)
+}
+
+// Single source of truth for "is this send still contributing" - shared by
+// remainingCookies, computeLeaderboard's total/sendCount, and the
+// time-series sweep below. Active up to (not including) the exact
+// one-month anniversary.
+export function isSendActive(send: CookieSend, asOf: Date): boolean {
+  return asOf.getTime() < expiryDate(send).getTime()
+}
+
 export function remainingCookies(send: CookieSend, asOf: Date): number {
-  const sendDate = new Date(send.date + 'T12:00:00Z').getTime()
-  const daysSince = (asOf.getTime() - sendDate) / MS_PER_DAY
-  return send.cookiesEarned * Math.pow(0.5, Math.max(0, daysSince) / COOKIE_HALF_LIFE_DAYS)
+  return isSendActive(send, asOf) ? send.cookiesEarned : 0
 }
 
 export interface LeaderboardEntry {
@@ -119,8 +160,10 @@ export function computeLeaderboard(
       entry = { climber: send.climber, total: 0, sendCount: 0 }
       totals.set(send.climber, entry)
     }
-    entry.total += remainingCookies(send, asOf)
-    entry.sendCount += 1
+    if (isSendActive(send, asOf)) {
+      entry.total += send.cookiesEarned
+      entry.sendCount += 1
+    }
   }
   return [...totals.values()].sort((a, b) => b.total - a.total)
 }
@@ -135,27 +178,43 @@ export interface MonthlyWinner {
   points: number
 }
 
+interface MonthTally {
+  points: number
+  count: number
+}
+
+// Shared per-(month,climber) tally backing both computeMonthlyWinners and
+// computeMonthlyLeaderboard, so the two can never disagree on who "won" a
+// given month.
+function tallyByMonthAndClimber(allSends: CookieSend[]): Map<string, Map<string, MonthTally>> {
+  const byMonth = new Map<string, Map<string, MonthTally>>()
+  for (const send of allSends) {
+    const { year, month } = decomposeDate(send.date)
+    const yearMonth = `${year}-${month}`
+    let climberTallies = byMonth.get(yearMonth)
+    if (!climberTallies) {
+      climberTallies = new Map()
+      byMonth.set(yearMonth, climberTallies)
+    }
+    const tally = climberTallies.get(send.climber) ?? { points: 0, count: 0 }
+    tally.points += send.cookiesEarned
+    tally.count += 1
+    climberTallies.set(send.climber, tally)
+  }
+  return byMonth
+}
+
 // Monthly winner is independent of the decaying leaderboard total: whoever
 // earned the most fresh (undecayed) cookie points from sends dated in that
 // calendar month - a fixed historical record.
 export function computeMonthlyWinners(allSends: CookieSend[]): MonthlyWinner[] {
-  const byMonth = new Map<string, Map<string, number>>()
-  for (const send of allSends) {
-    const { year, month } = decomposeDate(send.date)
-    const yearMonth = `${year}-${month}`
-    let climberPoints = byMonth.get(yearMonth)
-    if (!climberPoints) {
-      climberPoints = new Map()
-      byMonth.set(yearMonth, climberPoints)
-    }
-    climberPoints.set(send.climber, (climberPoints.get(send.climber) ?? 0) + send.cookiesEarned)
-  }
+  const byMonth = tallyByMonthAndClimber(allSends)
   const winners: MonthlyWinner[] = []
-  for (const [yearMonth, climberPoints] of byMonth) {
+  for (const [yearMonth, climberTallies] of byMonth) {
     let winner: MonthlyWinner | undefined
-    for (const [climber, points] of climberPoints) {
-      if (!winner || points > winner.points) {
-        winner = { yearMonth, climber, points }
+    for (const [climber, tally] of climberTallies) {
+      if (!winner || tally.points > winner.points) {
+        winner = { yearMonth, climber, points: tally.points }
       }
     }
     if (winner) winners.push(winner)
@@ -164,32 +223,74 @@ export function computeMonthlyWinners(allSends: CookieSend[]): MonthlyWinner[] {
   return winners
 }
 
+// Full per-climber ranking for one calendar month (undecayed cookie points
+// earned that month). The [0] entry is always the same climber
+// computeMonthlyWinners would report for that month, since both read from
+// the same tally.
+export function computeMonthlyLeaderboard(
+  allSends: CookieSend[],
+  yearMonth: string,
+): LeaderboardEntry[] {
+  const climberTallies = tallyByMonthAndClimber(allSends).get(yearMonth)
+  if (!climberTallies) return []
+  return [...climberTallies.entries()]
+    .map(([climber, tally]) => ({ climber, total: tally.points, sendCount: tally.count }))
+    .sort((a, b) => b.total - a.total)
+}
+
 export function climberSendHistory(allSends: CookieSend[], climber: string): CookieSend[] {
   return allSends
     .filter((send) => send.climber === climber)
     .sort((a, b) => (a.date > b.date ? -1 : a.date < b.date ? 1 : 0))
 }
 
-// Every 'YYYY-MM' month between the earliest and latest winner, inclusive -
-// lets the calendar render a placeholder tile for months with zero sends
-// instead of skipping them or leaving a gap.
-export function monthRange(winners: MonthlyWinner[]): string[] {
-  if (winners.length === 0) return []
-  const sortedMonths = winners.map((w) => w.yearMonth).sort()
-  const first = sortedMonths[0]!
-  const last = sortedMonths[sortedMonths.length - 1]!
-  const [startYear, startMonth] = first.split('-').map(Number) as [number, number]
-  const [endYear, endMonth] = last.split('-').map(Number) as [number, number]
-  const months: string[] = []
-  let year = startYear
-  let month = startMonth
-  while (year < endYear || (year === endYear && month <= endMonth)) {
-    months.push(`${year}-${String(month).padStart(2, '0')}`)
-    month += 1
-    if (month > 12) {
-      month = 1
-      year += 1
+export interface CookieTimeSeriesEntry {
+  climber: string
+  points: { x: Date; y: number }[]
+}
+
+// Exact (not sampled) cookie-count-over-time series per climber, built via a
+// sweep-line over each send's active window: +cookiesEarned at its own date,
+// -cookiesEarned at its expiry. Since decay is now a hard cliff (not smooth),
+// this produces an exact piecewise-constant series with one point per event
+// - pairs with Chart.js's `stepped: 'after'` line rendering.
+export function computeCookieTimeSeries(
+  allSends: CookieSend[],
+  climbers: string[],
+  asOf: Date,
+  months = 12,
+): CookieTimeSeriesEntry[] {
+  const windowStart = addCalendarMonths(asOf, -months)
+  return climbers.map((climber) => {
+    const sends = allSends.filter((send) => send.climber === climber)
+    let seed = 0
+    const events: { date: Date; delta: number }[] = []
+    for (const send of sends) {
+      const sendDate = new Date(send.date + 'T12:00:00Z')
+      const expiry = expiryDate(send)
+      if (sendDate <= windowStart && expiry > windowStart) {
+        seed += send.cookiesEarned
+      }
+      if (sendDate > windowStart && sendDate <= asOf) {
+        events.push({ date: sendDate, delta: send.cookiesEarned })
+      }
+      if (expiry > windowStart && expiry <= asOf) {
+        events.push({ date: expiry, delta: -send.cookiesEarned })
+      }
     }
-  }
-  return months
+    events.sort((a, b) => a.date.getTime() - b.date.getTime())
+    const points: { x: Date; y: number }[] = [{ x: windowStart, y: seed }]
+    let total = seed
+    for (const event of events) {
+      total += event.delta
+      const last = points[points.length - 1]!
+      if (last.x.getTime() === event.date.getTime()) {
+        last.y = total
+      } else {
+        points.push({ x: event.date, y: total })
+      }
+    }
+    points.push({ x: asOf, y: total })
+    return { climber, points }
+  })
 }

@@ -2,17 +2,32 @@
 import ClimberAvatar from './ClimberAvatar.vue'
 import type { LeaderboardEntry } from '@/utils/Cookies'
 
-defineProps<{
-  holder: LeaderboardEntry | undefined
+withDefaults(
+  defineProps<{
+    holder: LeaderboardEntry | undefined
+    label?: string
+  }>(),
+  { label: 'Current Cookie Holder' },
+)
+
+const emit = defineEmits<{
+  click: []
 }>()
 </script>
 
 <template>
-  <div class="cookie-holder-banner bg1">
+  <div
+    class="cookie-holder-banner bg1"
+    :class="{ clickable: holder }"
+    role="button"
+    :tabindex="holder ? 0 : -1"
+    @click="holder && emit('click')"
+    @keydown.enter="holder && emit('click')"
+  >
     <template v-if="holder">
       <ClimberAvatar :name="holder.climber" :size="72" />
       <div class="holder-info">
-        <div class="holder-label">Current Cookie Holder</div>
+        <div class="holder-label">{{ label }}</div>
         <div class="holder-name b">{{ holder.climber }}</div>
         <div class="holder-total">{{ holder.total.toFixed(1) }} cookies</div>
       </div>
@@ -28,6 +43,9 @@ defineProps<{
   gap: 1em;
   padding: 1em 1.5em;
   margin-bottom: 1em;
+  &.clickable {
+    cursor: pointer;
+  }
   .holder-info {
     text-align: left;
     .holder-label {
