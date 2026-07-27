@@ -132,12 +132,12 @@ const routes: RouteRecordRaw[] = [
           {
             path: "finite-element",
             name: "Neo-Hookean Membranes",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/compute/FiniteElement.vue"),
           },
           {
             path: "finite-volume",
             name: "Supersonic Jet Inlet",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/compute/FiniteVolume.vue"),
           },
         ],
       },
