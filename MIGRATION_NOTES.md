@@ -7,7 +7,7 @@ follow-up effort after the migration/cutover is done.
 
 ## Performance: climbing analytics data pipeline is a blocking, un-memoized, eager-compute-everything pipeline
 
-**Where:** `app/src/components/climbing/ClimberAnalysis.vue`, `app/src/utils/Stat.ts`, `app/src/utils/Utils.ts` (`getPieChartData`, `getGradeChartData`, `generateTimeSeries`).
+**Where:** `src/components/climbing/ClimberAnalysis.vue`, `src/utils/Stat.ts`, `src/utils/Utils.ts` (`getPieChartData`, `getGradeChartData`, `generateTimeSeries`).
 
 **Symptom (confirmed via a Chrome performance trace on `/climbing/analytics/david-vasko`, 3,413 ascents):**
 - Initial load: a single **4.48-second uninterrupted main-thread task** — `preprocessAscent` over every ascent + `Stat.goDeeper()` building the full stat tree + eagerly computing **all 6** dynamic charts' data (grade/area/year/date/month/rating), even though only 1-2 are visible without scrolling, all synchronously with no yielding.
@@ -25,7 +25,7 @@ follow-up effort after the migration/cutover is done.
 
 ## Future Pinia candidate: crossword `Xword` class
 
-**Where:** `app/src/components/crossword/Xword.ts` (once ported in Phase 7 — was `src/components/crossword/Xword.js` pre-migration).
+**Where:** `src/components/crossword/Xword.ts` (ported to TS in Phase 7 — was `Xword.js` pre-migration).
 
 Flagged during migration planning: `Xword` is a large stateful class instantiated once and threaded via props/refs across ~10 sibling components (`XwordClueContext`, `XwordCluePanel`, `XwordClues`, `XwordCurrentClue`, `XwordHeader`, `XwordHelp`, `XwordKeyboard`, `XwordSettings`, `XwordStatBanner`, `XwordTools`). Strong Pinia-store candidate for a later effort — would eliminate the prop/ref plumbing and let each sibling read/mutate solver state directly. Phase 7 intentionally ports it to a typed TS class only, preserving the existing prop/ref-passing shape — **not acted on now**, scope stays: get Vue 3 + TS working, not redesign state architecture.
 
@@ -38,7 +38,7 @@ Found while porting, not fixed — these are behavior changes outside a faithful
 
 ## Reported bug: multi-value-input tooltip flashes literal "&nbsp;" text instead of a blinking cursor
 
-**Where:** `app/src/components/crossword/XwordPuzzle.vue` and `XwordClueContext.vue`, the `v-tooltip="{ content: cell.entry + flashDash, ... }"` binding, where `flashDash` alternates every 500ms between `"_"` and `"&nbsp;"`.
+**Where:** `src/components/crossword/XwordPuzzle.vue` and `XwordClueContext.vue`, the `v-tooltip="{ content: cell.entry + flashDash, ... }"` binding, where `flashDash` alternates every 500ms between `"_"` and `"&nbsp;"`.
 
 **Reported symptom:** hovering an empty/multi-value cell shows the tooltip visibly flashing/jumping between "_" and the literal text "&nbsp;" (not a rendered space).
 
@@ -50,7 +50,7 @@ Found while porting, not fixed — these are behavior changes outside a faithful
 
 ## Reported bug: flagged cells show no visual indicator
 
-**Where:** `app/src/assets/styles/xword-puzzle.scss`.
+**Where:** `src/assets/styles/xword-puzzle.scss`.
 
 **Reported symptom:** toggling a cell's flag (the flag toolbar button) doesn't visibly change the cell's appearance.
 
@@ -68,7 +68,7 @@ This is a **confirmed pre-existing bug, not a migration regression** — `xword-
 
 ## Discovered dead (and already-broken) code in the WebGL feature (Phase 8)
 
-**Where:** `src/views/webgl/class/Galaxy.js`'s `rebindBufferData()` method — dropped entirely from the `Galaxy.ts` port (`app/src/views/webgl/class/Galaxy.ts`).
+**Where:** the pre-migration `src/views/webgl/class/Galaxy.js`'s `rebindBufferData()` method — dropped entirely from the `Galaxy.ts` port (`src/views/webgl/class/Galaxy.ts`).
 
 **Confirmed dead:** `grep -rn "rebindBufferData" src/` matches only the method's own definition — it is never called anywhere in the original app.
 
@@ -82,7 +82,7 @@ This is a **confirmed pre-existing bug, not a migration regression** — `xword-
 
 **Confirmed via the dev server:** Vue 3's `@vue/compiler-dom` hard-errors on this pattern — `"Tags with side effect (<script> and <style>) are ignored in client component templates."` (`ignoreSideEffectTags` in `compiler-dom`). This is not a lint nuance or a false positive; it is a categorical rejection, so the old pattern cannot be ported as-is under any component API style.
 
-**Fix (mechanism-only, no behavior change):** added `injectShaderScript(id, type, source)` / `removeShaderScript(id)` to `app/src/utils/webgl/WebGLUtils.ts`, which create/remove a real `<script>` element via `document.createElement` (imperative DOM API, not a Vue template), so `ShaderUtils.init()`'s `getElementById(...).text` lookup keeps working completely unchanged. Each shader's GLSL source moved from the template into a `const vertexShaderSrc`/`fragmentShaderSrc` template string in `<script setup>`; each view now calls `injectShaderScript(...)` for both shaders in `onMounted` (before `configureWebGL()`) and `removeShaderScript(...)` in `onUnmounted`. The explicit teardown matters: all four views reuse the same two DOM ids ("vertex-shader"/"fragment-shader"), so without removing them on unmount, navigating between two WebGL demo routes in the same SPA session would silently compile the wrong (stale) shader source into the new page's `WebGLProgram`.
+**Fix (mechanism-only, no behavior change):** added `injectShaderScript(id, type, source)` / `removeShaderScript(id)` to `src/utils/webgl/WebGLUtils.ts`, which create/remove a real `<script>` element via `document.createElement` (imperative DOM API, not a Vue template), so `ShaderUtils.init()`'s `getElementById(...).text` lookup keeps working completely unchanged. Each shader's GLSL source moved from the template into a `const vertexShaderSrc`/`fragmentShaderSrc` template string in `<script setup>`; each view now calls `injectShaderScript(...)` for both shaders in `onMounted` (before `configureWebGL()`) and `removeShaderScript(...)` in `onUnmounted`. The explicit teardown matters: all four views reuse the same two DOM ids ("vertex-shader"/"fragment-shader"), so without removing them on unmount, navigating between two WebGL demo routes in the same SPA session would silently compile the wrong (stale) shader source into the new page's `WebGLProgram`.
 
 Confirmed no compiler error and normal route resolution (200) for all five WebGL routes (`/webgl/fractals`, `/webgl/cubert`, `/webgl/ffvii-textures`, `/webgl/galaxy`, `/webgl/island-game`) via the Vite dev server after the fix; no headless-browser WebGL rendering verification was possible in this environment (same constraint noted for other feature areas).
 
@@ -105,3 +105,7 @@ Both are out of date relative to what's actually required: the root `package.jso
 **Not a migration regression** — this is invalid-but-browser-tolerated HTML (browsers auto-insert an implicit `<tbody>` at parse time, so it renders correctly) that was already present in the original Vue 2 `SettingView.vue`; Vue 2 just didn't have this particular compiler warning. No functional impact observed; not fixed here as it's outside Phase 12's scope.
 
 **Fix direction:** wrap the `<tr>` elements in a `<tbody>` (and split header rows into a `<thead>` if any are header rows) to match valid HTML table structure.
+
+## Migration complete (Phase 12)
+
+The Vue 2 → 3 / JavaScript → TypeScript migration (Phases 0–12) is done: `app/`'s contents have been promoted to repo root, the old Vue 2 codebase and vue-cli tooling removed, and this branch is ready to merge into `master`. The entries above remain open — nothing on this list was acted on as part of the migration itself, per its scope (faithful port, not a redesign). Treat this file as the starting punch list for the first follow-up effort; the biggest item is the climbing-analytics performance work at the top of this file, followed by the `Xword` → Pinia store candidate.
