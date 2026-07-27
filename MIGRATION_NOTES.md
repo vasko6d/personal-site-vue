@@ -119,3 +119,28 @@ The Vue 2 → 3 / JavaScript → TypeScript migration (Phases 0–12) is done: `
 **Fix:** re-added the semicolons, and added `<!-- prettier-ignore -->` immediately before each of the 5 affected elements so Prettier can no longer touch (and re-break) them. Verified idempotent — a subsequent `npm run format` run reports zero modified files.
 
 **If you add a new multi-statement inline handler:** either keep it short enough to stay on one line (safe either way), or if it needs to wrap, add `<!-- prettier-ignore -->` above the element up front rather than discovering the break at build time.
+
+## Fixed: `Stat.goDeeper()`'s ignore list never actually shrank the tree, only the work to populate it
+
+**Where:** `src/utils/Stat.ts`'s `goDeeper()`. Pre-existing since the original 2019 `Stat.js` — confirmed via `git show` against that commit, byte-identical logic. Not a migration regression.
+
+**Bug:** `this.get(k, false, true).ready = true` sat *outside* the `if (!this.ignore.has(k))` block, so it ran for every category key regardless of ignore status. `.get(..., true)`'s third argument (`createOnEmpty`) unconditionally calls `addSubStat()`, which creates a `subStats` entry — so every ignored field still got an empty, `ready: true` stub in the tree. The ignore list (and, once added in this branch, the `STAT_CATEGORY_ALLOWLIST` it's now computed from) correctly skipped the *expensive* per-category work (incrementing, walking array/scalar values, building the value-level substats) for ignored keys, but never actually kept them out of `subStats` — so `Object.keys(stat.subStats)` always showed every field that exists on the raw data, ignored or not.
+
+**Consequence:** the "shrinks `SettingView.vue`'s Base Stat dropdown from ~30 near-nonsensical options down to ~17 meaningful ones" claim in this branch's Stat-allowlist commit was **not actually true as shipped** — the dropdown still showed close to all ~82 fields either way, just with far less work behind ignored ones. Caught while writing a before/after performance benchmark for this same commit sequence (see below) — the benchmark's category count didn't drop with the allowlist the way it should have, which is what surfaced this.
+
+**Fix:** moved `catagoryStat.ready = true` inside the `if` block (using the already-in-scope `catagoryStat` instead of re-calling `.get()`), so a category never gets created in `subStats` at all if it's ignored. Value-level substats' `.ready` (unrelated - stays lazily `false` for multi-level drill-down, e.g. `stats.get('grade').get('V5').get('area')`) is untouched.
+
+**Verified:** real-data regression check (same `david-vasko.json`, 3413 ascents) before/after this fix - `subStats` category count went from 82 → 17 (exactly the allowlist size), while every downstream value (chart subtitles/label counts, `climberStatsSummary`, `uniqueGrades`, filtered counts) came out byte-identical. See the performance section below for the benchmark this was caught in.
+
+## Climbing perf fix: measured results
+
+Benchmarked the actual hot path (`preprocessAscent` + `goDeeper()` + a filter-and-traverse pass) against the real ticklist worst case (16,812 ascents across 21 scorecards as of this writing) by running the pre-fix `Stat.ts` (from `master`, wrapped in a Vue `ref()` exactly like the old `SandboxTicklist.vue` did) side by side with the current code, in Node via `tsx` (no browser available in this environment, so this isolates and measures the exact mechanism identified below rather than a full page trace):
+
+| | `goDeeper()` build | filter + traverse | `subStats` categories |
+|---|---|---|---|
+| Before (`master`, reactive `ref`, `ignore: ['comment']`) | ~8.3s | ~2.1s | 82 |
+| After (`markRaw` + `shallowRef` + allowlist, this branch) | ~66ms | ~111ms | 17 |
+
+That ~8.3s alone, on the worst-case page, is consistent with the ~8s full-page-load the user reported on the pre-fix dev server (vs. ~4s on the currently-deployed `master`). The fix is the `markRaw()`/`shallowRef` change (`Stat: markRaw() instances...` commit) plus the allowlist (`Tighten climbing Stat tree ignore list...` commit) - both land their full benefit together; the `goDeeper()` bug fix just above this entry doesn't materially change the timing (its effect is on tree *shape*, not the amount of increment work skipped, which the allowlist already handled), but is included here since it was caught by this same benchmark.
+
+Not done: chunking/idle-time yielding for `preprocessAscent`/`goDeeper`. The `master` baseline ran the identical fully-synchronous pass with no chunking and still measured a `goDeeper()`-only cost far smaller than the reactive-Proxy tax being removed - the fix here should already be well within an acceptable range without it. If the deployed page still feels slow after this lands, re-measure with a real Chrome trace (this environment has none) before reaching for chunking.

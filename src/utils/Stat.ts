@@ -60,6 +60,16 @@ export default class Stat {
     const catagories = this.values.length > 0 ? Object.keys(this.values[0]!) : []
     for (const val of this.values) {
       for (const k of catagories) {
+        // catagoryStat.ready = true belongs inside this block: an ignored
+        // category should never get a subStats entry at all. It used to sit
+        // outside (unconditional, calling this.get(k, false, true) again to
+        // re-find the just-processed stat), which created an empty stub for
+        // every ignored key too - harmless for correctness (.get() already
+        // falls back to a fresh empty Stat when a key is absent) but meant
+        // ignore/the allowlist never actually shrank subStats, just the work
+        // done to populate it. Pre-existing since the original 2019 Stat.js;
+        // fixed here since it directly affects the allowlist added in this
+        // branch (src/stores/climbingShared.ts).
         if (!this.ignore.has(k)) {
           // First lets get and increment the "catagory" stat
           const catagoryStat = this.get(k, false, true)
@@ -77,8 +87,8 @@ export default class Stat {
             valueStat.increment(val)
             valueStat.addIgnore(k)
           }
+          catagoryStat.ready = true
         }
-        this.get(k, false, true).ready = true
       }
     }
     this.ready = true
