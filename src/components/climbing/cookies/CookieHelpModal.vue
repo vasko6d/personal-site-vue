@@ -18,8 +18,7 @@ defineEmits<{
     <p>
       Your level is your hardest send, held constant - it only drops by one grade for every
       {{ LEVEL_STEP_MONTHS }} calendar months you go without matching or beating it. Send that
-      grade (or harder) again and the clock resets. Think of it as a "club" you get relegated from
-      one rung at a time, not a smooth average.
+      grade (or harder) again and the clock resets.
     </p>
     <h3>Cookies per Send</h3>
     <p>
@@ -56,6 +55,7 @@ defineEmits<{
    - same fix App.vue's global .blk-container ul already uses elsewhere. */
 ul {
   text-align: left;
+  margin: 20px 40px
 }
 li {
   text-align: left;
