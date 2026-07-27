@@ -54,7 +54,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/climbing/send-cookies/:year?/:month?',
-        name: 'Send Cookies',
+        name: 'Cookies',
         meta: { defaultPath: '/climbing/send-cookies' },
         component: () => import('../views/climbing/SendCookies.vue'),
         props: true,

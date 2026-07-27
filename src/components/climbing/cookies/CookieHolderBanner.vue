@@ -42,7 +42,6 @@ const emit = defineEmits<{
   align-items: center;
   gap: 1em;
   padding: 1em 1.5em;
-  margin-bottom: 1em;
   &.clickable {
     cursor: pointer;
   }

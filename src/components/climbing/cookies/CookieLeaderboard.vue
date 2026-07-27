@@ -72,7 +72,7 @@ const sortable = ['climber', 'total', 'sendCount']
    leaderboard doesn't stretch taller than the banner+calendar column beside
    it on desktop. */
 .leaderboard-scroll {
-  max-height: 600px;
+  max-height: 500px;
   overflow-y: auto;
 }
 .load-more {

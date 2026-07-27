@@ -155,7 +155,7 @@ function openClimberDetail(climber: string) {
   // rearranges into two columns without needing any reordering hacks.
   .send-cookies-layout {
     display: grid;
-    gap: 1em;
+    gap: 10px;
     grid-template-areas:
       'banner'
       'leaderboard'
