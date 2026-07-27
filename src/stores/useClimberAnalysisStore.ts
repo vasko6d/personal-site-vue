@@ -4,6 +4,7 @@ import Stat from '@/utils/Stat'
 import Aggregate from '@/utils/Aggregate'
 import { preprocessAscent, mapGrade, vScale } from '@/utils/Utils'
 import type { ProcessedAscent } from '@/utils/Utils'
+import { computeDecayedAverageLevel } from '@/utils/Cookies'
 import { defaultChartOpts } from '@/utils/ClimbingCharts'
 import {
   buildStatTree,
@@ -80,7 +81,11 @@ export const useClimberAnalysisStore = defineStore('climberAnalysis', () => {
     if (initialized.value) {
       const da = dateAnalysis(stat)
       const a = ascentAnalysis(stat, 20)
-      cStats.push({ name: 'Boulderer Score', value: vScale(a.grade.score) })
+      // Boulderer Score = decayed top-5 average (from the Send Cookies
+      // feature's level model, see Cookies.ts) rather than ascentAnalysis's
+      // all-time top-20 average - rewards recent form over long-past sends.
+      const decayedLevel = computeDecayedAverageLevel(stat.values as unknown as ProcessedAscent[])
+      cStats.push({ name: 'Boulderer Score', value: vScale(decayedLevel.toFixed(1)) })
       cStats.push({ name: 'Average Stars', value: a.star.avg })
       cStats.push({ name: 'Recommend %', value: a.star.recommend + '%' })
       Object.keys(a.grade.dubMap)

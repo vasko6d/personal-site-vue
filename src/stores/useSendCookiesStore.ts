@@ -10,7 +10,6 @@ import {
   computeMonthlyWinners,
   computeCookieTimeSeries,
   type CookieSend,
-  type ClimberCurrentLevel,
   type ClimberCookieHistory,
 } from '@/utils/Cookies'
 
@@ -24,7 +23,7 @@ export const useSendCookiesStore = defineStore('sendCookies', () => {
   const loading = ref(true)
   const loadingMessage = ref('Fetching Scorecards...')
   const allSends = shallowRef<CookieSend[]>([])
-  const currentLevels = shallowRef<Map<string, ClimberCurrentLevel>>(new Map())
+  const currentLevels = shallowRef<Map<string, number>>(new Map())
   const asOf = ref(new Date())
 
   const leaderboard = computed(() => computeLeaderboard(allSends.value, asOf.value))

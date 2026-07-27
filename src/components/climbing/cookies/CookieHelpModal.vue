@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import ModalDialog from '@/components/shared/ModalDialog.vue'
 import {
-  COOKIE_TOP_K,
-  COOKIE_DECAY_PER_YEAR,
+  LEVEL_STEP_MONTHS,
   COOKIE_BASE_MULTIPLIER,
   COOKIE_ACTIVE_MONTHS,
   COOKIE_MAX_PER_SEND,
@@ -17,10 +16,10 @@ defineEmits<{
   <ModalDialog title="How Send Cookies Work" @close="$emit('close')">
     <h3>Your Level</h3>
     <p>
-      Your level is the average of your top {{ COOKIE_TOP_K }} sends, each decaying by
-      {{ COOKIE_DECAY_PER_YEAR }} grade per year since you climbed it - so an old hard send
-      matters less as time passes, unless you keep climbing near that grade. The result is
-      rounded down to a whole number.
+      Your level is your hardest send, held constant - it only drops by one grade for every
+      {{ LEVEL_STEP_MONTHS }} calendar months you go without matching or beating it. Send that
+      grade (or harder) again and the clock resets. Think of it as a "club" you get relegated from
+      one rung at a time, not a smooth average.
     </p>
     <h3>Cookies per Send</h3>
     <p>

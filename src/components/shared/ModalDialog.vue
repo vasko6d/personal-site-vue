@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 
-defineProps<{
-  title?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    title?: string
+    size?: 'default' | 'wide'
+  }>(),
+  { size: 'default' },
+)
 
 const emit = defineEmits<{
   close: []
@@ -24,9 +28,18 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 <template>
   <!-- eslint-disable vue/require-toggle-inside-transition -->
   <transition name="modal">
-    <div class="modal-mask" @click.self="emit('close')">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+    <div class="modal-mask">
+      <!-- @click.self lives here, not on .modal-mask: .modal-wrapper is a
+           display:table-cell that fills the entire mask, so a backdrop click's
+           event.target is always .modal-wrapper (or a .modal-container
+           descendant), never .modal-mask itself - .self would never fire up
+           there. .modal-container doesn't fill its wrapper, so a real
+           backdrop click correctly self-matches here. -->
+      <div class="modal-wrapper" @click.self="emit('close')">
+        <div
+          class="modal-container"
+          :style="props.size === 'wide' ? { maxWidth: 'min(90vw, 900px)' } : undefined"
+        >
           <div class="modal-header">
             <slot name="header">
               <h2>

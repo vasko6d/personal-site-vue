@@ -3,6 +3,8 @@ import { computed, ref } from 'vue'
 import type { ChartOptions, ChartData, LegendItem } from 'chart.js'
 import Stat from '@/utils/Stat'
 import { mapGrade, generateTimeSeries } from '@/utils/Utils'
+import type { ProcessedAscent } from '@/utils/Utils'
+import { computeDecayedAverageLevelHistory } from '@/utils/Cookies'
 import LineGraph from '@/components/charts/LineGraph.vue'
 
 const props = defineProps<{
@@ -48,7 +50,10 @@ const chartOpts = ref<{ normalize: CheckOpt; sinceGrade: SelectOpt; avgSamples: 
   },
 })
 
-const showCache = ref([false, true, false, true, false])
+// index 4 = Boulderer Score (new, shown by default), index 5 = Days Since
+// New Grade (conditional on sinceGrade - was index 4 before Boulderer Score
+// was inserted ahead of it, see chartData below)
+const showCache = ref([false, true, false, true, true, false])
 
 const options: ChartOptions<'line'> = {
   responsive: true,
@@ -236,10 +241,20 @@ const chartData = computed<ChartData<'line'>>(() => {
     ...createDataset(data.numMax, { color: '#38a0a6', label: 'Ascents at Max' }),
     hidden: !showCache.value[3],
   })
+  // Decayed top-5 average level over time (Boulderer Score's calculation,
+  // see Cookies.ts) - a different, independent series from generateTimeSeries'
+  // own max/avg trackers above, so it's computed separately and merged in.
+  const boudererScoreHistory = computeDecayedAverageLevelHistory(
+    [...props.stat.values] as unknown as ProcessedAscent[],
+  )
+  datasets.push({
+    ...createDataset(boudererScoreHistory, { color: '#9b59b6', label: 'Boulderer Score' }),
+    hidden: !showCache.value[4],
+  })
   if (chartOpts.value.sinceGrade.value < 0) {
     datasets.push({
       ...createDataset(data.sinceNewMax, { color: '#FFDF00', label: 'Days Since New Grade' }),
-      hidden: !showCache.value[4],
+      hidden: !showCache.value[5],
     })
   }
   return { datasets: datasets as unknown as ChartData<'line'>['datasets'] }

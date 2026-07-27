@@ -74,26 +74,36 @@ function openClimberDetail(climber: string) {
       <LoadingSpinner :size="64" />
       <div>{{ store.loadingMessage }}</div>
     </div>
-    <template v-else>
-      <CookieHolderBanner
-        :holder="displayHolder"
-        :label="bannerLabel"
-        @click="displayHolder && openClimberDetail(displayHolder.climber)"
-      />
-      <CookieLeaderboard :entries="displayLeaderboard" @climber-click="openClimberDetail" />
-      <CookieTimeSeriesChart v-if="!isFiltered" :series="store.timeSeries" />
-      <CookieCalendar
-        :winners="store.monthlyWinners"
-        :defaultYear="year"
-        :activeYearMonth="yearMonth"
-        @month-click="onMonthClick"
-      />
-    </template>
+    <div v-else class="send-cookies-layout">
+      <div class="area-banner">
+        <CookieHolderBanner
+          :holder="displayHolder"
+          :label="bannerLabel"
+          @click="displayHolder && openClimberDetail(displayHolder.climber)"
+        />
+      </div>
+      <div class="area-leaderboard">
+        <CookieLeaderboard :entries="displayLeaderboard" @climber-click="openClimberDetail" />
+      </div>
+      <div v-if="!isFiltered" class="area-timeseries">
+        <CookieTimeSeriesChart :series="store.timeSeries" />
+      </div>
+      <div class="area-calendar">
+        <CookieCalendar
+          :winners="store.monthlyWinners"
+          :defaultYear="year"
+          :activeYearMonth="yearMonth"
+          @month-click="onMonthClick"
+        />
+      </div>
+    </div>
     <ClimberDetailModal
       v-if="detailClimber"
       :climber="detailClimber"
       :allSends="store.allSends"
       :currentLevel="store.currentLevels.get(detailClimber)"
+      :asOf="store.asOf"
+      :yearMonth="yearMonth"
       @close="detailClimber = null"
     />
     <CookieHelpModal v-if="showHelp" @close="showHelp = false" />
@@ -104,11 +114,10 @@ function openClimberDetail(climber: string) {
 @use '@/assets/styles/wrapper';
 @use '@/assets/styles/table-container';
 #send-cookies {
-  display: inline-block;
+  display: block;
+  width: 100%;
   max-width: 1400px;
-  @media only screen and (max-width: 1400px) {
-    max-width: 100%;
-  }
+  margin: 0 auto;
   overflow-x: auto;
   h1 {
     .icn {
@@ -127,6 +136,38 @@ function openClimberDetail(climber: string) {
       cursor: pointer;
       font-weight: bold;
     }
+  }
+  // Same DOM order on every viewport - grid-template-areas alone controls
+  // visual placement, so mobile just stacks in source order while desktop
+  // rearranges into two columns without needing any reordering hacks.
+  .send-cookies-layout {
+    display: grid;
+    gap: 1em;
+    grid-template-areas:
+      'banner'
+      'leaderboard'
+      'timeseries'
+      'calendar';
+    @media (min-width: 1000px) {
+      grid-template-columns: 1fr 1.2fr;
+      grid-template-areas:
+        'banner leaderboard'
+        'calendar leaderboard'
+        'timeseries timeseries';
+      align-items: start;
+    }
+  }
+  .area-banner {
+    grid-area: banner;
+  }
+  .area-leaderboard {
+    grid-area: leaderboard;
+  }
+  .area-timeseries {
+    grid-area: timeseries;
+  }
+  .area-calendar {
+    grid-area: calendar;
   }
 }
 </style>

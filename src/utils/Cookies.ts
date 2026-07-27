@@ -10,6 +10,7 @@ export const COOKIE_DECAY_PER_YEAR = 1.0
 export const COOKIE_BASE_MULTIPLIER = 5
 export const COOKIE_ACTIVE_MONTHS = 1
 export const COOKIE_MAX_PER_SEND = 100
+export const LEVEL_STEP_MONTHS = 6
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24
 const DAYS_PER_YEAR = 365.25
@@ -20,99 +21,6 @@ export interface CookieSend {
   cookiesEarned: number
   climber: string
   date: string
-}
-
-interface GradeWindowEntry {
-  grade: number
-  date: string
-}
-
-function yearsBetween(fromDate: string, toDate: string): number {
-  const from = new Date(fromDate + 'T12:00:00Z').getTime()
-  const to = new Date(toDate + 'T12:00:00Z').getTime()
-  return (to - from) / (MS_PER_DAY * DAYS_PER_YEAR)
-}
-
-function decayedValue(entry: GradeWindowEntry, asOfDate: string): number {
-  return entry.grade - COOKIE_DECAY_PER_YEAR * yearsBetween(entry.date, asOfDate)
-}
-
-// A climber's "level" as of a date = the average of their top-K ascents'
-// grades, each decayed linearly from its own date. Since every entry decays
-// at the same constant rate, the *relative order* between any two entries'
-// decayed values never changes over time (the common "-rate * asOf" term
-// cancels out when comparing two entries) - so whichever entries rank in the
-// top K when decayed to "today" are guaranteed to still be the true top K
-// when later re-decayed to some future date. That's what makes the
-// window-of-raw-(grade,date)-pairs approach below correct: we don't need to
-// track every ascent forever, just the current top K, re-decaying them fresh
-// against whatever date they're being evaluated against.
-//
-// The returned average is deliberately unrounded - callers decide whether
-// they need the raw value (e.g. for display) or the floored whole-number
-// "official" level used for scoring (see computeClimberCookieHistory).
-function levelFromWindow(window: GradeWindowEntry[], asOfDate: string): number {
-  if (window.length === 0) return 0
-  const sum = window.reduce((total, entry) => total + decayedValue(entry, asOfDate), 0)
-  return sum / window.length
-}
-
-// Keeps `window` as the top-COOKIE_TOP_K entries by decayed value evaluated
-// as of `referenceDate` (in practice always the incoming ascent's own date -
-// see the comment on levelFromWindow for why any reference date gives the
-// same ranking). Mutates `window` in place, mirroring the "keep highest K"
-// shape of updateTop() in Utils.ts, but keeping the (grade, date) pair
-// instead of a bare number since re-decaying later needs the original date.
-function updateWindow(window: GradeWindowEntry[], entry: GradeWindowEntry, referenceDate: string) {
-  const rank = (e: GradeWindowEntry) => decayedValue(e, referenceDate)
-  if (window.length < COOKIE_TOP_K) {
-    window.push(entry)
-  } else if (rank(window[window.length - 1]!) < rank(entry)) {
-    window.pop()
-    window.push(entry)
-  } else {
-    return
-  }
-  window.sort((a, b) => rank(b) - rank(a))
-}
-
-export interface ClimberCurrentLevel {
-  raw: number
-  rounded: number
-}
-
-export interface ClimberCookieHistory {
-  sends: CookieSend[]
-  currentLevel: ClimberCurrentLevel
-}
-
-// Single chronological pass over one climber's ascents: for each send,
-// scores it against the climber's level *at that time* (computed from only
-// their strictly-earlier ascents, floored to a whole number - the top-K
-// window itself still ranks by continuous decayed values, only the consumed
-// average gets floored), then folds it into the running top-K window. Also
-// returns the climber's *current* level (as of asOfDate) in both raw and
-// floored form, for display. Never mutates the caller's array.
-export function computeClimberCookieHistory(
-  ascents: ProcessedAscent[],
-  asOfDate: Date = new Date(),
-): ClimberCookieHistory {
-  const sorted = [...ascents].sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0))
-  const window: GradeWindowEntry[] = []
-  const sends: CookieSend[] = []
-  for (const ascent of sorted) {
-    const grade = mapGrade(ascent.grade, 0) as number
-    const levelAtTime = Math.floor(levelFromWindow(window, ascent.date))
-    const diff = grade - levelAtTime
-    const cookiesEarned = Math.min(
-      COOKIE_MAX_PER_SEND,
-      Math.max(0, Math.floor(COOKIE_BASE_MULTIPLIER * Math.pow(2, diff))),
-    )
-    sends.push({ ascent, levelAtTime, cookiesEarned, climber: ascent.climber, date: ascent.date })
-    updateWindow(window, { grade, date: ascent.date }, ascent.date)
-  }
-  const raw = levelFromWindow(window, asOfDate.toISOString().slice(0, 10))
-  return { sends, currentLevel: { raw, rounded: Math.floor(raw) } }
 }
 
 // A send stays fully active for COOKIE_ACTIVE_MONTHS calendar months from its
@@ -127,8 +35,90 @@ function addCalendarMonths(date: Date, months: number): Date {
   return result
 }
 
-function expiryDate(send: CookieSend): Date {
-  return addCalendarMonths(new Date(send.date + 'T12:00:00Z'), COOKIE_ACTIVE_MONTHS)
+// Whole calendar months elapsed between two 'YYYY-MM-DD' dates (both parsed
+// at noon UTC, matching the rest of this file's date-string convention) -
+// used by the level step-down below. Local getMonth/getDate accessors match
+// addCalendarMonths' own local-time convention, so the two stay consistent.
+function monthsBetween(fromDate: string, toDate: string): number {
+  const from = new Date(fromDate + 'T12:00:00Z')
+  const to = new Date(toDate + 'T12:00:00Z')
+  let months = (to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth())
+  if (to.getDate() < from.getDate()) months -= 1
+  return months
+}
+
+// A climber's level is their hardest send, held constant, then dropping by
+// exactly one grade every LEVEL_STEP_MONTHS calendar months they go without
+// matching or beating it (a "hardest club" you get relegated from one rung
+// at a time) - `sinceDate` is when the current `level` was last set/renewed.
+// Applies however many full step-periods have elapsed by `toDate`, floored
+// at 0, and advances `sinceDate` by exactly that many periods (not simply to
+// `toDate`) so a later, larger gap correctly cascades further drops from
+// where this one left off rather than restarting the clock early.
+function stepDownLevel(
+  level: number,
+  sinceDate: string,
+  toDate: string,
+): { level: number; sinceDate: string } {
+  if (level <= 0) return { level, sinceDate }
+  const periods = Math.floor(monthsBetween(sinceDate, toDate) / LEVEL_STEP_MONTHS)
+  if (periods <= 0) return { level, sinceDate }
+  const newLevel = Math.max(0, level - periods)
+  const appliedPeriods = level - newLevel
+  const newSinceDate = addCalendarMonths(
+    new Date(sinceDate + 'T12:00:00Z'),
+    appliedPeriods * LEVEL_STEP_MONTHS,
+  )
+    .toISOString()
+    .slice(0, 10)
+  return { level: newLevel, sinceDate: newSinceDate }
+}
+
+export interface ClimberCookieHistory {
+  sends: CookieSend[]
+  currentLevel: number
+}
+
+// Single chronological pass over one climber's ascents: for each send, steps
+// the running "hardest club" level down to that send's date (using only
+// prior history - never mutates with hindsight), scores against it, then
+// renews the level (and its clock) if this send matches or beats it. Also
+// returns the climber's current level as of asOfDate. Never mutates the
+// caller's array.
+export function computeClimberCookieHistory(
+  ascents: ProcessedAscent[],
+  asOfDate: Date = new Date(),
+): ClimberCookieHistory {
+  const sorted = [...ascents].sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0))
+  const sends: CookieSend[] = []
+  let level = 0
+  let sinceDate: string | null = null
+  for (const ascent of sorted) {
+    if (sinceDate !== null) {
+      ;({ level, sinceDate } = stepDownLevel(level, sinceDate, ascent.date))
+    }
+    const grade = mapGrade(ascent.grade, 0) as number
+    const levelAtTime = level
+    const diff = grade - levelAtTime
+    const cookiesEarned = Math.min(
+      COOKIE_MAX_PER_SEND,
+      Math.max(0, Math.floor(COOKIE_BASE_MULTIPLIER * Math.pow(2, diff))),
+    )
+    sends.push({ ascent, levelAtTime, cookiesEarned, climber: ascent.climber, date: ascent.date })
+    // Grades can be fractional (half-grades like '7/8' -> 7.5) but the level
+    // must always be a whole number - flooring here (not at the diff/cookie
+    // calc above, which still uses the precise raw grade) is what keeps
+    // levelAtTime/currentLevel integral even when a half-grade send renews.
+    if (grade >= level) {
+      level = Math.floor(grade)
+      sinceDate = ascent.date
+    }
+  }
+  let currentLevel = level
+  if (sinceDate !== null) {
+    currentLevel = stepDownLevel(level, sinceDate, asOfDate.toISOString().slice(0, 10)).level
+  }
+  return { sends, currentLevel }
 }
 
 // Single source of truth for "is this send still contributing" - shared by
@@ -136,7 +126,7 @@ function expiryDate(send: CookieSend): Date {
 // time-series sweep below. Active up to (not including) the exact
 // one-month anniversary.
 export function isSendActive(send: CookieSend, asOf: Date): boolean {
-  return asOf.getTime() < expiryDate(send).getTime()
+  return asOf.getTime() < addCalendarMonths(new Date(send.date + 'T12:00:00Z'), COOKIE_ACTIVE_MONTHS).getTime()
 }
 
 export function remainingCookies(send: CookieSend, asOf: Date): number {
@@ -267,7 +257,7 @@ export function computeCookieTimeSeries(
     const events: { date: Date; delta: number }[] = []
     for (const send of sends) {
       const sendDate = new Date(send.date + 'T12:00:00Z')
-      const expiry = expiryDate(send)
+      const expiry = addCalendarMonths(sendDate, COOKIE_ACTIVE_MONTHS)
       if (sendDate <= windowStart && expiry > windowStart) {
         seed += send.cookiesEarned
       }
@@ -293,4 +283,101 @@ export function computeCookieTimeSeries(
     points.push({ x: asOf, y: total })
     return { climber, points }
   })
+}
+
+// --- Legacy decayed-average level model -------------------------------
+// Superseded by the step-function "hardest club" model above for Send
+// Cookies scoring, but kept as a reusable building block for the Analysis
+// page's "Boulderer Score" stat and time-series line (see
+// useClimberAnalysisStore.ts / TimeSeriesChart.vue).
+
+interface GradeWindowEntry {
+  grade: number
+  date: string
+}
+
+function yearsBetween(fromDate: string, toDate: string): number {
+  const from = new Date(fromDate + 'T12:00:00Z').getTime()
+  const to = new Date(toDate + 'T12:00:00Z').getTime()
+  return (to - from) / (MS_PER_DAY * DAYS_PER_YEAR)
+}
+
+function decayedValue(entry: GradeWindowEntry, asOfDate: string): number {
+  return entry.grade - COOKIE_DECAY_PER_YEAR * yearsBetween(entry.date, asOfDate)
+}
+
+// The average of the top-K ascents' grades, each decayed linearly from its
+// own date. Since every entry decays at the same constant rate, the
+// *relative order* between any two entries' decayed values never changes
+// over time (the common "-rate * asOf" term cancels out when comparing two
+// entries) - so whichever entries rank in the top K when decayed to "today"
+// are guaranteed to still be the true top K when later re-decayed to some
+// future date. That's what makes the window-of-raw-(grade,date)-pairs
+// approach below correct: we don't need to track every ascent forever, just
+// the current top K, re-decaying them fresh against whatever date they're
+// being evaluated against. Deliberately unrounded - callers decide whether
+// to floor it or display it as-is.
+function levelFromWindow(window: GradeWindowEntry[], asOfDate: string): number {
+  if (window.length === 0) return 0
+  const sum = window.reduce((total, entry) => total + decayedValue(entry, asOfDate), 0)
+  return sum / window.length
+}
+
+// Keeps `window` as the top-COOKIE_TOP_K entries by decayed value evaluated
+// as of `referenceDate` (in practice always the incoming ascent's own date -
+// see the comment on levelFromWindow for why any reference date gives the
+// same ranking). Mutates `window` in place, mirroring the "keep highest K"
+// shape of updateTop() in Utils.ts, but keeping the (grade, date) pair
+// instead of a bare number since re-decaying later needs the original date.
+function updateWindow(window: GradeWindowEntry[], entry: GradeWindowEntry, referenceDate: string) {
+  const rank = (e: GradeWindowEntry) => decayedValue(e, referenceDate)
+  if (window.length < COOKIE_TOP_K) {
+    window.push(entry)
+  } else if (rank(window[window.length - 1]!) < rank(entry)) {
+    window.pop()
+    window.push(entry)
+  } else {
+    return
+  }
+  window.sort((a, b) => rank(b) - rank(a))
+}
+
+export function computeDecayedAverageLevel(
+  ascents: ProcessedAscent[],
+  asOfDate: Date = new Date(),
+): number {
+  const sorted = [...ascents].sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0))
+  const window: GradeWindowEntry[] = []
+  for (const ascent of sorted) {
+    const grade = mapGrade(ascent.grade, 0) as number
+    updateWindow(window, { grade, date: ascent.date }, ascent.date)
+  }
+  return levelFromWindow(window, asOfDate.toISOString().slice(0, 10))
+}
+
+// One point per distinct ascent date, valued *after* incorporating that
+// day's send(s) - unlike the Send Cookies scoring pass, this is a
+// display-only trend line (not scoring anything), so there's no hindsight
+// concern in using same-day information. Same-day sends collapse to the
+// last value, matching how generateTimeSeries's day rollup already treats
+// same-day ascents as one point.
+export function computeDecayedAverageLevelHistory(
+  ascents: ProcessedAscent[],
+): { x: Date; y: number }[] {
+  const sorted = [...ascents].sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0))
+  const window: GradeWindowEntry[] = []
+  const points: { x: Date; y: number }[] = []
+  for (const ascent of sorted) {
+    const grade = mapGrade(ascent.grade, 0) as number
+    updateWindow(window, { grade, date: ascent.date }, ascent.date)
+    const level = levelFromWindow(window, ascent.date)
+    const x = new Date(ascent.date + 'T12:00:00Z')
+    const last = points[points.length - 1]
+    if (last && last.x.getTime() === x.getTime()) {
+      last.y = level
+    } else {
+      points.push({ x, y: level })
+    }
+  }
+  return points
 }

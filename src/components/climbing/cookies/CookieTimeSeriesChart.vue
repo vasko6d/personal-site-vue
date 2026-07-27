@@ -53,14 +53,8 @@ const options: ChartOptions<'line'> = {
   },
   plugins: {
     legend: { position: 'bottom' },
-    zoom: {
-      pan: { enabled: true, mode: 'xy' },
-      zoom: {
-        wheel: { enabled: true },
-        pinch: { enabled: true },
-        mode: 'xy',
-      },
-    },
+    // No zoom/pan on this chart - chartjs-plugin-zoom is disabled by default
+    // for any chart that simply omits the `zoom` plugin key.
   },
 }
 </script>
