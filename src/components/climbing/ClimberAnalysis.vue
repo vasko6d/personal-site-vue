@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import Aggregate from '@/utils/Aggregate'
 import { useClimberAnalysisStore } from '@/stores/useClimberAnalysisStore'
-import { buildDynamicChart, defaultChartOpts } from '@/utils/ClimbingCharts'
+import { defaultChartOpts } from '@/utils/ClimbingCharts'
 import type { ProcessedAscent } from '@/utils/Utils'
 import ChartHandler from '@/components/climbing/charts/ChartHandler.vue'
 import TimeSeriesChart from '@/components/climbing/charts/TimeSeriesChart.vue'
@@ -10,7 +10,6 @@ import StatFilter from '@/components/climbing/StatFilter.vue'
 import LoadingSpinner from '@/components/shared/LoadingSpinner.vue'
 import ClimberAscentTable from '@/components/climbing/ClimberAscentTable.vue'
 import ClimberColumnSelect from '@/components/climbing/ClimberColumnSelect.vue'
-import type { Chart } from './types'
 import type { ClimberStat } from '@/stores/climbingShared'
 
 const props = defineProps<{
@@ -28,10 +27,6 @@ const showDynamicCharts = ref(true)
 const showAscents = ref(false)
 const loading = ref(true)
 const tsIsOpen = ref(true)
-
-const computedCharts = computed<Chart[]>(() =>
-  store.charts.dynamic.map((dChart) => buildDynamicChart(store.stats, dChart.statBase, dChart)),
-)
 
 function handleStatClick(stat: ClimberStat) {
   if (stat.dates) {
@@ -157,11 +152,11 @@ setTimeout(() => {
       <div v-if="showDynamicCharts">
         <div class="flex-row">
           <ChartHandler
-            v-for="(dynamicChart, index) in computedCharts"
+            v-for="(config, index) in store.charts.dynamic"
             :key="index"
-            :chart="dynamicChart"
+            :config="config"
             :stats="store.currentFilteredStat"
-            @close="store.closeChart(dynamicChart)"
+            @close="store.closeChart(index)"
             @changeChartType="store.changeChartType($event, index)"
             @changeAggregator="store.changeAggregator($event, index)"
             @changeBaseStat="store.changeBaseStat($event, index)"

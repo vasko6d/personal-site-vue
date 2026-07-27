@@ -14,7 +14,6 @@ import {
 import type { ClimberStat } from '@/stores/climbingShared'
 import type {
   AggOpts,
-  Chart,
   ColumnDef,
   DynamicChartConfig,
   StatFilterMap,
@@ -148,8 +147,8 @@ export const useClimberAnalysisStore = defineStore('climberAnalysis', () => {
     charts.dynamic.push({ type: chartType, statBase: statBase, opts: opts })
   }
 
-  function closeChart(chart: Chart) {
-    chart.opts.hideChart = true
+  function closeChart(chartIndex: number) {
+    charts.dynamic[chartIndex]!.opts.hideChart = true
   }
 
   function changeChartType(type: string, chartIndex: number) {

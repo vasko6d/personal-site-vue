@@ -4,10 +4,11 @@ import Stat from '@/utils/Stat'
 import ChartView from './ChartView.vue'
 import SettingView from './SettingView.vue'
 import AscentView from './AscentView.vue'
-import type { AggOpts, Chart } from '../types'
+import { buildDynamicChart } from '@/utils/ClimbingCharts'
+import type { AggOpts, DynamicChartConfig } from '../types'
 
 const props = defineProps<{
-  chart: Chart
+  config: DynamicChartConfig
   stats: Stat
 }>()
 
@@ -24,12 +25,19 @@ const emit = defineEmits<{
 
 const viewType = ref<'chart' | 'settings' | 'ascents'>('chart')
 
+// Only materializes this chart's data - each ChartHandler instance has its
+// own computed, so a setting change on one chart (or a filter change that
+// only affects this chart's statBase) doesn't recompute its siblings, and a
+// hidden chart (showChart false below) never gets built at all since `chart`
+// is only read inside the v-if="showChart" branch of the template.
+const chart = computed(() => buildDynamicChart(props.stats, props.config.statBase, props.config))
+
 const showChart = computed(() => {
-  const opts = props.chart.opts
+  const opts = props.config.opts
   return !(
     (opts.filters &&
-      opts.filters[props.chart.statBase] &&
-      opts.filters[props.chart.statBase]!.val) ||
+      opts.filters[props.config.statBase] &&
+      opts.filters[props.config.statBase]!.val) ||
     opts.hideChart
   )
 })

@@ -19,18 +19,27 @@ export function defaultChartOpts(): Record<string, unknown> {
   } satisfies ChartOptions<'bar'>
 }
 
-// Materializes one dynamic chart's data/opts from the root Stat tree -
-// ported verbatim from ClimberAnalysis.vue's former local createChart()
-// (including the same stat.getFiltered(statBase, opts.filters) call - opts
-// .filters is also read directly elsewhere, by getGradeChartData's
-// type==='redpoint'/'flash'/'onsite' branches and by ChartHandler.vue's
-// showChart, so it must already be set on the config, not just used to
-// narrow the stat here). Pure function (no component/store state) so it can
-// be called once per chart instance (ChartHandler.vue) instead of once per
-// filter change for every chart in one shared computed.
-export function buildDynamicChart(rootStat: Stat, statBase: string, config: DynamicChartConfig): Chart {
+// Materializes one dynamic chart's data/opts, given the current-filters-
+// applied Stat tree (what both climbing stores expose as
+// currentFilteredStat) - adapted from ClimberAnalysis.vue's former local
+// createChart(), which called stat.getFiltered(statBase, opts.filters) on
+// the *root* tree. Since opts.filters is always the same reference as the
+// currentFilters that already produced the filtered tree passed in here,
+// re-walking those filter categories a second time is redundant - drilling
+// into statBase on the already-filtered tree (via .getFiltered(statBase),
+// no filters arg) reaches the exact same node. This matches the pattern
+// AscentView.vue already used (props.stats.get(props.chart.statBase)) for
+// the same reason. opts.filters itself is still read directly elsewhere
+// (getGradeChartData's type==='redpoint'/'flash'/'onsite' branches, and
+// ChartHandler.vue's showChart), so it must still be set on the config -
+// just no longer needed as an argument here.
+//
+// Pure function (no component/store state) so it can be called once per
+// chart instance (ChartHandler.vue) instead of once per filter change for
+// every chart in one shared computed.
+export function buildDynamicChart(filteredStat: Stat, statBase: string, config: DynamicChartConfig): Chart {
   const { type: chartType, opts } = config
-  const stat = rootStat.getFiltered(statBase, opts.filters)
+  const stat = filteredStat.getFiltered(statBase)
   const dynamicChart: Chart = {
     type: chartType,
     title: opts.title || prettyCapitalize(statBase) + ' Chart',
