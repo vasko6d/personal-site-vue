@@ -29,7 +29,7 @@ const emit = defineEmits<{
       <div class="holder-info">
         <div class="holder-label">{{ label }}</div>
         <div class="holder-name b">{{ holder.climber }}</div>
-        <div class="holder-total">{{ holder.total.toFixed(1) }} cookies</div>
+        <div class="holder-total">{{ holder.total }} cookies</div>
       </div>
     </template>
     <div v-else class="holder-empty">No sends yet - go climb something!</div>

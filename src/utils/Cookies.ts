@@ -10,7 +10,7 @@ export const COOKIE_DECAY_PER_YEAR = 1.0
 export const COOKIE_BASE_MULTIPLIER = 5
 export const COOKIE_ACTIVE_MONTHS = 1
 export const COOKIE_MAX_PER_SEND = 100
-export const LEVEL_STEP_MONTHS = 6
+export const LEVEL_STEP_MONTHS = 12
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24
 const DAYS_PER_YEAR = 365.25
@@ -79,12 +79,18 @@ export interface ClimberCookieHistory {
   currentLevel: number
 }
 
-// Single chronological pass over one climber's ascents: for each send, steps
-// the running "hardest club" level down to that send's date (using only
-// prior history - never mutates with hindsight), scores against it, then
-// renews the level (and its clock) if this send matches or beats it. Also
-// returns the climber's current level as of asOfDate. Never mutates the
-// caller's array.
+// Single chronological pass over one climber's ascents, processed in
+// same-date batches rather than one ascent at a time: for each date, steps
+// the running "hardest club" level down to that date once (using only prior
+// history - never mutates with hindsight), scores every ascent from that
+// date against that same pre-batch level, then renews once using the
+// batch's max grade (if it qualifies). This matters because there's no
+// time-of-day data - if a climber sends several grades on the same day, we
+// can't know the true order, so we have to assume the hardest one happened
+// last (otherwise an easier same-day send could get scored against a level
+// that only exists because of a harder send that day, undercutting it).
+// Also returns the climber's current level as of asOfDate. Never mutates
+// the caller's array.
 export function computeClimberCookieHistory(
   ascents: ProcessedAscent[],
   asOfDate: Date = new Date(),
@@ -93,26 +99,37 @@ export function computeClimberCookieHistory(
   const sends: CookieSend[] = []
   let level = 0
   let sinceDate: string | null = null
-  for (const ascent of sorted) {
+  let i = 0
+  while (i < sorted.length) {
+    const date = sorted[i]!.date
+    let j = i
+    while (j < sorted.length && sorted[j]!.date === date) j++
     if (sinceDate !== null) {
-      ;({ level, sinceDate } = stepDownLevel(level, sinceDate, ascent.date))
+      ;({ level, sinceDate } = stepDownLevel(level, sinceDate, date))
     }
-    const grade = mapGrade(ascent.grade, 0) as number
     const levelAtTime = level
-    const diff = grade - levelAtTime
-    const cookiesEarned = Math.min(
-      COOKIE_MAX_PER_SEND,
-      Math.max(0, Math.floor(COOKIE_BASE_MULTIPLIER * Math.pow(2, diff))),
-    )
-    sends.push({ ascent, levelAtTime, cookiesEarned, climber: ascent.climber, date: ascent.date })
+    let maxGradeInBatch = -Infinity
+    for (let k = i; k < j; k++) {
+      const ascent = sorted[k]!
+      const grade = mapGrade(ascent.grade, 0) as number
+      maxGradeInBatch = Math.max(maxGradeInBatch, grade)
+      const diff = grade - levelAtTime
+      const cookiesEarned = Math.min(
+        COOKIE_MAX_PER_SEND,
+        Math.max(0, Math.floor(COOKIE_BASE_MULTIPLIER * Math.pow(2, diff))),
+      )
+      sends.push({ ascent, levelAtTime, cookiesEarned, climber: ascent.climber, date: ascent.date })
+    }
     // Grades can be fractional (half-grades like '7/8' -> 7.5) but the level
     // must always be a whole number - flooring here (not at the diff/cookie
-    // calc above, which still uses the precise raw grade) is what keeps
-    // levelAtTime/currentLevel integral even when a half-grade send renews.
-    if (grade >= level) {
-      level = Math.floor(grade)
-      sinceDate = ascent.date
+    // calc above, which still uses each send's precise raw grade) is what
+    // keeps levelAtTime/currentLevel integral even when a half-grade send
+    // renews.
+    if (maxGradeInBatch >= level) {
+      level = Math.floor(maxGradeInBatch)
+      sinceDate = date
     }
+    i = j
   }
   let currentLevel = level
   if (sinceDate !== null) {
@@ -281,6 +298,38 @@ export function computeCookieTimeSeries(
       }
     }
     points.push({ x: asOf, y: total })
+    return { climber, points }
+  })
+}
+
+// Cumulative (undecayed) cookie count across a single calendar month, for
+// the month-filtered view - no expiry/cliff logic needed at all here, since
+// a send dated within a given month can never hit its one-month expiry
+// before that same month ends.
+export function computeMonthlyCookieTimeSeries(
+  allSends: CookieSend[],
+  climbers: string[],
+  yearMonth: string,
+): CookieTimeSeriesEntry[] {
+  const monthStart = new Date(`${yearMonth}-01T12:00:00Z`)
+  const monthEnd = addCalendarMonths(monthStart, 1)
+  return climbers.map((climber) => {
+    const sends = allSends
+      .filter((send) => send.climber === climber && send.date.startsWith(yearMonth))
+      .sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0))
+    const points: { x: Date; y: number }[] = [{ x: monthStart, y: 0 }]
+    let total = 0
+    for (const send of sends) {
+      total += send.cookiesEarned
+      const x = new Date(send.date + 'T12:00:00Z')
+      const last = points[points.length - 1]!
+      if (last.x.getTime() === x.getTime()) {
+        last.y = total
+      } else {
+        points.push({ x, y: total })
+      }
+    }
+    points.push({ x: monthEnd, y: total })
     return { climber, points }
   })
 }

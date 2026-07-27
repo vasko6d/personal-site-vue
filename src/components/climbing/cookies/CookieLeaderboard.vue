@@ -37,23 +37,25 @@ const sortable = ['climber', 'total', 'sendCount']
 
 <template>
   <div class="table-container">
-    <DataTable
-      :columns="columns"
-      :data="visibleEntries"
-      :headings="headings"
-      :sortable="sortable"
-      :orderBy="{ column: 'total', ascending: false }"
-      :perPage="25"
-      @row-click="(row) => emit('climber-click', row.climber)"
-    >
-      <template #climber="{ row }">
-        <div class="climber-cell">
-          <ClimberAvatar :name="row.climber" :size="28" />
-          {{ row.climber }}
-        </div>
-      </template>
-      <template #total="{ row }">{{ row.total.toFixed(1) }}</template>
-    </DataTable>
+    <div class="leaderboard-scroll">
+      <DataTable
+        :columns="columns"
+        :data="visibleEntries"
+        :headings="headings"
+        :sortable="sortable"
+        :orderBy="{ column: 'total', ascending: false }"
+        :perPage="25"
+        @row-click="(row) => emit('climber-click', row.climber)"
+      >
+        <template #climber="{ row }">
+          <div class="climber-cell">
+            <ClimberAvatar :name="row.climber" :size="28" />
+            {{ row.climber }}
+          </div>
+        </template>
+        <template #total="{ row }">{{ row.total }}</template>
+      </DataTable>
+    </div>
     <button v-if="!showAll && entries.length > 10" class="load-more" @click="showAll = true">
       Load {{ entries.length - 10 }} more
     </button>
@@ -65,6 +67,13 @@ const sortable = ['climber', 'total', 'sendCount']
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+/* Capped and independently scrollable so a full (post "load more")
+   leaderboard doesn't stretch taller than the banner+calendar column beside
+   it on desktop. */
+.leaderboard-scroll {
+  max-height: 600px;
+  overflow-y: auto;
 }
 .load-more {
   margin-top: 0.5em;

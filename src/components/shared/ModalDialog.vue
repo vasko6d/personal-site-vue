@@ -40,12 +40,10 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
           class="modal-container"
           :style="props.size === 'wide' ? { maxWidth: 'min(90vw, 900px)' } : undefined"
         >
+          <i class="fas fa-window-close icn modal-close-btn" @click="emit('close')"></i>
           <div class="modal-header">
             <slot name="header">
-              <h2>
-                {{ title }}&nbsp;
-                <i class="fas fa-window-close icn" @click="emit('close')"></i>
-              </h2>
+              <h2>{{ title }}</h2>
             </slot>
           </div>
           <div class="modal-body">
@@ -63,4 +61,18 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 <style lang="scss" scoped>
 @use '@/assets/styles/modal-shared';
+
+// Pinned top-right regardless of what the header slot contains (default
+// title or a fully custom header) - scoped to this component only, so the
+// other pre-existing one-off .modal-mask users elsewhere in the app (which
+// don't use ModalDialog) are unaffected by position:relative here.
+.modal-container {
+  position: relative;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+}
 </style>

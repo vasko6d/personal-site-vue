@@ -79,7 +79,6 @@ const customSorting: Record<string, (ascending: boolean) => (a: CookieRow, b: Co
             Current Level: V{{ currentLevel }}
           </div>
         </div>
-        <i class="fas fa-window-close icn" @click="$emit('close')"></i>
       </div>
     </template>
     <div class="table-container">
@@ -108,10 +107,6 @@ const customSorting: Record<string, (ascending: boolean) => (a: CookieRow, b: Co
   }
   .current-level {
     font-size: 0.9em;
-  }
-  .icn {
-    margin-left: auto;
-    cursor: pointer;
   }
 }
 </style>

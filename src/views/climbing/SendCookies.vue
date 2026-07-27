@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSendCookiesStore } from '@/stores/useSendCookiesStore'
-import { computeMonthlyLeaderboard } from '@/utils/Cookies'
+import { computeMonthlyLeaderboard, computeMonthlyCookieTimeSeries } from '@/utils/Cookies'
 import { mapName } from '@/utils/Utils'
 import LoadingSpinner from '@/components/shared/LoadingSpinner.vue'
 import CookieHolderBanner from '@/components/climbing/cookies/CookieHolderBanner.vue'
@@ -41,6 +41,19 @@ const displayLeaderboard = computed(() => (isFiltered.value ? monthlyLeaderboard
 const displayHolder = computed(() => (isFiltered.value ? displayLeaderboard.value[0] : store.holder))
 const bannerLabel = computed(() =>
   isFiltered.value ? `${monthName.value} ${props.year} Winner` : 'Current Cookie Holder',
+)
+
+// Filtered view still gets a time-series chart, just scoped to that month's
+// own top-10 (rather than the live view's top-10) and plotted on a
+// day-level axis instead of the 12-month view's month-level one.
+const timeSeries = computed(() =>
+  isFiltered.value
+    ? computeMonthlyCookieTimeSeries(
+        store.allSends,
+        monthlyLeaderboard.value.slice(0, 10).map((e) => e.climber),
+        yearMonth.value!,
+      )
+    : store.timeSeries,
 )
 
 function clearFilter() {
@@ -85,8 +98,8 @@ function openClimberDetail(climber: string) {
       <div class="area-leaderboard">
         <CookieLeaderboard :entries="displayLeaderboard" @climber-click="openClimberDetail" />
       </div>
-      <div v-if="!isFiltered" class="area-timeseries">
-        <CookieTimeSeriesChart :series="store.timeSeries" />
+      <div class="area-timeseries">
+        <CookieTimeSeriesChart :series="timeSeries" :timeUnit="isFiltered ? 'day' : 'month'" />
       </div>
       <div class="area-calendar">
         <CookieCalendar

@@ -6,9 +6,13 @@ import { getDistinctColor } from '@/utils/Utils'
 import { importedClimbers } from '@/data/importedClimbers'
 import type { CookieTimeSeriesEntry } from '@/utils/Cookies'
 
-const props = defineProps<{
-  series: CookieTimeSeriesEntry[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    series: CookieTimeSeriesEntry[]
+    timeUnit?: 'day' | 'month'
+  }>(),
+  { timeUnit: 'month' },
+)
 
 function colorFor(climber: string): string {
   const index = importedClimbers.findIndex((c) => c.name === climber)
@@ -37,13 +41,13 @@ const chartData = computed<ChartData<'line'>>(() => ({
   }) as unknown as ChartData<'line'>['datasets'],
 }))
 
-const options: ChartOptions<'line'> = {
+const options = computed<ChartOptions<'line'>>(() => ({
   responsive: true,
   maintainAspectRatio: false,
   scales: {
     x: {
       type: 'time',
-      time: { unit: 'month' },
+      time: { unit: props.timeUnit },
       title: { display: false },
     },
     y: {
@@ -56,7 +60,7 @@ const options: ChartOptions<'line'> = {
     // No zoom/pan on this chart - chartjs-plugin-zoom is disabled by default
     // for any chart that simply omits the `zoom` plugin key.
   },
-}
+}))
 </script>
 
 <template>
