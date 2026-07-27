@@ -78,7 +78,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/billiard-ball-robot",
         name: "Ball Robot",
-        component: () => import("../views/ComingSoon.vue"),
+        component: () => import("../views/BallRobot.vue"),
       },
       {
         path: "/webgl",
