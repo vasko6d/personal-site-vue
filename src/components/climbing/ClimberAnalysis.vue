@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onUpdated } from 'vue'
 import Aggregate from '@/utils/Aggregate'
 import { useClimberAnalysisStore } from '@/stores/useClimberAnalysisStore'
 import { defaultChartOpts } from '@/utils/ClimbingCharts'
@@ -42,6 +42,14 @@ interface TooltipContextLike {
   parsed: { y: number }
   label: string
 }
+
+// Belt-and-suspenders from the original component: forces the spinner off
+// on any update cycle, in case the setTimeout/try below doesn't reach its
+// own loading.value = false for some reason. Dropped by mistake during the
+// Pinia migration; restored as-is.
+onUpdated(() => {
+  loading.value = false
+})
 
 loading.value = true
 setTimeout(() => {
@@ -203,7 +211,9 @@ setTimeout(() => {
           <ClimberColumnSelect
             :columns="store.columns"
             :labelMap="store.headings"
-            @toggleActive="store.columns[$event.index]!.active = !store.columns[$event.index]!.active"
+            @toggleActive="
+              store.columns[$event.index]!.active = !store.columns[$event.index]!.active
+            "
           >
           </ClimberColumnSelect>
         </div>

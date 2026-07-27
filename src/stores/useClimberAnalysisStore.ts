@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref, reactive, computed, shallowRef } from 'vue'
+import { ref, reactive, computed, shallowRef, markRaw } from 'vue'
 import Stat from '@/utils/Stat'
 import Aggregate from '@/utils/Aggregate'
 import { preprocessAscent, mapGrade, vScale } from '@/utils/Utils'
 import type { ProcessedAscent } from '@/utils/Utils'
+import { defaultChartOpts } from '@/utils/ClimbingCharts'
 import {
   buildStatTree,
   dateAnalysis,
@@ -144,6 +145,19 @@ export const useClimberAnalysisStore = defineStore('climberAnalysis', () => {
     // read directly by getGradeChartData's type-based branches and by
     // ChartHandler.vue's showChart, not just used to narrow the stat.
     opts.filters = currentFilters
+    // chartOpts (the Chart.js options object) and colors are both mutated
+    // directly by Chart.js/getPieChartData outside of any Vue-aware
+    // mechanism - Chart.js writes internal bookkeeping into the options
+    // object it's handed, and getPieChartData grows `colors` as new labels
+    // are discovered. Establishing both here, pre-marked raw, before this
+    // object ever enters the reactive charts.dynamic array means Vue never
+    // wraps them in a reactive Proxy in the first place (markRaw only takes
+    // effect if applied before a parent's reactive() first touches the
+    // property) - the rest of `opts` (filters, hideChart, splitStat, limit,
+    // etc.) stays reactive as before, since SettingView.vue's v-model
+    // bindings need that.
+    opts.chartOpts = markRaw(opts.chartOpts || defaultChartOpts())
+    opts.colors = markRaw(opts.colors || {})
     charts.dynamic.push({ type: chartType, statBase: statBase, opts: opts })
   }
 

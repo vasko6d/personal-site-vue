@@ -36,8 +36,17 @@ export function defaultChartOpts(): Record<string, unknown> {
 //
 // Pure function (no component/store state) so it can be called once per
 // chart instance (ChartHandler.vue) instead of once per filter change for
-// every chart in one shared computed.
-export function buildDynamicChart(filteredStat: Stat, statBase: string, config: DynamicChartConfig): Chart {
+// every chart in one shared computed. Doesn't mutate any Pinia state itself
+// - opts.chartOpts/opts.colors are pre-established (and markRaw'd) by
+// addDynamicChart before this ever runs, so Chart.js's own internal
+// mutation of the options object it's handed, and getPieChartData's
+// incremental population of opts.colors below, both happen on plain,
+// non-reactive objects, never a Vue reactive Proxy.
+export function buildDynamicChart(
+  filteredStat: Stat,
+  statBase: string,
+  config: DynamicChartConfig,
+): Chart {
   const { type: chartType, opts } = config
   const stat = filteredStat.getFiltered(statBase)
   const dynamicChart: Chart = {
@@ -45,7 +54,7 @@ export function buildDynamicChart(filteredStat: Stat, statBase: string, config: 
     title: opts.title || prettyCapitalize(statBase) + ' Chart',
     statBase: statBase,
     opts: opts,
-    chartOpts: opts.chartOpts || defaultChartOpts(),
+    chartOpts: opts.chartOpts!,
     chartData: { datasets: [], labels: [], names: [] },
   }
   ;(dynamicChart.chartOpts as Record<string, unknown>).splitStat = !!opts.splitStat
@@ -71,19 +80,11 @@ export function buildDynamicChart(filteredStat: Stat, statBase: string, config: 
   switch (chartType) {
     case 'bar':
     case 'pie': {
+      // opts.colors (pre-established by addDynamicChart) gets grown in
+      // place by getPieChartData itself as it encounters new labels, so
+      // colors stay stable across re-sorts/re-filters with no extra work
+      // needed here.
       dynamicChart.chartData = getPieChartData(stat, opts)
-      // Save the original colors in a color map and persist them to prevent new random ones being assigned
-      const firstDataset = dynamicChart.chartData.datasets[0]
-      opts.colors =
-        opts.colors ||
-        ((firstDataset?.backgroundColor as string[] | undefined)?.reduce(
-          (colorMap: Record<string, string>, field, index) => {
-            colorMap[dynamicChart.chartData.labels[index]!] = field
-            return colorMap
-          },
-          {},
-        ) ??
-          {})
       // Disable legend on pie if more than 20 entries
       const plugins = ((dynamicChart.chartOpts.plugins as Record<string, unknown>) ??= {})
       plugins.legend = {
