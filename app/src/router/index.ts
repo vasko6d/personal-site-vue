@@ -94,27 +94,27 @@ const routes: RouteRecordRaw[] = [
           {
             path: "fractals",
             name: "Fractals on Canvas",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/webgl/Fractals.vue"),
           },
           {
             path: "cubert",
             name: "Cubes in Space",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/webgl/Cubert.vue"),
           },
           {
             path: "ffvii-textures",
             name: "FFVII Textures",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/webgl/FfViiTextures.vue"),
           },
           {
             path: "galaxy",
             name: "Creating the Galaxy",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/webgl/Galaxy.vue"),
           },
           {
             path: "island-game",
             name: "Island Game",
-            component: () => import("../views/ComingSoon.vue"),
+            component: () => import("../views/webgl/IslandGame.vue"),
           },
         ],
       },

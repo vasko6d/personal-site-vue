@@ -65,3 +65,23 @@ Found while porting, not fixed — these are behavior changes outside a faithful
 This is a **confirmed pre-existing bug, not a migration regression** — `xword-puzzle.scss` was copied byte-for-byte in Phase 1 with no changes. The underlying state tracking is correct (`Xword.toggleCellFlag()` flips `cell.flag`, and the template's `:class="{ flagged: cell.flag, ... }"` binding is applied correctly) — only the visual styling was left commented out in the original app.
 
 **Fix direction:** uncomment the `.flagged` block above (matching the already-live `.exact`/`.autosolved`/`.wrong` sibling rules' pattern).
+
+## Discovered dead (and already-broken) code in the WebGL feature (Phase 8)
+
+**Where:** `src/views/webgl/class/Galaxy.js`'s `rebindBufferData()` method — dropped entirely from the `Galaxy.ts` port (`app/src/views/webgl/class/Galaxy.ts`).
+
+**Confirmed dead:** `grep -rn "rebindBufferData" src/` matches only the method's own definition — it is never called anywhere in the original app.
+
+**Confirmed already broken, independent of dead-code status:** its internal call `wglu.attrib(gl, loc.a.pos, 3, buf.pos)` passes 4 arguments where `attrib(gl, program, attributeName, length, buf)` requires 5 (`attributeName` missing) — `buf` would resolve to `undefined` and the call would throw at runtime if it were ever invoked. Not a migration regression; the original was non-functional as written.
+
+**Action taken:** removed rather than ported with invented/guessed-correct arguments, consistent with how other confirmed-dead code was handled in Phases 6-7 (`ClimberSelect.vue`'s dead `sandboxId` guard, `XwordPuzzle.vue`'s `calcWrong()`/`isSpecialInput()`, `XwordSearch.vue`'s `statusSort()`). No fix direction needed — nothing depended on it.
+
+## Vue 3 breaking change forced a real (behavior-preserving) restructuring in the WebGL feature (Phase 8)
+
+**Where:** `Fractals.vue`, `Cubert.vue`, `FfViiTextures.vue`, `Galaxy.vue` — all four embedded their vertex/fragment GLSL shader source directly as nested `<script id="vertex-shader">`/`<script id="fragment-shader">` tags inside the component `<template>`, which `ShaderUtils.init()` (formerly a `WebGLUtils` mixin method) reads via `document.getElementById(id).text`. This rendered fine under Vue 2's template compiler.
+
+**Confirmed via the dev server:** Vue 3's `@vue/compiler-dom` hard-errors on this pattern — `"Tags with side effect (<script> and <style>) are ignored in client component templates."` (`ignoreSideEffectTags` in `compiler-dom`). This is not a lint nuance or a false positive; it is a categorical rejection, so the old pattern cannot be ported as-is under any component API style.
+
+**Fix (mechanism-only, no behavior change):** added `injectShaderScript(id, type, source)` / `removeShaderScript(id)` to `app/src/utils/webgl/WebGLUtils.ts`, which create/remove a real `<script>` element via `document.createElement` (imperative DOM API, not a Vue template), so `ShaderUtils.init()`'s `getElementById(...).text` lookup keeps working completely unchanged. Each shader's GLSL source moved from the template into a `const vertexShaderSrc`/`fragmentShaderSrc` template string in `<script setup>`; each view now calls `injectShaderScript(...)` for both shaders in `onMounted` (before `configureWebGL()`) and `removeShaderScript(...)` in `onUnmounted`. The explicit teardown matters: all four views reuse the same two DOM ids ("vertex-shader"/"fragment-shader"), so without removing them on unmount, navigating between two WebGL demo routes in the same SPA session would silently compile the wrong (stale) shader source into the new page's `WebGLProgram`.
+
+Confirmed no compiler error and normal route resolution (200) for all five WebGL routes (`/webgl/fractals`, `/webgl/cubert`, `/webgl/ffvii-textures`, `/webgl/galaxy`, `/webgl/island-game`) via the Vite dev server after the fix; no headless-browser WebGL rendering verification was possible in this environment (same constraint noted for other feature areas).
