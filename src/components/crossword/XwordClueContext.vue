@@ -21,7 +21,7 @@ const emit = defineEmits<{
 
 const halfSecs = ref(0)
 
-const flashDash = computed(() => (halfSecs.value % 2 === 0 ? '_' : '&nbsp;'))
+const flashDash = computed(() => (halfSecs.value % 2 === 0 ? '_' : ' '))
 
 let interval: ReturnType<typeof setInterval> | undefined
 onMounted(() => {
@@ -51,6 +51,7 @@ function clickFxn(r: number, c: number) {
             content: cell.entry + flashDash,
             show: xr === cell.r && xc === cell.c && cell.isSpecialInput,
             trigger: 'manual',
+            html: true,
           }"
         >
           <div class="color-base" :class="[cell.color]">
