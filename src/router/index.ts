@@ -53,6 +53,13 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/climbing/SandboxTicklist.vue'),
       },
       {
+        path: '/climbing/send-cookies/:year?/:month?',
+        name: 'Send Cookies',
+        meta: { defaultPath: '/climbing/send-cookies' },
+        component: () => import('../views/climbing/SendCookies.vue'),
+        props: true,
+      },
+      {
         path: '/climbing/analytics/:sandboxId',
         name: 'Analysis',
         meta: { defaultPath: '/climbing/analytics/david-vasko' },
