@@ -48,3 +48,16 @@ defineEmits<{
     </p>
   </ModalDialog>
 </template>
+
+<style scoped>
+/* The app-wide .wrapper { text-align: center } centers li text but leaves
+   the bullet marker anchored to the list's own box (list-style-position:
+   outside is the default), producing bullet-then-big-gap-then-centered-text
+   - same fix App.vue's global .blk-container ul already uses elsewhere. */
+ul {
+  text-align: left;
+}
+li {
+  text-align: left;
+}
+</style>
