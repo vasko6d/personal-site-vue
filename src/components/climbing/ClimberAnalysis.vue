@@ -3,6 +3,7 @@ import { computed, reactive, ref, onUpdated } from 'vue'
 import type { ChartOptions } from 'chart.js'
 import Stat from '@/utils/Stat'
 import Aggregate from '@/utils/Aggregate'
+import { computeIgnoreSet } from '@/stores/climbingShared'
 import {
   preprocessAscent,
   prettyCapitalize,
@@ -405,7 +406,8 @@ function initializeStats(): Promise<void> {
   ascents.value = props.rawAscents.map((ascent) =>
     preprocessAscent(ascent as never, props.climberName),
   )
-  const s = new Stat('ascents', ['comment'])
+  const ignore = ascents.value.length > 0 ? computeIgnoreSet(ascents.value[0]!) : []
+  const s = new Stat('ascents', ignore)
   s.goDeeper(ascents.value as unknown as Record<string, unknown>[])
   console.log('Analytics: ', s)
   stats.value = s

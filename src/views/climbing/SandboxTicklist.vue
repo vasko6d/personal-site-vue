@@ -2,6 +2,7 @@
 import { computed, reactive, ref } from 'vue'
 import Stat from '@/utils/Stat'
 import { fetchData, preprocessAscent } from '@/utils/Utils'
+import { computeIgnoreSet } from '@/stores/climbingShared'
 import Timer from '@/utils/webgl/Timer'
 import ClimberAscentTable from '@/components/climbing/ClimberAscentTable.vue'
 import ClimberColumnSelect from '@/components/climbing/ClimberColumnSelect.vue'
@@ -83,6 +84,8 @@ function fetchAllData() {
       loadingMessage.value = 'Processing Scorecards...'
       setTimeout(() => {
         const allAscentsFlat = ([] as ProcessedAscent[]).concat(...allAscents)
+        const ignore = allAscentsFlat.length > 0 ? computeIgnoreSet(allAscentsFlat[0]!) : []
+        stats.value = new Stat('ascents', ignore)
         stats.value.goDeeper(allAscentsFlat as unknown as Record<string, unknown>[])
         console.log(`[${timer.getTimeSec()}] All Ascents porcessed`)
         console.log('Ticklist: ', stats.value)
