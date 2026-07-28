@@ -18,7 +18,7 @@ defineEmits<{
     <p>
       Your level is your hardest send, held constant - it only drops by one grade for every
       {{ LEVEL_STEP_MONTHS }} calendar months you go without matching or beating it. Send that
-      grade (or harder) again and the clock resets.
+      grade (or harder) again and the clock resets. A flash is considered one grade harder.
     </p>
     <h3>Cookies per Send</h3>
     <p>
