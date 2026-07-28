@@ -28,6 +28,12 @@ interface CookieRow {
   levelAtTime: number
 }
 
+const shortTypeMap: Record<string, string> = {
+  // redpoint omitted as it is the default and doesn't need a suffix
+  onsite: 'os',
+  flash: 'f',
+}
+
 // Only sends actually contributing to the score currently shown: in the
 // live view that's currently-active (non-expired) sends, matching the
 // leaderboard total; in a month-filtered view it's sends dated in that
@@ -43,7 +49,7 @@ const rows = computed<CookieRow[]>(() => {
     cookiesEarned: send.cookiesEarned,
     date: send.date,
     name: send.ascent.name,
-    grade: send.ascent.grade,
+    grade: send.ascent.grade + (shortTypeMap[send.ascent.type] || ''),
     area: send.ascent.area,
     levelAtTime: send.levelAtTime,
   }))

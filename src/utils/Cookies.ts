@@ -112,8 +112,13 @@ export function computeClimberCookieHistory(
     for (let k = i; k < j; k++) {
       const ascent = sorted[k]!
       const grade = mapGrade(ascent.grade, 0) as number
-      maxGradeInBatch = Math.max(maxGradeInBatch, grade)
-      const diff = grade - levelAtTime
+      
+      // If the send is a flash, it counts as one grade harder than its raw grade for cookie scoring purposes 
+      const adjustedGrade = (ascent.flags?.includes('flash') || 
+        ascent.flags?.includes('onsite')) ? grade + 1 : grade
+
+      maxGradeInBatch = Math.max(maxGradeInBatch, adjustedGrade)
+      const diff = adjustedGrade - levelAtTime
       const cookiesEarned = Math.min(
         COOKIE_MAX_PER_SEND,
         Math.max(0, Math.floor(COOKIE_BASE_MULTIPLIER * Math.pow(2, diff))),
