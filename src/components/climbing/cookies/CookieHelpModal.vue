@@ -31,8 +31,7 @@ defineEmits<{
       <li>2 grades below your level: 1 cookie</li>
       <li>1 grade below your level: 2 cookies</li>
       <li>At your level: {{ COOKIE_BASE_MULTIPLIER }} cookies</li>
-      <li>1 grade above your level: {{ COOKIE_BASE_MULTIPLIER * 2 }} cookies</li>
-      <li>2 grades above your level: {{ COOKIE_BASE_MULTIPLIER * 4 }} cookies</li>
+      <li>1+ grade above your level: {{ COOKIE_BASE_MULTIPLIER * 2 }} cookies</li>
     </ul>
     <h3>Cookie Expiration</h3>
     <p>

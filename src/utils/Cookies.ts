@@ -9,7 +9,7 @@ export const COOKIE_TOP_K = 5
 export const COOKIE_DECAY_PER_YEAR = 1.0
 export const COOKIE_BASE_MULTIPLIER = 5
 export const COOKIE_ACTIVE_MONTHS = 1
-export const COOKIE_MAX_PER_SEND = 100
+export const COOKIE_MAX_PER_SEND = 10
 export const LEVEL_STEP_MONTHS = 12
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24
