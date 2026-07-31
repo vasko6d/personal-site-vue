@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { fetchData, kebabToCap } from '@/utils/Utils'
+import { useClimberManifestStore } from '@/stores/useClimberManifestStore'
 import ClimberAnalysis from '@/components/climbing/ClimberAnalysis.vue'
 import ClimberSelect from '@/components/climbing/ClimberSelect.vue'
 import LoadingSpinner from '@/components/shared/LoadingSpinner.vue'
@@ -11,8 +12,21 @@ const props = defineProps<{
 
 const ascents = ref<Record<string, unknown>[]>([])
 const loading = ref(true)
+const manifestStore = useClimberManifestStore()
+manifestStore.fetchAll()
 
-const climberName = computed(() => kebabToCap(props.sandboxId))
+// Prefer the manifest's userName - it resolves correctly even for a
+// zero-ascent scorecard (no ascents[0] to read). Fall back to the fetched
+// scorecard's own first ascent (e.g. manifest hasn't loaded/doesn't have
+// this slug yet), then to a kebab-to-title-case rendering of the URL param
+// as a last resort so the page title is never blank.
+const climberName = computed(() => {
+  const entry = manifestStore.findBySlug(props.sandboxId)
+  if (entry) return entry.userName
+  const firstAscent = ascents.value[0] as { userName?: string } | undefined
+  if (firstAscent?.userName) return firstAscent.userName
+  return kebabToCap(props.sandboxId)
+})
 
 setTimeout(() => {
   fetchData(props.sandboxId)

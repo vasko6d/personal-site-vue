@@ -87,6 +87,7 @@ function openClimberDetail(climber: string) {
       <LoadingSpinner :size="64" />
       <div>{{ store.loadingMessage }}</div>
     </div>
+    <div v-else-if="store.error">{{ store.error }}</div>
     <div v-else class="send-cookies-layout">
       <div class="area-banner">
         <CookieHolderBanner

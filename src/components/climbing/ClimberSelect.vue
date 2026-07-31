@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { importedClimbers } from '@/data/importedClimbers'
+import { useClimberManifestStore } from '@/stores/useClimberManifestStore'
 
 defineProps<{
   baseURL: string
@@ -10,6 +10,8 @@ defineProps<{
 
 const router = useRouter()
 const showClimbers = ref(false)
+const manifestStore = useClimberManifestStore()
+manifestStore.fetchAll()
 
 function navigate(fullPath: string) {
   router.push(fullPath)
@@ -34,13 +36,16 @@ function navigate(fullPath: string) {
     </div>
     <div v-show="showClimbers" class="flex-row">
       <ul style="list-style-type: none">
+        <li v-if="manifestStore.loading" class="icn">Loading Climbers...</li>
+        <li v-else-if="manifestStore.error" class="icn">{{ manifestStore.error }}</li>
         <li
+          v-else
           class="icn"
-          @click="navigate(baseURL + climber.sandboxId)"
-          v-for="climber in importedClimbers"
-          :key="climber.sandboxId"
+          @click="navigate(baseURL + climber.userSlug)"
+          v-for="climber in manifestStore.sortedClimbers"
+          :key="climber.userSlug"
         >
-          {{ climber.name }}
+          {{ climber.userName }}
         </li>
         <li v-if="linkToJsonAnalysis">...</li>
         <li

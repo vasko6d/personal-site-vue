@@ -18,6 +18,7 @@ store.fetchAll()
       <LoadingSpinner :size="64" />
       <div>{{ store.loadingMessage }}</div>
     </div>
+    <div v-else-if="store.error">{{ store.error }}</div>
     <div v-else class="flex-row">
       <div class="chart-w">
         <div class="chart-p bg1">
@@ -36,7 +37,7 @@ store.fetchAll()
       >
       </ClimberColumnSelect>
     </div>
-    <div v-show="!store.loading">
+    <div v-show="!store.loading && !store.error">
       <ClimberAscentTable
         :columns="store.activeColumns"
         :values="store.currentFilteredStat.values as unknown as ProcessedAscent[]"

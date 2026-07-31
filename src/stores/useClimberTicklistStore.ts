@@ -4,7 +4,7 @@ import Stat from '@/utils/Stat'
 import { fetchData, preprocessAscent } from '@/utils/Utils'
 import type { ProcessedAscent } from '@/utils/Utils'
 import Timer from '@/utils/webgl/Timer'
-import { importedClimbers } from '@/data/importedClimbers'
+import { useClimberManifestStore } from '@/stores/useClimberManifestStore'
 import { buildStatTree, DEFAULT_COLUMNS, DEFAULT_HEADINGS } from '@/stores/climbingShared'
 import type { ColumnDef, StatFilterMap } from '@/components/climbing/types'
 
@@ -16,6 +16,7 @@ import type { ColumnDef, StatFilterMap } from '@/components/climbing/types'
 export const useClimberTicklistStore = defineStore('climberTicklist', () => {
   const loading = ref(true)
   const loadingMessage = ref('Fetching Scorecards...')
+  const error = ref<string | null>(null)
   const stats = shallowRef<Stat>(new Stat('ascents', []))
 
   const currentFilters: StatFilterMap = reactive({
@@ -50,32 +51,43 @@ export const useClimberTicklistStore = defineStore('climberTicklist', () => {
     columns.splice(0, columns.length, ...DEFAULT_COLUMNS.map((c) => ({ ...c })))
 
     loading.value = true
-    loadingMessage.value = 'Fetching Scorecards...'
+    loadingMessage.value = 'Fetching Climber List...'
+    error.value = null
+    const manifestStore = useClimberManifestStore()
     setTimeout(() => {
-      const promises: Promise<ProcessedAscent[]>[] = []
-      const timer = new Timer(true)
-      let fetchCount = 0
-      importedClimbers.forEach((climber) => {
-        promises.push(
-          fetchData(climber.sandboxId).then((result) => {
-            const ascents = (result as { ascents: Record<string, unknown>[] }).ascents.map(
-              (ascent) => preprocessAscent(ascent as never, climber.name),
-            )
-            fetchCount++
-            loadingMessage.value = `Fetching Scorecards ( ${fetchCount} / ${importedClimbers.length} )...`
-            return Promise.resolve(ascents)
-          }),
-        )
-      })
-      Promise.all(promises).then((allAscents) => {
-        loadingMessage.value = 'Processing Scorecards...'
-        setTimeout(() => {
-          const allAscentsFlat = ([] as ProcessedAscent[]).concat(...allAscents)
-          stats.value = buildStatTree(allAscentsFlat)
-          console.log(`[${timer.getTimeSec()}] All Ascents porcessed`)
-          console.log('Ticklist: ', stats.value)
+      manifestStore.fetchAll().then(() => {
+        if (manifestStore.error) {
+          error.value = manifestStore.error
           loading.value = false
-        }, 100)
+          return
+        }
+        const climbers = manifestStore.visibleClimbers
+        loadingMessage.value = 'Fetching Scorecards...'
+        const promises: Promise<ProcessedAscent[]>[] = []
+        const timer = new Timer(true)
+        let fetchCount = 0
+        climbers.forEach((climber) => {
+          promises.push(
+            fetchData(climber.userSlug).then((result) => {
+              const ascents = (result as { ascents: Record<string, unknown>[] }).ascents.map(
+                (ascent) => preprocessAscent(ascent as never, climber.userName),
+              )
+              fetchCount++
+              loadingMessage.value = `Fetching Scorecards ( ${fetchCount} / ${climbers.length} )...`
+              return Promise.resolve(ascents)
+            }),
+          )
+        })
+        Promise.all(promises).then((allAscents) => {
+          loadingMessage.value = 'Processing Scorecards...'
+          setTimeout(() => {
+            const allAscentsFlat = ([] as ProcessedAscent[]).concat(...allAscents)
+            stats.value = buildStatTree(allAscentsFlat)
+            console.log(`[${timer.getTimeSec()}] All Ascents porcessed`)
+            console.log('Ticklist: ', stats.value)
+            loading.value = false
+          }, 100)
+        })
       })
     }, 250)
   }
@@ -93,6 +105,7 @@ export const useClimberTicklistStore = defineStore('climberTicklist', () => {
   return {
     loading,
     loadingMessage,
+    error,
     stats,
     currentFilters,
     columns,
