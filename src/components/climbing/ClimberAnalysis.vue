@@ -3,6 +3,7 @@ import { ref, onUpdated } from 'vue'
 import Aggregate from '@/utils/Aggregate'
 import { useClimberAnalysisStore } from '@/stores/useClimberAnalysisStore'
 import { defaultChartOpts } from '@/utils/ClimbingCharts'
+import { formatClimberName } from '@/utils/Utils'
 import type { ProcessedAscent } from '@/utils/Utils'
 import ChartHandler from '@/components/climbing/charts/ChartHandler.vue'
 import TimeSeriesChart from '@/components/climbing/charts/TimeSeriesChart.vue'
@@ -117,7 +118,7 @@ setTimeout(() => {
 
 <template>
   <div id="climber-analysis">
-    <h1>{{ climberName }}'s Analysis</h1>
+    <h1>{{ formatClimberName(climberName) }}'s Analysis</h1>
     <div v-if="loading">
       <LoadingSpinner :size="64" />
       <div>Analyzing...</div>

@@ -5,7 +5,7 @@ import DataTable from '@/components/shared/DataTable.vue'
 import ClimberAvatar from './ClimberAvatar.vue'
 import { climberSendHistory, isSendActive } from '@/utils/Cookies'
 import type { CookieSend } from '@/utils/Cookies'
-import { mapGrade } from '@/utils/Utils'
+import { formatClimberName, mapGrade } from '@/utils/Utils'
 
 const props = defineProps<{
   climber: string
@@ -80,7 +80,7 @@ const customSorting: Record<string, (ascending: boolean) => (a: CookieRow, b: Co
       <div class="detail-header">
         <ClimberAvatar :name="climber" :size="48" />
         <div>
-          <h2>{{ climber }}</h2>
+          <h2>{{ formatClimberName(climber) }}</h2>
           <div v-if="currentLevel !== undefined" class="current-level">
             Current Level: V{{ currentLevel }}
           </div>

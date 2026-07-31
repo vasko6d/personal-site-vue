@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClimberAvatar from './ClimberAvatar.vue'
+import { formatClimberName } from '@/utils/Utils'
 import type { LeaderboardEntry } from '@/utils/Cookies'
 
 withDefaults(
@@ -28,7 +29,7 @@ const emit = defineEmits<{
       <ClimberAvatar :name="holder.climber" :size="72" />
       <div class="holder-info">
         <div class="holder-label">{{ label }}</div>
-        <div class="holder-name b">{{ holder.climber }}</div>
+        <div class="holder-name b">{{ formatClimberName(holder.climber) }}</div>
         <div class="holder-total">{{ holder.total }} cookies</div>
       </div>
     </template>

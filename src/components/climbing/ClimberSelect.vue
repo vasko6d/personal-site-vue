@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { formatClimberName } from '@/utils/Utils'
 import { useClimberManifestStore } from '@/stores/useClimberManifestStore'
 
 defineProps<{
@@ -45,7 +46,7 @@ function navigate(fullPath: string) {
           v-for="climber in manifestStore.sortedClimbers"
           :key="climber.userSlug"
         >
-          {{ climber.userName }}
+          {{ formatClimberName(climber.userName) }}
         </li>
         <li v-if="linkToJsonAnalysis">...</li>
         <li

@@ -51,6 +51,10 @@ export const useClimberManifestStore = defineStore('climberManifest', () => {
     return allClimbers.value.find((c) => c.userSlug === userSlug)
   }
 
+  function findByUserName(userName: string): ScorecardManifestEntry | undefined {
+    return allClimbers.value.find((c) => c.userName === userName)
+  }
+
   function fetchAll(): Promise<void> {
     if (loaded.value) return Promise.resolve() // singleton cache - no-op on repeat calls
     loading.value = true
@@ -76,6 +80,7 @@ export const useClimberManifestStore = defineStore('climberManifest', () => {
     visibleClimbers,
     sortedClimbers,
     findBySlug,
+    findByUserName,
     fetchAll,
   }
 })

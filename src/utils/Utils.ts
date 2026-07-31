@@ -305,6 +305,16 @@ export function kebabToCap(str: string): string {
     .join(' ')
 }
 
+// Display-only abbreviation for a climber's full name (e.g. "David Vasko" ->
+// "D Vasko"), reviving a legacy pseudonymization quirk that used to be baked
+// into a hand-maintained alias list. Never use this for grouping/lookup
+// keys - only the raw name is unique/stable across the app.
+export function formatClimberName(name: string): string {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length < 2) return name
+  return `${parts[0]!.charAt(0).toUpperCase()} ${parts.slice(1).join(' ')}`
+}
+
 /*
 Process the RAW JSON from 81.nu into dv format:
 
