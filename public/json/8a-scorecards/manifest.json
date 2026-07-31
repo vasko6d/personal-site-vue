@@ -1,0 +1,380 @@
+{
+  "generatedAt": "2026-07-31T20:22:16.437Z",
+  "scorecards": [
+    {
+      "userSlug": "aden-parker",
+      "userName": "Aden Parker",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/5gacrxou.png",
+      "file": "aden-parker.json",
+      "totalAscents": 3452,
+      "mostRecentAscentDate": "2026-07-12T12:00:00+00:00",
+      "oldestAscentDate": "2015-12-15T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "Eclipse",
+        "date": "2021-04-23T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:20:38.777Z"
+    },
+    {
+      "userSlug": "bernd-alznurmouth",
+      "userName": "Bernd Alznurmouth",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "bernd-alznurmouth.json",
+      "totalAscents": 32,
+      "mostRecentAscentDate": "2025-12-13T12:00:00+00:00",
+      "oldestAscentDate": "2021-03-20T12:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7B+",
+        "zlaggableName": "Rainbird",
+        "date": "2021-03-20T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:20:40.273Z"
+    },
+    {
+      "userSlug": "carina-climbing",
+      "userName": "Carina Climbing",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "carina-climbing.json",
+      "totalAscents": 66,
+      "mostRecentAscentDate": "2026-07-31T12:00:00+00:00",
+      "oldestAscentDate": "2025-03-01T12:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A",
+        "zlaggableName": "Awunda",
+        "date": "2026-07-11T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:20:46.175Z"
+    },
+    {
+      "userSlug": "chris-rush",
+      "userName": "Nolan Eightbrough",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/54800.jpg",
+      "file": "chris-rush.json",
+      "totalAscents": 178,
+      "mostRecentAscentDate": "2026-01-25T12:00:00+00:00",
+      "oldestAscentDate": "2013-05-25T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7C+",
+        "zlaggableName": "Invincible",
+        "date": "2019-11-04T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T19:15:30.602Z"
+    },
+    {
+      "userSlug": "d-w",
+      "userName": "D W",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/yito3jty.webp",
+      "file": "d-w.json",
+      "totalAscents": 286,
+      "mostRecentAscentDate": "2026-06-24T12:00:00+00:00",
+      "oldestAscentDate": "2016-06-18T12:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "Meadowlark Lemon Stand",
+        "date": "2026-01-09T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:20:51.263Z"
+    },
+    {
+      "userSlug": "da-shi-xiong",
+      "userName": "大 师兄",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/tgkuapkv.webp",
+      "file": "da-shi-xiong.json",
+      "totalAscents": 572,
+      "mostRecentAscentDate": "2025-11-09T12:00:00+00:00",
+      "oldestAscentDate": "2015-11-04T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7C+",
+        "zlaggableName": "Paper Teenager",
+        "date": "2018-01-05T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:20:55.845Z"
+    },
+    {
+      "userSlug": "david-vasko",
+      "userName": "Gregor recian-God",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/lohpyzor.webp",
+      "file": "david-vasko.json",
+      "totalAscents": 3413,
+      "mostRecentAscentDate": "2026-07-24T12:00:00+00:00",
+      "oldestAscentDate": "2011-02-05T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A",
+        "zlaggableName": "Sans Soleil",
+        "date": "2024-12-27T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:00.988Z"
+    },
+    {
+      "userSlug": "dirk-irector",
+      "userName": "Chad Haarmed",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/33043.jpg",
+      "file": "dirk-irector.json",
+      "totalAscents": 730,
+      "mostRecentAscentDate": "2026-07-25T12:00:00+00:00",
+      "oldestAscentDate": "2010-07-30T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "A Scanner Darkly",
+        "date": "2020-02-29T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:04.723Z"
+    },
+    {
+      "userSlug": "fanny-dong",
+      "userName": "Fanny Dong",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/42122.jpg",
+      "file": "fanny-dong.json",
+      "totalAscents": 2056,
+      "mostRecentAscentDate": "2026-07-21T12:00:00+00:00",
+      "oldestAscentDate": "2009-04-11T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8C",
+        "zlaggableName": "Paint it Black",
+        "date": "2019-05-18T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:12.396Z"
+    },
+    {
+      "userSlug": "hal-ford-vnro0",
+      "userName": "hal ford",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/ynkxhuyl.webp",
+      "file": "hal-ford-vnro0.json",
+      "totalAscents": 471,
+      "mostRecentAscentDate": "2026-07-30T12:00:00+00:00",
+      "oldestAscentDate": "2018-02-24T12:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "Barefoot on Sacred Ground",
+        "date": "2026-01-09T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:17.766Z"
+    },
+    {
+      "userSlug": "ishmael-matinyman",
+      "userName": "Ishmael matinyman",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "ishmael-matinyman.json",
+      "totalAscents": 707,
+      "mostRecentAscentDate": "2026-07-29T12:00:00+00:00",
+      "oldestAscentDate": "2012-06-12T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8B",
+        "zlaggableName": "The Mandala Sit",
+        "date": "2018-01-08T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:24.552Z"
+    },
+    {
+      "userSlug": "kevin-scott",
+      "userName": "Kevin Scott",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/68863.jpg",
+      "file": "kevin-scott.json",
+      "totalAscents": 636,
+      "mostRecentAscentDate": "2026-04-24T12:00:00+00:00",
+      "oldestAscentDate": "2016-02-27T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7C+",
+        "zlaggableName": "Bierstadt",
+        "date": "2020-09-01T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:30.992Z"
+    },
+    {
+      "userSlug": "kody-shutt",
+      "userName": "Kody Shutt",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/av044izh.jpg",
+      "file": "kody-shutt.json",
+      "totalAscents": 1883,
+      "mostRecentAscentDate": "2026-07-06T12:00:00+00:00",
+      "oldestAscentDate": "2007-06-23T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8B",
+        "zlaggableName": "SNAFU Left",
+        "date": "2021-03-27T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:38.169Z"
+    },
+    {
+      "userSlug": "l-i-b",
+      "userName": "Lil ib",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "l-i-b.json",
+      "totalAscents": 251,
+      "mostRecentAscentDate": "2023-10-20T12:00:00+00:00",
+      "oldestAscentDate": "2014-08-30T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7B+",
+        "zlaggableName": "Barefoot Sharma Arete",
+        "date": "2019-05-04T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:50.159Z"
+    },
+    {
+      "userSlug": "marcus-lacavera-vxm76",
+      "userName": "Marcus LaCavera",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "marcus-lacavera-vxm76.json",
+      "totalAscents": 701,
+      "mostRecentAscentDate": "2026-05-30T12:00:00+00:00",
+      "oldestAscentDate": "2015-12-15T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "The Mandala",
+        "date": "2020-02-13T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:22:00.868Z"
+    },
+    {
+      "userSlug": "munin-agzag",
+      "userName": "Munin Agzag",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/iq5toeoi.webp",
+      "file": "munin-agzag.json",
+      "totalAscents": 16,
+      "mostRecentAscentDate": "2025-07-05T12:00:00+00:00",
+      "oldestAscentDate": "2025-01-26T12:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "6A",
+        "zlaggableName": "Choice Choss",
+        "date": "2025-05-25T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:53.426Z"
+    },
+    {
+      "userSlug": "natalie-udelarms",
+      "userName": "Natalie Udelarms",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "natalie-udelarms.json",
+      "totalAscents": 160,
+      "mostRecentAscentDate": "2023-09-02T12:00:00+00:00",
+      "oldestAscentDate": "2012-10-14T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7A+",
+        "zlaggableName": "The King",
+        "date": "2015-11-22T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T19:16:36.205Z"
+    },
+    {
+      "userSlug": "pinch-nick",
+      "userName": "Pinch Nick",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "pinch-nick.json",
+      "totalAscents": 58,
+      "mostRecentAscentDate": "2017-04-22T00:00:00+00:00",
+      "oldestAscentDate": "2013-08-26T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7B+",
+        "zlaggableName": "can opener",
+        "date": "2013-11-05T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T19:16:40.111Z"
+    },
+    {
+      "userSlug": "ryan-bauer",
+      "userName": "Ryan Bauer",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "ryan-bauer.json",
+      "totalAscents": 354,
+      "mostRecentAscentDate": "2016-12-12T00:00:00+00:00",
+      "oldestAscentDate": "2012-01-07T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7B+",
+        "zlaggableName": "Croft Problem",
+        "date": "2016-02-06T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T19:16:42.413Z"
+    },
+    {
+      "userSlug": "scooter-limb",
+      "userName": "Scooter limb",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "scooter-limb.json",
+      "totalAscents": 495,
+      "mostRecentAscentDate": "2022-01-10T12:00:00+00:00",
+      "oldestAscentDate": "2011-03-26T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7B+",
+        "zlaggableName": "Hand Grenade",
+        "date": "2018-09-29T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T19:16:44.944Z"
+    },
+    {
+      "userSlug": "shirley-girth",
+      "userName": "Shirley Girth",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/k0x4nl5j.jpg",
+      "file": "shirley-girth.json",
+      "totalAscents": 982,
+      "mostRecentAscentDate": "2026-06-18T12:00:00+00:00",
+      "oldestAscentDate": "2013-02-16T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A",
+        "zlaggableName": "Kill On Sight",
+        "date": "2021-03-14T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:45.212Z"
+    },
+    {
+      "userSlug": "sierra-przychodzen",
+      "userName": "Sierra Przychodzen",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/penum4ca.webp",
+      "file": "sierra-przychodzen.json",
+      "totalAscents": 89,
+      "mostRecentAscentDate": "2025-09-11T12:00:00+00:00",
+      "oldestAscentDate": "2018-06-15T12:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "Room Service",
+        "date": "2025-03-06T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:21:57.716Z"
+    },
+    {
+      "userSlug": "thelonious-elliott",
+      "userName": "Thelonious Elliott",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/numtsvt2.webp",
+      "file": "thelonious-elliott.json",
+      "totalAscents": 288,
+      "mostRecentAscentDate": "2026-04-08T12:00:00+00:00",
+      "oldestAscentDate": "2011-06-11T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A+",
+        "zlaggableName": "Summoning Stand",
+        "date": "2019-08-24T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:22:05.898Z"
+    },
+    {
+      "userSlug": "winifred-affleman",
+      "userName": "Winifred Affleman",
+      "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/xmx2ecoy.jpg",
+      "file": "winifred-affleman.json",
+      "totalAscents": 296,
+      "mostRecentAscentDate": "2024-10-24T12:00:00+00:00",
+      "oldestAscentDate": "2018-09-23T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "7C",
+        "zlaggableName": "Nazgul",
+        "date": "2024-10-22T12:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:22:08.196Z"
+    },
+    {
+      "userSlug": "zev-fineman",
+      "userName": "Zev Fineman",
+      "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
+      "file": "zev-fineman.json",
+      "totalAscents": 378,
+      "mostRecentAscentDate": "2024-11-25T12:00:00+00:00",
+      "oldestAscentDate": "2016-04-18T00:00:00+00:00",
+      "hardestAscent": {
+        "difficulty": "8A",
+        "zlaggableName": "Beefy Gecko",
+        "date": "2019-02-25T00:00:00+00:00"
+      },
+      "fileLastModified": "2026-07-31T20:22:14.177Z"
+    }
+  ]
+}
