@@ -232,6 +232,23 @@ export interface ProcessedAscent {
   [key: string]: unknown
 }
 
+export interface ScorecardManifestEntry {
+  userSlug: string
+  userName: string
+  userAvatar: string
+  file: string
+  totalAscents: number
+  mostRecentAscentDate: string
+  oldestAscentDate: string
+  hardestAscent: { difficulty: string; zlaggableName: string; date: string }
+  fileLastModified: string
+}
+
+export interface ScorecardManifest {
+  generatedAt: string
+  scorecards: ScorecardManifestEntry[]
+}
+
 export function getRandomColor(): string {
   const letters = '0123456789ABCDEF'.split('')
   let color = '#'
@@ -465,6 +482,17 @@ export function fetchData(sandboxId: string): Promise<unknown> {
           msg: formatString('Sandbox member data for [{0}] not avaliable', sandboxId),
         }
         reject(ret)
+      })
+  })
+}
+
+export function fetchManifest(): Promise<ScorecardManifest> {
+  return new Promise((resolve, reject) => {
+    fetch('/json/8a-scorecards/manifest.json')
+      .then((raw) => resolve(raw.json()))
+      .catch((e) => {
+        console.error(e)
+        reject({ msg: 'Climber manifest not available' })
       })
   })
 }

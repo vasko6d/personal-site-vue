@@ -3,8 +3,10 @@ import { computed } from 'vue'
 import type { ChartData, ChartOptions } from 'chart.js'
 import LineGraph from '@/components/charts/LineGraph.vue'
 import { getDistinctColor } from '@/utils/Utils'
-import { importedClimbers } from '@/data/importedClimbers'
+import { useClimberManifestStore } from '@/stores/useClimberManifestStore'
 import type { CookieTimeSeriesEntry } from '@/utils/Cookies'
+
+const manifestStore = useClimberManifestStore()
 
 const props = withDefaults(
   defineProps<{
@@ -15,7 +17,7 @@ const props = withDefaults(
 )
 
 function colorFor(climber: string): string {
-  const index = importedClimbers.findIndex((c) => c.name === climber)
+  const index = manifestStore.allClimbers.findIndex((c) => c.userName === climber)
   return getDistinctColor(index >= 0 ? index : 0)
 }
 
