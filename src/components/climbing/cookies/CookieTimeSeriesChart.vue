@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import type { ChartData, ChartOptions } from 'chart.js'
 import LineGraph from '@/components/charts/LineGraph.vue'
-import { getDistinctColor } from '@/utils/Utils'
+import { formatClimberName, getDistinctColor } from '@/utils/Utils'
 import { useClimberManifestStore } from '@/stores/useClimberManifestStore'
 import type { CookieTimeSeriesEntry } from '@/utils/Cookies'
 
@@ -55,7 +55,7 @@ const chartData = computed<ChartData<'line'>>(() => ({
     const color = colorFor(entry.climber)
     return {
       data: entry.points,
-      label: entry.climber,
+      label: formatClimberName(entry.climber),
       borderColor: color,
       backgroundColor: color,
       pointBackgroundColor: color,

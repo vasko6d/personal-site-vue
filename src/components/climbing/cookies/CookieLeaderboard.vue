@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import DataTable from '@/components/shared/DataTable.vue'
 import ClimberAvatar from './ClimberAvatar.vue'
+import { formatClimberName } from '@/utils/Utils'
 import type { LeaderboardEntry } from '@/utils/Cookies'
 
 const props = defineProps<{
@@ -50,7 +51,7 @@ const sortable = ['climber', 'total', 'sendCount']
         <template #climber="{ row }">
           <div class="climber-cell">
             <ClimberAvatar :name="row.climber" :size="28" />
-            {{ row.climber }}
+            {{ formatClimberName(row.climber) }}
           </div>
         </template>
         <template #total="{ row }">{{ row.total }}</template>

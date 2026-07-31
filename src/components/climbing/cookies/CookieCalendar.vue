@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import ClimberAvatar from './ClimberAvatar.vue'
 import type { MonthlyWinner } from '@/utils/Cookies'
-import { mapName } from '@/utils/Utils'
+import { formatClimberName, mapName } from '@/utils/Utils'
 
 const props = defineProps<{
   winners: MonthlyWinner[]
@@ -74,7 +74,7 @@ function monthLabel(yearMonth: string): string {
           <div class="month-name">{{ monthLabel(yearMonth) }}</div>
           <template v-if="winnerMap.get(yearMonth)">
             <ClimberAvatar :name="winnerMap.get(yearMonth)!.climber" :size="32" />
-            <div class="winner-name">{{ winnerMap.get(yearMonth)!.climber }}</div>
+            <div class="winner-name">{{ formatClimberName(winnerMap.get(yearMonth)!.climber) }}</div>
             <div class="winner-points">{{ winnerMap.get(yearMonth)!.points }} pts</div>
           </template>
           <div v-else class="no-winner">&mdash;</div>
