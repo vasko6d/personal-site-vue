@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-02T04:26:35.009Z",
+  "generatedAt": "2026-08-04T20:43:33.471Z",
   "scorecards": [
     {
       "userSlug": "aden-parker",
@@ -96,15 +96,15 @@
       "userName": "Gregor recian-God",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/lohpyzor.webp",
       "file": "david-vasko.json",
-      "totalAscents": 3413,
-      "mostRecentAscentDate": "2026-07-24T12:00:00+00:00",
+      "totalAscents": 3417,
+      "mostRecentAscentDate": "2026-08-02T12:00:00+00:00",
       "oldestAscentDate": "2011-02-05T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A",
         "zlaggableName": "Sans Soleil",
         "date": "2024-12-27T12:00:00+00:00"
       },
-      "fileLastModified": "2026-08-02T04:25:24.583Z"
+      "fileLastModified": "2026-08-04T20:43:31.353Z"
     },
     {
       "userSlug": "dirk-irector",
