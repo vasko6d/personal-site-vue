@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T20:43:33.471Z",
+  "generatedAt": "2026-08-20T22:04:31.415Z",
   "scorecards": [
     {
       "userSlug": "aden-parker",
@@ -44,7 +44,7 @@
         "zlaggableName": "Awunda",
         "date": "2026-07-11T12:00:00+00:00"
       },
-      "fileLastModified": "2026-08-02T04:25:08.385Z"
+      "fileLastModified": "2026-08-20T22:04:07.257Z"
     },
     {
       "userSlug": "chris-rush",
@@ -96,15 +96,15 @@
       "userName": "Gregor recian-God",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/lohpyzor.webp",
       "file": "david-vasko.json",
-      "totalAscents": 3417,
-      "mostRecentAscentDate": "2026-08-02T12:00:00+00:00",
+      "totalAscents": 3438,
+      "mostRecentAscentDate": "2026-08-19T12:00:00+00:00",
       "oldestAscentDate": "2011-02-05T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A",
         "zlaggableName": "Sans Soleil",
         "date": "2024-12-27T12:00:00+00:00"
       },
-      "fileLastModified": "2026-08-04T20:43:31.353Z"
+      "fileLastModified": "2026-08-20T22:04:15.254Z"
     },
     {
       "userSlug": "dirk-irector",
@@ -141,15 +141,15 @@
       "userName": "hal ford",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/ynkxhuyl.webp",
       "file": "hal-ford-vnro0.json",
-      "totalAscents": 471,
-      "mostRecentAscentDate": "2026-07-30T12:00:00+00:00",
+      "totalAscents": 478,
+      "mostRecentAscentDate": "2026-08-19T12:00:00+00:00",
       "oldestAscentDate": "2018-02-24T12:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A+",
         "zlaggableName": "Barefoot on Sacred Ground",
         "date": "2026-01-09T12:00:00+00:00"
       },
-      "fileLastModified": "2026-08-02T04:25:39.670Z"
+      "fileLastModified": "2026-08-20T22:04:18.726Z"
     },
     {
       "userSlug": "ishmael-matinyman",
@@ -164,22 +164,22 @@
         "zlaggableName": "The Mandala Sit",
         "date": "2018-01-08T00:00:00+00:00"
       },
-      "fileLastModified": "2026-08-02T04:25:45.132Z"
+      "fileLastModified": "2026-08-20T22:04:23.859Z"
     },
     {
       "userSlug": "kevin-scott",
       "userName": "Kevin Scott",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/68863.jpg",
       "file": "kevin-scott.json",
-      "totalAscents": 636,
-      "mostRecentAscentDate": "2026-04-24T12:00:00+00:00",
+      "totalAscents": 638,
+      "mostRecentAscentDate": "2026-08-14T12:00:00+00:00",
       "oldestAscentDate": "2016-02-27T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "7C+",
         "zlaggableName": "Bierstadt",
         "date": "2020-09-01T00:00:00+00:00"
       },
-      "fileLastModified": "2026-08-02T04:25:49.798Z"
+      "fileLastModified": "2026-08-20T22:04:28.652Z"
     },
     {
       "userSlug": "kody-shutt",
