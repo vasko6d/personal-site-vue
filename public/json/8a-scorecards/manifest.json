@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T22:04:31.415Z",
+  "generatedAt": "2026-09-03T06:25:18.252Z",
   "scorecards": [
     {
       "userSlug": "aden-parker",
@@ -96,15 +96,15 @@
       "userName": "Gregor recian-God",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/lohpyzor.webp",
       "file": "david-vasko.json",
-      "totalAscents": 3438,
-      "mostRecentAscentDate": "2026-08-19T12:00:00+00:00",
+      "totalAscents": 3506,
+      "mostRecentAscentDate": "2026-08-30T12:00:00+00:00",
       "oldestAscentDate": "2011-02-05T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A",
         "zlaggableName": "Sans Soleil",
         "date": "2024-12-27T12:00:00+00:00"
       },
-      "fileLastModified": "2026-08-20T22:04:15.254Z"
+      "fileLastModified": "2026-09-03T06:25:11.837Z"
     },
     {
       "userSlug": "dirk-irector",
@@ -141,15 +141,15 @@
       "userName": "hal ford",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/ynkxhuyl.webp",
       "file": "hal-ford-vnro0.json",
-      "totalAscents": 478,
-      "mostRecentAscentDate": "2026-08-19T12:00:00+00:00",
+      "totalAscents": 484,
+      "mostRecentAscentDate": "2026-08-31T12:00:00+00:00",
       "oldestAscentDate": "2018-02-24T12:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A+",
         "zlaggableName": "Barefoot on Sacred Ground",
         "date": "2026-01-09T12:00:00+00:00"
       },
-      "fileLastModified": "2026-08-20T22:04:18.726Z"
+      "fileLastModified": "2026-09-03T06:25:16.560Z"
     },
     {
       "userSlug": "ishmael-matinyman",
