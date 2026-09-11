@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T06:25:18.252Z",
+  "generatedAt": "2026-09-11T20:09:45.553Z",
   "scorecards": [
     {
       "userSlug": "aden-parker",
@@ -96,15 +96,15 @@
       "userName": "Gregor recian-God",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/lohpyzor.webp",
       "file": "david-vasko.json",
-      "totalAscents": 3506,
-      "mostRecentAscentDate": "2026-08-30T12:00:00+00:00",
+      "totalAscents": 3512,
+      "mostRecentAscentDate": "2026-09-10T12:00:00+00:00",
       "oldestAscentDate": "2011-02-05T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A",
         "zlaggableName": "Sans Soleil",
         "date": "2024-12-27T12:00:00+00:00"
       },
-      "fileLastModified": "2026-09-03T06:25:11.837Z"
+      "fileLastModified": "2026-09-11T20:09:30.296Z"
     },
     {
       "userSlug": "dirk-irector",
@@ -141,15 +141,15 @@
       "userName": "hal ford",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/ynkxhuyl.webp",
       "file": "hal-ford-vnro0.json",
-      "totalAscents": 484,
-      "mostRecentAscentDate": "2026-08-31T12:00:00+00:00",
+      "totalAscents": 487,
+      "mostRecentAscentDate": "2026-09-07T12:00:00+00:00",
       "oldestAscentDate": "2018-02-24T12:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A+",
         "zlaggableName": "Barefoot on Sacred Ground",
         "date": "2026-01-09T12:00:00+00:00"
       },
-      "fileLastModified": "2026-09-03T06:25:16.560Z"
+      "fileLastModified": "2026-09-11T20:09:34.534Z"
     },
     {
       "userSlug": "ishmael-matinyman",
@@ -171,15 +171,15 @@
       "userName": "Kevin Scott",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/68863.jpg",
       "file": "kevin-scott.json",
-      "totalAscents": 638,
-      "mostRecentAscentDate": "2026-08-14T12:00:00+00:00",
+      "totalAscents": 639,
+      "mostRecentAscentDate": "2026-09-03T12:00:00+00:00",
       "oldestAscentDate": "2016-02-27T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "7C+",
         "zlaggableName": "Bierstadt",
         "date": "2020-09-01T00:00:00+00:00"
       },
-      "fileLastModified": "2026-08-20T22:04:28.652Z"
+      "fileLastModified": "2026-09-11T20:09:39.824Z"
     },
     {
       "userSlug": "kody-shutt",
