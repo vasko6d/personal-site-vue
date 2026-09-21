@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T20:09:45.553Z",
+  "generatedAt": "2026-09-21T00:12:20.944Z",
   "scorecards": [
     {
       "userSlug": "aden-parker",
@@ -96,7 +96,7 @@
       "userName": "Gregor recian-God",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/lohpyzor.webp",
       "file": "david-vasko.json",
-      "totalAscents": 3512,
+      "totalAscents": 3514,
       "mostRecentAscentDate": "2026-09-10T12:00:00+00:00",
       "oldestAscentDate": "2011-02-05T00:00:00+00:00",
       "hardestAscent": {
@@ -104,7 +104,7 @@
         "zlaggableName": "Sans Soleil",
         "date": "2024-12-27T12:00:00+00:00"
       },
-      "fileLastModified": "2026-09-11T20:09:30.296Z"
+      "fileLastModified": "2026-09-21T00:12:02.127Z"
     },
     {
       "userSlug": "dirk-irector",
@@ -141,15 +141,15 @@
       "userName": "hal ford",
       "userAvatar": "https://d3byf4kaqtov0k.cloudfront.net/p/gallery/thumb/ynkxhuyl.webp",
       "file": "hal-ford-vnro0.json",
-      "totalAscents": 487,
-      "mostRecentAscentDate": "2026-09-07T12:00:00+00:00",
+      "totalAscents": 493,
+      "mostRecentAscentDate": "2026-09-16T12:00:00+00:00",
       "oldestAscentDate": "2018-02-24T12:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A+",
         "zlaggableName": "Barefoot on Sacred Ground",
         "date": "2026-01-09T12:00:00+00:00"
       },
-      "fileLastModified": "2026-09-11T20:09:34.534Z"
+      "fileLastModified": "2026-09-21T00:12:08.695Z"
     },
     {
       "userSlug": "ishmael-matinyman",
@@ -179,7 +179,7 @@
         "zlaggableName": "Bierstadt",
         "date": "2020-09-01T00:00:00+00:00"
       },
-      "fileLastModified": "2026-09-11T20:09:39.824Z"
+      "fileLastModified": "2026-09-21T00:12:12.139Z"
     },
     {
       "userSlug": "kody-shutt",
@@ -216,15 +216,15 @@
       "userName": "Marcus LaCavera",
       "userAvatar": "https://d1ffqbcmevre4q.cloudfront.net/avatar_default.png",
       "file": "marcus-lacavera-vxm76.json",
-      "totalAscents": 701,
-      "mostRecentAscentDate": "2026-05-30T12:00:00+00:00",
+      "totalAscents": 726,
+      "mostRecentAscentDate": "2026-09-04T12:00:00+00:00",
       "oldestAscentDate": "2015-12-15T00:00:00+00:00",
       "hardestAscent": {
         "difficulty": "8A+",
         "zlaggableName": "The Mandala",
         "date": "2020-02-13T00:00:00+00:00"
       },
-      "fileLastModified": "2026-08-02T04:26:22.324Z"
+      "fileLastModified": "2026-09-21T00:12:17.808Z"
     },
     {
       "userSlug": "munin-agzag",

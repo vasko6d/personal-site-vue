@@ -11,6 +11,7 @@ interface VideoItem {
 // this is a hardcoded list, would be better to do something like:
 // https://www.raymondcamden.com/2018/08/01/adding-your-youtube-videos-to-your-static-site-with-vuejs
 const videoList: VideoItem[] = [
+  { ytid: 'i3daH38UTiM', desc: 'Bounders 8' },
   { ytid: 'SzuX-PkNO7g', desc: 'Bounders 7' },
   { ytid: 'h01kUPKnrTA', desc: 'Bounders 6' },
   { ytid: 'kiuiZn6tRok', desc: 'Bounders 5' },
